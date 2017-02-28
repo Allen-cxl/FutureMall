@@ -1,6 +1,7 @@
-package android.futuremall.com;
+package android.futuremall.com.ui.activity;
 
 import android.app.Activity;
+import android.futuremall.com.R;
 import android.os.Bundle;
 
 public class MainActivity extends Activity {
