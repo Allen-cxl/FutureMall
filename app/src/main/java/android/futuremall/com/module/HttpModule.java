@@ -18,6 +18,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by codeest on 2017/2/26.
@@ -41,7 +43,6 @@ public class HttpModule {
 
     @Singleton
     @Provides
-    @ZhihuUrl
     Retrofit provideZhihuRetrofit(Retrofit.Builder builder, OkHttpClient client) {
         return createRetrofit(builder, client, MallApis.HOST);
     }
@@ -111,38 +112,8 @@ public class HttpModule {
 
     @Singleton
     @Provides
-    ZhihuApis provideZhihuService(@ZhihuUrl Retrofit retrofit) {
-        return retrofit.create(ZhihuApis.class);
-    }
-
-    @Singleton
-    @Provides
-    GankApis provideGankService(@GankUrl Retrofit retrofit) {
-        return retrofit.create(GankApis.class);
-    }
-
-    @Singleton
-    @Provides
-    WeChatApis provideWechatService(@WechatUrl Retrofit retrofit) {
-        return retrofit.create(WeChatApis.class);
-    }
-
-    @Singleton
-    @Provides
-    GoldApis provideGoldService(@GoldUrl Retrofit retrofit) {
-        return retrofit.create(GoldApis.class);
-    }
-
-    @Singleton
-    @Provides
-    VtexApis provideVtexService(@VtexUrl Retrofit retrofit) {
-        return retrofit.create(VtexApis.class);
-    }
-
-    @Singleton
-    @Provides
-    MyApis provideMyService(@MyUrl Retrofit retrofit) {
-        return retrofit.create(MyApis.class);
+    MallApis provideZhihuService(Retrofit retrofit) {
+        return retrofit.create(MallApis.class);
     }
 
     private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
