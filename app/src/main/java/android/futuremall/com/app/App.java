@@ -3,6 +3,7 @@ package android.futuremall.com.app;
 import android.app.Activity;
 import android.content.Context;
 import android.futuremall.com.di.component.AppComponent;
+import android.futuremall.com.di.module.AppModule;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
@@ -90,12 +91,12 @@ public class App extends MultiDexApplication{
         }
     }
 
-   /* public static AppComponent getAppComponent(){
+    public static AppComponent getAppComponent(){
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(instance))
                     .build();
         }
         return appComponent;
-    }*/
+    }
 }

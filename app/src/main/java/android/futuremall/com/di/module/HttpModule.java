@@ -44,7 +44,7 @@ public class HttpModule {
 
     @Singleton
     @Provides
-    Retrofit provideZhihuRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+    Retrofit provideMallRetrofit(Retrofit.Builder builder, OkHttpClient client) {
         return createRetrofit(builder, client, MallApis.HOST);
     }
 
@@ -113,7 +113,7 @@ public class HttpModule {
 
     @Singleton
     @Provides
-    MallApis provideZhihuService(Retrofit retrofit) {
+    MallApis provideMallService(Retrofit retrofit) {
         return retrofit.create(MallApis.class);
     }
 

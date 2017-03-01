@@ -2,14 +2,8 @@ package android.futuremall.com.di.module;
 
 import android.app.Activity;
 import android.futuremall.com.di.scope.ActivityScope;
-
-
 import dagger.Module;
 import dagger.Provides;
-
-/**
- * Created by codeest on 16/8/7.
- */
 
 @Module
 public class ActivityModule {

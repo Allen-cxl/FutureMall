@@ -35,12 +35,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         super.onAttach(context);
     }
 
-   /* protected FragmentComponent getFragmentComponent(){
+    protected FragmentComponent getFragmentComponent(){
         return DaggerFragmentComponent.builder()
                 .appComponent(App.getAppComponent())
                 .fragmentModule(getFragmentModule())
                 .build();
-    }*/
+    }
 
     protected FragmentModule getFragmentModule(){
         return new FragmentModule(this);
@@ -82,11 +82,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void onDestroy() {
         super.onDestroy();
         if (mPresenter != null) mPresenter.detachView();
-    }
-
-    @Override
-    public void useNightMode(boolean isNight) {
-
     }
 
     protected abstract void initInject();

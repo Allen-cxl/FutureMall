@@ -8,6 +8,4 @@ public interface BaseView {
 
     void showError(String msg);
 
-    void useNightMode(boolean isNight);
-
 }

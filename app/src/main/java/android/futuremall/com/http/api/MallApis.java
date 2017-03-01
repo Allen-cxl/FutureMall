@@ -2,10 +2,13 @@ package android.futuremall.com.http.api;
 
 
 
+import android.futuremall.com.http.MyHttpResponse;
+import android.futuremall.com.model.VersionBean;
+
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -14,18 +17,12 @@ import retrofit2.http.Query;
 
 public interface MallApis {
 
-    String HOST = "http://gank.io/api/";
+    String HOST = "http://meetliveapi.24hmb.com/api/";
 
     /**
-     * 技术文章列表
-     *//*
-    @GET("data/{tech}/{num}/{page}")
-    Observable<GankHttpResponse<List<GankItemBean>>> getTechList(@Path("tech") String tech, @Path("num") int num, @Path("page") int page);
-
-    *//**
-     * 微信精选列表
-     *//*
-    @GET("wxnew")
-    Observable<WXHttpResponse<List<WXItemBean>>> getWXHot(@Query("key") String key, @Query("num") int num, @Query("page") int page);*/
+     * 获取版本号
+     */
+    @GET("GetVersionNo")
+    Observable<MyHttpResponse<VersionBean>> getVersion(@Query("os") String os);
 
 }
