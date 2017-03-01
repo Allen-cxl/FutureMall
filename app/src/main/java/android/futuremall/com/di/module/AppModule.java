@@ -1,4 +1,4 @@
-package android.futuremall.com.module;
+package android.futuremall.com.di.module;
 
 
 import android.futuremall.com.app.App;

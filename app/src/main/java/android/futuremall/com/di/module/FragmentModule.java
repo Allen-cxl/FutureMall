@@ -1,6 +1,7 @@
-package android.futuremall.com.module;
+package android.futuremall.com.di.module;
 
 import android.app.Activity;
+import android.futuremall.com.di.scope.FragmentScope;
 import android.support.v4.app.Fragment;
 
 

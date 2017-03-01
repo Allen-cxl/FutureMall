@@ -2,8 +2,8 @@ package android.futuremall.com.base;
 
 import android.app.Activity;
 import android.futuremall.com.app.App;
-import android.futuremall.com.component.ActivityComponent;
-import android.futuremall.com.module.ActivityModule;
+import android.futuremall.com.di.component.ActivityComponent;
+import android.futuremall.com.di.module.ActivityModule;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -52,12 +52,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         });
     }
 
-    protected ActivityComponent getActivityComponent(){
+    /*protected ActivityComponent getActivityComponent(){
         return  DaggerActivityComponent.builder()
                 .appComponent(App.getAppComponent())
                 .activityModule(getActivityModule())
                 .build();
-    }
+    }*/
 
     protected ActivityModule getActivityModule(){
         return new ActivityModule(this);

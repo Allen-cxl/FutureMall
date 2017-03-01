@@ -1,10 +1,11 @@
-package android.futuremall.com.component;
+package android.futuremall.com.di.component;
 
 import android.app.Activity;
-import android.futuremall.com.module.ActivityModule;
-
+import android.futuremall.com.di.module.ActivityModule;
+import android.futuremall.com.di.scope.ActivityScope;
 
 import dagger.Component;
+
 
 /**
  * Created by codeest on 16/8/7.
@@ -15,8 +16,6 @@ import dagger.Component;
 public interface ActivityComponent {
 
     Activity getActivity();
-
-   // void inject(WelcomeActivity welcomeActivity);
 
     //void inject(MainActivity mainActivity);
 

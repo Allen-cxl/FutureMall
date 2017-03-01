@@ -1,11 +1,10 @@
 package android.futuremall.com.app;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.futuremall.com.component.AppComponent;
-import android.futuremall.com.module.AppModule;
+import android.futuremall.com.di.component.AppComponent;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -15,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class App extends Application{
+public class App extends MultiDexApplication{
 
     private static App instance;
     public static AppComponent appComponent;
@@ -91,12 +90,12 @@ public class App extends Application{
         }
     }
 
-    public static AppComponent getAppComponent(){
+   /* public static AppComponent getAppComponent(){
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(instance))
                     .build();
         }
         return appComponent;
-    }
+    }*/
 }

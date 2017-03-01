@@ -2,6 +2,9 @@ package android.futuremall.com.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.futuremall.com.app.App;
+import android.futuremall.com.di.component.FragmentComponent;
+import android.futuremall.com.di.module.FragmentModule;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,12 +35,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         super.onAttach(context);
     }
 
-    protected FragmentComponent getFragmentComponent(){
+   /* protected FragmentComponent getFragmentComponent(){
         return DaggerFragmentComponent.builder()
                 .appComponent(App.getAppComponent())
                 .fragmentModule(getFragmentModule())
                 .build();
-    }
+    }*/
 
     protected FragmentModule getFragmentModule(){
         return new FragmentModule(this);
@@ -55,16 +58,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.attachView(this);
-        if (savedInstanceState == null) {
-            if (!isHidden()) {
-                isInited = true;
-                initEventAndData();
-            }
-        } else {
-            if (!isSupportHidden()) {
-                isInited = true;
-                initEventAndData();
-            }
+        if (!isHidden()) {
+            isInited = true;
+            initEventAndData();
         }
     }
 

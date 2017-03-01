@@ -18,14 +18,14 @@ public interface MallApis {
 
     /**
      * 技术文章列表
-     */
+     *//*
     @GET("data/{tech}/{num}/{page}")
     Observable<GankHttpResponse<List<GankItemBean>>> getTechList(@Path("tech") String tech, @Path("num") int num, @Path("page") int page);
 
-    /**
+    *//**
      * 微信精选列表
-     */
+     *//*
     @GET("wxnew")
-    Observable<WXHttpResponse<List<WXItemBean>>> getWXHot(@Query("key") String key, @Query("num") int num, @Query("page") int page);
+    Observable<WXHttpResponse<List<WXItemBean>>> getWXHot(@Query("key") String key, @Query("num") int num, @Query("page") int page);*/
 
 }

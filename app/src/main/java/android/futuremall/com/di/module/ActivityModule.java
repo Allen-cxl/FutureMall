@@ -1,8 +1,8 @@
-package android.futuremall.com.module;
+package android.futuremall.com.di.module;
 
 import android.app.Activity;
+import android.futuremall.com.di.scope.ActivityScope;
 
-import com.codeest.geeknews.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
