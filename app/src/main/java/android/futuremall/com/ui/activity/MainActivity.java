@@ -2,22 +2,11 @@ package android.futuremall.com.ui.activity;
 
 import android.futuremall.com.R;
 import android.futuremall.com.base.BaseActivity;
-import android.futuremall.com.http.MyHttpResponse;
-import android.futuremall.com.http.RetrofitHelper;
-import android.futuremall.com.model.bean.VersionBean;
 import android.futuremall.com.presenter.Contract.MainContract;
 import android.futuremall.com.presenter.MainPresenter;
 import android.futuremall.com.util.LogUtil;
-import android.futuremall.com.util.RxUtil;
 import android.futuremall.com.util.SnackbarUtil;
 import android.os.Bundle;
-import android.util.Log;
-
-import javax.inject.Inject;
-
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 

@@ -1,18 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="android.futuremall.com.ui.activity.MainActivity">
+    android:orientation="vertical"
+    tools:context=".ui.activity.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <FrameLayout
+        android:id="@id/fragment_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/line" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@id/radio_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_tab_home_rb"
+            android:gravity="center_horizontal"
+            android:paddingTop="15px"
+            android:drawablePadding="10px"
+            android:text="@string/home"
+            android:textColor="@drawable/selector_tab_textcolor"/>
+
+        <RadioButton
+            android:id="@id/radio_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_tab_type_rb"
+            android:paddingTop="15px"
+            android:drawablePadding="10px"
+            android:gravity="center_horizontal"
+            android:text="@string/type"
+            android:textColor="@drawable/selector_tab_textcolor"/>
+
+        <RadioButton
+            android:id="@id/radio_future_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_tab_future_add_rb"
+            android:paddingTop="15px"
+            android:drawablePadding="10px"
+            android:gravity="center_horizontal"
+            android:text="@string/future_add"
+            android:textColor="@drawable/selector_tab_textcolor" />
+
+        <RadioButton
+            android:id="@id/radio_shopping_car"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_tab_shopping_car_rb"
+            android:paddingTop="15px"
+            android:drawablePadding="10px"
+            android:gravity="center_horizontal"
+            android:text="@string/shopping_car"
+            android:textColor="@drawable/selector_tab_textcolor"/>
+
+        <RadioButton
+            android:id="@id/radio_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_tab_user_rb"
+            android:paddingTop="15px"
+            android:drawablePadding="10px"
+            android:gravity="center_horizontal"
+            android:text="@string/my"
+            android:textColor="@drawable/selector_tab_textcolor"/>
+    </RadioGroup>
+
+</LinearLayout>

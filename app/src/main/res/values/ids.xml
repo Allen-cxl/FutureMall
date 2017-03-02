@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="fragment_container" type="id"/>
+    <item name="radio_home" type="id"/>
+    <item name="radio_type" type="id"/>
+    <item name="radio_future_add" type="id"/>
+    <item name="radio_shopping_car" type="id"/>
+    <item name="radio_user" type="id"/>
+
+</resources>

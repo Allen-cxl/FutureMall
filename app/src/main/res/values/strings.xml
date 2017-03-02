@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">FutureMall</string>
+    <string name="app_name">未来商城</string>
+
+    <string name="home">首页</string>
+    <string name="type">分类</string>
+    <string name="future_add">未来加</string>
+    <string name="shopping_car">购物车</string>
+    <string name="my">我的</string>
 </resources>
