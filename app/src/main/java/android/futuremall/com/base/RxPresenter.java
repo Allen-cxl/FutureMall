@@ -3,6 +3,7 @@ package android.futuremall.com.base;
 
 import android.futuremall.com.util.RxBus;
 
+import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;

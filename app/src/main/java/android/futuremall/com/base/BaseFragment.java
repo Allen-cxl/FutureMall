@@ -3,6 +3,7 @@ package android.futuremall.com.base;
 import android.app.Activity;
 import android.content.Context;
 import android.futuremall.com.app.App;
+import android.futuremall.com.di.component.DaggerFragmentComponent;
 import android.futuremall.com.di.component.FragmentComponent;
 import android.futuremall.com.di.module.FragmentModule;
 import android.os.Bundle;

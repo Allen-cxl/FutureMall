@@ -3,12 +3,22 @@ package android.futuremall.com.util;
 
 import android.futuremall.com.http.ApiException;
 import android.futuremall.com.http.MyHttpResponse;
+import android.text.TextUtils;
 
+
+import org.reactivestreams.Publisher;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -24,10 +34,10 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> ObservableTransformer<T, T> rxSchedulerHelper() {    //compose简化线程
-        return new ObservableTransformer<T, T>() {
+    public static <T> FlowableTransformer<T, T> rxSchedulerHelper() {    //compose简化线程
+        return new FlowableTransformer<T, T>() {
             @Override
-            public ObservableSource<T> apply(Observable<T> upstream) {
+            public Flowable<T> apply(Flowable<T> upstream) {
                 return upstream.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
             }
         };
@@ -39,22 +49,22 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> ObservableTransformer<MyHttpResponse<T>, T> handleMyResult() {   //compose判断结果
-        return new ObservableTransformer<MyHttpResponse<T>, T>() {
+    public static <T> FlowableTransformer<MyHttpResponse<T>, T> handleMyResult() {   //compose判断结果
+        return new FlowableTransformer<MyHttpResponse<T>, T>() {
             @Override
-            public ObservableSource<T> apply(Observable<MyHttpResponse<T>> upstream) {
-
-                return upstream.flatMap(new Function<MyHttpResponse<T>, ObservableSource<T>>() {
+            public Publisher<T> apply(Flowable<MyHttpResponse<T>> upstream) {
+                return upstream.flatMap(new Function<MyHttpResponse<T>, Flowable<T>>() {
                     @Override
-                    public ObservableSource<T> apply(MyHttpResponse<T> tMyHttpResponse) throws Exception {
-                        if(tMyHttpResponse.getCode() == 200) {
-                            return createData(tMyHttpResponse.getData());
+                    public Flowable<T> apply(MyHttpResponse<T> tMyHttpResponse) throws Exception {
+                        if(tMyHttpResponse.getCode() == 0) {
+                            return createData(tMyHttpResponse.getData(), "服务器正常");
                         } else {
-                            return Observable.error(new ApiException(tMyHttpResponse.getMessage()));
+                            return Flowable.error(new ApiException("服务器异常"));
                         }
                     }
 
                 });
+
             }
         };
     }
@@ -62,14 +72,15 @@ public class RxUtil {
     /**
      * 生成Observable
      * @param <T>
+     * @param srvMsg
      * @return
      */
-    public static <T> Observable<T> createData(final T t) {
-        return  Observable.create(new ObservableOnSubscribe<T>() {
+    public static <T> Flowable<T> createData(final T t, final String srvMsg) {
+        return  Flowable.create(new FlowableOnSubscribe<T>() {
             @Override
-            public void subscribe(ObservableEmitter<T> e) throws Exception {
+            public void subscribe(FlowableEmitter<T> e) {
                 e.onNext(t);
             }
-        });
+        },BackpressureStrategy.BUFFER);
     }
 }

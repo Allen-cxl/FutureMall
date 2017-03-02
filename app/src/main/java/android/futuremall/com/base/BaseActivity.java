@@ -3,6 +3,7 @@ package android.futuremall.com.base;
 import android.app.Activity;
 import android.futuremall.com.app.App;
 import android.futuremall.com.di.component.ActivityComponent;
+import android.futuremall.com.di.component.DaggerActivityComponent;
 import android.futuremall.com.di.module.ActivityModule;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

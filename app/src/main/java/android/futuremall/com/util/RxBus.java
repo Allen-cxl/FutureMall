@@ -1,22 +1,19 @@
 package android.futuremall.com.util;
 
 
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
-import io.reactivex.subscribers.SerializedSubscriber;
+import io.reactivex.processors.AsyncProcessor;
+import io.reactivex.processors.FlowableProcessor;
 
-/**
- * Created by codeest on 2016/8/2.
- */
+
 public class RxBus {
     // 主题
-    private final Subject<Object> bus;
+    private final FlowableProcessor<Object> bus;
     // PublishSubject只会把在订阅发生的时间点之后来自原始Observable的数据发射给观察者
     private RxBus() {
-        bus = PublishSubject.create().toSerialized();
+        bus = AsyncProcessor.create().toSerialized();
     }
 
     public static RxBus getDefault() {
@@ -34,12 +31,12 @@ public class RxBus {
     }
 
     // 根据传递的 eventType 类型返回特定类型(eventType)的 被观察者
-    public <T> Observable<T> toObservable(Class<T> eventType) {
+    public <T> Flowable<T> toObservable(Class<T> eventType) {
         return bus.ofType(eventType);
     }
 
     // 封装默认订阅
     public <T> Disposable toDefaultObservable(Class<T> eventType, Consumer<T> act) {
-        return bus.ofType(eventType).compose(RxUtil.<T>rxSchedulerHelper()).subscribe(act);
+       return bus.ofType(eventType).compose(RxUtil.<T>rxSchedulerHelper()).subscribe(act);
     }
 }

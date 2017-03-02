@@ -2,10 +2,9 @@ package android.futuremall.com.http;
 
 
 import android.futuremall.com.http.api.MallApis;
-import android.futuremall.com.model.VersionBean;
+import android.futuremall.com.model.bean.VersionBean;
 
-import java.util.List;
-
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
@@ -19,7 +18,7 @@ public class RetrofitHelper {
         this.mMallApiService = mallApiService;
     }
 
-    public Observable<MyHttpResponse<VersionBean>> getVersionInfo(String os) {
+    public Flowable<MyHttpResponse<VersionBean>> getVersionInfo(String os) {
         return mMallApiService.getVersion(os);
     }
 

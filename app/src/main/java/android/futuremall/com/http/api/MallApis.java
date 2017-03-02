@@ -3,10 +3,9 @@ package android.futuremall.com.http.api;
 
 
 import android.futuremall.com.http.MyHttpResponse;
-import android.futuremall.com.model.VersionBean;
+import android.futuremall.com.model.bean.VersionBean;
 
-import java.util.List;
-
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -23,6 +22,6 @@ public interface MallApis {
      * 获取版本号
      */
     @GET("GetVersionNo")
-    Observable<MyHttpResponse<VersionBean>> getVersion(@Query("os") String os);
+    Flowable<MyHttpResponse<VersionBean>> getVersion(@Query("os") String os);
 
 }

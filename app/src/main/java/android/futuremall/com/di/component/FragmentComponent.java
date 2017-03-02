@@ -12,7 +12,7 @@ import dagger.Component;
  */
 
 @FragmentScope
-@Component(dependencies = AppModule.class, modules = FragmentModule.class)
+@Component(dependencies = AppComponent.class, modules = FragmentModule.class)
 public interface FragmentComponent {
 
     Activity getActivity();

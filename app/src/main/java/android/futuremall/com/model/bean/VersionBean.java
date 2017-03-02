@@ -1,4 +1,4 @@
-package android.futuremall.com.model;
+package android.futuremall.com.model.bean;
 
 /**
  * Created by PVer on 2017/3/1.
@@ -41,5 +41,15 @@ public class VersionBean {
 
     public void setIsEnforceUpdate(boolean IsEnforceUpdate) {
         this.IsEnforceUpdate = IsEnforceUpdate;
+    }
+
+    @Override
+    public String toString() {
+        return "VersionBean{" +
+                "Version='" + Version + '\'' +
+                ", VersionDesc='" + VersionDesc + '\'' +
+                ", UpdateUrl='" + UpdateUrl + '\'' +
+                ", IsEnforceUpdate=" + IsEnforceUpdate +
+                '}';
     }
 }
