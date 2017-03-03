@@ -7,5 +7,8 @@
     <item name="radio_future_add" type="id"/>
     <item name="radio_shopping_car" type="id"/>
     <item name="radio_user" type="id"/>
+    <item name="iv_category" type="id" />
+    <item name="layout_search" type="id" />
+    <item name="iv_scan" type="id" />
 
 </resources>

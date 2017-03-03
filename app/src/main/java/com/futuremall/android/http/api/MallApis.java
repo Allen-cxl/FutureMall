@@ -1,0 +1,26 @@
+package com.futuremall.android.http.api;
+
+
+
+import com.futuremall.android.http.MyHttpResponse;
+import com.futuremall.android.model.bean.VersionBean;
+
+import io.reactivex.Flowable;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
+/**
+ * Created by codeest on 16/8/19.
+ */
+
+public interface MallApis {
+
+    String HOST = "http://meetliveapi.24hmb.com/api/";
+
+    /**
+     * 获取版本号
+     */
+    @GET("GetVersionNo")
+    Flowable<MyHttpResponse<VersionBean>> getVersion(@Query("os") String os);
+
+}
