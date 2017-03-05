@@ -1,6 +1,8 @@
 package com.futuremall.android.base;
 
 import android.app.Activity;
+
+import com.futuremall.android.R;
 import com.futuremall.android.app.App;
 import com.futuremall.android.di.component.ActivityComponent;
 import com.futuremall.android.di.component.DaggerActivityComponent;
@@ -10,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -46,7 +49,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     protected void setToolBar(Toolbar toolbar, String title) {
-        toolbar.setTitle(title);
+        TextView textView= (TextView)(findViewById(R.id.super_title));
+        textView.setText(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -2,6 +2,8 @@ package com.futuremall.android.base;
 
 import android.app.Activity;
 import android.content.Context;
+
+import com.futuremall.android.R;
 import com.futuremall.android.app.App;
 import com.futuremall.android.di.component.DaggerFragmentComponent;
 import com.futuremall.android.di.component.FragmentComponent;
@@ -9,9 +11,12 @@ import com.futuremall.android.di.module.FragmentModule;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -28,14 +33,14 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Inject
     protected T mPresenter;
     protected View mView;
-    protected Activity mActivity;
+    protected AppCompatActivity mActivity;
     protected Context mContext;
     private Unbinder mUnBinder;
     protected boolean isInited = false;
 
     @Override
     public void onAttach(Context context) {
-        mActivity = (Activity) context;
+        mActivity = (AppCompatActivity) context;
         mContext = context;
         super.onAttach(context);
     }
@@ -68,6 +73,27 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             isInited = true;
             initEventAndData();
         }
+    }
+
+
+
+    protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
+        TextView textView= (TextView)(toolbar.findViewById(R.id.super_title));
+
+        mActivity.setSupportActionBar(toolbar);
+
+        if(title != null){
+            mActivity.getSupportActionBar().setTitle(null);
+        }
+
+        if(showBackButton){
+            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        }
+
+        textView.setText(title);
+
     }
 
     @Override

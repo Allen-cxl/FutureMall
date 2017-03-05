@@ -10,5 +10,28 @@
     <item name="iv_category" type="id" />
     <item name="layout_search" type="id" />
     <item name="iv_scan" type="id" />
+    <item name="iv_product_pic" type="id" />
+    <item name="tv_product_name" type="id" />
+    <item name="fl_product_pic" type="id" />
+    <item name="tv_product_price" type="id" />
+    <item name="tv_reduce" type="id" />
+    <item name="tv_count" type="id" />
+    <item name="tv_add" type="id" />
+    <item name="tv_shop_name" type="id" />
+    <item name="check_box_child" type="id" />
+    <item name="check_box_group" type="id" />
+    <item name="super_title" type="id" />
+    <item name="title" type="id" />
+    <item name="checkBox" type="id" />
+    <item name="swipeRefreshLayout" type="id" />
+    <item name="recycleView" type="id" />
+    <item name="ll_checkBox" type="id" />
+    <item name="tv_freight" type="id" />
+    <item name="bt_pay" type="id" />
+    <item name="bt_delete" type="id" />
+    <item name="ll_pay" type="id" />
+    <item name="bt_cancel" type="id"/>
+    <item name="bt_sure" type="id"/>
+
 
 </resources>

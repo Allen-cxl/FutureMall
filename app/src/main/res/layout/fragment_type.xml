@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.futuremall.com.com.futuremall.com.ui.fragment.TypeFragment">
+    tools:context="com.futuremall.android.ui.fragment.TypeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

@@ -1,12 +1,15 @@
 package com.futuremall.android.base;
 
 import android.app.Activity;
+
+import com.futuremall.android.R;
 import com.futuremall.android.app.App;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 
 import butterknife.ButterKnife;
@@ -33,7 +36,8 @@ public abstract class SimpleActivity extends AppCompatActivity {
     }
 
     protected void setToolBar(Toolbar toolbar, String title) {
-        toolbar.setTitle(title);
+        TextView textView= (TextView)(findViewById(R.id.super_title));
+        textView.setText(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/super_toolbar" />
+
+    <com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout
+        android:id="@id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:progress_bar_color="@color/orange"
+        app:guidance_text_color="@color/orange"
+        app:refresh_text="下拉刷新">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:id="@id/ll_checkBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_shopping_cat_cb"
+                android:button="@null"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/all"
+                android:textSize="@dimen/font_normal"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@id/ll_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right|top"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="@string/amount"
+                android:textSize="@dimen/font_small"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@id/tv_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/font_normal"/>
+
+                <TextView
+                    android:id="@id/tv_freight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/freight"
+                    android:textSize="@dimen/font_small"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@id/bt_pay"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@color/orange"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_normal"/>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@id/bt_delete"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@color/orange"
+            android:text="@string/delete"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_normal"
+            android:visibility="gone"/>
+    </LinearLayout>
+
 
 </LinearLayout>

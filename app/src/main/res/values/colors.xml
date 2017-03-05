@@ -7,6 +7,7 @@
     <color name="line">#EEEEEE</color>
     <color name="gray">#EAEAEA</color>
     <color name="orange">#F55633</color>
+    <color name="transparent">#00000000</color>
 
     <color name="font_normal">#333333</color>
 </resources>

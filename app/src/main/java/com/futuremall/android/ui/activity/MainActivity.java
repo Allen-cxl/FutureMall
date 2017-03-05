@@ -7,7 +7,7 @@ import com.futuremall.android.presenter.Contract.MainContract;
 import com.futuremall.android.presenter.MainPresenter;
 import com.futuremall.android.ui.fragment.FutureAddFragment;
 import com.futuremall.android.ui.fragment.MainFragment;
-import com.futuremall.android.ui.fragment.ShoppingCarFragment;
+import com.futuremall.android.ui.fragment.ShoppingCartFragment;
 import com.futuremall.android.ui.fragment.TypeFragment;
 import com.futuremall.android.ui.fragment.UserFragment;
 import com.futuremall.android.util.LogUtil;
@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Inject
     FutureAddFragment mFutureAddFragment;
     @Inject
-    ShoppingCarFragment mShoppingCarFragment;
+    ShoppingCartFragment mShoppingCartFragment;
     @Inject
     UserFragment mUserFragment;
 
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         fragmentList.add(mMainFragment);
         fragmentList.add(mTypeFragment);
         fragmentList.add(mFutureAddFragment);
-        fragmentList.add(mShoppingCarFragment);
+        fragmentList.add(mShoppingCartFragment);
         fragmentList.add(mUserFragment);
     }
 
@@ -233,7 +233,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mFutureAddFragment;
 
             case Constants.RB_SHOPPING_CAR:
-                return mShoppingCarFragment;
+                return mShoppingCartFragment;
 
             case Constants.RB_USER:
                 return mUserFragment;

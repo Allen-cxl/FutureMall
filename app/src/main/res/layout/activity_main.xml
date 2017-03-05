@@ -71,7 +71,7 @@
             android:paddingTop="15px"
             android:drawablePadding="10px"
             android:gravity="center_horizontal"
-            android:text="@string/shopping_car"
+            android:text="@string/shopping_cart"
             android:textColor="@drawable/selector_tab_textcolor"/>
 
         <RadioButton

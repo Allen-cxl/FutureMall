@@ -3,7 +3,7 @@ package com.futuremall.android.di.component;
 import android.app.Activity;
 import com.futuremall.android.di.module.FragmentModule;
 import com.futuremall.android.di.scope.FragmentScope;
-import com.futuremall.android.ui.fragment.ShoppingCarFragment;
+import com.futuremall.android.ui.fragment.ShoppingCartFragment;
 import com.futuremall.android.ui.fragment.UserFragment;
 
 import dagger.Component;
@@ -18,7 +18,7 @@ public interface FragmentComponent {
 
     Activity getActivity();
 
-    void inject(ShoppingCarFragment shoppingCarFragment);
+    void inject(ShoppingCartFragment shoppingCartFragment);
 
     void inject(UserFragment userFragment);
 }
