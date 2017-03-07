@@ -6,50 +6,60 @@ package com.futuremall.android.model.bean;
 
 public class VersionBean {
 
-    private String Version;
-    private String VersionDesc;
-    private String UpdateUrl;
-    private boolean IsEnforceUpdate;
+    private String version_code;
+    private String version_name;
+    private String content;
+    private String url;
+    private String type;
 
-    public String getVersion() {
-        return Version;
+    public String getVersion_code() {
+        return version_code;
     }
 
-    public void setVersion(String Version) {
-        this.Version = Version;
+    public void setVersion_code(String version_code) {
+        this.version_code = version_code;
     }
 
-    public String getVersionDesc() {
-        return VersionDesc;
+    public String getVersion_name() {
+        return version_name;
     }
 
-    public void setVersionDesc(String VersionDesc) {
-        this.VersionDesc = VersionDesc;
+    public void setVersion_name(String version_name) {
+        this.version_name = version_name;
     }
 
-    public String getUpdateUrl() {
-        return UpdateUrl;
+    public String getContent() {
+        return content;
     }
 
-    public void setUpdateUrl(String UpdateUrl) {
-        this.UpdateUrl = UpdateUrl;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public boolean isIsEnforceUpdate() {
-        return IsEnforceUpdate;
+    public String getUrl() {
+        return url;
     }
 
-    public void setIsEnforceUpdate(boolean IsEnforceUpdate) {
-        this.IsEnforceUpdate = IsEnforceUpdate;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return "VersionBean{" +
-                "Version='" + Version + '\'' +
-                ", VersionDesc='" + VersionDesc + '\'' +
-                ", UpdateUrl='" + UpdateUrl + '\'' +
-                ", IsEnforceUpdate=" + IsEnforceUpdate +
+                "version_code='" + version_code + '\'' +
+                ", version_name='" + version_name + '\'' +
+                ", content='" + content + '\'' +
+                ", url='" + url + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

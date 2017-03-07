@@ -6,31 +6,31 @@ package com.futuremall.android.http;
 
 public class MyHttpResponse<T> {
 
-    private int code;
-    private String message;
+    private int status;
+    private String info;
     private T data;
 
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    public String getInfo() {
+        return info;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public T getData() {
         return data;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setData(T data) {
+        this.data = data;
     }
 }

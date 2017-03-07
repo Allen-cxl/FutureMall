@@ -21,9 +21,48 @@ public class Constants {
 
     public static  final int RB_USER = 4;
 
+    //================= server code message ===============
+
+    public static  final int SERVER_BUSY = -1;
+
+    public static  final String SERVER_BUSY_MSG = "系统繁忙，稍后再试";
+
+    public static  final int SERVER_SUCCESS = 0;
+
+    public static  final String SERVER_SUCCESS_MSG = "处理成功";
+
+    public static  final int SERVER_FAIL = 1000;
+
+    public static  final String SERVER_FAIL_MSG = "处理失败";
+
+    public static  final int SERVER_TOKEN_FAIL = 1001;
+
+    public static  final String SERVER_TOKEN_FAIL_MSG = "access_token非法";
+
+    public static  final int SERVER_SIGN_FAIL = 1002;
+
+    public static  final String SERVER_SIGN_FAIL_MSG = "sign验证失败";
+
+    public static  final int SERVER_PARAMETER_LOST = 1003;
+
+    public static  final String SERVER_PARAMETER_LOST_MSG = "请求参数缺失";
+
+    public static  final int SERVER_NO_PERMISSIONS = 1004;
+
+    public static  final String SERVER_NO_PERMISSIONS_MSG = "无操作权限";
+
+    public static  final int SERVER_ACOUNT_PASSWORD_ERROR = 1005;
+
+    public static  final String SERVER_ACOUNT_PASSWORD_ERROR_MSG = "账号或密码不正确";
+
+    public static  final int SERVER_ACOUNT_PASSWORD_FREEZE = 1006;
+
+    public static  final String SERVER_ACOUNT_PASSWORD_FREEZE_MSG = "账号被冻结";
+
+
     //================= KEY ====================
 
-//    public static final String KEY_API = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
+    public static final String MALL_API_KEY = "yudianedutest"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
     public static final String KEY_API = "52b7ec3471ac3bec6846577e79f20e4c"; //需要APIKEY请去 http://www.tianapi.com/#wxnew 申请,复用会减少访问可用次数
 
     public static final String KEY_ALIPAY = "aex07566wvayrgxicnaraae";
@@ -59,9 +98,9 @@ public class Constants {
     public static final String SP_MANAGER_POINT = "manager_point";
 
     //================= INTENT ====================
-    public static final String IT_GANK_TYPE = "type";
+    public static final String IT_SIGN = "sign";
 
-    public static final String IT_GANK_TYPE_CODE = "type_code";
+    public static final String IT_KEY = "key";
 
     public static final String IT_DETAIL_TITLE = "title";
 

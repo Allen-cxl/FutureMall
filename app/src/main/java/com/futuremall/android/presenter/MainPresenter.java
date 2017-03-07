@@ -8,7 +8,9 @@ import com.futuremall.android.presenter.Contract.MainContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.RxUtil;
 import com.tbruyelle.rxpermissions.RxPermissions;
+
 import javax.inject.Inject;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -29,16 +31,15 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     @Override
     public void checkVersion() {
 
-        Disposable rxSubscription = mRetrofitHelper.getVersionInfo("android")
+        Disposable rxSubscription = mRetrofitHelper.getVersionInfo("1.0.1","1","56d0a3a025243867fd6d8842f90a568c")
                 .compose(RxUtil.<MyHttpResponse<VersionBean>>rxSchedulerHelper())
                 .compose(RxUtil.<VersionBean>handleMyResult())
-                .doOnError(new CommonConsumer(mView))
                 .subscribe(new Consumer<VersionBean>() {
                     @Override
                     public void accept(VersionBean value) {
                         mView.showUpdateDialog(value.toString());
                     }
-                });
+                }, new CommonConsumer(mView));
         addSubscrebe(rxSubscription);
     }
 

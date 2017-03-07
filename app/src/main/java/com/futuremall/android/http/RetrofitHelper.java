@@ -17,8 +17,8 @@ public class RetrofitHelper {
         this.mMallApiService = mallApiService;
     }
 
-    public Flowable<MyHttpResponse<VersionBean>> getVersionInfo(String os) {
-        return mMallApiService.getVersion(os);
+    public Flowable<MyHttpResponse<VersionBean>> getVersionInfo(String versionName, String versionCode, String sign) {
+        return mMallApiService.getVersion(versionName, versionCode, sign);
     }
 
    /* public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatListInfo(int num, int page) {

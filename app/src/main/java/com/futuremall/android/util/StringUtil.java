@@ -8,6 +8,11 @@ import android.text.style.AbsoluteSizeSpan;
 
 import com.futuremall.android.R;
 
+import java.util.List;
+import java.util.Set;
+
+import okhttp3.HttpUrl;
+
 /**
  * Created by PVer on 2017/3/5.
  */

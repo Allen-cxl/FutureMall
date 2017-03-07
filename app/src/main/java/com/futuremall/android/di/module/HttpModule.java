@@ -1,6 +1,7 @@
 package com.futuremall.android.di.module;
 
 import com.futuremall.android.BuildConfig;
+import com.futuremall.android.http.HttpBaseParamsLoggingInterceptor;
 import com.futuremall.android.http.api.MallApis;
 
 import java.util.concurrent.TimeUnit;
@@ -44,12 +45,14 @@ public class HttpModule {
     @Singleton
     @Provides
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
-       /* if (BuildConfig.DEBUG) {
+
+
+        //builder.addInterceptor(new HttpBaseParamsLoggingInterceptor());
+        if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
-        }*/
-
+        }
         //设置超时
         builder.connectTimeout(10, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);

@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showError(String msg) {
-        SnackbarUtil.showShort(getWindow().getDecorView(), msg);
+        SnackbarUtil.show(getWindow().getDecorView(), msg);
     }
 
     @Override
