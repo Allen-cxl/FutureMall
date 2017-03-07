@@ -1,6 +1,7 @@
 package com.futuremall.android.ui.ViewHolder;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -198,23 +199,20 @@ public class ShoppingCartHepler {
     /**
      * 增减数量，操作通用，数据不通用
      */
-    public static String addOrReduceGoodsNum(boolean isPlus, final ShoppingCartBean.ShoppingCartProductBean goods, final TextView tvNum, final Context context) {
-        //string currentNum = goods.getNumber().trim();
-        String currentNum = String.valueOf(goods.getProductCount()).trim();
+    public static String addOrReduceGoodsNum(boolean isPlus, String count, View view) {
         String num = "1";
         if (isPlus) {
-            num = String.valueOf(Integer.parseInt(currentNum) + 1);
+            num = String.valueOf(Integer.parseInt(count) + 1);
         } else {
-            int i = Integer.parseInt(currentNum);
+            int i = Integer.parseInt(count);
             if (i > 1) {
                 num = String.valueOf(i - 1);
             } else {
-                SnackbarUtil.show(tvNum, "商品数量不能小于1！");
+                SnackbarUtil.show(view, "商品数量不能小于1！");
                 num = "1";
             }
         }
         return num;
-
     }
 
 }

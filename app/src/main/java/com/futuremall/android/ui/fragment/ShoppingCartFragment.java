@@ -83,6 +83,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mIsChecked = isChecked;
+
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -101,7 +102,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
                         Toast.makeText(getActivity(), "刷新完成", Toast.LENGTH_SHORT).show();
                     }
-                }, 1600);
+                }, 1000);
             }
 
             @Override
@@ -154,12 +155,13 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
             menuItem.setTitle(getString(R.string.done));
             mCheckBox.setChecked(false);
             mPresenter.menuDone(mAdapter.getCurrentList(), false);
-            mAdapter.notifyDataSetChanged();
 
         } else {
             menuItem.setTitle(getString(R.string.edit));
-            mPresenter.menuEdit();
+            mCheckBox.setChecked(true);
+            mPresenter.menuEdit(mAdapter.getCurrentList(), true);
         }
+        mAdapter.notifyDataSetChanged();
 
     }
 

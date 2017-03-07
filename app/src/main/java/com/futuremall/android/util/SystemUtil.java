@@ -1,5 +1,6 @@
 package com.futuremall.android.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import com.futuremall.android.app.App;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 
 import java.io.BufferedReader;
@@ -116,6 +118,19 @@ public class SystemUtil {
     public static int px2dp(float pxValue) {
         final float scale = App.getInstance().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * 隐藏键盘
+     *
+     * @param activity
+     */
+    public static void hideKeyboard(Activity activity) {
+
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm.isActive()) {
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     /**

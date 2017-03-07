@@ -1,6 +1,7 @@
 package com.futuremall.android.ui.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.futuremall.android.ui.ViewHolder.ShoppingCartGroupViewHolder;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.listener.OnShopCartChangeListener;
 import com.futuremall.android.util.StringUtil;
+import com.futuremall.android.weight.AddReduceDialogFragment;
 
 import java.util.List;
 
@@ -116,18 +118,32 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
         itemViewHolder.mTvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String count = itemViewHolder.mTvCount.getText().toString().trim();
+                String addCount = ShoppingCartHepler.addOrReduceGoodsNum(true, count, itemViewHolder.mTvAdd);
 
-                String count = ShoppingCartHepler.addOrReduceGoodsNum(true, productBean, itemViewHolder.mTvAdd, mContext);
-
-                mChangeListener.onDataChange(productBean.getID(), count, ShoppingCartHepler.TYPE_ADD);
+                mChangeListener.onDataChange(productBean.getID(), addCount, ShoppingCartHepler.TYPE_ADD);
             }
         });
         itemViewHolder.mTvReduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String count = ShoppingCartHepler.addOrReduceGoodsNum(false, productBean, itemViewHolder.mTvAdd, mContext);
+                String count = itemViewHolder.mTvCount.getText().toString().trim();
+                String reduceCount = ShoppingCartHepler.addOrReduceGoodsNum(false, count, itemViewHolder.mTvAdd);
 
-                mChangeListener.onDataChange(productBean.getID(), count, ShoppingCartHepler.TYPE_REDUCE);
+                mChangeListener.onDataChange(productBean.getID(), reduceCount, ShoppingCartHepler.TYPE_REDUCE);
+            }
+        });
+        itemViewHolder.mTvCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String count = itemViewHolder.mTvCount.getText().toString().trim();
+                new AddReduceDialogFragment.Builder()
+                        .context(mContext)
+                        .count(count)
+                        .ID(productBean.getID())
+                        .listener(mChangeListener)
+                        .build()
+                        .show(((FragmentActivity) mContext).getSupportFragmentManager(), "AddReduceDialog");
             }
         });
     }

@@ -42,7 +42,7 @@ public class ShoppingCarContract {
 
         void menuDone(List<ShoppingCartBean> list, boolean isSelectAll);
 
-        void menuEdit();
+        void menuEdit(List<ShoppingCartBean> list, boolean isSelectAll);
 
         void dataChange(String id, String count, int type, android.view.View view);
 

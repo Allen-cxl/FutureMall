@@ -1,5 +1,12 @@
 package com.futuremall.android.ui.activity;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.RadioButton;
+
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
@@ -12,16 +19,9 @@ import com.futuremall.android.ui.fragment.TypeFragment;
 import com.futuremall.android.ui.fragment.UserFragment;
 import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.SnackbarUtil;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.widget.RadioButton;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Inject;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, View.OnClickListener {
@@ -49,11 +49,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Inject
     UserFragment mUserFragment;
 
-    private int mPositionLast;
-    private Fragment mFragmentNow;
-    private List<Fragment> fragmentList;
+    private int mFromTag;
     private FragmentManager mManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +77,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mRadioShoppingCar.setOnClickListener(this);
         mRadioUser.setOnClickListener(this);
 
-        fragmentList = new ArrayList<>();
         mManager = getSupportFragmentManager();
-        addFragment();
         mRadioHome.performClick();
     }
 
@@ -96,29 +91,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         LogUtil.i(versionContent);
     }
 
-    private void addFragment() {
-        fragmentList.add(mMainFragment);
-        fragmentList.add(mTypeFragment);
-        fragmentList.add(mFutureAddFragment);
-        fragmentList.add(mShoppingCartFragment);
-        fragmentList.add(mUserFragment);
+    private void setRadioButtonOnlick(int fromTag, int  currentTag){
+        switchContent(fromTag, currentTag, getCurrentFragmentByTag(currentTag));
+        setRadioButtonCheck(currentTag);
+        mFromTag = currentTag;
     }
 
-    private void switchContent(Fragment from, Fragment to, int index) {
+    private void switchContent(int fromTag, int toTag, Fragment fragment) {
 
-        if (mFragmentNow != to) {
-            FragmentTransaction transaction = mManager.beginTransaction();
-            Fragment indexFragment = mManager.findFragmentByTag(String.valueOf(index));
+        FragmentTransaction transaction = mManager.beginTransaction();
+        Fragment fromFragment = mManager.findFragmentByTag(String.valueOf(fromTag));
+        Fragment toFragment = mManager.findFragmentByTag(String.valueOf(toTag));
 
-            if (null == indexFragment) {    // 先判断是否被add过
-                indexFragment = getCurrentFragmentByTag(index);
-                transaction.hide(from).add(R.id.fragment_container, indexFragment, String.valueOf(index)).commitAllowingStateLoss(); // 隐藏当前的fragment，add下一个到Activity中
-                fragmentList.remove(index);
-                fragmentList.add(index, indexFragment);
-            } else {
-                transaction.hide(from).show(to).commitAllowingStateLoss(); // 隐藏当前的fragment，显示下一个
-            }
-            mFragmentNow = to;
+        if(fromFragment !=null){
+            transaction.hide(fromFragment);
+        }
+        if(toFragment == null){
+            transaction.add(R.id.fragment_container, fragment, String.valueOf(toTag)).commitAllowingStateLoss(); // 隐藏当前的fragment，add下一个到Activity中
+        }else{
+            transaction.show(toFragment).commitAllowingStateLoss();
         }
     }
 
@@ -126,45 +117,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.radio_home:
-                int positionNow = Constants.RB_HOME;
-                switchContent(fragmentList.get(mPositionLast), fragmentList.get(positionNow), positionNow);
-                mPositionLast = positionNow;
-                setRadioButtonCheck(mPositionLast);
+
+                setRadioButtonOnlick(mFromTag, Constants.RB_HOME);
                 break;
 
             case R.id.radio_type:
-                positionNow = Constants.RB_TYPE;
-                switchContent(fragmentList.get(mPositionLast), fragmentList.get(positionNow), positionNow);
-                mPositionLast = positionNow;
-                setRadioButtonCheck(mPositionLast);
+
+                setRadioButtonOnlick(mFromTag, Constants.RB_TYPE);
                 break;
 
             case R.id.radio_future_add:
-                positionNow = Constants.RB_FUTURE_ADD;
-                switchContent(fragmentList.get(mPositionLast), fragmentList.get(positionNow), positionNow);
-                mPositionLast = positionNow;
-                setRadioButtonCheck(mPositionLast);
+                setRadioButtonOnlick(mFromTag, Constants.RB_FUTURE_ADD);
                 break;
 
             case R.id.radio_shopping_car:
-                positionNow = Constants.RB_SHOPPING_CAR;
-                switchContent(fragmentList.get(mPositionLast), fragmentList.get(positionNow), positionNow);
-                mPositionLast = positionNow;
-                setRadioButtonCheck(mPositionLast);
+                setRadioButtonOnlick(mFromTag, Constants.RB_SHOPPING_CART);
                 break;
 
             case R.id.radio_user:
-                positionNow = Constants.RB_USER;
-                switchContent(fragmentList.get(mPositionLast), fragmentList.get(positionNow), positionNow);
-                mPositionLast = positionNow;
-                setRadioButtonCheck(mPositionLast);
+                setRadioButtonOnlick(mFromTag, Constants.RB_USER);
                 break;
         }
     }
 
-    private void setRadioButtonCheck(int position) {
+    private void setRadioButtonCheck(int tag) {
 
-        switch (position) {
+        switch (tag) {
             case Constants.RB_HOME:
 
                 mRadioHome.setSelected(true);
@@ -192,7 +170,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 mRadioUser.setSelected(false);
                 break;
 
-            case Constants.RB_SHOPPING_CAR:
+            case Constants.RB_SHOPPING_CART:
 
                 mRadioHome.setSelected(false);
                 mRadioType.setSelected(false);
@@ -221,6 +199,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
+
+
     private Fragment getCurrentFragmentByTag(int index) {
         switch (index) {
             case Constants.RB_HOME:
@@ -232,7 +212,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case Constants.RB_FUTURE_ADD:
                 return mFutureAddFragment;
 
-            case Constants.RB_SHOPPING_CAR:
+            case Constants.RB_SHOPPING_CART:
                 return mShoppingCartFragment;
 
             case Constants.RB_USER:

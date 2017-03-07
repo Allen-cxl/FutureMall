@@ -52,12 +52,17 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     @Override
     public void menuDone(List<ShoppingCartBean> list, boolean isSelectAll) {
         ShoppingCartHepler.selectOrCancelAll(list,isSelectAll);
+        String[] info = ShoppingCartHepler.getShoppingCount(list);
+        mView.showTotalPrice(info[1], info[0]);
         mView.showPayLayout(View.GONE);
         mView.showDeleteButton(View.VISIBLE);
     }
 
     @Override
-    public void menuEdit() {
+    public void menuEdit(List<ShoppingCartBean> list, boolean isSelectAll) {
+        ShoppingCartHepler.selectOrCancelAll(list,isSelectAll);
+        String[] info = ShoppingCartHepler.getShoppingCount(list);
+        mView.showTotalPrice(info[1], info[0]);
         mView.showPayLayout(View.VISIBLE);
         mView.showDeleteButton(View.GONE);
     }

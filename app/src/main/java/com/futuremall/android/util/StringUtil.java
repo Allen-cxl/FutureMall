@@ -10,6 +10,7 @@ import com.futuremall.android.R;
 
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import okhttp3.HttpUrl;
 
@@ -24,6 +25,12 @@ public class StringUtil {
                 "null".equals(str))
             return true;
         return false;
+    }
+
+    public static boolean isStartFromZero(String str){
+
+        Pattern pattern = Pattern.compile("^0\\d*$");
+        return pattern.matcher(str).matches();
     }
 
     public static SpannableStringBuilder getPrice(Context context,String str){

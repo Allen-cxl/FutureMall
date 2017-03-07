@@ -32,6 +32,8 @@
     <item name="ll_pay" type="id" />
     <item name="bt_cancel" type="id"/>
     <item name="bt_sure" type="id"/>
+    <item name="super_toolbar" type="id"/>
+    <item name="et_count" type="id"/>
 
 
 </resources>

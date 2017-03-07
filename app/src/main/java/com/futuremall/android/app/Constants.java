@@ -11,13 +11,13 @@ public class Constants {
 
     //================= RadioButton ====================
 
-    public static  final int RB_HOME = 0;
+    public static  final int RB_HOME = -1;
 
-    public static  final int RB_TYPE = 1;
+    public static  final int RB_TYPE = -2;
 
-    public static  final int RB_FUTURE_ADD = 2;
+    public static  final int RB_FUTURE_ADD = -3;
 
-    public static  final int RB_SHOPPING_CAR = 3;
+    public static  final int RB_SHOPPING_CART = -4;
 
     public static  final int RB_USER = 4;
 
