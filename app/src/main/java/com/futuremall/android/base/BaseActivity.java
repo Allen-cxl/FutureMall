@@ -7,6 +7,8 @@ import com.futuremall.android.app.App;
 import com.futuremall.android.di.component.ActivityComponent;
 import com.futuremall.android.di.component.DaggerActivityComponent;
 import com.futuremall.android.di.module.ActivityModule;
+import com.futuremall.android.util.SnackbarUtil;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -48,18 +50,25 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.onResume();
     }
 
-    protected void setToolBar(Toolbar toolbar, String title) {
+    protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
         TextView textView= (TextView)(findViewById(R.id.super_title));
+
+        if(title != null){
+            getSupportActionBar().setTitle(null);
+        }
+
+        if(showBackButton){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        }
+
         textView.setText(title);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
     }
 
     protected ActivityComponent getActivityComponent(){
@@ -80,6 +89,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mPresenter.detachView();
         mUnBinder.unbind();
         App.getInstance().removeActivity(this);
+    }
+
+    @Override
+    public void showError(String msg) {
+
+        SnackbarUtil.show(getCurrentFocus(),msg);
     }
 
     protected abstract void initInject();

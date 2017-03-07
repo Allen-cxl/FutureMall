@@ -69,7 +69,7 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
      * @param holder the holder to bind
      * @param section what section the item is in, with in the data set
      * @param relativePosition relative position of item within each section.
-     * @param absolutePosition  !!!! unused params, need to take into account footer count
+     * @param absolutePosition  !!!! unused params, need to take into payment footer count
      */
     public abstract void onBindViewHolder(VH holder, int section, int relativePosition, int absolutePosition);
 

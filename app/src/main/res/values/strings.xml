@@ -9,6 +9,8 @@
     <string name="test">测试测试测试2463435435测试测试测试34534测试测试测试</string>
     <string name="all">全选</string>
     <string name="amount">合计：</string>
+    <string name="total_product">共%i件商品</string>
+    <string name="total_integral">(%i积分)</string>
     <string name="to_pay">去结算(%s)</string>
     <string name="freight">含运费</string>
     <string name="delete">删除</string>
@@ -19,4 +21,18 @@
     <string name="done">完成</string>
     <string name="sure">确定</string>
     <string name="cancel">取消</string>
+    <string name="user_info">个人信息</string>
+    <string name="balance">余额：%.2f</string>
+    <string name="back_integral">待返积分</string>
+    <string name="total_money">总消费额</string>
+    <string name="generalize_money">推广额度</string>
+    <string name="generalize_give">推广赠送</string>
+    <string name="transfer">转账</string>
+    <string name="payment">结算支付</string>
+    <string name="order">订单中心</string>
+    <string name="record">操作记录</string>
+    <string name="invite_register">邀请注册</string>
+    <string name="recharge">充值</string>
+    <string name="setup">设置</string>
+    <string name="about">关于</string>
 </resources>
