@@ -2,6 +2,9 @@ package com.futuremall.android.presenter.Contract;
 
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
+import com.futuremall.android.model.bean.OrderList;
+
+import java.util.List;
 
 
 /**
@@ -12,7 +15,7 @@ public class OrderCenterContract {
 
     public interface View extends BaseView {
 
-        void showContent();
+        void showContent(List<OrderList> dataList);
     }
 
     public interface  Presenter extends BasePresenter<View> {

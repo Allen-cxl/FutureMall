@@ -2,6 +2,7 @@ package com.futuremall.android.di.module;
 
 import com.futuremall.android.ui.fragment.FutureAddFragment;
 import com.futuremall.android.ui.fragment.MainFragment;
+import com.futuremall.android.ui.fragment.OrderFragment;
 import com.futuremall.android.ui.fragment.ShoppingCartFragment;
 import com.futuremall.android.ui.fragment.TypeFragment;
 import com.futuremall.android.ui.fragment.UserFragment;
@@ -37,6 +38,12 @@ public class PageModule {
     @Provides
     ShoppingCartFragment provideShoppingCar() {
         return new ShoppingCartFragment();
+    }
+
+    @Singleton
+    @Provides
+    OrderFragment provideOrder() {
+        return new OrderFragment();
     }
 
     @Singleton

@@ -9,8 +9,9 @@
     <string name="test">测试测试测试2463435435测试测试测试34534测试测试测试</string>
     <string name="all">全选</string>
     <string name="amount">合计：</string>
-    <string name="total_product">共%i件商品</string>
+    <string name="total_count">共%i件商品</string>
     <string name="total_integral">(%i积分)</string>
+    <string name="order_center">订单中心</string>
     <string name="to_pay">去结算(%s)</string>
     <string name="freight">含运费</string>
     <string name="delete">删除</string>

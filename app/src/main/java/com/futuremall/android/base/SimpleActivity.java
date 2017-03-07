@@ -35,18 +35,25 @@ public abstract class SimpleActivity extends AppCompatActivity {
         initEventAndData();
     }
 
-    protected void setToolBar(Toolbar toolbar, String title) {
+    protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
         TextView textView= (TextView)(findViewById(R.id.super_title));
+
+        /*if(title != null){
+            getSupportActionBar().setTitle("1");
+        }
+*/
+        if(showBackButton){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        }
+
         textView.setText(title);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
     }
 
     @Override

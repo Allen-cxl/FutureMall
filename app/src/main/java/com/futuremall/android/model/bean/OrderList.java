@@ -63,7 +63,7 @@ public class OrderList {
         this.data = data;
     }
 
-    public class Order{
+    public static class Order{
 
         private String productID;
         private String productPic;

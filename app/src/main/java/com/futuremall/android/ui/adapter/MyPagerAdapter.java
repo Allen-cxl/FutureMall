@@ -12,17 +12,19 @@ import java.util.List;
 public class MyPagerAdapter extends FragmentStatePagerAdapter {
     Context context;
 
-    private List<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment> mFragments;
     private String[] mArrays;
 
-    public void addItem(String[] arrays,Fragment fragment) {
+    public void addItem(String[] arrays, List<Fragment> fragments) {
         mArrays = arrays;
-        mFragments.add(fragment);
+        mFragments = fragments;
+        notifyDataSetChanged();
     }
 
     public MyPagerAdapter(Context ctx, FragmentManager fm) {
         super(fm);
         context = ctx;
+        mFragments = new ArrayList<>();
     }
 
     @Override

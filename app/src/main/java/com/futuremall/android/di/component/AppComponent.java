@@ -9,6 +9,7 @@ import com.futuremall.android.di.module.PageModule;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.ui.fragment.FutureAddFragment;
 import com.futuremall.android.ui.fragment.MainFragment;
+import com.futuremall.android.ui.fragment.OrderFragment;
 import com.futuremall.android.ui.fragment.ShoppingCartFragment;
 import com.futuremall.android.ui.fragment.TypeFragment;
 import com.futuremall.android.ui.fragment.UserFragment;
@@ -37,6 +38,8 @@ public interface AppComponent {
     FutureAddFragment futureAddFragment();
 
     ShoppingCartFragment shoppingCarFragment();
+
+    OrderFragment orderFragment();
 
     UserFragment userFragment();
 }
