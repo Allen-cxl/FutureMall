@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class OrderFooterViewHolder extends RecyclerView.ViewHolder {
 
@@ -17,5 +18,6 @@ public class OrderFooterViewHolder extends RecyclerView.ViewHolder {
 
     public OrderFooterViewHolder(View v) {
         super(v);
+        ButterKnife.bind(this,v);
     }
 }

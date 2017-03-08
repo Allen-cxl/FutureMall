@@ -24,6 +24,7 @@ import com.futuremall.android.util.DecimalUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.weight.AddReduceDialogFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,6 +37,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
 
     public OrderCenterAdapter(Context context) {
         mContext = context;
+        dataList = new ArrayList<>();
     }
 
     @Override
@@ -56,7 +58,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         OrderList orderList = dataList.get(section);
         OrderHeadViewHolder headerViewHolder = (OrderHeadViewHolder) holder;
         headerViewHolder.mTvShopName.setText(orderList.getShopName());
-        headerViewHolder.mTvShopName.setText("已发货");
+        headerViewHolder.mTvOrderExpress_status.setText("已发货");
     }
 
     @Override
@@ -83,7 +85,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         itemViewHolder.mTvProductName.setText(order.getProductName());
         String price = String.format(mContext.getString(R.string.price), order.getProductPrice());
         itemViewHolder.mTvProductPrice.setText(StringUtil.getPrice(mContext, price));
-        itemViewHolder.mTvCount.setText(String.valueOf(order.getCount()));
+        itemViewHolder.mTvCount.setText("x"+String.valueOf(order.getCount()));
 
     }
 
@@ -106,13 +108,13 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         switch (viewType) {
             case SectionRecyclerAdapter.VIEW_TYPE_HEADER:
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_shoppingcart_group, parent, false);
+                        .inflate(R.layout.item_order_center_head, parent, false);
                 myHolder = new OrderHeadViewHolder(view);
                 break;
 
             case SectionRecyclerAdapter.VIEW_TYPE_ITEM:
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_shoppingcart_child, parent, false);
+                        .inflate(R.layout.item_order_center, parent, false);
                 myHolder = new OrderItemViewHolder(view);
                 break;
             case SectionRecyclerAdapter.VIEW_TYPE_FOOTER:
@@ -139,7 +141,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     }
 
     public String price() {
-        String price = null;
+        String price = "0";
         for (OrderList orderList:dataList) {
             List<OrderList.Order>  list = orderList.getData();
             for (OrderList.Order order: list) {

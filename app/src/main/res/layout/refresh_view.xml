@@ -7,4 +7,4 @@
     android:ellipsize="end"
     android:maxLines="1"
     android:gravity="center"
-    android:textColor="@color/colorPrimary" />
+    android:textColor="@color/orange" />
