@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".ui.activity.OrderCenterActivity">
         </activity>
+        <activity android:name=".ui.activity.OrderDetailActivity">
+        </activity>
     </application>
 
 </manifest>

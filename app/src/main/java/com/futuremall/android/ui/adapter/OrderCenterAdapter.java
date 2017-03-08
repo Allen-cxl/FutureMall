@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
 import com.futuremall.android.model.bean.OrderList;
+import com.futuremall.android.model.bean.OrderProduct;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.ui.ViewHolder.OrderFooterViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderHeadViewHolder;
@@ -75,7 +76,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int section, final int relativePosition, int absolutePosition) {
 
-        final OrderList.Order order = dataList.get(section).getData().get(relativePosition);
+        final OrderProduct order = dataList.get(section).getData().get(relativePosition);
         OrderItemViewHolder itemViewHolder = (OrderItemViewHolder) holder;
         Glide.with(mContext.getApplicationContext())
                 .load(order.getProductPic())
@@ -85,7 +86,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         itemViewHolder.mTvProductName.setText(order.getProductName());
         String price = String.format(mContext.getString(R.string.price), order.getProductPrice());
         itemViewHolder.mTvProductPrice.setText(StringUtil.getPrice(mContext, price));
-        itemViewHolder.mTvCount.setText("x"+String.valueOf(order.getCount()));
+        itemViewHolder.mTvCount.setText("x"+String.valueOf(order.getProductCount()));
 
     }
 
@@ -143,10 +144,10 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     public String price() {
         String price = "0";
         for (OrderList orderList:dataList) {
-            List<OrderList.Order>  list = orderList.getData();
-            for (OrderList.Order order: list) {
+            List<OrderProduct>  list = orderList.getData();
+            for (OrderProduct order: list) {
                 String tempPrece = String.valueOf(order.getProductPrice());
-                String count = String.valueOf(order.getCount());
+                String count = String.valueOf(order.getProductCount());
                 String priceMultiply = DecimalUtil.multiplyWithScale(tempPrece, count, 2);
                 price = DecimalUtil.add(price, priceMultiply);
             }
@@ -157,9 +158,9 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     public String count() {
         int count = 0;
         for (OrderList orderList:dataList) {
-            List<OrderList.Order>  list = orderList.getData();
-            for (OrderList.Order order: list) {
-                int countTemp = order.getCount();
+            List<OrderProduct>  list = orderList.getData();
+            for (OrderProduct order: list) {
+                int countTemp = order.getProductCount();
                 count = countTemp + count;
             }
         }

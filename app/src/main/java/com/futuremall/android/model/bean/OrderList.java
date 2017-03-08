@@ -13,7 +13,7 @@ public class OrderList {
     private int orderStatus;
     private int expressStatus;
     private int integral;
-    private List<Order> data;
+    private List<OrderProduct> data;
 
     public String getOrderID() {
         return orderID;
@@ -55,60 +55,13 @@ public class OrderList {
         this.integral = integral;
     }
 
-    public List<Order> getData() {
+    public List<OrderProduct> getData() {
         return data;
     }
 
-    public void setData(List<Order> data) {
+    public void setData(List<OrderProduct> data) {
         this.data = data;
     }
 
-    public static class Order{
 
-        private String productID;
-        private String productPic;
-        private String productName;
-        private float productPrice;
-        private int count;
-
-        public String getProductID() {
-            return productID;
-        }
-
-        public void setProductID(String productID) {
-            this.productID = productID;
-        }
-
-        public String getProductPic() {
-            return productPic;
-        }
-
-        public void setProductPic(String productPic) {
-            this.productPic = productPic;
-        }
-
-        public String getProductName() {
-            return productName;
-        }
-
-        public void setProductName(String productName) {
-            this.productName = productName;
-        }
-
-        public float getProductPrice() {
-            return productPrice;
-        }
-
-        public void setProductPrice(float productPrice) {
-            this.productPrice = productPrice;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-    }
 }

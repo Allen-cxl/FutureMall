@@ -1,6 +1,8 @@
 package com.futuremall.android.util;
 
+import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
+import com.futuremall.android.model.bean.OrderProduct;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class TestData {
 
         List<OrderList> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            List<OrderList.Order> orderList = new ArrayList<>();
+            List<OrderProduct> orderList = new ArrayList<>();
             OrderList orderListBean = new OrderList();
             orderListBean.setShopName("店铺" + i);
             orderListBean.setExpressStatus(1);
@@ -48,12 +50,12 @@ public class TestData {
             orderListBean.setIntegral(99999);
 
             for (int j = 0; j < 3; j++) {
-                OrderList.Order order = new OrderList.Order();
+                OrderProduct order = new OrderProduct();
                 String pic = "http://thumb.webps.cn/tk4771825/43956210618/i2/img/1/T1uQtbXulfXXXXXXXX_!!0-item_pic.jpg_200x200.jpg";
                 order.setProductName("测试产品名字" + j);
                 order.setProductPic(pic);
                 order.setProductPrice(56);
-                order.setCount(j);
+                order.setProductCount(j);
                 orderList.add(order);
                 orderListBean.setData(orderList);
             }
@@ -61,5 +63,29 @@ public class TestData {
             list.add(orderListBean);
         }
         return list;
+    }
+
+    public static OrderDetail getOrderDeatail() {
+
+
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setShopName("店铺");
+        orderDetail.setExpressStatus(1);
+        orderDetail.setOrderStatus(2);
+        orderDetail.setIntegral(99999);
+
+        List<OrderProduct> orderProducts = new ArrayList<>();
+        for (int j = 0; j < 3; j++) {
+            OrderProduct order = new OrderProduct();
+            String pic = "http://thumb.webps.cn/tk4771825/43956210618/i2/img/1/T1uQtbXulfXXXXXXXX_!!0-item_pic.jpg_200x200.jpg";
+            order.setProductName("测试产品名字" + j);
+            order.setProductPic(pic);
+            order.setProductPrice(56);
+            order.setProductCount(j);
+            orderProducts.add(order);
+            orderDetail.setData(orderProducts);
+        }
+
+        return orderDetail;
     }
 }
