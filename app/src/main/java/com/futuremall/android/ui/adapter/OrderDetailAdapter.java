@@ -61,7 +61,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case VIEW_TYPE_HEAD:
                 return new ViewHolder(mHeadView);
             case VIEW_TYPE_NORMAL:
-                View  v = LayoutInflater.from(mContext).inflate(R.layout.item_order_center, parent, false);
+                View  v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_center, parent, false);
                 return new OrderDetailAdapter.OrderDetailViewHolder(v);
             case VIEW_TYPE_FOOT:
                 return new ViewHolder(mFootView);
