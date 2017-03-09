@@ -89,7 +89,7 @@ public class TestData {
         for (int j = 0; j < 3; j++) {
             OrderProduct order = new OrderProduct();
             String pic = "http://thumb.webps.cn/tk4771825/43956210618/i2/img/1/T1uQtbXulfXXXXXXXX_!!0-item_pic.jpg_200x200.jpg";
-            order.setProductName("测试产品名字" + j);
+            order.setProductName("测试产品名字测试产品名字测试产品名字测试产品名字测试产品名字测试产品名字" + j);
             order.setProductPic(pic);
             order.setProductPrice(56);
             order.setProductCount(j);

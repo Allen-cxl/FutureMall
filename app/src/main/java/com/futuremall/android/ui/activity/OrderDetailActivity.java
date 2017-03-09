@@ -19,6 +19,7 @@ import com.futuremall.android.presenter.OrderDetailPresenter;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.OrderDetailAdapter;
 import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,8 +84,9 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
         mDetailHeadHolder.mTvShopName.setText(dataList.getShopName());
 
         mDetailFootHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), dataList.getProductTotalCount()));
+        String price = StringUtil.getPrice(mContext, dataList.getProductTotalPrice()).toString();
         String integral = String.format(mContext.getString(R.string.total_integral), dataList.getIntegral());
-        mDetailFootHolder.mTvTotalPrice.setText(dataList.getProductTotalPrice() + integral);
+        mDetailFootHolder.mTvTotalPrice.setText(price + integral);
 
         mAdapter.setData(dataList.getData());
         mDetailFootHolder.mTvExpressType.setText(mContext.getString(R.string.express_type) + dataList.getExpressType());

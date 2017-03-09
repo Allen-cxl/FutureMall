@@ -19,8 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:scaleType="fitXY"
-            android:src="@drawable/test_product"/>
+            android:scaleType="fitXY"/>
     </FrameLayout>
 
     <LinearLayout
@@ -29,35 +28,33 @@
         android:orientation="vertical">
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="horizontal"
             android:layout_weight="1">
 
             <TextView
                 android:id="@id/tv_product_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:maxLines="2"
-                android:text="@string/test"/>
+                android:layout_weight="1"
+                android:maxLines="2"/>
 
             <TextView
                 android:id="@id/tv_product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="88.00"
                 android:textColor="@color/orange"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:text="X2"/>
+            android:layout_gravity="right|bottom"/>
     </LinearLayout>
 </LinearLayout>
