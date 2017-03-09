@@ -56,6 +56,13 @@
     <item name="tv_total_count" type="id"/>
     <item name="tv_total_price" type="id"/>
     <item name="tv_order_express_status" type="id"/>
+    <item name="tv_orderNo" type="id"/>
+    <item name="tv_orderStatus" type="id"/>
+    <item name="tv_orderDate" type="id"/>
+    <item name="tv_address" type="id"/>
+    <item name="tv_express_type" type="id"/>
+    <item name="tv_express_no" type="id"/>
+    <item name="layout_express" type="id"/>
 
 
 </resources>

@@ -15,6 +15,7 @@ public class OrderDetail {
     private String expressNo;
     private String shopName;
     private String productTotalCount;
+    private String productTotalPrice;
     private String receiveName;
     private String receivePhone;
     private String receiveAddress;
@@ -77,6 +78,14 @@ public class OrderDetail {
 
     public void setProductTotalCount(String productTotalCount) {
         this.productTotalCount = productTotalCount;
+    }
+
+    public String getProductTotalPrice() {
+        return productTotalPrice;
+    }
+
+    public void setProductTotalPrice(String productTotalPrice) {
+        this.productTotalPrice = productTotalPrice;
     }
 
     public String getReceiveName() {

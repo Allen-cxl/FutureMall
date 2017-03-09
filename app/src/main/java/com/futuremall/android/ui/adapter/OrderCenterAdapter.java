@@ -1,29 +1,22 @@
 package com.futuremall.android.ui.adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.OrderProduct;
-import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.ui.ViewHolder.OrderFooterViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderHeadViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderItemViewHolder;
-import com.futuremall.android.ui.ViewHolder.ShoppingCartChildViewHolder;
-import com.futuremall.android.ui.ViewHolder.ShoppingCartGroupViewHolder;
-import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
-import com.futuremall.android.ui.listener.OnShopCartChangeListener;
+import com.futuremall.android.ui.activity.OrderDetailActivity;
 import com.futuremall.android.util.DecimalUtil;
 import com.futuremall.android.util.StringUtil;
-import com.futuremall.android.weight.AddReduceDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +53,13 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         OrderHeadViewHolder headerViewHolder = (OrderHeadViewHolder) holder;
         headerViewHolder.mTvShopName.setText(orderList.getShopName());
         headerViewHolder.mTvOrderExpress_status.setText("已发货");
+        headerViewHolder.mTvShopName.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                OrderDetailActivity.enter(mContext);
+            }
+        });
     }
 
     @Override

@@ -70,6 +70,17 @@ public class TestData {
 
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setShopName("店铺");
+        orderDetail.setOrderNo("1324234234234");
+        orderDetail.setOrderDate("2017-3-9");
+        orderDetail.setReceiveName("隔壁老王");
+        orderDetail.setReceivePhone("13800000000");
+        orderDetail.setReceiveAddress("安庆市迎江区安庆市迎江区安庆市迎江区安庆市迎江区安庆市迎江区");
+        orderDetail.setExpressStatus(1);
+        orderDetail.setExpressType("圆通快递");
+        orderDetail.setExpressNo("TH2313434");
+        orderDetail.setExpressStatus(1);
+        orderDetail.setProductTotalCount("3");
+        orderDetail.setProductTotalPrice("2324.00");
         orderDetail.setExpressStatus(1);
         orderDetail.setOrderStatus(2);
         orderDetail.setIntegral(99999);

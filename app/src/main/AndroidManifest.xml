@@ -23,9 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.OrderCenterActivity">
+        <activity android:name=".ui.activity.OrderCenterActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.OrderDetailActivity">
+        <activity android:name=".ui.activity.OrderDetailActivity"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

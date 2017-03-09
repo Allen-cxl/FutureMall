@@ -31,9 +31,15 @@
     <string name="transfer">转账</string>
     <string name="payment">结算支付</string>
     <string name="order">订单中心</string>
+    <string name="order_detail">订单详情</string>
     <string name="record">操作记录</string>
     <string name="invite_register">邀请注册</string>
     <string name="recharge">充值</string>
     <string name="setup">设置</string>
     <string name="about">关于</string>
+    <string name="order_no">订单编号： </string>
+    <string name="order_data">订单时间： </string>
+    <string name="receive_info">收货信息：</string>
+    <string name="express_type">物流方式：</string>
+    <string name="express_no">物流单号：</string>
 </resources>

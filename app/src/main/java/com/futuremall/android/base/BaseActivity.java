@@ -53,9 +53,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
         TextView textView= (TextView)(findViewById(R.id.super_title));
 
-        if(title != null){
+        /*if(title != null){
             getSupportActionBar().setTitle(null);
-        }
+        }*/
 
         if(showBackButton){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

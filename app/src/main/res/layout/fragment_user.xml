@@ -171,7 +171,7 @@
             android:id="@id/tv_order"
             style="@style/TextViewDrawablePadStyle"
             android:drawableTop="@drawable/order"
-            android:text="@string/order"/>
+            android:text="@string/order_center"/>
 
         <TextView
             android:id="@id/tv_record"

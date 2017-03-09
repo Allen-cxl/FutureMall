@@ -13,7 +13,6 @@
         android:button="@null"/>
 
     <FrameLayout
-        android:id="@id/fl_product_pic"
         android:layout_width="200px"
         android:layout_height="200px"
         android:layout_marginLeft="10dp"
