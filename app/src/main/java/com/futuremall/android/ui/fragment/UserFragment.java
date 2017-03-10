@@ -9,6 +9,7 @@ import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.presenter.Contract.UserContract;
 import com.futuremall.android.presenter.UserPresenter;
+import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderCenterActivity;
 
 import butterknife.BindView;
@@ -92,6 +93,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 OrderCenterActivity.enter(getContext());
                 break;
             case R.id.tv_record:
+                OperationRecordActivity.enter(getContext());
                 break;
             case R.id.tv_invite_register:
                 break;

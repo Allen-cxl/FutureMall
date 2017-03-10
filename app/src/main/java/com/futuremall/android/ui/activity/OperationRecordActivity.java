@@ -1,21 +1,25 @@
-package com.futuremall.android.ui.fragment;
-
+package com.futuremall.android.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.futuremall.android.R;
-import com.futuremall.android.base.BaseFragment;
-import com.futuremall.android.model.bean.OrderList;
-import com.futuremall.android.presenter.Contract.OrderCenterContract;
-import com.futuremall.android.presenter.OrderCenterPresenter;
-import com.futuremall.android.ui.activity.OperationRecordActivity;
+import com.futuremall.android.base.BaseActivity;
+import com.futuremall.android.model.bean.OperationRecordBean;
+import com.futuremall.android.presenter.Contract.OperationRecordContract;
+import com.futuremall.android.presenter.Contract.OrderDetailContract;
+import com.futuremall.android.presenter.OperationRecordPresenter;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
+import com.futuremall.android.ui.adapter.OperationRecordAdapter;
 import com.futuremall.android.ui.adapter.OrderCenterAdapter;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
@@ -23,44 +27,48 @@ import java.util.List;
 
 import butterknife.BindView;
 
+public class OperationRecordActivity extends BaseActivity<OperationRecordPresenter> implements OperationRecordContract.View {
 
-public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements OrderCenterContract.View {
-
-
+    @BindView(R.id.super_toolbar)
+    Toolbar mSuperToolbar;
     @BindView(R.id.recycleView)
     RecyclerView mRecycleView;
     @BindView(R.id.swipeRefreshLayout)
     SHSwipeRefreshLayout mSwipeRefreshLayout;
-    OrderCenterAdapter mAdapter;
+    OperationRecordAdapter mAdapter;
 
     @Override
     protected void initInject() {
-        getFragmentComponent().inject(this);
+        getActivityComponent().inject(this);
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_order;
+    protected int getLayout() {
+        return R.layout.activity_operation_record;
     }
 
     @Override
     protected void initEventAndData() {
 
+        setToolBar(mSuperToolbar, getString(R.string.record), true);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new OrderCenterAdapter(getContext());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new OperationRecordAdapter(this);
         mRecycleView.addItemDecoration(new DividerItemDecoration(
-                getContext(), DividerItemDecoration.VERTICAL_LIST));
+                this, DividerItemDecoration.VERTICAL_LIST));
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
 
-        mPresenter.orderList();
+        mPresenter.recordList();
         mSwipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        mPresenter.recordList();
+                        Toast.makeText(OperationRecordActivity.this, "刷新完成", Toast.LENGTH_SHORT).show();
                     }
                 }, 1000);
             }
@@ -71,6 +79,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
                     @Override
                     public void run() {
                         mSwipeRefreshLayout.finishLoadmore();
+                        Toast.makeText(OperationRecordActivity.this, "加载完成", Toast.LENGTH_SHORT).show();
                     }
                 }, 1600);
             }
@@ -109,16 +118,13 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
     }
 
     @Override
-    public void showError(String msg) {
-
-    }
-
-    @Override
-    public void showContent(List<OrderList> dataList) {
-
+    public void showContent(List<OperationRecordBean> recordBeanList) {
         mSwipeRefreshLayout.finishRefresh();
-        mAdapter.setData(dataList);
+        mAdapter.addMoreDatas(recordBeanList);
     }
 
-
+    public static void enter(Context context) {
+        Intent intent = new Intent(context, OperationRecordActivity.class);
+        context.startActivity(intent);
+    }
 }

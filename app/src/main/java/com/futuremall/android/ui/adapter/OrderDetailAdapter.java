@@ -158,7 +158,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView mTvOrderNo;
         @BindView(R.id.tv_orderStatus)
         TextView mTvOrderStatus;
-        @BindView(R.id.tv_orderDate)
+        @BindView(R.id.tv_date)
         TextView mTvOrderDate;
         @BindView(R.id.tv_user_name)
         TextView mTvUserName;

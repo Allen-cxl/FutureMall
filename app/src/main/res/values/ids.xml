@@ -58,12 +58,18 @@
     <item name="tv_order_express_status" type="id"/>
     <item name="tv_orderNo" type="id"/>
     <item name="tv_orderStatus" type="id"/>
-    <item name="tv_orderDate" type="id"/>
+    <item name="tv_date" type="id"/>
     <item name="tv_address" type="id"/>
     <item name="tv_express_type" type="id"/>
     <item name="tv_express_no" type="id"/>
     <item name="layout_express" type="id"/>
     <item name="cb_shop_name" type="id"/>
+    <item name="tv_reason" type="id"/>
+    <item name="tv_income_integral" type="id"/>
+    <item name="tv_cumulative_consume" type="id"/>
+    <item name="tv_promotion_give" type="id"/>
+    <item name="tv_promotion_limit" type="id"/>
+    <item name="tv_income_expenses" type="id"/>
 
 
 </resources>

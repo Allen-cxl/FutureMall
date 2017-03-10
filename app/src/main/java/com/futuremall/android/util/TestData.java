@@ -1,5 +1,6 @@
 package com.futuremall.android.util;
 
+import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.OrderProduct;
@@ -98,5 +99,30 @@ public class TestData {
         }
 
         return orderDetail;
+    }
+
+    public static List<OperationRecordBean> getRecordList() {
+
+
+        List<OperationRecordBean> recordBeanList = new ArrayList<>();
+
+
+        for (int j = 0; j < 6; j++) {
+            OperationRecordBean bean = new OperationRecordBean();
+            bean.setChange_desc("转账支付用户[1022][15157393979]积分：2000" + j);
+            bean.setRebate("35353");
+            if(j %2 ==0){
+                bean.setPay_points("35353.00");
+            }else{
+                bean.setPay_points("-35353.00");
+            }
+            bean.setPayin("45453");
+            bean.setHighreward("44444");
+            bean.setUser_money("6565.89");
+            bean.setChange_time("2017年2月15日  09:28:00");
+            recordBeanList.add(bean);
+        }
+
+        return recordBeanList;
     }
 }

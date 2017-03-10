@@ -5,6 +5,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
+import android.widget.TextView;
 
 import com.futuremall.android.R;
 
@@ -45,5 +46,19 @@ public class StringUtil {
             return new SpannableStringBuilder("");
         }
 
+    }
+
+    public static void setOpreationRecordTextColor(String price, TextView textView, Context context){
+
+        if(isEmpty(price)){
+            return;
+        }
+        if(Float.valueOf(price) > 0){
+            textView.setText("+"+price);
+            textView.setTextColor(context.getResources().getColor(R.color.green));
+        }else{
+            textView.setText(price);
+            textView.setTextColor(context.getResources().getColor(R.color.orange));
+        }
     }
 }

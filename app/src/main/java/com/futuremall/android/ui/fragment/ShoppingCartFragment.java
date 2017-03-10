@@ -110,7 +110,17 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
             @Override
             public void onRefreshPulStateChange(float percent, int state) {
-
+                switch (state) {
+                    case SHSwipeRefreshLayout.NOT_OVER_TRIGGER_POINT:
+                        mSwipeRefreshLayout.setRefreshViewText("下拉刷新");
+                        break;
+                    case SHSwipeRefreshLayout.OVER_TRIGGER_POINT:
+                        mSwipeRefreshLayout.setRefreshViewText("松开刷新");
+                        break;
+                    case SHSwipeRefreshLayout.START:
+                        mSwipeRefreshLayout.setRefreshViewText("正在刷新");
+                        break;
+                }
             }
 
             @Override

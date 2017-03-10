@@ -43,4 +43,10 @@
     <string name="receive_info">收货信息：</string>
     <string name="express_type">物流方式：%s</string>
     <string name="express_no">物流单号：%s</string>
+    <string name="promotion_give">推广赠送</string>
+    <string name="promotion_limit">推广额度</string>
+    <string name="cumulative_consume">累计消费</string>
+    <string name="income_integral">待返积分</string>
+    <string name="income_expenses">收入/支出</string>
+    <string name="reason">账户变动原因</string>
 </resources>
