@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/super_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
-    app:titleTextAppearance="@style/ToolbarTitle"
+    android:navigationIcon="@drawable/icon_back"
     app:layout_collapseMode="pin"
-    app:popupTheme="@style/AppTheme.PopupOverlay">
-
+    app:navigationIcon="@drawable/icon_back"
+    app:popupTheme="@style/AppTheme.PopupOverlay"
+    app:titleTextAppearance="@style/ToolbarTitle">
 
 
     <TextView
@@ -17,11 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:drawablePadding="5dp"
-        android:enabled="false" android:ellipsize="end"
+        android:ellipsize="end"
+        android:enabled="false"
         android:gravity="center"
+        android:maxLines="1"
         android:paddingLeft="@dimen/default_padding"
-        android:paddingRight="@dimen/default_padding"
-        android:maxLines="1"/>
+        android:paddingRight="@dimen/default_padding"/>
 
 
 </android.support.v7.widget.Toolbar>

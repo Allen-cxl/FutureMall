@@ -60,9 +60,9 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
 
         ShoppingCartBean sectionObject = dataList.get(section);
         ShoppingCartGroupViewHolder headerViewHolder = (ShoppingCartGroupViewHolder) holder;
-        headerViewHolder.mTvShopName.setText(sectionObject.getShopName());
-        headerViewHolder.mCheckBoxGroup.setChecked(sectionObject.isCheckEd());
-        headerViewHolder.mCheckBoxGroup.setOnClickListener(new View.OnClickListener() {
+        headerViewHolder.mCheckBoxShopName.setText(sectionObject.getShopName());
+        headerViewHolder.mCheckBoxShopName.setChecked(sectionObject.isCheckEd());
+        headerViewHolder.mCheckBoxShopName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isSelectAll = ShoppingCartHepler.selectGroup(dataList, section, isGroupChecked);
@@ -71,7 +71,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
                 notifyDataSetChanged();
             }
         });
-        headerViewHolder.mCheckBoxGroup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        headerViewHolder.mCheckBoxShopName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isGroupChecked = isChecked;

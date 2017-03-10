@@ -42,7 +42,7 @@ public class OrderCenterActivity extends SimpleActivity {
     @Override
     protected void initEventAndData() {
 
-        setToolBar(mSuperToolbar, getString(R.string.order_center), false);
+        setToolBar(mSuperToolbar, getString(R.string.order_center), true);
         creatTabLayout();
     }
 

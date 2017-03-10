@@ -37,9 +37,10 @@
     <string name="recharge">充值</string>
     <string name="setup">设置</string>
     <string name="about">关于</string>
-    <string name="order_no">订单编号： </string>
-    <string name="order_data">订单时间： </string>
+    <string name="order_no">订单编号： %s</string>
+    <string name="count_format">x%s</string>
+    <string name="order_data">订单时间： %s</string>
     <string name="receive_info">收货信息：</string>
-    <string name="express_type">物流方式：</string>
-    <string name="express_no">物流单号：</string>
+    <string name="express_type">物流方式：%s</string>
+    <string name="express_no">物流单号：%s</string>
 </resources>

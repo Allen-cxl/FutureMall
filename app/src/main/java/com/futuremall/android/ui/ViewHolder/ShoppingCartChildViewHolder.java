@@ -19,8 +19,6 @@ public class ShoppingCartChildViewHolder extends RecyclerView.ViewHolder {
     public CheckBox mCheckBoxChild;
     @BindView(R.id.iv_product_pic)
     public ImageView mIvProductPic;
-    @BindView(R.id.fl_product_pic)
-    public FrameLayout mFlProductPic;
     @BindView(R.id.tv_product_name)
     public TextView mTvProductName;
     @BindView(R.id.tv_product_price)

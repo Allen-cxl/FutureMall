@@ -4,22 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@color/line"
     android:padding="10dp"
-    android:gravity="center">
+    android:gravity="center_vertical|left">
 
     <CheckBox
-        android:id="@id/check_box_group"
+        android:id="@id/cb_shop_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_shopping_cat_cb"
+        android:background="@null"
+        android:drawableLeft="@drawable/selector_shopping_cat_cb"
+        android:drawablePadding="10dp"
         android:button="@null"/>
-
-    <TextView
-        android:id="@id/tv_shop_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:maxLines="1"
-        android:layout_weight="1"
-        android:text="88.00"/>
 
 </LinearLayout>

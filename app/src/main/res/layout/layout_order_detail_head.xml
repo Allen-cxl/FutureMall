@@ -29,8 +29,8 @@
         android:id="@id/tv_orderDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1px"
-        android:textColor="@color/line"
+        android:layout_marginTop="1dp"
+        android:textColor="@color/font_gray"
         android:background="@android:color/white"
         android:padding="10dp"
         android:text="@string/amount"/>
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="订单时间"
                     android:maxLines="2"
-                    android:textColor="@color/line"/>
+                    android:textColor="@color/font_gray"/>
 
             </LinearLayout>
 

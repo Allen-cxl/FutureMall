@@ -38,10 +38,10 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
         TextView textView= (TextView)(findViewById(R.id.super_title));
 
-        /*if(title != null){
-            getSupportActionBar().setTitle("1");
+        if(title != null){
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle(null);
         }
-*/
         if(showBackButton){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);

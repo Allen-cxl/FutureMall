@@ -1,9 +1,7 @@
 package com.futuremall.android.ui.ViewHolder;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.util.DecimalUtil;

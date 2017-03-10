@@ -23,6 +23,10 @@
 
     </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,24 +36,17 @@
         android:paddingLeft="10dp"
         android:paddingTop="10dp">
 
-        <LinearLayout
-            android:id="@id/ll_checkBox"
+        <CheckBox
+            android:id="@id/checkBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_shopping_cat_cb"
-                android:text="@string/all"
-                android:focusable="false"
-                android:textSize="@dimen/font_normal"
-                android:button="@null"/>
-
-        </LinearLayout>
+            android:background="@null"
+            android:button="@null"
+            android:drawableLeft="@drawable/selector_shopping_cat_cb"
+            android:drawablePadding="10dp"
+            android:text="@string/all"
+            android:textSize="@dimen/font_normal"/>
 
 
         <LinearLayout

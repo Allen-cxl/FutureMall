@@ -13,10 +13,8 @@ import butterknife.ButterKnife;
 
 public class ShoppingCartGroupViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.check_box_group)
-    public CheckBox mCheckBoxGroup;
-    @BindView(R.id.tv_shop_name)
-    public TextView mTvShopName;
+    @BindView(R.id.cb_shop_name)
+    public CheckBox mCheckBoxShopName;
 
     public ShoppingCartGroupViewHolder(View v) {
         super(v);

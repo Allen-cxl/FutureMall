@@ -43,8 +43,6 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     SHSwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.checkBox)
     CheckBox mCheckBox;
-    @BindView(R.id.ll_checkBox)
-    LinearLayout mLlCheckBox;
     @BindView(R.id.tv_product_price)
     TextView mTvProductPrice;
     @BindView(R.id.tv_freight)
@@ -78,7 +76,6 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
         mBtPay.setOnClickListener(this);
         mBtDelete.setOnClickListener(this);
         mCheckBox.setOnClickListener(this);
-        mLlCheckBox.setOnClickListener(this);
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

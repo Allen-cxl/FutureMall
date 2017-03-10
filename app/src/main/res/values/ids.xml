@@ -63,6 +63,7 @@
     <item name="tv_express_type" type="id"/>
     <item name="tv_express_no" type="id"/>
     <item name="layout_express" type="id"/>
+    <item name="cb_shop_name" type="id"/>
 
 
 </resources>
