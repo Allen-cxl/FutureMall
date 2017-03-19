@@ -31,7 +31,7 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     @Override
     public void checkVersion() {
 
-        Disposable rxSubscription = mRetrofitHelper.getVersionInfo("1.0.1","1","56d0a3a025243867fd6d8842f90a568c")
+        Disposable rxSubscription = mRetrofitHelper.getVersionInfo("1.0.1","1")
                 .compose(RxUtil.<MyHttpResponse<VersionBean>>rxSchedulerHelper())
                 .compose(RxUtil.<VersionBean>handleMyResult())
                 .subscribe(new Consumer<VersionBean>() {

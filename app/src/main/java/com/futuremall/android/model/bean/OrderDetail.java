@@ -1,131 +1,138 @@
 package com.futuremall.android.model.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by PVer on 2017/3/7.
  */
 
-public class OrderDetail {
+public class OrderDetail implements Parcelable {
 
-    private String orderID;
-    private String orderNo;
-    private String orderDate;
-    private String expressType;
-    private String expressNo;
-    private String shopName;
-    private String productTotalCount;
-    private String productTotalPrice;
-    private String receiveName;
-    private String receivePhone;
-    private String receiveAddress;
-    private int orderStatus;
-    private int expressStatus;
+    private static int NOSEND = 0; //0待发货
+    private static int ACCEPT; //1待收货
+    private static int ACCEPTED; //2已收货
+
+    private String shop_id;
+    private String shop_name;
+    private String order_id;
+    private String order_sn;
+    private String goods_num;
+    private String goods_price;
+    private int state;
+    private String add_time;
+    private String user_name;
+    private String mobile_phone;
+    private String address;
+    private String shipping_name;
+    private String invoice_no;
     private int integral;
-    private List<OrderProduct> data;
+    private List<OrderProduct> order_goods;
 
-    public String getOrderID() {
-        return orderID;
+    public String getShop_id() {
+        return shop_id;
     }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
+    public void setShop_id(String shop_id) {
+        this.shop_id = shop_id;
     }
 
-    public String getOrderNo() {
-        return orderNo;
+    public String getShop_name() {
+        return shop_name;
     }
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public void setShop_name(String shop_name) {
+        this.shop_name = shop_name;
     }
 
-    public String getOrderDate() {
-        return orderDate;
+    public String getOrder_id() {
+        return order_id;
     }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
     }
 
-    public String getExpressType() {
-        return expressType;
+    public String getOrder_sn() {
+        return order_sn;
     }
 
-    public void setExpressType(String expressType) {
-        this.expressType = expressType;
+    public void setOrder_sn(String order_sn) {
+        this.order_sn = order_sn;
     }
 
-    public String getExpressNo() {
-        return expressNo;
+    public String getGoods_num() {
+        return goods_num;
     }
 
-    public void setExpressNo(String expressNo) {
-        this.expressNo = expressNo;
+    public void setGoods_num(String goods_num) {
+        this.goods_num = goods_num;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getGoods_price() {
+        return goods_price;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setGoods_price(String goods_price) {
+        this.goods_price = goods_price;
     }
 
-    public String getProductTotalCount() {
-        return productTotalCount;
+    public int getState() {
+        return state;
     }
 
-    public void setProductTotalCount(String productTotalCount) {
-        this.productTotalCount = productTotalCount;
+    public void setState(int state) {
+        this.state = state;
     }
 
-    public String getProductTotalPrice() {
-        return productTotalPrice;
+    public String getAdd_time() {
+        return add_time;
     }
 
-    public void setProductTotalPrice(String productTotalPrice) {
-        this.productTotalPrice = productTotalPrice;
+    public void setAdd_time(String add_time) {
+        this.add_time = add_time;
     }
 
-    public String getReceiveName() {
-        return receiveName;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setReceiveName(String receiveName) {
-        this.receiveName = receiveName;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getReceivePhone() {
-        return receivePhone;
+    public String getMobile_phone() {
+        return mobile_phone;
     }
 
-    public void setReceivePhone(String receivePhone) {
-        this.receivePhone = receivePhone;
+    public void setMobile_phone(String mobile_phone) {
+        this.mobile_phone = mobile_phone;
     }
 
-    public String getReceiveAddress() {
-        return receiveAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setReceiveAddress(String receiveAddress) {
-        this.receiveAddress = receiveAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getOrderStatus() {
-        return orderStatus;
+    public String getShipping_name() {
+        return shipping_name;
     }
 
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setShipping_name(String shipping_name) {
+        this.shipping_name = shipping_name;
     }
 
-    public int getExpressStatus() {
-        return expressStatus;
+    public String getInvoice_no() {
+        return invoice_no;
     }
 
-    public void setExpressStatus(int expressStatus) {
-        this.expressStatus = expressStatus;
+    public void setInvoice_no(String invoice_no) {
+        this.invoice_no = invoice_no;
     }
 
     public int getIntegral() {
@@ -136,11 +143,81 @@ public class OrderDetail {
         this.integral = integral;
     }
 
-    public List<OrderProduct> getData() {
-        return data;
+    public List<OrderProduct> getOrder_goods() {
+        return order_goods;
     }
 
-    public void setData(List<OrderProduct> data) {
-        this.data = data;
+    public void setOrder_goods(List<OrderProduct> order_goods) {
+        this.order_goods = order_goods;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.shop_id);
+        dest.writeString(this.shop_name);
+        dest.writeString(this.order_id);
+        dest.writeString(this.order_sn);
+        dest.writeString(this.goods_num);
+        dest.writeString(this.goods_price);
+        dest.writeInt(this.state);
+        dest.writeString(this.add_time);
+        dest.writeString(this.user_name);
+        dest.writeString(this.mobile_phone);
+        dest.writeString(this.address);
+        dest.writeString(this.shipping_name);
+        dest.writeString(this.invoice_no);
+        dest.writeInt(this.integral);
+        dest.writeTypedList(this.order_goods);
+    }
+
+    public OrderDetail() {
+    }
+
+    protected OrderDetail(Parcel in) {
+        this.shop_id = in.readString();
+        this.shop_name = in.readString();
+        this.order_id = in.readString();
+        this.order_sn = in.readString();
+        this.goods_num = in.readString();
+        this.goods_price = in.readString();
+        this.state = in.readInt();
+        this.add_time = in.readString();
+        this.user_name = in.readString();
+        this.mobile_phone = in.readString();
+        this.address = in.readString();
+        this.shipping_name = in.readString();
+        this.invoice_no = in.readString();
+        this.integral = in.readInt();
+        this.order_goods = in.createTypedArrayList(OrderProduct.CREATOR);
+    }
+
+    public static final Parcelable.Creator<OrderDetail> CREATOR = new Parcelable.Creator<OrderDetail>() {
+        @Override
+        public OrderDetail createFromParcel(Parcel source) {
+            return new OrderDetail(source);
+        }
+
+        @Override
+        public OrderDetail[] newArray(int size) {
+            return new OrderDetail[size];
+        }
+    };
+
+    public String expressStatus(int state){
+
+        if(state == NOSEND){
+            return "待发货";
+        }else if(state == ACCEPT){
+            return "待收货";
+        }else if(state == ACCEPTED){
+            return "已收货";
+        }
+
+        return "";
     }
 }

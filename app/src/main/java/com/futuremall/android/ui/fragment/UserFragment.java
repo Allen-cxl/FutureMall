@@ -9,8 +9,11 @@ import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.presenter.Contract.UserContract;
 import com.futuremall.android.presenter.UserPresenter;
+import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderCenterActivity;
+import com.futuremall.android.ui.activity.RechargeActivity;
+import com.futuremall.android.ui.activity.TransferActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -84,8 +87,11 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_userInfo:
+
+                LoginActivity.enter(getContext());
                 break;
             case R.id.tv_transfer:
+                TransferActivity.enter(getContext());
                 break;
             case R.id.tv_payment:
                 break;
@@ -98,6 +104,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
             case R.id.tv_invite_register:
                 break;
             case R.id.tv_recharge:
+                RechargeActivity.enter(getContext());
                 break;
             case R.id.tv_setup:
                 break;

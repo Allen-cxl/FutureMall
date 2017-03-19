@@ -70,6 +70,22 @@
     <item name="tv_promotion_give" type="id"/>
     <item name="tv_promotion_limit" type="id"/>
     <item name="tv_income_expenses" type="id"/>
+    <item name="tv_pay_type" type="id"/>
+    <item name="et_money" type="id"/>
+    <item name="et_phone" type="id"/>
+    <item name="et_password" type="id"/>
+    <item name="tv_login" type="id"/>
+    <item name="tv_register" type="id"/>
+    <item name="tv_forget_password" type="id"/>
+    <item name="tv_next" type="id"/>
+    <item name="et_integral" type="id"/>
+    <item name="et_name" type="id"/>
+    <item name="et_account" type="id"/>
+    <item name="tv_name" type="id"/>
+    <item name="tv_pay_integral" type="id"/>
+    <item name="tv_current_integral" type="id"/>
+    <item name="tv_pay_multiple" type="id"/>
+    <item name="et_cash_money" type="id"/>
 
 
 </resources>

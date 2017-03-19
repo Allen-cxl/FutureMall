@@ -26,7 +26,7 @@ public class OrderCenterPresenter extends RxPresenter<OrderCenterContract.View> 
 
     @Override
     public void orderList() {
-        List<OrderList> dataList = TestData.getOrderList();
-        mView.showContent(dataList);
+//        List<OrderList> dataList = TestData.getOrderList();
+//        mView.showContent(dataList);
     }
 }

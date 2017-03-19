@@ -43,7 +43,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if(orderDetail != null){
             mOrderDetail = orderDetail;
-            mOrderProducts = orderDetail.getData();
+            mOrderProducts = orderDetail.getOrder_goods();
             notifyDataSetChanged();
         }
     }
@@ -81,14 +81,14 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         final OrderProduct order = mOrderProducts.get(position-1);
         OrderDetailViewHolder itemViewHolder = (OrderDetailViewHolder) holder;
         Glide.with(mContext.getApplicationContext())
-                .load(order.getProductPic())
+                .load(order.getGoods_img())
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(itemViewHolder.mIvProductPic);
-        itemViewHolder.mTvProductName.setText(order.getProductName());
-        String price = String.format(mContext.getString(R.string.price), order.getProductPrice());
+        itemViewHolder.mTvProductName.setText(order.getGoods_name());
+        String price = String.format(mContext.getString(R.string.price), order.getGoods_price());
         itemViewHolder.mTvProductPrice.setText(StringUtil.getPrice(mContext, price));
-        itemViewHolder.mTvCount.setText(String.format(mContext.getString(R.string.count_format), String.valueOf(order.getProductCount())));
+        itemViewHolder.mTvCount.setText(String.format(mContext.getString(R.string.count_format), String.valueOf(order.getGoods_num())));
     }
 
     @Override
@@ -109,23 +109,23 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void intValueHeadView(OrderDetailHeadHolder viewHolder, OrderDetail orderDetail){
 
-        viewHolder.mTvOrderNo.setText(String.format(mContext.getString(R.string.order_no),orderDetail.getExpressNo()));
-        viewHolder.mTvOrderDate.setText(String.format(mContext.getString(R.string.order_data), orderDetail.getOrderDate()));
-        viewHolder.mTvUserName.setText(orderDetail.getReceiveName() +"   "+ orderDetail.getReceivePhone());
-        viewHolder.mTvAddress.setText(orderDetail.getReceiveAddress());
-        viewHolder.mTvOrderStatus.setText("卖家已发货");
-        viewHolder.mTvShopName.setText(orderDetail.getShopName());
+        viewHolder.mTvOrderNo.setText(String.format(mContext.getString(R.string.order_no),orderDetail.getOrder_sn()));
+        viewHolder.mTvOrderDate.setText(String.format(mContext.getString(R.string.order_data), orderDetail.getAdd_time()));
+        viewHolder.mTvUserName.setText(orderDetail.getUser_name() +"   "+ orderDetail.getMobile_phone());
+        viewHolder.mTvAddress.setText(orderDetail.getAddress());
+        viewHolder.mTvOrderStatus.setText(orderDetail.expressStatus(orderDetail.getState()));
+        viewHolder.mTvShopName.setText(orderDetail.getShop_name());
     }
 
     private void intValueFootView(final OrderDetailFootHolder viewHolder, OrderDetail orderDetail){
 
-        viewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderDetail.getProductTotalCount()));
-        String price = StringUtil.getPrice(mContext, orderDetail.getProductTotalPrice()).toString();
+        viewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderDetail.getGoods_num()));
+        String price = StringUtil.getPrice(mContext, orderDetail.getGoods_price()+"").toString();
         String integral = String.format(mContext.getString(R.string.total_integral), orderDetail.getIntegral());
         viewHolder.mTvTotalPrice.setText(price + integral);
 
-        viewHolder.mTvExpressType.setText(String.format(mContext.getString(R.string.express_type), orderDetail.getExpressType()));
-        viewHolder.mTvExpressNo.setText(String.format(mContext.getString(R.string.express_no), orderDetail.getExpressNo()));
+        viewHolder.mTvExpressType.setText(String.format(mContext.getString(R.string.express_type), orderDetail.getShipping_name()));
+        viewHolder.mTvExpressNo.setText(String.format(mContext.getString(R.string.express_no), orderDetail.getInvoice_no()));
         viewHolder.mLayoutExpress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

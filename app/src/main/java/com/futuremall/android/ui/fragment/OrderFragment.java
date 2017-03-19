@@ -1,20 +1,14 @@
 package com.futuremall.android.ui.fragment;
 
 
-import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.presenter.Contract.OrderCenterContract;
 import com.futuremall.android.presenter.OrderCenterPresenter;
-import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.OrderCenterAdapter;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;

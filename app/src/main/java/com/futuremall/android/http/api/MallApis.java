@@ -3,6 +3,9 @@ package com.futuremall.android.http.api;
 
 
 import com.futuremall.android.http.MyHttpResponse;
+import com.futuremall.android.model.bean.BalanceBean;
+import com.futuremall.android.model.bean.ShopBean;
+import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 
 import io.reactivex.Flowable;
@@ -16,13 +19,55 @@ import retrofit2.http.POST;
 
 public interface MallApis {
 
-    String HOST = "http://api.yudianedu.cn/v3/web/Rest/elecclasscard/";
+    String HOST = "http://114.215.19.98/api/web/Rest/";
 
     /**
      * 获取版本号
      */
     @FormUrlEncoded
     @POST("getcardversion")
-    Flowable<MyHttpResponse<VersionBean>> getVersion(@Field("version_name") String versionName, @Field("version_code") String versionCode, @Field("sign") String sign);
+    Flowable<MyHttpResponse<VersionBean>> getVersion(@Field("version_name") String versionName, @Field("version_code") String versionCode);
 
+    /**
+     * 登录
+     */
+    @FormUrlEncoded
+    @POST("auth/login")
+    Flowable<MyHttpResponse<UserInfo>> login(@Field("mobile_phone") String phone, @Field("password") String password);
+
+    /**
+     * 转账
+     */
+    @FormUrlEncoded
+    @POST("user/accounts")
+    Flowable<MyHttpResponse<Object>> transfer(@Field("access_token") String token, @Field("mobile_phone") String phone, @Field("user_money") String money, @Field("pay_pass") String password);
+
+    /**
+     * 检查用户获取用户姓名（A类转账）
+     */
+    @FormUrlEncoded
+    @POST("user/getrealname")
+    Flowable<MyHttpResponse<UserInfo>> userName(@Field("access_token") String token, @Field("mobile_phone") String phone);
+
+
+    /**
+     * 获取店铺名称
+     */
+    @FormUrlEncoded
+    @POST("user/getshopname")
+    Flowable<MyHttpResponse<ShopBean>> shopName(@Field("access_token") String token, @Field("mobile_phone") String phone);
+
+    /**
+     * 获取用户余额
+     */
+    @FormUrlEncoded
+    @POST("user/getusermoney")
+    Flowable<MyHttpResponse<BalanceBean>> getBalance(@Field("access_token") String token);
+
+    /**
+     * 支付结算
+     */
+    @FormUrlEncoded
+    @POST("user/payment")
+    Flowable<MyHttpResponse<Object>> payment(@Field("access_token") String token, @Field("mobile_phone") String phone, @Field("user_money") String money, @Field("pay_pass") String payPass);
 }

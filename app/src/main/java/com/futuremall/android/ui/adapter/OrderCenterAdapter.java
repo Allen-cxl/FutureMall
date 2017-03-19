@@ -43,7 +43,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     public int getItemCount(int section) {
         OrderList sectionObject = dataList.get(section);
 
-        return sectionObject.getData().size();
+        return sectionObject.getOrder_goods().size();
     }
 
     @Override
@@ -51,8 +51,8 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
 
         OrderList orderList = dataList.get(section);
         OrderHeadViewHolder headerViewHolder = (OrderHeadViewHolder) holder;
-        headerViewHolder.mTvShopName.setText(orderList.getShopName());
-        headerViewHolder.mTvOrderExpress_status.setText("已发货");
+        headerViewHolder.mTvShopName.setText(orderList.getShop_name());
+        headerViewHolder.mTvOrderExpress_status.setText(orderList.expressStatus(orderList.getState()));
         headerViewHolder.mTvShopName.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -66,9 +66,8 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     public void onBindFooterViewHolder(RecyclerView.ViewHolder holder, int section) {
         OrderList orderList = dataList.get(section);
         OrderFooterViewHolder footerViewHolder = (OrderFooterViewHolder) holder;
-        String count = count();
-        footerViewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), count));
-        String price = StringUtil.getPrice(mContext, price()).toString();
+        footerViewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderList.getGoods_num()));
+        String price = StringUtil.getPrice(mContext, orderList.getGoods_price()).toString();
         String integral = String.format(mContext.getString(R.string.total_integral), orderList.getIntegral());
         footerViewHolder.mTvTotalPrice.setText(price + integral);
     }
@@ -76,17 +75,17 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int section, final int relativePosition, int absolutePosition) {
 
-        final OrderProduct order = dataList.get(section).getData().get(relativePosition);
+        final OrderProduct order = dataList.get(section).getOrder_goods().get(relativePosition);
         OrderItemViewHolder itemViewHolder = (OrderItemViewHolder) holder;
         Glide.with(mContext.getApplicationContext())
-                .load(order.getProductPic())
+                .load(order.getGoods_img())
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(itemViewHolder.mIvProductPic);
-        itemViewHolder.mTvProductName.setText(order.getProductName());
-        String price = String.format(mContext.getString(R.string.price), order.getProductPrice());
+        itemViewHolder.mTvProductName.setText(order.getGoods_name());
+        String price = String.format(mContext.getString(R.string.price), order.getGoods_price());
         itemViewHolder.mTvProductPrice.setText(StringUtil.getPrice(mContext, price));
-        itemViewHolder.mTvCount.setText("x"+String.valueOf(order.getProductCount()));
+        itemViewHolder.mTvCount.setText("x"+String.valueOf(order.getGoods_num()));
 
     }
 
@@ -135,36 +134,6 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
             this.clear();
         }
         this.notifyDataSetChanged();
-    }
-
-    public List<OrderList> getCurrentList() {
-        return dataList;
-    }
-
-    public String price() {
-        String price = "0";
-        for (OrderList orderList:dataList) {
-            List<OrderProduct>  list = orderList.getData();
-            for (OrderProduct order: list) {
-                String tempPrece = String.valueOf(order.getProductPrice());
-                String count = String.valueOf(order.getProductCount());
-                String priceMultiply = DecimalUtil.multiplyWithScale(tempPrece, count, 2);
-                price = DecimalUtil.add(price, priceMultiply);
-            }
-        }
-        return price;
-    }
-
-    public String count() {
-        int count = 0;
-        for (OrderList orderList:dataList) {
-            List<OrderProduct>  list = orderList.getData();
-            for (OrderProduct order: list) {
-                int countTemp = order.getProductCount();
-                count = countTemp + count;
-            }
-        }
-        return String.valueOf(count);
     }
 
     private void clear() {

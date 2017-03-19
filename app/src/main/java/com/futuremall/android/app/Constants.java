@@ -62,7 +62,7 @@ public class Constants {
 
     //================= KEY ====================
 
-    public static final String MALL_API_KEY = "yudianedutest"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
+    public static final String MALL_API_KEY = "weilai8088"; //sign key
     public static final String KEY_API = "52b7ec3471ac3bec6846577e79f20e4c"; //需要APIKEY请去 http://www.tianapi.com/#wxnew 申请,复用会减少访问可用次数
 
     public static final String KEY_ALIPAY = "aex07566wvayrgxicnaraae";
@@ -102,7 +102,7 @@ public class Constants {
 
     public static final String IT_KEY = "key";
 
-    public static final String IT_DETAIL_TITLE = "title";
+    public static final String IT_INTEGRAL = "integral";
 
     public static final String IT_DETAIL_URL = "url";
 

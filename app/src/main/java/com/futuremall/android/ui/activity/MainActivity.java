@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
 
-        mPresenter.checkVersion();
+        //mPresenter.checkVersion();
         mRadioHome.setOnClickListener(this);
         mRadioType.setOnClickListener(this);
         mRadioFutureAdd.setOnClickListener(this);

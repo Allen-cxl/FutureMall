@@ -6,7 +6,9 @@
 
     <color name="line">#EEEEEE</color>
     <color name="gray">#EAEAEA</color>
+    <color name="gray_light">#ee581e</color>
     <color name="orange">#F55633</color>
+    <color name="orange_depth">#ec4301</color>
     <color name="green">#6eb756</color>
     <color name="transparent">#00000000</color>
 

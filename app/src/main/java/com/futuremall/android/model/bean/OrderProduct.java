@@ -1,54 +1,91 @@
 package com.futuremall.android.model.bean;
 
-/**
- * Created by PVer on 2017/3/8.
- */
 
-public class OrderProduct {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private String productID;
-    private String productPic;
-    private String productName;
-    private float productPrice;
-    private int productCount;
+public class OrderProduct implements Parcelable {
 
-    public String getProductID() {
-        return productID;
+    private String goods_id;
+    private String goods_name;
+    private String goods_img;
+    private float goods_price;
+    private int goods_num;
+
+    public String getGoods_id() {
+        return goods_id;
     }
 
-    public void setProductID(String productID) {
-        this.productID = productID;
+    public void setGoods_id(String goods_id) {
+        this.goods_id = goods_id;
     }
 
-    public String getProductPic() {
-        return productPic;
+    public String getGoods_name() {
+        return goods_name;
     }
 
-    public void setProductPic(String productPic) {
-        this.productPic = productPic;
+    public void setGoods_name(String goods_name) {
+        this.goods_name = goods_name;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getGoods_img() {
+        return goods_img;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setGoods_img(String goods_img) {
+        this.goods_img = goods_img;
     }
 
-    public float getProductPrice() {
-        return productPrice;
+    public float getGoods_price() {
+        return goods_price;
     }
 
-    public void setProductPrice(float productPrice) {
-        this.productPrice = productPrice;
+    public void setGoods_price(float goods_price) {
+        this.goods_price = goods_price;
     }
 
-    public int getProductCount() {
-        return productCount;
+    public int getGoods_num() {
+        return goods_num;
     }
 
-    public void setProductCount(int productCount) {
-        this.productCount = productCount;
+    public void setGoods_num(int goods_num) {
+        this.goods_num = goods_num;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.goods_id);
+        dest.writeString(this.goods_name);
+        dest.writeString(this.goods_img);
+        dest.writeFloat(this.goods_price);
+        dest.writeInt(this.goods_num);
+    }
+
+    public OrderProduct() {
+    }
+
+    protected OrderProduct(Parcel in) {
+        this.goods_id = in.readString();
+        this.goods_name = in.readString();
+        this.goods_img = in.readString();
+        this.goods_price = in.readFloat();
+        this.goods_num = in.readInt();
+    }
+
+    public static final Parcelable.Creator<OrderProduct> CREATOR = new Parcelable.Creator<OrderProduct>() {
+        @Override
+        public OrderProduct createFromParcel(Parcel source) {
+            return new OrderProduct(source);
+        }
+
+        @Override
+        public OrderProduct[] newArray(int size) {
+            return new OrderProduct[size];
+        }
+    };
 }

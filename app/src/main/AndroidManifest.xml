@@ -31,8 +31,17 @@
             android:name=".ui.activity.OrderDetailActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.OperationRecordActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".ui.activity.OperationRecordActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.activity.RechargeActivity">
+        </activity>
+        <activity android:name=".ui.activity.LoginActivity">
+        </activity>
+        <activity android:name=".ui.activity.TransferActivity">
+        </activity>
+        <activity android:name=".ui.activity.PaymentActivity">
         </activity>
     </application>
 

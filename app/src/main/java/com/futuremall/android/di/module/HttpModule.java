@@ -47,7 +47,7 @@ public class HttpModule {
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
 
 
-        //builder.addInterceptor(new HttpBaseParamsLoggingInterceptor());
+        builder.addInterceptor(new HttpBaseParamsLoggingInterceptor());
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

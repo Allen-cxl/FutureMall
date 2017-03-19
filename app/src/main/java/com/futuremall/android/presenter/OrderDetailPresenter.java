@@ -28,7 +28,7 @@ public class OrderDetailPresenter extends RxPresenter<OrderDetailContract.View> 
 
     @Override
     public void orderDetail() {
-        OrderDetail deatail = TestData.getOrderDeatail();
-        mView.showContent(deatail);
+//        OrderDetail deatail = TestData.getOrderDeatail();
+//        mView.showContent(deatail);
     }
 }

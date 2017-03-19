@@ -39,7 +39,7 @@ public class TestData {
         return list;
     }
 
-    public static List<OrderList> getOrderList() {
+/*    public static List<OrderList> getOrderList() {
 
         List<OrderList> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -99,7 +99,7 @@ public class TestData {
         }
 
         return orderDetail;
-    }
+    }*/
 
     public static List<OperationRecordBean> getRecordList() {
 

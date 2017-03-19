@@ -3,9 +3,12 @@ package com.futuremall.android.di.component;
 import android.app.Activity;
 import com.futuremall.android.di.module.ActivityModule;
 import com.futuremall.android.di.scope.ActivityScope;
+import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.MainActivity;
 import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderDetailActivity;
+import com.futuremall.android.ui.activity.PaymentActivity;
+import com.futuremall.android.ui.activity.TransferActivity;
 
 import dagger.Component;
 
@@ -20,5 +23,11 @@ public interface ActivityComponent {
     void inject(OrderDetailActivity orderDetailActivity);
 
     void inject(OperationRecordActivity operationRecordActivity);
+
+    void inject(LoginActivity operationRecordActivity);
+
+    void inject(TransferActivity transferActivity);
+
+    void inject(PaymentActivity payActivity);
 
 }

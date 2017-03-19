@@ -2,13 +2,14 @@ package com.futuremall.android.http;
 
 
 import com.futuremall.android.http.api.MallApis;
+import com.futuremall.android.model.bean.BalanceBean;
+import com.futuremall.android.model.bean.ShopBean;
+import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 
 import io.reactivex.Flowable;
 
-/**
- * Created by codeest on 2016/8/3.
- */
+
 public class RetrofitHelper {
 
     private MallApis mMallApiService;
@@ -17,11 +18,31 @@ public class RetrofitHelper {
         this.mMallApiService = mallApiService;
     }
 
-    public Flowable<MyHttpResponse<VersionBean>> getVersionInfo(String versionName, String versionCode, String sign) {
-        return mMallApiService.getVersion(versionName, versionCode, sign);
+    public Flowable<MyHttpResponse<VersionBean>> getVersionInfo(String versionName, String versionCode) {
+        return mMallApiService.getVersion(versionName, versionCode);
     }
 
-   /* public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatListInfo(int num, int page) {
-        return mWechatApiService.getWXHot(Constants.KEY_API, num, page);
-    }*/
+    public Flowable<MyHttpResponse<UserInfo>> login(String phone, String password) {
+        return mMallApiService.login(phone, password);
+    }
+
+    public Flowable<MyHttpResponse<Object>> transfer(String token, String phone, String money, String password) {
+        return mMallApiService.transfer(token, phone, money, password);
+    }
+
+    public Flowable<MyHttpResponse<UserInfo>> userName(String token, String phone) {
+        return mMallApiService.userName(token, phone);
+    }
+
+    public Flowable<MyHttpResponse<ShopBean>> shopName(String token, String phone) {
+        return mMallApiService.shopName(token, phone);
+    }
+
+    public Flowable<MyHttpResponse<BalanceBean>> getBalance(String token) {
+        return mMallApiService.getBalance(token);
+    }
+
+    public Flowable<MyHttpResponse<Object>> payment(String token, String phone, String money, String password) {
+        return mMallApiService.payment(token, phone, money, password);
+    }
 }
