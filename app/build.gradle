@@ -46,6 +46,7 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
     compile 'com.miomin:shswiperefreshlayout:1.2.0'
     compile 'com.android.support.constraint:constraint-layout:+'
+    compile 'cn.aigestudio.datepicker:DatePicker:2.2.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
