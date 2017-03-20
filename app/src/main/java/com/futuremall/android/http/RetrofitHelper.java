@@ -45,4 +45,12 @@ public class RetrofitHelper {
     public Flowable<MyHttpResponse<Object>> payment(String token, String phone, String money, String password) {
         return mMallApiService.payment(token, phone, money, password);
     }
+
+    public Flowable<MyHttpResponse<Object>> getCode(String phone,String type) {
+        return mMallApiService.getCode(phone, type);
+    }
+
+    public Flowable<MyHttpResponse<Object>> updatePayPassword(String token, String newPassword, String code) {
+        return mMallApiService.updatePayPassword(token, newPassword, code);
+    }
 }

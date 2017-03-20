@@ -59,6 +59,14 @@ public class Constants {
 
     public static  final String SERVER_ACOUNT_PASSWORD_FREEZE_MSG = "账号被冻结";
 
+    //================= TYPE ====================
+
+    public static  final String NEW_USER = "1";//新用户注册
+
+    public static  final String FIND_PASSWORD = "2";//找回密码
+
+    public static  final String UPDATE_PAY_PASSWORD = "3";//修改支付密码
+
 
     //================= KEY ====================
 
@@ -81,21 +89,6 @@ public class Constants {
 
     public static final String PATH_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "codeest" + File.separator + "GeekNews";
 
-    //================= PREFERENCE ====================
-
-    public static final String SP_NIGHT_MODE = "night_mode";
-
-    public static final String SP_NO_IMAGE = "no_image";
-
-    public static final String SP_AUTO_CACHE = "auto_cache";
-
-    public static final String SP_CURRENT_ITEM = "current_item";
-
-    public static final String SP_LIKE_POINT = "like_point";
-
-    public static final String SP_VERSION_POINT = "version_point";
-
-    public static final String SP_MANAGER_POINT = "manager_point";
 
     //================= INTENT ====================
     public static final String IT_SIGN = "sign";

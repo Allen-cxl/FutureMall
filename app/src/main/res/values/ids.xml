@@ -86,6 +86,14 @@
     <item name="tv_current_integral" type="id"/>
     <item name="tv_pay_multiple" type="id"/>
     <item name="et_cash_money" type="id"/>
+    <item name = "tv_update_login_password" type = "id" />
+    <item name = "tv_update_pay_password" type = "id" />
+    <item name = "tv_clean_cache" type = "id" />
+    <item name = "tv_login_out" type = "id" />
+    <item name = "tv_submit" type = "id" />
+    <item name = "tv_code" type = "id" />
+    <item name = "et_code" type = "id" />
+    <item name = "et_new_password" type = "id" />
 
 
 </resources>

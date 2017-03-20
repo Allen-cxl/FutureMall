@@ -70,4 +70,18 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("user/payment")
     Flowable<MyHttpResponse<Object>> payment(@Field("access_token") String token, @Field("mobile_phone") String phone, @Field("user_money") String money, @Field("pay_pass") String payPass);
+
+    /**
+     * 获取验证码
+     */
+    @FormUrlEncoded
+    @POST("auth/obtaincode")
+    Flowable<MyHttpResponse<Object>> getCode(@Field("mobile_phone") String phone, @Field("type") String type);
+
+    /**
+     * 修改支付密码
+     */
+    @FormUrlEncoded
+    @POST("auth/updatepaypass")
+    Flowable<MyHttpResponse<Object>> updatePayPassword(@Field("access_token") String token, @Field("new_pass") String newPassword, @Field("code") String code);
 }
