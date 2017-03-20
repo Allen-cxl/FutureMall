@@ -1,6 +1,5 @@
 package com.futuremall.android.http;
 
-import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.util.Md5Utils;
 

@@ -15,12 +15,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public class UpdatePasswordPresenter extends RxPresenter<UpdatePasswordContract.View> implements UpdatePasswordContract.Presenter  {
+public class UpdatePayPasswordPresenter extends RxPresenter<UpdatePasswordContract.View> implements UpdatePasswordContract.Presenter  {
 
     private RetrofitHelper mRetrofitHelper;
 
     @Inject
-    UpdatePasswordPresenter(RetrofitHelper mRetrofitHelper) {
+    UpdatePayPasswordPresenter(RetrofitHelper mRetrofitHelper) {
         this.mRetrofitHelper = mRetrofitHelper;
     }
 

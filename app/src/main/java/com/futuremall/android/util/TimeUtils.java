@@ -73,6 +73,18 @@ public class TimeUtils {
         return retStrFormatNowDate;
     }
 
+    public static int getYear() {
+        Date date = new Date(System.currentTimeMillis());
+        String year = new SimpleDateFormat("yyyy").format(date);
+        return Integer.valueOf(year);
+    }
+
+    public static int getMonth() {
+        Date date = new Date(System.currentTimeMillis());
+        String month = new SimpleDateFormat("MM").format(date);
+        return Integer.valueOf(month);
+    }
+
     /**
      * 时间字符串中截取时分
      * @param time

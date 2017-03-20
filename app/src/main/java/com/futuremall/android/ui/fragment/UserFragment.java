@@ -12,6 +12,7 @@ import com.futuremall.android.presenter.UserPresenter;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderCenterActivity;
+import com.futuremall.android.ui.activity.PaymentActivity;
 import com.futuremall.android.ui.activity.RechargeActivity;
 import com.futuremall.android.ui.activity.SettingActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
@@ -95,6 +96,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 TransferActivity.enter(getContext());
                 break;
             case R.id.tv_payment:
+                PaymentActivity.enter(getContext(),"10000");
                 break;
             case R.id.tv_order:
                 OrderCenterActivity.enter(getContext());

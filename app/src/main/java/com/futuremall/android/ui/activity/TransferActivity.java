@@ -28,7 +28,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     Toolbar mSuperToolbar;
     @BindView(R.id.et_account)
     EditText mEtAccount;
-    @BindView(R.id.et_name)
+    @BindView(R.id.tv_name)
     TextView mTvName;
     @BindView(R.id.et_integral)
     EditText mEtIntegral;

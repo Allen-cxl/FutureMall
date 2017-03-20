@@ -2,22 +2,18 @@ package com.futuremall.android.presenter.Contract;
 
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
+import com.futuremall.android.model.bean.UserInfo;
 
 
-public class UpdatePasswordContract {
+public class UpdateLoginPasswordContract {
 
     public interface View extends BaseView {
 
-        void codeResponse();
-
-        void updateResponse();
+        void updateResponse(UserInfo info);
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
-
-        void getCode(String phone, String type);
-
-        void updatePassword(String password, String code);
+        void updatePassword(String oldPassword, String newPassword);
     }
 }

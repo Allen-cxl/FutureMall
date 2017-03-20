@@ -79,7 +79,6 @@
     <item name="tv_forget_password" type="id"/>
     <item name="tv_next" type="id"/>
     <item name="et_integral" type="id"/>
-    <item name="et_name" type="id"/>
     <item name="et_account" type="id"/>
     <item name="tv_name" type="id"/>
     <item name="tv_pay_integral" type="id"/>
@@ -94,6 +93,9 @@
     <item name = "tv_code" type = "id" />
     <item name = "et_code" type = "id" />
     <item name = "et_new_password" type = "id" />
+    <item name="et_old_password" type="id"/>
+    <item name="et_second_new_password" type="id"/>
+    <item name="date_picker" type="id"/>
 
 
 </resources>

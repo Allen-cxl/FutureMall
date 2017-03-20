@@ -60,9 +60,8 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_scan, menu);
-        return false;
+        return true;
     }
 
     @Override
@@ -158,16 +157,16 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
         if (!StringUtil.isEmpty(account) &&
                 !StringUtil.isEmpty(name) &&
                 !StringUtil.isEmpty(cashMoney) &&
-                !StringUtil.isEmpty(password) ) {
+                !StringUtil.isEmpty(password)) {
             mTvNext.setSelected(true);
-        }else{
+        } else {
             mTvNext.setSelected(false);
         }
     }
 
     public static void enter(Context context, String integral) {
 
-        Intent intent = new Intent(context, TransferActivity.class);
+        Intent intent = new Intent(context, PaymentActivity.class);
         intent.putExtra(Constants.IT_INTEGRAL, integral);
         context.startActivity(intent);
     }

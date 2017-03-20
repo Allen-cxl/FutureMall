@@ -42,11 +42,11 @@ public class SettingActivity extends SimpleActivity {
         switch (view.getId()) {
             case R.id.tv_update_login_password:
 
-                UpdatePasswordActivity.enter(this, getString(R.string.update_login_password), Constants.FIND_PASSWORD);
+                UpdateLoginPasswordActivity.enter(this);
                 break;
             case R.id.tv_update_pay_password:
 
-                UpdatePasswordActivity.enter(this, getString(R.string.update_pay_password), Constants.UPDATE_PAY_PASSWORD);
+                UpdatePayPasswordActivity.enter(this);
                 break;
             case R.id.tv_clean_cache:
 

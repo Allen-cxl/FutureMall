@@ -13,7 +13,7 @@ import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.presenter.Contract.UpdatePasswordContract;
-import com.futuremall.android.presenter.UpdatePasswordPresenter;
+import com.futuremall.android.presenter.UpdatePayPasswordPresenter;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.util.SystemUtil;
@@ -22,7 +22,7 @@ import com.futuremall.android.util.TimeUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class UpdatePasswordActivity extends BaseActivity<UpdatePasswordPresenter> implements UpdatePasswordContract.View, TextWatcher{
+public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPresenter> implements UpdatePasswordContract.View, TextWatcher{
 
 
     @BindView(R.id.super_toolbar)
@@ -40,7 +40,7 @@ public class UpdatePasswordActivity extends BaseActivity<UpdatePasswordPresenter
     @BindView(R.id.tv_submit)
     TextView mTvSubmit;
 
-    String mNewPassword, mTitle, mType;
+    String mNewPassword;
     TimeUtils.TimeCount mTimeCount;
 
     @Override
@@ -51,15 +51,13 @@ public class UpdatePasswordActivity extends BaseActivity<UpdatePasswordPresenter
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_update_password;
+        return R.layout.activity_update_pay_password;
     }
 
     @Override
     protected void initEventAndData() {
 
-        mTitle = getIntent().getStringExtra(Constants.IT_TITLE);
-        mType = getIntent().getStringExtra(Constants.IT_TYPE);
-        setToolBar(mSuperToolbar, mTitle, true);
+        setToolBar(mSuperToolbar, getString(R.string.update_pay_password), true);
         mEtPhone.addTextChangedListener(this);
         mEtCode.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
@@ -69,6 +67,12 @@ public class UpdatePasswordActivity extends BaseActivity<UpdatePasswordPresenter
     @Override
     public void codeResponse() {
         isSMSResultSuccess();
+    }
+
+    @Override
+    public void updateResponse() {
+
+        finish();
     }
 
     private boolean checkPara(String phone, String code, String newPassword, String surePassword) {
@@ -111,7 +115,7 @@ public class UpdatePasswordActivity extends BaseActivity<UpdatePasswordPresenter
                 String phone1 = mEtPhone.getText().toString();
                 SystemUtil.hideKeyboard(this);
                 if(!StringUtil.isEmpty(phone1)){
-                    mPresenter.getCode(phone1, mType);
+                    mPresenter.getCode(phone1, Constants.UPDATE_PAY_PASSWORD);
                 }
                 break;
             case R.id.tv_submit:
@@ -169,13 +173,13 @@ public class UpdatePasswordActivity extends BaseActivity<UpdatePasswordPresenter
             mTimeCount.cancel();
             mTimeCount = null;
         }
+
+        SystemUtil.hideKeyboard(this);
     }
 
-    public static void enter(Context context, String title, String type) {
+    public static void enter(Context context) {
 
-        Intent intent = new Intent(context, UpdatePasswordActivity.class);
-        intent.putExtra(Constants.IT_TITLE, title);
-        intent.putExtra(Constants.IT_TYPE, type);
+        Intent intent = new Intent(context, UpdatePayPasswordActivity.class);
         context.startActivity(intent);
     }
 }

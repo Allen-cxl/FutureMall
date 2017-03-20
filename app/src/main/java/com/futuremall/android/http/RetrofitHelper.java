@@ -53,4 +53,8 @@ public class RetrofitHelper {
     public Flowable<MyHttpResponse<Object>> updatePayPassword(String token, String newPassword, String code) {
         return mMallApiService.updatePayPassword(token, newPassword, code);
     }
+
+    public Flowable<MyHttpResponse<UserInfo>> updateLoginPassword(String token, String oldPassword, String newPassword) {
+        return mMallApiService.updateLoginPassword(token, oldPassword, newPassword);
+    }
 }
