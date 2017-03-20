@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/line"
     tools:context="com.futuremall.android.ui.activity.RechargeActivity">
 
     <include layout="@layout/super_toolbar"/>
@@ -62,7 +63,7 @@
         android:background="@drawable/corner_orange"
         android:textColor="@android:color/white"
         android:layout_margin="20dp"
-        android:padding="20dp"
+        android:padding="10dp"
         android:gravity="center"
         android:text="确认充值"/>
 </LinearLayout>
