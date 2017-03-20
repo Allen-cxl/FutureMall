@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.util.FileUtil;
@@ -40,10 +41,12 @@ public class SettingActivity extends SimpleActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_update_login_password:
+
+                UpdatePasswordActivity.enter(this, getString(R.string.update_login_password), Constants.FIND_PASSWORD);
                 break;
             case R.id.tv_update_pay_password:
 
-                UpdatePayPasswordActivity.enter(this);
+                UpdatePasswordActivity.enter(this, getString(R.string.update_pay_password), Constants.UPDATE_PAY_PASSWORD);
                 break;
             case R.id.tv_clean_cache:
 

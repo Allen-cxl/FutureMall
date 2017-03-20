@@ -4,7 +4,7 @@ import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
 
 
-public class UpdatePayPasswordContract {
+public class UpdatePasswordContract {
 
     public interface View extends BaseView {
 

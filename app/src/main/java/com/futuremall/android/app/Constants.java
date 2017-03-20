@@ -97,7 +97,9 @@ public class Constants {
 
     public static final String IT_INTEGRAL = "integral";
 
-    public static final String IT_DETAIL_URL = "url";
+    public static final String IT_TYPE = "type";
+
+    public static final String IT_TITLE = "title";
 
     public static final String IT_DETAIL_IMG_URL = "img_url";
 
@@ -110,8 +112,6 @@ public class Constants {
     public static final String IT_GOLD_TYPE_STR = "type_str";
 
     public static final String IT_GOLD_MANAGER = "manager";
-
-    public static final String IT_VTEX_TYPE = "type";
 
     public static final String IT_VTEX_TOPIC_ID = "id";
 

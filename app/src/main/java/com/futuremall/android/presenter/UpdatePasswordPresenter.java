@@ -4,7 +4,7 @@ import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.prefs.PreferencesFactory;
-import com.futuremall.android.presenter.Contract.UpdatePayPasswordContract;
+import com.futuremall.android.presenter.Contract.UpdatePasswordContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.RxUtil;
@@ -15,12 +15,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public class UpdatePayPasswordPresenter extends RxPresenter<UpdatePayPasswordContract.View> implements UpdatePayPasswordContract.Presenter  {
+public class UpdatePasswordPresenter extends RxPresenter<UpdatePasswordContract.View> implements UpdatePasswordContract.Presenter  {
 
     private RetrofitHelper mRetrofitHelper;
 
     @Inject
-    UpdatePayPasswordPresenter(RetrofitHelper mRetrofitHelper) {
+    UpdatePasswordPresenter(RetrofitHelper mRetrofitHelper) {
         this.mRetrofitHelper = mRetrofitHelper;
     }
 

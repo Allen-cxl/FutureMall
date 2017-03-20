@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
-import com.futuremall.android.presenter.Contract.UpdatePayPasswordContract;
-import com.futuremall.android.presenter.UpdatePayPasswordPresenter;
+import com.futuremall.android.presenter.Contract.UpdatePasswordContract;
+import com.futuremall.android.presenter.UpdatePasswordPresenter;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.util.SystemUtil;
@@ -22,7 +22,7 @@ import com.futuremall.android.util.TimeUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPresenter> implements UpdatePayPasswordContract.View, TextWatcher{
+public class UpdatePasswordActivity extends BaseActivity<UpdatePasswordPresenter> implements UpdatePasswordContract.View, TextWatcher{
 
 
     @BindView(R.id.super_toolbar)
@@ -40,7 +40,7 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
     @BindView(R.id.tv_submit)
     TextView mTvSubmit;
 
-    String mNewPassword;
+    String mNewPassword, mTitle, mType;
     TimeUtils.TimeCount mTimeCount;
 
     @Override
@@ -51,12 +51,15 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_update_pay_password;
+        return R.layout.activity_update_password;
     }
 
     @Override
     protected void initEventAndData() {
-        setToolBar(mSuperToolbar, getString(R.string.update_pay_password), true);
+
+        mTitle = getIntent().getStringExtra(Constants.IT_TITLE);
+        mType = getIntent().getStringExtra(Constants.IT_TYPE);
+        setToolBar(mSuperToolbar, mTitle, true);
         mEtPhone.addTextChangedListener(this);
         mEtCode.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
@@ -71,22 +74,22 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
     private boolean checkPara(String phone, String code, String newPassword, String surePassword) {
 
         if (StringUtil.isEmpty(phone)) {
-            SnackbarUtil.show(mTvSubmit, getString(R.string.enter_other_account));
+            SnackbarUtil.show(mTvSubmit, getString(R.string.enter_phone));
             return false;
         }
 
         if (StringUtil.isEmpty(code)) {
-            SnackbarUtil.show(mTvSubmit, getString(R.string.get_other_name));
+            SnackbarUtil.show(mTvSubmit, getString(R.string.enter_code));
             return false;
         }
 
         if (StringUtil.isEmpty(newPassword)) {
-            SnackbarUtil.show(mTvSubmit, getString(R.string.enter_cash_money));
+            SnackbarUtil.show(mTvSubmit, getString(R.string.enter_new_password));
             return false;
         }
 
         if (StringUtil.isEmpty(surePassword)) {
-            SnackbarUtil.show(mTvSubmit, getString(R.string.enter_pay_password));
+            SnackbarUtil.show(mTvSubmit, getString(R.string.again_enter_new_password));
             return false;
         }
 
@@ -108,7 +111,7 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
                 String phone1 = mEtPhone.getText().toString();
                 SystemUtil.hideKeyboard(this);
                 if(!StringUtil.isEmpty(phone1)){
-                    mPresenter.getCode(phone1, Constants.UPDATE_PAY_PASSWORD);
+                    mPresenter.getCode(phone1, mType);
                 }
                 break;
             case R.id.tv_submit:
@@ -168,9 +171,11 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
         }
     }
 
-    public static void enter(Context context) {
+    public static void enter(Context context, String title, String type) {
 
-        Intent intent = new Intent(context, UpdatePayPasswordActivity.class);
+        Intent intent = new Intent(context, UpdatePasswordActivity.class);
+        intent.putExtra(Constants.IT_TITLE, title);
+        intent.putExtra(Constants.IT_TYPE, type);
         context.startActivity(intent);
     }
 }
