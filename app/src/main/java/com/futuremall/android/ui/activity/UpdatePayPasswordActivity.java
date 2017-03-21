@@ -119,6 +119,7 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
                 }
                 break;
             case R.id.tv_submit:
+                SystemUtil.hideKeyboard(this);
                 String phone2 = mEtPhone.getText().toString();
                 String code = mEtCode.getText().toString();
                 String newPassword = mEtPassword.getText().toString();

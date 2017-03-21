@@ -9,12 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
-import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.UpdateLoginPasswordContract;
 import com.futuremall.android.presenter.UpdateLoginPasswordPresenter;
+import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.util.SystemUtil;
@@ -66,11 +66,13 @@ public class UpdateLoginPasswordActivity extends BaseActivity<UpdateLoginPasswor
 
     @OnClick(R.id.tv_submit)
     public void onClick() {
+
+        SystemUtil.hideKeyboard(this);
         String oldPassword = mEtOldPassword.getText().toString();
         String newPassword = mEtNewPassword.getText().toString();
         String surePassword = mEtSecondNewPassword.getText().toString();
         if(checkPara(oldPassword, newPassword, surePassword)){
-            mPresenter.updatePassword(oldPassword, mNewPassword);
+            mPresenter.updatePassword(oldPassword,  mNewPassword);
         }
 
     }

@@ -13,9 +13,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
-/**
- * Created by codeest on 16/8/19.
- */
 
 public interface MallApis {
 
@@ -27,6 +24,13 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("getcardversion")
     Flowable<MyHttpResponse<VersionBean>> getVersion(@Field("version_name") String versionName, @Field("version_code") String versionCode);
+
+    /**
+     * 获取用户信息
+     */
+    @FormUrlEncoded
+    @POST("user/getinfo")
+    Flowable<MyHttpResponse<UserInfo>> userInfo(@Field("access_token") String token);
 
     /**
      * 登录

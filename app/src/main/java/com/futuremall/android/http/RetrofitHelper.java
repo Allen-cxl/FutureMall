@@ -22,6 +22,10 @@ public class RetrofitHelper {
         return mMallApiService.getVersion(versionName, versionCode);
     }
 
+    public Flowable<MyHttpResponse<UserInfo>> userInfo(String token) {
+        return mMallApiService.userInfo(token);
+    }
+
     public Flowable<MyHttpResponse<UserInfo>> login(String phone, String password) {
         return mMallApiService.login(phone, password);
     }

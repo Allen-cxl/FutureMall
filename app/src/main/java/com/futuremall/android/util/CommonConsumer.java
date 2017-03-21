@@ -2,6 +2,7 @@ package com.futuremall.android.util;
 
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.http.ApiException;
+import com.futuremall.android.http.MyHttpResponse;
 import com.google.gson.JsonSyntaxException;
 
 import android.text.TextUtils;
@@ -14,7 +15,7 @@ import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
 
-public  class CommonConsumer<T> implements Consumer<T> {
+public class CommonConsumer<T> implements Consumer<T> {
 
     private BaseView mView;
     private String mErrorMsg;
@@ -31,6 +32,7 @@ public  class CommonConsumer<T> implements Consumer<T> {
     @Override
     public void accept(T t) {
 
+        onError();
         try {
             if (mView == null)
                 return;
@@ -53,10 +55,8 @@ public  class CommonConsumer<T> implements Consumer<T> {
             }
 
         }catch (Exception e){
-            mView.showError(e.toString());
         }
-
     }
 
-
+    public void onError(){}
 }

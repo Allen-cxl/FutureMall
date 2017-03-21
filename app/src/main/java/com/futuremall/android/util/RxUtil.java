@@ -62,7 +62,6 @@ public class RxUtil {
     /**
      * 生成Observable
      * @param <T>
-     * @param srvCode
      * @return
      */
     private static <T> Flowable<T> createData(final T t, final  int srvCode, final String srvMsg) {
@@ -79,7 +78,6 @@ public class RxUtil {
                 if(srvCode != Constants.SERVER_SUCCESS){
                     e.onError(new ApiException(getSrvMsg(srvCode)));
                 }
-
             }
         },BackpressureStrategy.BUFFER);
     }

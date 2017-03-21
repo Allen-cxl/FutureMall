@@ -8,6 +8,8 @@ import com.futuremall.android.app.App;
 import com.futuremall.android.di.component.DaggerFragmentComponent;
 import com.futuremall.android.di.component.FragmentComponent;
 import com.futuremall.android.di.module.FragmentModule;
+import com.futuremall.android.util.SnackbarUtil;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -103,6 +105,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             isInited = true;
             initEventAndData();
         }
+    }
+
+    @Override
+    public void showError(String msg) {
+
+        SnackbarUtil.show(mView,msg);
     }
 
     @Override

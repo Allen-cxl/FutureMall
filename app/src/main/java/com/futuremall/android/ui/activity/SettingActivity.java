@@ -11,6 +11,7 @@ import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.prefs.PreferencesFactory;
+import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.util.FileUtil;
 import com.futuremall.android.util.SnackbarUtil;
 
@@ -42,11 +43,15 @@ public class SettingActivity extends SimpleActivity {
         switch (view.getId()) {
             case R.id.tv_update_login_password:
 
-                UpdateLoginPasswordActivity.enter(this);
+                if(LoginHelper.ensureLogin(this)){
+                    UpdateLoginPasswordActivity.enter(this);
+                }
                 break;
             case R.id.tv_update_pay_password:
 
-                UpdatePayPasswordActivity.enter(this);
+                if(LoginHelper.ensureLogin(this)){
+                    UpdatePayPasswordActivity.enter(this);
+                }
                 break;
             case R.id.tv_clean_cache:
 

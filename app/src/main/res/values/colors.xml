@@ -10,6 +10,7 @@
     <color name="orange">#F55633</color>
     <color name="orange_depth">#ec4301</color>
     <color name="green">#6eb756</color>
+    <color name="black_bg_dialog">#393939</color>
     <color name="transparent">#00000000</color>
 
     <color name="font_normal">#666666</color>

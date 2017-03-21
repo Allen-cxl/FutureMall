@@ -1,14 +1,21 @@
 package com.futuremall.android.ui.fragment;
 
 
+import android.icu.text.StringSearch;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
+import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.UserContract;
 import com.futuremall.android.presenter.UserPresenter;
+import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderCenterActivity;
@@ -18,6 +25,7 @@ import com.futuremall.android.ui.activity.SettingActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -59,6 +67,10 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     TextView mTvSetup;
     @BindView(R.id.tv_about)
     TextView mTvAbout;
+    @BindView(R.id.ll_login_register)
+    LinearLayout mLlLoginRegister;
+    @BindView(R.id.ll_userInfo)
+    LinearLayout mLlUserInfo;
 
     @Override
     protected void initInject() {
@@ -82,32 +94,84 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
 
     @Override
     public void showContent() {
+        mLlLoginRegister.setVisibility(View.GONE);
+        mLlUserInfo.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showRegisterLayout() {
+        mLlLoginRegister.setVisibility(View.VISIBLE);
+        mLlUserInfo.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showLoginLayout() {
 
     }
 
-    @OnClick({R.id.tv_userInfo, R.id.tv_transfer, R.id.tv_payment, R.id.tv_order, R.id.tv_record, R.id.tv_invite_register, R.id.tv_recharge, R.id.tv_setup, R.id.tv_about})
+    @Override
+    public void setUserInfo(UserInfo info) {
+        mTvBalance.setText(String.format(getString(R.string.price), info.getUser_money()));
+        mTvBackIntegral.setText(String.format(getString(R.string.price), info.getRebate()));
+        mTvBackIntegral.setText(String.format(getString(R.string.price), info.getPay_points()));
+        mTvBackIntegral.setText(String.format(getString(R.string.price), info.getHighreward()));
+        mTvBackIntegral.setText(String.format(getString(R.string.price), info.getPayin()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mPresenter.showLayout();
+    }
+
+    @OnClick({R.id.tv_login, R.id.tv_register, R.id.tv_userInfo, R.id.tv_transfer, R.id.tv_payment, R.id.tv_order, R.id.tv_record, R.id.tv_invite_register, R.id.tv_recharge, R.id.tv_setup, R.id.tv_about})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_userInfo:
+
+            case R.id.tv_login:
 
                 LoginActivity.enter(getContext());
                 break;
+
+            case R.id.tv_register:
+
+                break;
+
+            case R.id.tv_userInfo:
+
+                break;
             case R.id.tv_transfer:
-                TransferActivity.enter(getContext());
+
+                if (LoginHelper.ensureLogin(getContext())) {
+                    TransferActivity.enter(getContext());
+                }
                 break;
             case R.id.tv_payment:
-                PaymentActivity.enter(getContext(),"10000");
+
+                if (LoginHelper.ensureLogin(getContext())) {
+                    PaymentActivity.enter(getContext(), "10000");
+                }
                 break;
             case R.id.tv_order:
-                OrderCenterActivity.enter(getContext());
+
+                if (LoginHelper.ensureLogin(getContext())) {
+                    OrderCenterActivity.enter(getContext());
+                }
                 break;
             case R.id.tv_record:
-                OperationRecordActivity.enter(getContext());
+
+                if (LoginHelper.ensureLogin(getContext())) {
+                    OperationRecordActivity.enter(getContext());
+                }
                 break;
             case R.id.tv_invite_register:
                 break;
             case R.id.tv_recharge:
-                RechargeActivity.enter(getContext());
+
+                if (LoginHelper.ensureLogin(getContext())) {
+                    RechargeActivity.enter(getContext());
+                }
                 break;
             case R.id.tv_setup:
                 SettingActivity.enter(getContext());

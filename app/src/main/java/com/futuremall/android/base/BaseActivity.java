@@ -95,7 +95,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void showError(String msg) {
 
-        SnackbarUtil.show(getCurrentFocus(),msg);
+        SnackbarUtil.show(getWindow().getDecorView(),msg);
     }
 
     protected abstract void initInject();

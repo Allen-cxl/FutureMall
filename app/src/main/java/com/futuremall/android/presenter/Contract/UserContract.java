@@ -2,6 +2,7 @@ package com.futuremall.android.presenter.Contract;
 
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
+import com.futuremall.android.model.bean.UserInfo;
 
 
 /**
@@ -13,11 +14,20 @@ public class UserContract {
     public interface View extends BaseView {
 
         void showContent();
+
+        void showRegisterLayout();
+
+        void showLoginLayout();
+
+        void setUserInfo(UserInfo info);
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
 
         void userInfo();
+
+        void showLayout();
+
     }
 }

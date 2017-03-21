@@ -7,5 +7,4 @@ package com.futuremall.android.base;
 public interface BaseView {
 
     void showError(String msg);
-
 }
