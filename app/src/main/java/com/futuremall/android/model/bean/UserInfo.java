@@ -17,6 +17,7 @@ public class UserInfo implements Parcelable {
     String email;
     String sex;
     String birthday;
+    String user_pic;
     float user_money;
     float rebate;
     float payin;
@@ -87,6 +88,14 @@ public class UserInfo implements Parcelable {
         this.birthday = birthday;
     }
 
+    public String getUser_pic() {
+        return user_pic;
+    }
+
+    public void setUser_pic(String user_pic) {
+        this.user_pic = user_pic;
+    }
+
     public float getUser_money() {
         return user_money;
     }
@@ -127,6 +136,7 @@ public class UserInfo implements Parcelable {
         this.pay_points = pay_points;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -142,6 +152,7 @@ public class UserInfo implements Parcelable {
         dest.writeString(this.email);
         dest.writeString(this.sex);
         dest.writeString(this.birthday);
+        dest.writeString(this.user_pic);
         dest.writeFloat(this.user_money);
         dest.writeFloat(this.rebate);
         dest.writeFloat(this.payin);
@@ -161,6 +172,7 @@ public class UserInfo implements Parcelable {
         this.email = in.readString();
         this.sex = in.readString();
         this.birthday = in.readString();
+        this.user_pic = in.readString();
         this.user_money = in.readFloat();
         this.rebate = in.readFloat();
         this.payin = in.readFloat();

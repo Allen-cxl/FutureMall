@@ -12,6 +12,7 @@ import com.futuremall.android.ui.activity.PaymentActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
 import com.futuremall.android.ui.activity.UpdateLoginPasswordActivity;
 import com.futuremall.android.ui.activity.UpdatePayPasswordActivity;
+import com.futuremall.android.ui.activity.UserInfoActivity;
 
 import dagger.Component;
 
@@ -36,6 +37,8 @@ public interface ActivityComponent {
     void inject(UpdatePayPasswordActivity updatePayPasswordActivity);
 
     void inject(UpdateLoginPasswordActivity updateLoginPasswordActivity);
+
+    void inject(UserInfoActivity userInfoActivity);
 
 
 }

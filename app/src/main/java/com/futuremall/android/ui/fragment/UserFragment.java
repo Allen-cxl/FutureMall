@@ -23,6 +23,7 @@ import com.futuremall.android.ui.activity.PaymentActivity;
 import com.futuremall.android.ui.activity.RechargeActivity;
 import com.futuremall.android.ui.activity.SettingActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
+import com.futuremall.android.ui.activity.UserInfoActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -136,10 +137,12 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
 
             case R.id.tv_register:
 
+                UserInfoActivity.enter(getContext());
                 break;
 
             case R.id.tv_userInfo:
 
+                UserInfoActivity.enter(getContext());
                 break;
             case R.id.tv_transfer:
 

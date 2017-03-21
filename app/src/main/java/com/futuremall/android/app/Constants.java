@@ -101,7 +101,7 @@ public class Constants {
 
     public static final String IT_TITLE = "title";
 
-    public static final String IT_DETAIL_IMG_URL = "img_url";
+    public static final String IT_VALUE = "value";
 
     public static final String IT_DETAIL_ID = "id";
 
