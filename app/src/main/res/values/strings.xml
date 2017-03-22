@@ -93,6 +93,7 @@
     <string name = "enter_new_password" >请输入新密码</string >
     <string name = "enter_old_password" >请输入旧密码</string >
     <string name = "again" >再次输入</string >
+    <string name = "no_empty" >%s不能为空</string >
     <string name = "again_enter_new_password" >请再次输入新密码</string >
     <string name = "sex" >性别</string >
     <string name = "birthday" >生日</string >

@@ -12,6 +12,7 @@ import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.model.event.InfoEvent;
 import com.futuremall.android.util.RxBus;
+import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
@@ -23,6 +24,7 @@ public class ModifyInfoActivity extends SimpleActivity {
     Toolbar mSuperToolbar;
     @BindView(R.id.et_content)
     EditText mEtContent;
+    String value;
 
     @Override
     protected int getLayout() {
@@ -43,6 +45,10 @@ public class ModifyInfoActivity extends SimpleActivity {
             case R.id.item_save:
 
                 String value = mEtContent.getText().toString();
+                if(StringUtil.isEmpty(value)){
+                    SnackbarUtil.show(mEtContent, String.format(getString(R.string.no_empty),value));
+                    return false;
+                }
                 RxBus.getDefault().post(new InfoEvent(value));
                 finish();
                 break;
@@ -55,7 +61,7 @@ public class ModifyInfoActivity extends SimpleActivity {
     protected void initEventAndData() {
 
         String title = getIntent().getStringExtra(Constants.IT_TITLE);
-        String value = getIntent().getStringExtra(Constants.IT_VALUE);
+        value = getIntent().getStringExtra(Constants.IT_VALUE);
         setToolBar(mSuperToolbar, title, true);
         if(StringUtil.isEmpty(value)){
             mEtContent.setHint(title);
