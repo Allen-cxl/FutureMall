@@ -8,6 +8,7 @@ import com.futuremall.android.di.component.ActivityComponent;
 import com.futuremall.android.di.component.DaggerActivityComponent;
 import com.futuremall.android.di.module.ActivityModule;
 import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.SystemUtil;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -89,6 +90,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (mPresenter != null)
             mPresenter.detachView();
         mUnBinder.unbind();
+        SystemUtil.hideKeyboard(this);
         App.getInstance().removeActivity(this);
     }
 

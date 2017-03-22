@@ -131,12 +131,6 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     }
 
     @Override
-    public void finish() {
-        super.finish();
-        SystemUtil.hideKeyboard(this);
-    }
-
-    @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }

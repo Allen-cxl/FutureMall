@@ -35,6 +35,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     @BindView(R.id.tv_phone)
     TextView mTvPhone;
 
+    TextView mTextView;
+
     @Override
     protected void initInject() {
 
@@ -58,24 +60,25 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
             case R.id.ll_user_avatar:
                 break;
             case R.id.tv_name:
+                mTextView = mTvName;
                 ModifyInfoActivity.enter(this, getString(R.string.other_name), mTvName.getText().toString());
 
                 break;
             case R.id.tv_birthday:
-
-                ModifyInfoActivity.enter(this, getString(R.string.other_name), mTvBirthday.getText().toString());
+                mTextView = mTvBirthday;
+                ModifyInfoActivity.enter(this, getString(R.string.birthday), mTvBirthday.getText().toString());
                 break;
             case R.id.tv_sex:
-
-                ModifyInfoActivity.enter(this, getString(R.string.other_name), mTvSex.getText().toString());
+                mTextView = mTvSex;
+                ModifyInfoActivity.enter(this, getString(R.string.sex), mTvSex.getText().toString());
                 break;
             case R.id.tv_email:
-
-                ModifyInfoActivity.enter(this, getString(R.string.other_name), mTvEmail.getText().toString());
+                mTextView = mTvEmail;
+                ModifyInfoActivity.enter(this, getString(R.string.email), mTvEmail.getText().toString());
                 break;
             case R.id.tv_phone:
-
-                ModifyInfoActivity.enter(this, getString(R.string.other_name), mTvPhone.getText().toString());
+                mTextView = mTvPhone;
+                ModifyInfoActivity.enter(this, getString(R.string.phone), mTvPhone.getText().toString());
                 break;
         }
     }
@@ -88,6 +91,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     @Override
     public void setInfo(String info) {
-
+        mTextView.setText(info);
     }
 }

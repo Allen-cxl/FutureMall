@@ -175,7 +175,6 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
             mTimeCount = null;
         }
 
-        SystemUtil.hideKeyboard(this);
     }
 
     public static void enter(Context context) {

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.futuremall.android.util.SystemUtil;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -58,6 +60,7 @@ public abstract class SimpleFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mUnBinder.unbind();
+        SystemUtil.hideKeyboard(mActivity);
     }
 
     protected abstract int getLayoutId();

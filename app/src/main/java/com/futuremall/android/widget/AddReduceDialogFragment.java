@@ -1,4 +1,4 @@
-package com.futuremall.android.weight;
+package com.futuremall.android.widget;
 
 import android.app.Activity;
 import android.content.Context;

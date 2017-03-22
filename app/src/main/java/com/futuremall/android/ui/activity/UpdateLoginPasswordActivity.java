@@ -137,10 +137,4 @@ public class UpdateLoginPasswordActivity extends BaseActivity<UpdateLoginPasswor
         Intent intent = new Intent(context, UpdateLoginPasswordActivity.class);
         context.startActivity(intent);
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SystemUtil.hideKeyboard(this);
-    }
 }

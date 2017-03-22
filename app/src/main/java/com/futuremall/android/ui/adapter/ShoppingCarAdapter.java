@@ -17,7 +17,7 @@ import com.futuremall.android.ui.ViewHolder.ShoppingCartGroupViewHolder;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.listener.OnShopCartChangeListener;
 import com.futuremall.android.util.StringUtil;
-import com.futuremall.android.weight.AddReduceDialogFragment;
+import com.futuremall.android.widget.AddReduceDialogFragment;
 
 import java.util.List;
 

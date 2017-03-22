@@ -9,6 +9,7 @@ import com.futuremall.android.di.component.DaggerFragmentComponent;
 import com.futuremall.android.di.component.FragmentComponent;
 import com.futuremall.android.di.module.FragmentModule;
 import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.SystemUtil;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -117,6 +118,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void onDestroyView() {
         super.onDestroyView();
         mUnBinder.unbind();
+        SystemUtil.hideKeyboard(mActivity);
     }
 
     @Override

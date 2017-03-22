@@ -39,10 +39,4 @@ public class RechargeActivity extends SimpleActivity {
         Intent intent = new Intent(context, RechargeActivity.class);
         context.startActivity(intent);
     }
-
-    @Override
-    public void finish() {
-        super.finish();
-        SystemUtil.hideKeyboard(this);
-    }
 }

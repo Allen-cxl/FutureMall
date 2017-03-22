@@ -35,7 +35,7 @@ public class UserInfoPresenter extends RxPresenter<UserInfoContract.View> implem
                 .map(new Function<InfoEvent, String>() {
                     @Override
                     public String apply(InfoEvent InfoEvent) {
-                        return InfoEvent.getInfo();
+                        return InfoEvent.info;
                     }
                 })
                 .subscribe(new Consumer<String>() {

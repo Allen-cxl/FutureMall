@@ -4,16 +4,15 @@ package com.futuremall.android.util;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.processors.AsyncProcessor;
-import io.reactivex.processors.FlowableProcessor;
+import io.reactivex.processors.PublishProcessor;
 
 
 public class RxBus {
     // 主题
-    private final FlowableProcessor<Object> bus;
+    private final PublishProcessor<Object> bus;
     // PublishSubject只会把在订阅发生的时间点之后来自原始Observable的数据发射给观察者
     private RxBus() {
-        bus = AsyncProcessor.create().toSerialized();
+        bus = PublishProcessor.create();
     }
 
     public static RxBus getDefault() {

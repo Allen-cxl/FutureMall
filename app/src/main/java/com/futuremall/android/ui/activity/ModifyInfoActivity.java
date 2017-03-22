@@ -10,6 +10,9 @@ import android.widget.EditText;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
+import com.futuremall.android.model.event.InfoEvent;
+import com.futuremall.android.util.RxBus;
+import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
 
@@ -39,7 +42,9 @@ public class ModifyInfoActivity extends SimpleActivity {
 
             case R.id.item_save:
 
-            String value = mEtContent.getText().toString();
+                String value = mEtContent.getText().toString();
+                RxBus.getDefault().post(new InfoEvent(value));
+                finish();
                 break;
 
         }
@@ -52,16 +57,21 @@ public class ModifyInfoActivity extends SimpleActivity {
         String title = getIntent().getStringExtra(Constants.IT_TITLE);
         String value = getIntent().getStringExtra(Constants.IT_VALUE);
         setToolBar(mSuperToolbar, title, true);
-        mEtContent.setText(value);
+        if(StringUtil.isEmpty(value)){
+            mEtContent.setHint(title);
+        }else{
+            mEtContent.setText(value);
+        }
     }
 
 
 
     public static void enter(Context context, String title, String value) {
 
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, ModifyInfoActivity.class);
         intent.putExtra(Constants.IT_TITLE, title);
         intent.putExtra(Constants.IT_VALUE, value);
         context.startActivity(intent);
     }
+
 }
