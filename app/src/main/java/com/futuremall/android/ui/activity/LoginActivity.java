@@ -59,6 +59,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.tv_login:
                 String phone = mEtPhone.getText().toString();
                 String password = mEtPassword.getText().toString();
+                //15868360634   123456
                 if(checkPara(phone, password)){
                     mPresenter.login(phone, password);
                 }
