@@ -21,6 +21,6 @@ public class OperationRecordContract {
     public interface  Presenter extends BasePresenter<View> {
 
 
-        void recordList();
+        void recordList(String p, String num, String time);
     }
 }

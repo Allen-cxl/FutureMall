@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.presenter.Contract.OrderDetailContract;
@@ -39,6 +40,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
     @Override
     protected void initEventAndData() {
 
+        String orderID = getIntent().getStringExtra(Constants.IT_ORDER_ID);
         setToolBar(mSuperToolbar, getString(R.string.order_detail), true);
 
         mAdapter = new OrderDetailAdapter(this);
@@ -49,7 +51,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
 
-        mPresenter.orderDetail();
+        mPresenter.orderDetail(orderID);
     }
 
     @Override
@@ -58,8 +60,9 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
         mAdapter.setData(dataList);
     }
 
-    public static void enter(Context context) {
+    public static void enter(Context context, String orderID) {
         Intent intent = new Intent(context, OrderDetailActivity.class);
+        intent.putExtra(Constants.IT_ORDER_ID, orderID);
         context.startActivity(intent);
     }
 }

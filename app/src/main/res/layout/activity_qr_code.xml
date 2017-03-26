@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/super_toolbar" />
+    <include layout="@layout/toolbar_super" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center" />
 
-        <com.example.onlinestudy.zxing.view.ViewfinderView
+        <com.futuremall.android.widget.zxing.view.ViewfinderView
             android:id="@+id/viewfinder_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

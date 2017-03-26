@@ -54,8 +54,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
         TextView textView= (TextView)(findViewById(R.id.super_title));
 
+        setSupportActionBar(toolbar);
         if(title != null){
-            setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(null);
         }
 
@@ -69,8 +69,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 }
             });
         }
+        if(title != null){
+            textView.setText(title);
+        }
 
-        textView.setText(title);
     }
 
     protected ActivityComponent getActivityComponent(){

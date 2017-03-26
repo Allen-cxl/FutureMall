@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.ui.adapter.MyPagerAdapter;
 import com.futuremall.android.ui.fragment.OrderFragment;
@@ -58,7 +59,16 @@ public class OrderCenterActivity extends SimpleActivity {
             mViewPager.setAdapter(mAdapter);
         } else {
             for (int i = 0; i < tabStr.length; i++) {
-                OrderFragment f = new OrderFragment();
+                OrderFragment f =null;
+                if(tabStr[i].equals(R.string.deliver)){
+                    f = OrderFragment.newInstance(Constants.DELIVERING);
+                }else if(tabStr[i].equals(R.string.receipting)){
+                    f = OrderFragment.newInstance(Constants.RECEIPTING);
+                }else if(tabStr[i].equals(R.string.receipted)){
+                    f = OrderFragment.newInstance(Constants.RECEIPTED);
+                }else{
+                    f = new OrderFragment();
+                }
                 list.add(f);
             }
             mAdapter.addItem(tabStr, list);

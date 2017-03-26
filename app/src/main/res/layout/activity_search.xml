@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autolabel="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line"
+    android:orientation="vertical"
+    tools:context="com.futuremall.android.ui.activity.SearchActivity">
+
+    <include layout="@layout/toolbar_search"/>
+
+
+    <LinearLayout
+        android:id="@id/ll_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="热门搜索"/>
+
+        <com.dpizarro.autolabel.library.AutoLabelUI
+            android:id="@+id/hot_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            autolabel:label_background_res="@drawable/corner_bg_black"
+            android:layout_margin="10dp"
+            autolabel:label_clickable="true"
+            autolabel:show_cross="false"/>
+
+    </LinearLayout>
+</LinearLayout>

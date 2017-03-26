@@ -8,7 +8,7 @@
     android:orientation = "vertical"
     tools:context = "com.futuremall.android.ui.activity.ModifyInfoActivity" >
 
-    <include layout = "@layout/super_toolbar" />
+    <include layout = "@layout/toolbar_super" />
 
     <EditText
         android:id="@+id/et_content"

@@ -1,5 +1,7 @@
 package com.futuremall.android.presenter;
 
+import android.app.Activity;
+
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
@@ -7,6 +9,7 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.TransferContract;
 import com.futuremall.android.util.CommonConsumer;
+import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.RxUtil;
 
@@ -22,16 +25,19 @@ import io.reactivex.functions.Consumer;
 public class TransferPresenter extends RxPresenter<TransferContract.View> implements TransferContract.Presenter {
 
     private RetrofitHelper mRetrofitHelper;
+    private Activity mContext;
 
     @Inject
-    TransferPresenter(RetrofitHelper mRetrofitHelper) {
+    TransferPresenter(RetrofitHelper mRetrofitHelper, Activity mContext) {
         this.mRetrofitHelper = mRetrofitHelper;
+        this.mContext = mContext;
     }
 
 
     @Override
     public void userName(String phone) {
 
+        LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.userName(accessToken, phone)
                 .compose(RxUtil.<MyHttpResponse<UserInfo>>rxSchedulerHelper())
@@ -41,13 +47,18 @@ public class TransferPresenter extends RxPresenter<TransferContract.View> implem
                     public void accept(UserInfo value) {
                         mView.userName(value.getReal_name());
                     }
-                }, new CommonConsumer(mView));
+                }, new CommonConsumer<Object>(mView) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
         addSubscrebe(rxSubscription);
     }
 
     @Override
     public void transfer(String account, String name, String integral, String password) {
 
+        LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.transfer(accessToken, account, integral, password)
                 .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
@@ -57,7 +68,11 @@ public class TransferPresenter extends RxPresenter<TransferContract.View> implem
                     public void accept(Object value) {
                         LogUtil.d("UserInfo:"+value);
                     }
-                }, new CommonConsumer(mView));
+                }, new CommonConsumer<Object>(mView) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
         addSubscrebe(rxSubscription);
     }
 }

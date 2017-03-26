@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.futuremall.android.ui.activity.OrderDetailActivity">
 
-    <include layout="@layout/super_toolbar"/>
+    <include layout="@layout/toolbar_super"/>
     <android.support.v7.widget.RecyclerView
         android:id="@id/recycleView"
         android:layout_width="match_parent"

@@ -10,8 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
@@ -48,9 +46,7 @@ import com.google.zxing.qrcode.QRCodeReader;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
-
 import butterknife.BindView;
-import okhttp3.Request;
 
 
 public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrCodeContract.View, SurfaceHolder.Callback{
@@ -203,7 +199,7 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override

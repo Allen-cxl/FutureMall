@@ -1,10 +1,13 @@
 package com.futuremall.android.ui.fragment;
 
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.presenter.Contract.OrderCenterContract;
@@ -26,6 +29,16 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
     @BindView(R.id.swipeRefreshLayout)
     SHSwipeRefreshLayout mSwipeRefreshLayout;
     OrderCenterAdapter mAdapter;
+    int p = 1, num = 15;
+    String status;
+
+    public static OrderFragment newInstance(String status) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.IT_STATUS, status);
+        OrderFragment fragment = new OrderFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     protected void initInject() {
@@ -40,7 +53,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
     @Override
     protected void initEventAndData() {
 
-
+        status = getArguments().getString(Constants.IT_STATUS);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mAdapter = new OrderCenterAdapter(getContext());
         mRecycleView.addItemDecoration(new DividerItemDecoration(
@@ -48,13 +61,14 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
 
-        mPresenter.orderList();
+        mPresenter.orderList(p+"", num+"", status);
         mSwipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        mPresenter.orderList(p+"", num+"", status);
                     }
                 }, 1000);
             }
@@ -64,6 +78,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        mPresenter.orderList((p++)+"", num+"", status);
                         mSwipeRefreshLayout.finishLoadmore();
                     }
                 }, 1600);

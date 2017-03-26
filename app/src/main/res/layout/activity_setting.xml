@@ -9,7 +9,7 @@
     android:orientation = "vertical"
     tools:context = "com.futuremall.android.ui.activity.SettingActivity" >
 
-    <include layout = "@layout/super_toolbar" />
+    <include layout = "@layout/toolbar_super" />
 
 
     <TextView

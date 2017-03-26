@@ -5,6 +5,7 @@ import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.OrderProduct;
 import com.futuremall.android.model.bean.ShoppingCartBean;
+import com.futuremall.android.model.bean.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,5 +125,20 @@ public class TestData {
         }
 
         return recordBeanList;
+    }
+
+    public static List<Tag> getHotLabel() {
+
+
+        List<Tag> labels = new ArrayList<>();
+
+
+        for (int j = 0; j < 6; j++) {
+            Tag tag = new Tag();
+            tag.setKeywords("测试"+j);
+            labels.add(tag);
+        }
+
+        return labels;
     }
 }

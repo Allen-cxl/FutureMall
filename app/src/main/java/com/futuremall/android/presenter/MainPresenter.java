@@ -1,5 +1,7 @@
 package com.futuremall.android.presenter;
 
+import android.Manifest;
+
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
@@ -7,7 +9,7 @@ import com.futuremall.android.model.bean.VersionBean;
 import com.futuremall.android.presenter.Contract.MainContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.RxUtil;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
@@ -39,12 +41,24 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                     public void accept(VersionBean value) {
                         mView.showUpdateDialog(value.toString());
                     }
-                }, new CommonConsumer(mView));
+                }, new CommonConsumer<Object>(mView));
         addSubscrebe(rxSubscription);
     }
 
     @Override
     public void checkPermissions(RxPermissions rxPermissions) {
 
+        Disposable rxSubscription = rxPermissions.request(Manifest.permission.CAMERA)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean){
+                        if (aBoolean) {
+                            mView.startQrCodeActivity();
+                        } else {
+                            mView.showError("扫描需要读写摄像头权限哦~");
+                        }
+                    }
+                });
+        addSubscrebe(rxSubscription);
     }
 }

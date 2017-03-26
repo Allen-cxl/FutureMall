@@ -38,6 +38,8 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     @BindView(R.id.swipeRefreshLayout)
     SHSwipeRefreshLayout mSwipeRefreshLayout;
     OperationRecordAdapter mAdapter;
+    int p = 1, num = 15;
+    long time;
 
     @Override
     protected void initInject() {
@@ -82,15 +84,15 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
 
-        mPresenter.recordList();
+        time = System.currentTimeMillis();
+        mPresenter.recordList(p+"", num+"", time+"");
         mSwipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.recordList();
-                        Toast.makeText(OperationRecordActivity.this, "刷新完成", Toast.LENGTH_SHORT).show();
+                        mPresenter.recordList(p+"", num+"", time+"");
                     }
                 }, 1000);
             }
@@ -100,8 +102,8 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        mPresenter.recordList((p++)+"", num+"", time+"");
                         mSwipeRefreshLayout.finishLoadmore();
-                        Toast.makeText(OperationRecordActivity.this, "加载完成", Toast.LENGTH_SHORT).show();
                     }
                 }, 1600);
             }

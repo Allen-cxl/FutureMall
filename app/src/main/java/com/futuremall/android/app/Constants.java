@@ -67,6 +67,14 @@ public class Constants {
 
     public static  final String UPDATE_PAY_PASSWORD = "3";//修改支付密码
 
+    //================= STATUS ====================
+
+    public static  final String DELIVERING = "0";//待发货 Deliver
+
+    public static  final String RECEIPTING = "1";//待收货 receipt
+
+    public static  final String RECEIPTED = "2";//已收货
+
 
     //================= KEY ====================
 
@@ -103,9 +111,9 @@ public class Constants {
 
     public static final String IT_VALUE = "value";
 
-    public static final String IT_DETAIL_ID = "id";
+    public static final String IT_STATUS = "status";
 
-    public static final String IT_DETAIL_TYPE = "type";
+    public static final String IT_ORDER_ID = "orderID";
 
     public static final String IT_GOLD_TYPE = "type";
 

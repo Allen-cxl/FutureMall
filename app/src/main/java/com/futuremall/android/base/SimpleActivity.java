@@ -4,6 +4,9 @@ import android.app.Activity;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.App;
+import com.futuremall.android.di.component.ActivityComponent;
+import com.futuremall.android.di.component.DaggerActivityComponent;
+import com.futuremall.android.di.module.ActivityModule;
 import com.futuremall.android.util.SystemUtil;
 
 import android.os.Bundle;
@@ -33,6 +36,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
         setContentView(getLayout());
         mUnBinder = ButterKnife.bind(this);
         mContext = this;
+        initInject();
         App.getInstance().addActivity(this);
         initEventAndData();
     }
@@ -56,6 +60,20 @@ public abstract class SimpleActivity extends AppCompatActivity {
         }
 
         textView.setText(title);
+    }
+
+    protected ActivityComponent getActivityComponent(){
+        return  DaggerActivityComponent.builder()
+                .appComponent(App.getAppComponent())
+                .activityModule(getActivityModule())
+                .build();
+    }
+
+    protected ActivityModule getActivityModule(){
+        return new ActivityModule(this);
+    }
+
+    protected void initInject(){
     }
 
     @Override

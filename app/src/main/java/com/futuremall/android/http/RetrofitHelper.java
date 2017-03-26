@@ -3,9 +3,14 @@ package com.futuremall.android.http;
 
 import com.futuremall.android.http.api.MallApis;
 import com.futuremall.android.model.bean.BalanceBean;
+import com.futuremall.android.model.bean.OperationRecordBean;
+import com.futuremall.android.model.bean.OrderDetail;
+import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 
@@ -60,5 +65,21 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<UserInfo>> updateLoginPassword(String token, String oldPassword, String newPassword) {
         return mMallApiService.updateLoginPassword(token, oldPassword, newPassword);
+    }
+
+    public Flowable<MyHttpResponse<List<OperationRecordBean>>> operationRecord(String token, String p, String num, String time) {
+        return mMallApiService.operationRecord(token, p, num, time);
+    }
+
+    public Flowable<MyHttpResponse<List<OrderList>>> orderList(String token, String p, String num, String state) {
+        return mMallApiService.orderList(token, p, num, state);
+    }
+
+    public Flowable<MyHttpResponse<OrderDetail>> orderDetail(String token, String orderID) {
+        return mMallApiService.orderDetail(token, orderID);
+    }
+
+    public Flowable<MyHttpResponse<Object>> affirmOrder(String token, String orderID, String payPassword) {
+        return mMallApiService.affirmOrder(token, orderID, payPassword);
     }
 }

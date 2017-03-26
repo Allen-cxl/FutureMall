@@ -1,6 +1,5 @@
 package com.futuremall.android.ui.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,23 +8,18 @@ import android.widget.RadioButton;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
-import com.futuremall.android.base.BaseActivity;
-import com.futuremall.android.presenter.Contract.MainContract;
-import com.futuremall.android.presenter.MainPresenter;
+import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.ui.fragment.FutureAddFragment;
 import com.futuremall.android.ui.fragment.MainFragment;
 import com.futuremall.android.ui.fragment.ShoppingCartFragment;
 import com.futuremall.android.ui.fragment.TypeFragment;
 import com.futuremall.android.ui.fragment.UserFragment;
-import com.futuremall.android.util.LogUtil;
-import com.futuremall.android.util.SnackbarUtil;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, View.OnClickListener {
-
+public class MainActivity extends SimpleActivity implements View.OnClickListener {
 
     @BindView(R.id.radio_home)
     RadioButton mRadioHome;
@@ -52,12 +46,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private int mFromTag;
     private FragmentManager mManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
-    @Override
     protected void initInject() {
         getActivityComponent().inject(this);
     }
@@ -70,7 +59,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initEventAndData() {
 
-        //mPresenter.checkVersion();
         mRadioHome.setOnClickListener(this);
         mRadioType.setOnClickListener(this);
         mRadioFutureAdd.setOnClickListener(this);
@@ -81,17 +69,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mRadioHome.performClick();
     }
 
-    @Override
-    public void showError(String msg) {
-        SnackbarUtil.show(getWindow().getDecorView(), msg);
-    }
-
-    @Override
-    public void showUpdateDialog(String versionContent) {
-        LogUtil.i(versionContent);
-    }
-
-    private void setRadioButtonOnlick(int fromTag, int  currentTag){
+    private void setRadioButtonOnClick(int fromTag, int currentTag) {
         switchContent(fromTag, currentTag, getCurrentFragmentByTag(currentTag));
         setRadioButtonCheck(currentTag);
         mFromTag = currentTag;
@@ -103,12 +81,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         Fragment fromFragment = mManager.findFragmentByTag(String.valueOf(fromTag));
         Fragment toFragment = mManager.findFragmentByTag(String.valueOf(toTag));
 
-        if(fromFragment !=null){
+        if (fromFragment != null) {
             transaction.hide(fromFragment);
         }
-        if(toFragment == null){
+        if (toFragment == null) {
             transaction.add(R.id.fragment_container, fragment, String.valueOf(toTag)).commitAllowingStateLoss(); // 隐藏当前的fragment，add下一个到Activity中
-        }else{
+        } else {
             transaction.show(toFragment).commitAllowingStateLoss();
         }
     }
@@ -118,24 +96,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (v.getId()) {
             case R.id.radio_home:
 
-                setRadioButtonOnlick(mFromTag, Constants.RB_HOME);
+                setRadioButtonOnClick(mFromTag, Constants.RB_HOME);
                 break;
 
             case R.id.radio_type:
 
-                setRadioButtonOnlick(mFromTag, Constants.RB_TYPE);
+                setRadioButtonOnClick(mFromTag, Constants.RB_TYPE);
                 break;
 
             case R.id.radio_future_add:
-                setRadioButtonOnlick(mFromTag, Constants.RB_FUTURE_ADD);
+                setRadioButtonOnClick(mFromTag, Constants.RB_FUTURE_ADD);
                 break;
 
             case R.id.radio_shopping_car:
-                setRadioButtonOnlick(mFromTag, Constants.RB_SHOPPING_CART);
+                setRadioButtonOnClick(mFromTag, Constants.RB_SHOPPING_CART);
                 break;
 
             case R.id.radio_user:
-                setRadioButtonOnlick(mFromTag, Constants.RB_USER);
+                setRadioButtonOnClick(mFromTag, Constants.RB_USER);
                 break;
         }
     }
@@ -198,8 +176,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         }
     }
-
-
 
     private Fragment getCurrentFragmentByTag(int index) {
         switch (index) {

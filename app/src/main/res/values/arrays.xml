@@ -2,10 +2,10 @@
 <resources>
 
     <string-array name="order_status_txt">
-        <item>全部</item>
-        <item>待发货</item>
-        <item>待收货</item>
-        <item>已收货</item>
+        <item >@string/all</item>
+        <item>@string/deliver</item>
+        <item>@string/receipting</item>
+        <item>@string/receipted</item>
     </string-array>
 
 </resources>

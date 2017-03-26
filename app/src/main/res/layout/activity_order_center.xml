@@ -5,7 +5,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
-    <include layout="@layout/super_toolbar"/>
+    <include layout="@layout/toolbar_super"/>
 
     <android.support.design.widget.TabLayout
         android:id="@id/tabLayout"

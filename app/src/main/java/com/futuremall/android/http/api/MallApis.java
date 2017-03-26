@@ -4,9 +4,14 @@ package com.futuremall.android.http.api;
 
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.model.bean.BalanceBean;
+import com.futuremall.android.model.bean.OperationRecordBean;
+import com.futuremall.android.model.bean.OrderDetail;
+import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -76,6 +81,13 @@ public interface MallApis {
     Flowable<MyHttpResponse<Object>> payment(@Field("access_token") String token, @Field("mobile_phone") String phone, @Field("user_money") String money, @Field("pay_pass") String payPass);
 
     /**
+     * 修改登录密码
+     */
+    @FormUrlEncoded
+    @POST("user/accountlog")
+    Flowable<MyHttpResponse<List<OperationRecordBean>>> operationRecord(@Field("access_token") String token, @Field("p") String p, @Field("num") String num, @Field("time") String time);
+
+    /**
      * 获取验证码
      */
     @FormUrlEncoded
@@ -95,4 +107,25 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("auth/updatepass")
     Flowable<MyHttpResponse<UserInfo>> updateLoginPassword(@Field("access_token") String token, @Field("old_pass") String oldPassword, @Field("new_pass") String newPassword);
+
+    /**
+     * 订单列表
+     */
+    @FormUrlEncoded
+    @POST("order/orderlist")
+    Flowable<MyHttpResponse<List<OrderList>>> orderList(@Field("access_token") String token, @Field("p") String p, @Field("num") String num, @Field("state") String state);
+
+    /**
+     * 订单详情
+     */
+    @FormUrlEncoded
+    @POST("order/orderinfo")
+    Flowable<MyHttpResponse<OrderDetail>> orderDetail(@Field("access_token") String token, @Field("order_id") String orderID);
+
+    /**
+     * 确认收货
+     */
+    @FormUrlEncoded
+    @POST("order/affirmorder")
+    Flowable<MyHttpResponse<Object>> affirmOrder(@Field("access_token") String token, @Field("order_id") String orderID, @Field("pay_pass") String payPassord);
 }

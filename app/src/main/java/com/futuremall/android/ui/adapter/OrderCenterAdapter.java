@@ -49,7 +49,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, final int section) {
 
-        OrderList orderList = dataList.get(section);
+        final OrderList orderList = dataList.get(section);
         OrderHeadViewHolder headerViewHolder = (OrderHeadViewHolder) holder;
         headerViewHolder.mTvShopName.setText(orderList.getShop_name());
         headerViewHolder.mTvOrderExpress_status.setText(orderList.expressStatus(orderList.getState()));
@@ -57,7 +57,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
 
             @Override
             public void onClick(View view) {
-                OrderDetailActivity.enter(mContext);
+                OrderDetailActivity.enter(mContext, orderList.getOrder_id());
             }
         });
     }

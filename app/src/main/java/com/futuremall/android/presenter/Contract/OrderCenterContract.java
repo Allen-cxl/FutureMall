@@ -21,6 +21,6 @@ public class OrderCenterContract {
     public interface  Presenter extends BasePresenter<View> {
 
 
-        void orderList();
+        void orderList(String p, String num, String state);
     }
 }

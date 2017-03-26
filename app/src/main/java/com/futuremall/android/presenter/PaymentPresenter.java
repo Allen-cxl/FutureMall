@@ -1,5 +1,7 @@
 package com.futuremall.android.presenter;
 
+import android.app.Activity;
+
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
@@ -8,6 +10,7 @@ import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.PaymentContract;
 import com.futuremall.android.util.CommonConsumer;
+import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.RxUtil;
 
@@ -23,16 +26,19 @@ import io.reactivex.functions.Consumer;
 public class PaymentPresenter extends RxPresenter<PaymentContract.View> implements PaymentContract.Presenter {
 
     private RetrofitHelper mRetrofitHelper;
+    private Activity mContext;
 
     @Inject
-    PaymentPresenter(RetrofitHelper mRetrofitHelper) {
+    PaymentPresenter(RetrofitHelper mRetrofitHelper, Activity mContext) {
         this.mRetrofitHelper = mRetrofitHelper;
+        this.mContext = mContext;
     }
 
 
     @Override
     public void getShopName(String phone) {
 
+        LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.shopName(accessToken, phone)
                 .compose(RxUtil.<MyHttpResponse<ShopBean>>rxSchedulerHelper())
@@ -42,13 +48,18 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     public void accept(ShopBean value) {
                         mView.shopName(value.getShop_name());
                     }
-                }, new CommonConsumer(mView));
+                }, new CommonConsumer<Object>(mView) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
         addSubscrebe(rxSubscription);
     }
 
     @Override
     public void getBalance() {
 
+        LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.getBalance(accessToken)
                 .compose(RxUtil.<MyHttpResponse<BalanceBean>>rxSchedulerHelper())
@@ -58,13 +69,18 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     public void accept(BalanceBean value) {
                         mView.balance(value);
                     }
-                }, new CommonConsumer(mView));
+                }, new CommonConsumer<Object>(mView) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
         addSubscrebe(rxSubscription);
     }
 
     @Override
     public void payment(String phone, String money, String password) {
 
+        LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.payment(accessToken, phone, money, password)
                 .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
@@ -74,7 +90,11 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     public void accept(Object value) {
 
                     }
-                }, new CommonConsumer(mView));
+                }, new CommonConsumer<Object>(mView) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
         addSubscrebe(rxSubscription);
     }
 }
