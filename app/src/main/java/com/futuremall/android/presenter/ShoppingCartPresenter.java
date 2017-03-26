@@ -1,18 +1,28 @@
 package com.futuremall.android.presenter;
 
+import android.app.Activity;
 import android.view.View;
 
 import com.futuremall.android.base.RxPresenter;
+import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
+import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.ShoppingCartBean;
+import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.ShoppingCarContract;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
+import com.futuremall.android.util.CommonConsumer;
+import com.futuremall.android.util.LoadingStateUtil;
+import com.futuremall.android.util.RxUtil;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.TestData;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Allen on 2017/3/3.
@@ -21,19 +31,29 @@ import javax.inject.Inject;
 public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View> implements ShoppingCarContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
-    private List<ShoppingCartBean> mShoppingCartBeen;
+    private Activity mContext;
 
     @Inject
-    ShoppingCartPresenter(RetrofitHelper mRetrofitHelper) {
+    ShoppingCartPresenter(RetrofitHelper mRetrofitHelper, Activity mContext) {
         this.mRetrofitHelper = mRetrofitHelper;
+        this.mContext = mContext;
     }
 
 
     @Override
     public void shoppingCar() {
 
-        mShoppingCartBeen = TestData.getShoppingCartBeanLsit();
-        mView.showContent(mShoppingCartBeen);
+        String accessToken = PreferencesFactory.getUserPref().getToken();
+        Disposable rxSubscription = mRetrofitHelper.shoppingCar(accessToken)
+                .compose(RxUtil.<MyHttpResponse<List<ShoppingCartBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<ShoppingCartBean>>handleMyResult())
+                .subscribe(new Consumer<List<ShoppingCartBean>>() {
+                    @Override
+                    public void accept(List<ShoppingCartBean> value) {
+                        mView.showContent(value);
+                    }
+                }, new CommonConsumer<Object>(mView));
+        addSubscrebe(rxSubscription);
     }
 
     @Override
@@ -45,8 +65,9 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     }
 
     @Override
-    public void delete(List<ShoppingCartBean> data, View view) {
-        SnackbarUtil.show(view, "需要请求接口才能真正删除");
+    public void delete(List<ShoppingCartBean> data) {
+
+
     }
 
     @Override
@@ -68,9 +89,25 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     }
 
     @Override
-    public void dataChange(String id, String count, int type, View view) {
+    public void dataChange(final String id, String count) {
 
-        SnackbarUtil.show(view, "需要请求接口才能真正增加或减少");
+        LoadingStateUtil.show(mContext);
+        String accessToken = PreferencesFactory.getUserPref().getToken();
+        Disposable rxSubscription = mRetrofitHelper.changeShoppingCar(accessToken, id, count)
+                .compose(RxUtil.<MyHttpResponse<ChangeShoppingCart>>rxSchedulerHelper())
+                .compose(RxUtil.<ChangeShoppingCart>handleMyResult())
+                .subscribe(new Consumer<ChangeShoppingCart>() {
+                    @Override
+                    public void accept(ChangeShoppingCart value) {
+                        LoadingStateUtil.close();
+                        mView.updateShoppingCartCount(id, value.getNum());
+                    }
+                },  new CommonConsumer<Object>(mView) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
+        addSubscrebe(rxSubscription);
     }
 
     @Override

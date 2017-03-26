@@ -19,6 +19,7 @@ import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.presenter.Contract.ShoppingCarContract;
 import com.futuremall.android.presenter.ShoppingCartPresenter;
+import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.adapter.ShoppingCarAdapter;
 import com.futuremall.android.ui.listener.OnShopCartChangeListener;
 import com.futuremall.android.util.StringUtil;
@@ -194,14 +195,16 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     }
 
     @Override
-    public void showTotalPrice(String totalPrice, String totalCount) {
-        mTvProductPrice.setText(StringUtil.getPrice(getContext(),totalPrice));
-        mBtPay.setText(String.format(getString(R.string.to_pay), totalCount));
+    public void updateShoppingCartCount(String recID, int count) {
+
+        ShoppingCartHepler.setShoppingCartCount(mAdapter.getCurrentList(), recID, count);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showError(String msg) {
-
+    public void showTotalPrice(String totalPrice, String totalCount) {
+        mTvProductPrice.setText(StringUtil.getPrice(getContext(),totalPrice));
+        mBtPay.setText(String.format(getString(R.string.to_pay), totalCount));
     }
 
     @Override
@@ -227,9 +230,9 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     }
 
     @Override
-    public void onDataChange(String id, String count, int type) {
+    public void onDataChange(String id, String count) {
 
-        mPresenter.dataChange(id, count, type, getView());
+        mPresenter.dataChange(id, count);
     }
 
     @Override

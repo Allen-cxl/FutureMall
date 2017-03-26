@@ -3,10 +3,12 @@ package com.futuremall.android.http;
 
 import com.futuremall.android.http.api.MallApis;
 import com.futuremall.android.model.bean.BalanceBean;
+import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.ShopBean;
+import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 
@@ -69,6 +71,14 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<List<OperationRecordBean>>> operationRecord(String token, String p, String num, String time) {
         return mMallApiService.operationRecord(token, p, num, time);
+    }
+
+    public Flowable<MyHttpResponse<List<ShoppingCartBean>>> shoppingCar(String token) {
+        return mMallApiService.shoppingCar(token);
+    }
+
+    public Flowable<MyHttpResponse<ChangeShoppingCart>> changeShoppingCar(String token, String recID, String num) {
+        return mMallApiService.changeShoppingCar(token, recID, num);
     }
 
     public Flowable<MyHttpResponse<List<OrderList>>> orderList(String token, String p, String num, String state) {

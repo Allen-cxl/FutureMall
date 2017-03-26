@@ -26,7 +26,7 @@ public class ShoppingCartHepler {
 
         for (ShoppingCartBean shoppingCartBean : list){
             shoppingCartBean.setCheckEd(isSelectAll);
-            for (ShoppingCartBean.ShoppingCartProductBean shoppingCartProductBean : shoppingCartBean.getData()){
+            for (ShoppingCartBean.ShoppingCartProductBean shoppingCartProductBean : shoppingCartBean.getCart_goods()){
                 shoppingCartProductBean.setCheckEd(isSelectAll);
             }
         }
@@ -46,7 +46,7 @@ public class ShoppingCartHepler {
                 iteratorShopCarts.remove();
             } else {
 
-                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getData().iterator();
+                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getCart_goods().iterator();
                 while (iteratorGoods.hasNext()) {
                     ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
                     if (shopCartGood.isCheckEd()) {
@@ -69,20 +69,20 @@ public class ShoppingCartHepler {
 
             ShoppingCartBean sc = iteratorShopCarts.next();
             if (sc.isCheckEd()) {
-                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getData().iterator();
+                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getCart_goods().iterator();
 
                 while (iteratorGoods.hasNext()) {
                     ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
-                    shopCartIDs.add(shopCartGood.getID());
+                    shopCartIDs.add(shopCartGood.getGoods_id());
                 }
 
             } else {
 
-                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getData().iterator();
+                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getCart_goods().iterator();
                 while (iteratorGoods.hasNext()) {
                     ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
                     if (shopCartGood.isCheckEd()) {
-                        shopCartIDs.add(shopCartGood.getID());
+                        shopCartIDs.add(shopCartGood.getGoods_id());
                     }
                 }
 
@@ -137,8 +137,8 @@ public class ShoppingCartHepler {
     public static boolean selectOne(List<ShoppingCartBean> list, int groudPosition, int childPosition, boolean isChecked) {
         boolean isSelectAll;
 
-        list.get(groudPosition).getData().get(childPosition).setCheckEd(isChecked);//单个图标的处理
-        boolean isSelectCurrentGroup = isSelectAllChild(list.get(groudPosition).getData());
+        list.get(groudPosition).getCart_goods().get(childPosition).setCheckEd(isChecked);//单个图标的处理
+        boolean isSelectCurrentGroup = isSelectAllChild(list.get(groudPosition).getCart_goods());
         list.get(groudPosition).setCheckEd(isSelectCurrentGroup);//组图标的处理
         isSelectAll = isSelectAllGroup(list);
         return isSelectAll;
@@ -147,8 +147,8 @@ public class ShoppingCartHepler {
     public static boolean selectGroup(List<ShoppingCartBean> list, int groudPosition, boolean isChecked) {
         boolean isSelectAll;
         list.get(groudPosition).setCheckEd(isChecked);
-        for (int i = 0; i < list.get(groudPosition).getData().size(); i++) {
-            list.get(groudPosition).getData().get(i).setCheckEd(isChecked);
+        for (int i = 0; i < list.get(groudPosition).getCart_goods().size(); i++) {
+            list.get(groudPosition).getCart_goods().get(i).setCheckEd(isChecked);
         }
         isSelectAll = isSelectAllGroup(list);
         return isSelectAll;
@@ -178,11 +178,11 @@ public class ShoppingCartHepler {
         String selectedCount = "0";
         String selectedMoney = "0";
         for (int i = 0; i < listGoods.size(); i++) {
-            for (int j = 0; j < listGoods.get(i).getData().size(); j++) {
-                boolean isSelectd = listGoods.get(i).getData().get(j).isCheckEd();
+            for (int j = 0; j < listGoods.get(i).getCart_goods().size(); j++) {
+                boolean isSelectd = listGoods.get(i).getCart_goods().get(j).isCheckEd();
                 if (isSelectd) {
-                    String price = String.valueOf(listGoods.get(i).getData().get(j).getProductPrice());
-                    String num = String.valueOf(listGoods.get(i).getData().get(j).getProductCount());
+                    String price = String.valueOf(listGoods.get(i).getCart_goods().get(j).getGoods_price());
+                    String num = String.valueOf(listGoods.get(i).getCart_goods().get(j).getGoods_num());
                     String countMoney = DecimalUtil.multiplyWithScale(price, num, 2);
                     selectedMoney = DecimalUtil.add(selectedMoney, countMoney);
                     selectedCount = DecimalUtil.add(selectedCount, "1");
@@ -211,6 +211,21 @@ public class ShoppingCartHepler {
             }
         }
         return num;
+    }
+
+    /**
+     * 设置购物车数量
+     */
+    public static void setShoppingCartCount(List<ShoppingCartBean> list, String recID, int count) {
+
+        for (ShoppingCartBean cart: list) {
+            List<ShoppingCartBean.ShoppingCartProductBean>  goods = cart.getCart_goods();
+            for (ShoppingCartBean.ShoppingCartProductBean productBean: goods) {
+                if(recID.equals(productBean.getRec_id())){
+                    productBean.setGoods_num(count);
+                }
+            }
+        }
     }
 
 }

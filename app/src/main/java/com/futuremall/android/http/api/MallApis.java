@@ -4,10 +4,12 @@ package com.futuremall.android.http.api;
 
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.model.bean.BalanceBean;
+import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.ShopBean;
+import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 
@@ -114,6 +116,20 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("order/orderlist")
     Flowable<MyHttpResponse<List<OrderList>>> orderList(@Field("access_token") String token, @Field("p") String p, @Field("num") String num, @Field("state") String state);
+
+    /**
+     * 购物车
+     */
+    @FormUrlEncoded
+    @POST("order/cartlist")
+    Flowable<MyHttpResponse<List<ShoppingCartBean>>> shoppingCar(@Field("access_token") String token);
+
+    /**
+     * 修改购物车
+     */
+    @FormUrlEncoded
+    @POST("order/changenum")
+    Flowable<MyHttpResponse<ChangeShoppingCart>> changeShoppingCar(@Field("access_token") String token, @Field("rec_id") String recID, @Field("num") String num);
 
     /**
      * 订单详情

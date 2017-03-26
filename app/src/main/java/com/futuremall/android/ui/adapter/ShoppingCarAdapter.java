@@ -52,7 +52,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
     public int getItemCount(int section) {
         ShoppingCartBean sectionObject = dataList.get(section);
 
-        return sectionObject.getData().size();
+        return sectionObject.getCart_goods().size();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
 
         ShoppingCartBean sectionObject = dataList.get(section);
         ShoppingCartGroupViewHolder headerViewHolder = (ShoppingCartGroupViewHolder) holder;
-        headerViewHolder.mCheckBoxShopName.setText(sectionObject.getShopName());
+        headerViewHolder.mCheckBoxShopName.setText(sectionObject.getShop_name());
         headerViewHolder.mCheckBoxShopName.setChecked(sectionObject.isCheckEd());
         headerViewHolder.mCheckBoxShopName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int section, final int relativePosition, int absolutePosition) {
 
-        final ShoppingCartBean.ShoppingCartProductBean productBean = dataList.get(section).getData().get(relativePosition);
+        final ShoppingCartBean.ShoppingCartProductBean productBean = dataList.get(section).getCart_goods().get(relativePosition);
 
         final ShoppingCartChildViewHolder itemViewHolder = (ShoppingCartChildViewHolder) holder;
         itemViewHolder.mCheckBoxChild.setChecked(productBean.isCheckEd());
@@ -107,21 +107,21 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
             }
         });
         Glide.with(mContext.getApplicationContext())
-                .load(productBean.getProductPic())
+                .load(productBean.getGoods_img())
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(itemViewHolder.mIvProductPic);
-        itemViewHolder.mTvProductName.setText(productBean.getProductName());
-        String price = String.format(mContext.getString(R.string.price), productBean.getProductPrice());
+        itemViewHolder.mTvProductName.setText(productBean.getGoods_name());
+        String price = String.format(mContext.getString(R.string.price), productBean.getGoods_price());
         itemViewHolder.mTvProductPrice.setText(StringUtil.getPrice(mContext, price));
-        itemViewHolder.mTvCount.setText(String.valueOf(productBean.getProductCount()));
+        itemViewHolder.mTvCount.setText(String.valueOf(productBean.getGoods_num()));
         itemViewHolder.mTvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String count = itemViewHolder.mTvCount.getText().toString().trim();
                 String addCount = ShoppingCartHepler.addOrReduceGoodsNum(true, count, itemViewHolder.mTvAdd);
 
-                mChangeListener.onDataChange(productBean.getID(), addCount, ShoppingCartHepler.TYPE_ADD);
+                mChangeListener.onDataChange(productBean.getRec_id(), addCount);
             }
         });
         itemViewHolder.mTvReduce.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +130,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
                 String count = itemViewHolder.mTvCount.getText().toString().trim();
                 String reduceCount = ShoppingCartHepler.addOrReduceGoodsNum(false, count, itemViewHolder.mTvAdd);
 
-                mChangeListener.onDataChange(productBean.getID(), reduceCount, ShoppingCartHepler.TYPE_REDUCE);
+                mChangeListener.onDataChange(productBean.getRec_id(), reduceCount);
             }
         });
         itemViewHolder.mTvCount.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
                 new AddReduceDialogFragment.Builder()
                         .context(mContext)
                         .count(count)
-                        .ID(productBean.getID())
+                        .ID(productBean.getRec_id())
                         .listener(mChangeListener)
                         .build()
                         .show(((FragmentActivity) mContext).getSupportFragmentManager(), "AddReduceDialog");

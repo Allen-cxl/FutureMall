@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface OnShopCartChangeListener {
 
-    void onDataChange(String id, String count, int type);
+    void onDataChange(String id, String count);
 
     void onTotalPrice(List<ShoppingCartBean> list);
 

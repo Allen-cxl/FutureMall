@@ -27,6 +27,8 @@ public class ShoppingCarContract {
 
         void showDeleteButton(int visibility);
 
+        void updateShoppingCartCount(String recID, int count);
+
         void showTotalPrice(String totalPrice, String totalCount);
 
     }
@@ -38,13 +40,13 @@ public class ShoppingCarContract {
 
         void selectOrCancelAll(List<ShoppingCartBean> list, boolean isSelectAll);
 
-        void delete(List<ShoppingCartBean> data, android.view.View view);
+        void delete(List<ShoppingCartBean> data);
 
         void menuDone(List<ShoppingCartBean> list, boolean isSelectAll);
 
         void menuEdit(List<ShoppingCartBean> list, boolean isSelectAll);
 
-        void dataChange(String id, String count, int type, android.view.View view);
+        void dataChange(String id, String count);
 
         void calculateTotalPrice(List<ShoppingCartBean> data);
 
