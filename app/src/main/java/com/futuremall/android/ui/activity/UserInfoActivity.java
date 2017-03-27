@@ -61,7 +61,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
         setUserInfo(userInfo);
     }
 
-    @OnClick({R.id.ll_user_avatar, R.id.tv_name, R.id.tv_birthday, R.id.tv_sex, R.id.tv_email, R.id.tv_phone})
+    @OnClick({R.id.ll_user_avatar, R.id.tv_name, R.id.tv_birthday, R.id.tv_sex, R.id.tv_email, R.id.tv_phone, R.id.tv_update_user})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_user_avatar:
