@@ -13,6 +13,8 @@ import com.futuremall.android.model.bean.VersionBean;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import okhttp3.MultipartBody;
+import retrofit2.http.Field;
 
 
 public class RetrofitHelper {
@@ -81,5 +83,9 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<Object>> affirmOrder(String token, String orderID, String payPassword) {
         return mMallApiService.affirmOrder(token, orderID, payPassword);
+    }
+
+    public Flowable<MyHttpResponse<Object>> updateUser(String token, MultipartBody.Part file, int sex, String birthday, String realName) {
+        return mMallApiService.updateUser(token, file, sex, birthday, realName);
     }
 }

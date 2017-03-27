@@ -6,16 +6,20 @@ import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.model.bean.UserInfo;
+import com.futuremall.android.model.event.InfoEvent;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.UserContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
+import com.futuremall.android.util.StringUtil;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Created by Allen on 2017/3/3.
@@ -30,6 +34,19 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
     UserPresenter(RetrofitHelper mRetrofitHelper, Activity mContext) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.mContext = mContext;
+
+        registerEvent();
+    }
+
+    void registerEvent() {
+        Disposable rxSubscription = RxBus.getDefault().toObservable(UserInfo.class)
+                .compose(RxUtil.<UserInfo>rxSchedulerHelper()).subscribe(new Consumer<UserInfo>() {
+                    @Override
+                    public void accept(UserInfo userInfo) {
+                        showLayout();
+                    }
+                });
+        addSubscrebe(rxSubscription);
     }
 
     @Override
@@ -43,7 +60,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                     @Override
                     public void accept(UserInfo value) {
                         LoadingStateUtil.close();
-                        mView.setUserInfo(value);
+                        mView.showLoginLayout(value);
                     }
                 }, new CommonConsumer<Object>(mView){
                     public void onError(){
@@ -60,7 +77,6 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
             userInfo();
         }else{
             mView.showRegisterLayout();
-            mView.setUserInfo(new UserInfo());
         }
     }
 

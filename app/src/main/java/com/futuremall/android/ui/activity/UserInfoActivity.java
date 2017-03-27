@@ -8,8 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
+import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.UserInfoContract;
 import com.futuremall.android.presenter.UserInfoPresenter;
 
@@ -52,6 +56,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     protected void initEventAndData() {
 
         setToolBar(mSuperToolbar, getString(R.string.user_info), true);
+
+        UserInfo userInfo = getIntent().getParcelableExtra(Constants.IT_USER_INFO);
+        setUserInfo(userInfo);
     }
 
     @OnClick({R.id.ll_user_avatar, R.id.tv_name, R.id.tv_birthday, R.id.tv_sex, R.id.tv_email, R.id.tv_phone})
@@ -80,13 +87,38 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
                 mTextView = mTvPhone;
                 ModifyInfoActivity.enter(this, getString(R.string.phone), mTvPhone.getText().toString());
                 break;
+
+            case R.id.tv_update_user:
+                mTextView = mTvPhone;
+                String name = mTvName.getText().toString();
+                int sex = 1;
+                String birthday = mTvBirthday.getText().toString();
+                ModifyInfoActivity.enter(this, getString(R.string.phone), mTvPhone.getText().toString());
+                mPresenter.saveUserInfo("file", sex, birthday, name);
+                break;
         }
     }
 
-    public static void enter(Context context) {
+    public static void enter(Context context, UserInfo userInfo) {
 
         Intent intent = new Intent(context, UserInfoActivity.class);
+        intent.putExtra(Constants.IT_USER_INFO, userInfo);
         context.startActivity(intent);
+    }
+
+    private void setUserInfo(UserInfo userInfo){
+
+        Glide.with(mContext.getApplicationContext())
+                .load(userInfo.getUser_pic())
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(mIvUserAvatar);
+        mTvName.setText(userInfo.getReal_name());
+        mTvSex.setText(userInfo.getSex() == UserInfo.SEX_MAN ? "男" : "女");
+        mTvBirthday.setText(userInfo.getBirthday());
+        mTvEmail.setText(userInfo.getEmail());
+        mTvPhone.setText(userInfo.getMobile_phone());
+
     }
 
     @Override

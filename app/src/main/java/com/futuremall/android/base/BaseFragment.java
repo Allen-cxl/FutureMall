@@ -31,7 +31,7 @@ import butterknife.Unbinder;
  * Created by codeest on 2016/8/2.
  * MVP Fragment基类
  */
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView{
+public abstract class BaseFragment<T extends BasePresenter> extends BaseLazyFragment implements BaseView{
 
     @Inject
     protected T mPresenter;

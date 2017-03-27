@@ -120,6 +120,7 @@
     <item name="et_txt" type="id"/>
     <item name="iv_search" type="id"/>
     <item name="ll_label" type="id"/>
+    <item name = "tv_update_user" type = "id" />
 
 
 </resources>
