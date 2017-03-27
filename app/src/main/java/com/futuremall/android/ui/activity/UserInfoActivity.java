@@ -17,6 +17,8 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.UserInfoContract;
 import com.futuremall.android.presenter.UserInfoPresenter;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -93,8 +95,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
                 String name = mTvName.getText().toString();
                 int sex = 1;
                 String birthday = mTvBirthday.getText().toString();
-                ModifyInfoActivity.enter(this, getString(R.string.phone), mTvPhone.getText().toString());
-                mPresenter.saveUserInfo("file", sex, birthday, name);
+                mPresenter.saveUserInfo(new File(""), sex, birthday, name);
                 break;
         }
     }

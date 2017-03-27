@@ -217,7 +217,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
                 break;
 
             case R.id.bt_delete:
-                mPresenter.delete(mAdapter.getCurrentList(), getView());
+                mPresenter.delete(mAdapter.getCurrentList());
                 mAdapter.notifyDataSetChanged();
                 break;
 

@@ -14,14 +14,19 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
+import retrofit2.http.Query;
 
 
 public interface MallApis {
@@ -150,10 +155,7 @@ public interface MallApis {
 
     /**
      * 修改个人信息
-     * .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
      */
-
-    @Multipart
     @POST("user/updateuser")
-    Flowable<MyHttpResponse<Object>> updateUser(@Field("access_token") String token, @Part("user_picture[imglist]") MultipartBody.Part file, @Field("sex") int sex, @Field("birthday") String birthday, @Field("real_name") String realName);
+    Flowable<MyHttpResponse<Object>> updateUser(@Body RequestBody Body);
 }

@@ -112,7 +112,7 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
                 break;
 
             case R.id.bt_sure:
-                mChangeListener.onDataChange(mID, mCount, mType);
+                mChangeListener.onDataChange(mID, mCount);
                 dismiss();
                 break;
         }

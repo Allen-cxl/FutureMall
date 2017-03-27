@@ -4,6 +4,8 @@ import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.model.bean.UserInfo;
 
+import java.io.File;
+
 
 public class UserInfoContract {
 
@@ -14,6 +16,6 @@ public class UserInfoContract {
 
     public interface  Presenter extends BasePresenter<View> {
 
-        void saveUserInfo(String file, int sex, String birthday, String realName);
+        void saveUserInfo(File file, int sex, String birthday, String realName);
     }
 }

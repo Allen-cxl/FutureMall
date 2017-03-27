@@ -15,6 +15,8 @@ import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
@@ -56,14 +58,11 @@ public class UserInfoPresenter extends RxPresenter<UserInfoContract.View> implem
     }
 
     @Override
-    public void saveUserInfo(String file, int sex, String birthday, String realName) {
+    public void saveUserInfo(File file, int sex, String birthday, String realName) {
 
         LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), "/storage/emulated/0/相机/IMG_20161221_134120.jpg");
-
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", System.currentTimeMillis()+"", requestFile);
-        Disposable rxSubscription = mRetrofitHelper.updateUser(accessToken, body, sex, birthday, realName)
+        Disposable rxSubscription = mRetrofitHelper.updateUser(accessToken, file, sex, birthday, realName)
                 .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
                 .compose(RxUtil.handleMyResult())
                 .subscribe(new Consumer<Object>() {

@@ -11,11 +11,15 @@ import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
+import com.futuremall.android.util.Md5Utils;
 
+import java.io.File;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 
 
@@ -95,7 +99,42 @@ public class RetrofitHelper {
         return mMallApiService.affirmOrder(token, orderID, payPassword);
     }
 
-    public Flowable<MyHttpResponse<Object>> updateUser(String token, MultipartBody.Part file, int sex, String birthday, String realName) {
-        return mMallApiService.updateUser(token, file, sex, birthday, realName);
+    public Flowable<MyHttpResponse<Object>> updateUser(String token, File file, int sex, String birthday, String realName) {
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), "/storage/emulated/0/相机/IMG_20161221_134120.jpg");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("access_token");
+        sb.append("=");
+        sb.append(token);
+        sb.append("&");
+
+        sb.append("sex");
+        sb.append("=");
+        sb.append(sex);
+        sb.append("&");
+
+        sb.append("birthday");
+        sb.append("=");
+        sb.append(birthday);
+        sb.append("&");
+
+        sb.append("realName");
+        sb.append("=");
+        sb.append(realName);
+
+        String sign = Md5Utils.getSign(sb);
+
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.addFormDataPart("access_token", token);
+        builder.addFormDataPart("sex", sex+"");
+        builder.addFormDataPart("birthday", birthday);
+        builder.addFormDataPart("real_name", realName);
+        builder.addFormDataPart("sign", sign);
+        builder.addFormDataPart("user_picture[imglist]", System.currentTimeMillis()+"", requestFile);
+        builder.setType(MultipartBody.FORM);
+        MultipartBody multipartBody = builder.build();
+
+        return mMallApiService.updateUser(multipartBody);
     }
 }
