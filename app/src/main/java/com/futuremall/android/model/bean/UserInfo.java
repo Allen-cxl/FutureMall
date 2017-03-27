@@ -9,13 +9,15 @@ import android.os.Parcelable;
 
 public class UserInfo implements Parcelable {
 
+    public static final  int SEX_MAN = 0; //男
+
     String user_id;
     String real_name;
     String access_token;
     String user_name;
     String mobile_phone;
     String email;
-    String sex;
+    int sex;
     String birthday;
     String user_pic;
     float user_money;
@@ -72,11 +74,11 @@ public class UserInfo implements Parcelable {
         this.email = email;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -150,7 +152,7 @@ public class UserInfo implements Parcelable {
         dest.writeString(this.user_name);
         dest.writeString(this.mobile_phone);
         dest.writeString(this.email);
-        dest.writeString(this.sex);
+        dest.writeInt(this.sex);
         dest.writeString(this.birthday);
         dest.writeString(this.user_pic);
         dest.writeFloat(this.user_money);
@@ -170,7 +172,7 @@ public class UserInfo implements Parcelable {
         this.user_name = in.readString();
         this.mobile_phone = in.readString();
         this.email = in.readString();
-        this.sex = in.readString();
+        this.sex = in.readInt();
         this.birthday = in.readString();
         this.user_pic = in.readString();
         this.user_money = in.readFloat();

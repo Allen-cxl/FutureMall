@@ -32,7 +32,6 @@ public class OrderCenterActivity extends SimpleActivity {
     @BindView(R.id.line_view)
     View mLineView;
 
-
     private MyPagerAdapter mAdapter;
 
     @Override
@@ -59,7 +58,7 @@ public class OrderCenterActivity extends SimpleActivity {
             mViewPager.setAdapter(mAdapter);
         } else {
             for (int i = 0; i < tabStr.length; i++) {
-                OrderFragment f =null;
+                OrderFragment f ;
                 if(tabStr[i].equals(R.string.deliver)){
                     f = OrderFragment.newInstance(Constants.DELIVERING);
                 }else if(tabStr[i].equals(R.string.receipting)){
@@ -67,18 +66,16 @@ public class OrderCenterActivity extends SimpleActivity {
                 }else if(tabStr[i].equals(R.string.receipted)){
                     f = OrderFragment.newInstance(Constants.RECEIPTED);
                 }else{
-                    f = new OrderFragment();
+                    f = OrderFragment.newInstance(null);
                 }
                 list.add(f);
             }
             mAdapter.addItem(tabStr, list);
             mTabLayout.addTab(mTabLayout.newTab());
-            mViewPager.setOffscreenPageLimit(1);
             mViewPager.setAdapter(mAdapter);
+            mViewPager.setOffscreenPageLimit(tabStr.length);
             mTabLayout.setupWithViewPager(mViewPager);
         }
-
-
     }
 
     public static void enter(Context context) {

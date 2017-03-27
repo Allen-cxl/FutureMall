@@ -38,8 +38,11 @@ public class OrderCenterPresenter extends RxPresenter<OrderCenterContract.View> 
 
 
     @Override
-    public void orderList(String p, String num, String state) {
-        LoadingStateUtil.show(mContext);
+    public void orderList(String p, String num, String state, boolean isFirst) {
+        if(isFirst){
+            LoadingStateUtil.show(mContext);
+        }
+
         String token = PreferencesFactory.getUserPref().getToken();
         Disposable disposable = mRetrofitHelper.orderList(token, p, num, state)
                 .compose(RxUtil.<MyHttpResponse<List<OrderList>>>rxSchedulerHelper())

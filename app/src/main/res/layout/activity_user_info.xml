@@ -186,4 +186,15 @@
             android:gravity = "center_vertical|right" />
     </LinearLayout >
 
+    <TextView
+        android:id = "@id/tv_update_user"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_margin = "20dp"
+        android:background = "@drawable/corner_orange"
+        android:gravity = "center"
+        android:padding = "10dp"
+        android:text = "@string/update_user"
+        android:textColor = "@android:color/white" />
+
 </LinearLayout >

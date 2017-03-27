@@ -14,6 +14,6 @@ public class UserInfoContract {
 
     public interface  Presenter extends BasePresenter<View> {
 
-        void saveUserInfo(UserInfo userInfo);
+        void saveUserInfo(String file, int sex, String birthday, String realName);
     }
 }

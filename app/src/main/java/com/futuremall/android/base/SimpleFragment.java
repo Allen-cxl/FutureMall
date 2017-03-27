@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class SimpleFragment extends Fragment {
+public abstract class SimpleFragment extends BaseLazyFragment {
 
     protected View mView;
     protected Activity mActivity;

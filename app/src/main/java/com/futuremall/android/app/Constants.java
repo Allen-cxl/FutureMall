@@ -115,7 +115,7 @@ public class Constants {
 
     public static final String IT_ORDER_ID = "orderID";
 
-    public static final String IT_GOLD_TYPE = "type";
+    public static final String IT_USER_INFO = "userInfo";
 
     public static final String IT_GOLD_TYPE_STR = "type_str";
 

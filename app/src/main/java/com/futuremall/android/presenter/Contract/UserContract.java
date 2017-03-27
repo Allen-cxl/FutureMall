@@ -13,13 +13,9 @@ public class UserContract {
 
     public interface View extends BaseView {
 
-        void showContent();
-
         void showRegisterLayout();
 
-        void showLoginLayout();
-
-        void setUserInfo(UserInfo info);
+        void showLoginLayout(UserInfo info);
     }
 
     public interface  Presenter extends BasePresenter<View> {

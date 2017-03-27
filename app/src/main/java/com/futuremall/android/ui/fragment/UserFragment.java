@@ -1,15 +1,13 @@
 package com.futuremall.android.ui.fragment;
 
 
-import android.icu.text.StringSearch;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.UserInfo;
@@ -24,9 +22,9 @@ import com.futuremall.android.ui.activity.RechargeActivity;
 import com.futuremall.android.ui.activity.SettingActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
 import com.futuremall.android.ui.activity.UserInfoActivity;
+import com.futuremall.android.util.SnackbarUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -72,6 +70,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     LinearLayout mLlLoginRegister;
     @BindView(R.id.ll_userInfo)
     LinearLayout mLlUserInfo;
+    UserInfo mUserInfo;
 
     @Override
     protected void initInject() {
@@ -86,17 +85,12 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     @Override
     protected void initEventAndData() {
 
+        mPresenter.showLayout();
     }
 
     @Override
     public void showError(String msg) {
 
-    }
-
-    @Override
-    public void showContent() {
-        mLlLoginRegister.setVisibility(View.GONE);
-        mLlUserInfo.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -106,24 +100,22 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     }
 
     @Override
-    public void showLoginLayout() {
+    public void showLoginLayout(UserInfo info) {
+        mLlLoginRegister.setVisibility(View.GONE);
+        mLlUserInfo.setVisibility(View.VISIBLE);
+        mUserInfo = info;
 
-    }
-
-    @Override
-    public void setUserInfo(UserInfo info) {
+        Glide.with(mContext.getApplicationContext())
+                .load(info.getUser_pic())
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(mIvUserAvatar);
+        mTvUserName.setText(info.getUser_name());
         mTvBalance.setText(String.format(getString(R.string.price), info.getUser_money()));
         mTvBackIntegral.setText(String.format(getString(R.string.price), info.getRebate()));
-        mTvBackIntegral.setText(String.format(getString(R.string.price), info.getPay_points()));
-        mTvBackIntegral.setText(String.format(getString(R.string.price), info.getHighreward()));
-        mTvBackIntegral.setText(String.format(getString(R.string.price), info.getPayin()));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        mPresenter.showLayout();
+        mTvTotalMoney.setText(String.format(getString(R.string.price), info.getPay_points()));
+        mTvGeneralizeMoney.setText(String.format(getString(R.string.price), info.getHighreward()));
+        mTvGeneralizeGive.setText(String.format(getString(R.string.price), info.getPayin()));
     }
 
     @OnClick({R.id.tv_login, R.id.tv_register, R.id.tv_userInfo, R.id.tv_transfer, R.id.tv_payment, R.id.tv_order, R.id.tv_record, R.id.tv_invite_register, R.id.tv_recharge, R.id.tv_setup, R.id.tv_about})
@@ -137,12 +129,12 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
 
             case R.id.tv_register:
 
-                UserInfoActivity.enter(getContext());
+                SnackbarUtil.show(mView, "注册h5界面");
                 break;
 
             case R.id.tv_userInfo:
 
-                UserInfoActivity.enter(getContext());
+                UserInfoActivity.enter(getContext(), mUserInfo);
                 break;
             case R.id.tv_transfer:
 

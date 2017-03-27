@@ -10,6 +10,7 @@ import com.futuremall.android.presenter.Contract.LoginContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.LogUtil;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
 
 import javax.inject.Inject;
@@ -44,6 +45,8 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                     @Override
                     public void accept(UserInfo value) {
                         LoadingStateUtil.close();
+                        mView.loginResponse(value);
+                        RxBus.getDefault().post(value);
                     }
                 }, new CommonConsumer<Object>(mView){
                     public void onError(){

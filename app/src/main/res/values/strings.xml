@@ -87,6 +87,7 @@
     <string name="update_pay_password">修改支付密码</string>
     <string name="clean_cache">清理缓存</string>
     <string name="out_login">退出登录</string>
+    <string name="update_user">确认修改</string>
     <string name="phone">手机号</string>
     <string name="email">邮箱</string>
     <string name="enter_phone">请输入手机号码</string>

@@ -16,9 +16,12 @@ import com.futuremall.android.model.bean.VersionBean;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 
 public interface MallApis {
@@ -144,4 +147,13 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("order/affirmorder")
     Flowable<MyHttpResponse<Object>> affirmOrder(@Field("access_token") String token, @Field("order_id") String orderID, @Field("pay_pass") String payPassord);
+
+    /**
+     * 修改个人信息
+     * .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
+     */
+
+    @Multipart
+    @POST("user/updateuser")
+    Flowable<MyHttpResponse<Object>> updateUser(@Field("access_token") String token, @Part("user_picture[imglist]") MultipartBody.Part file, @Field("sex") int sex, @Field("birthday") String birthday, @Field("real_name") String realName);
 }

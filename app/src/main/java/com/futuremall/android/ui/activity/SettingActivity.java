@@ -10,9 +10,11 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
+import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.util.FileUtil;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.SnackbarUtil;
 
 import butterknife.BindView;
@@ -61,6 +63,7 @@ public class SettingActivity extends SimpleActivity {
             case R.id.tv_login_out:
 
                 PreferencesFactory.getUserPref().removeUserInfo();
+                RxBus.getDefault().post(new UserInfo());
                 finish();
                 break;
         }
