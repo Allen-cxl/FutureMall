@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_view"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/empty_view_bg"/>
+
+    <LinearLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@id/btn_empty_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_data"
+            android:padding="10dp"
+            android:textSize="15sp"
+            android:background="@drawable/corner_transparent_line"
+            android:textColor="@color/font_gray"/>
+
+    </LinearLayout >
+</LinearLayout>

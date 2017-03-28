@@ -14,8 +14,6 @@ import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxUtil;
-import com.futuremall.android.util.SnackbarUtil;
-import com.futuremall.android.util.TestData;
 
 import java.util.List;
 
@@ -41,8 +39,11 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
 
 
     @Override
-    public void shoppingCar() {
+    public void shoppingCar(boolean isFirst) {
 
+        if(isFirst){
+            mView.showLoading();
+        }
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.shoppingCar(accessToken)
                 .compose(RxUtil.<MyHttpResponse<List<ShoppingCartBean>>>rxSchedulerHelper())
@@ -50,9 +51,18 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
                 .subscribe(new Consumer<List<ShoppingCartBean>>() {
                     @Override
                     public void accept(List<ShoppingCartBean> value) {
-                        mView.showContent(value);
+                        mView.showContent();
+                        if(null == value || value.isEmpty()){
+                            mView.showEmpty();
+                        }else{
+                            mView.showData(value);
+                        }
                     }
-                }, new CommonConsumer<Object>(mView, mContext));
+                }, new CommonConsumer<Object>(mView, mContext) {
+                    public void onError() {
+                        mView.showError();
+                    }
+                });
         addSubscrebe(rxSubscription);
     }
 

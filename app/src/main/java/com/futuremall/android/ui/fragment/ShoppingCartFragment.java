@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
@@ -23,6 +22,7 @@ import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.adapter.ShoppingCarAdapter;
 import com.futuremall.android.ui.listener.OnShopCartChangeListener;
 import com.futuremall.android.util.StringUtil;
+import com.futuremall.android.widget.LoadingLayout;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
 import java.util.List;
@@ -54,6 +54,8 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     LinearLayout mLlPay;
     @BindView(R.id.bt_delete)
     Button mBtDelete;
+    @BindView(R.id.loading_layout)
+    LoadingLayout loadingLayout;
 
     MenuItem menuItem;
     private boolean mIsChecked;
@@ -72,11 +74,20 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     @Override
     protected void initEventAndData() {
         setToolBar(mSuperToolbar, getString(R.string.shopping_cart), false);
+        mLoadingLayout = loadingLayout;
+
+
         mTvProductPrice.setText(StringUtil.getPrice(getContext(), "0.00"));
         mBtPay.setText(String.format(getString(R.string.to_pay), "0"));
         mBtPay.setOnClickListener(this);
         mBtDelete.setOnClickListener(this);
         mCheckBox.setOnClickListener(this);
+        mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.shoppingCar(true);
+            }
+        });
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -96,9 +107,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.shoppingCar();
-
-                        Toast.makeText(getActivity(), "刷新完成", Toast.LENGTH_SHORT).show();
+                        mPresenter.shoppingCar(false);
                     }
                 }, 1000);
             }
@@ -129,7 +138,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
             }
         });
-        mPresenter.shoppingCar();
+        mPresenter.shoppingCar(true);
     }
 
     @Override
@@ -174,7 +183,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     }
 
     @Override
-    public void showContent(List<ShoppingCartBean> data) {
+    public void showData(List<ShoppingCartBean> data) {
         mSwipeRefreshLayout.finishRefresh();
         mAdapter.setData(data);
     }

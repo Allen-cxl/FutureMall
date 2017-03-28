@@ -2,27 +2,22 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.presenter.Contract.OperationRecordContract;
-import com.futuremall.android.presenter.Contract.OrderDetailContract;
 import com.futuremall.android.presenter.OperationRecordPresenter;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.OperationRecordAdapter;
-import com.futuremall.android.ui.adapter.OrderCenterAdapter;
+import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.widget.LoadingLayout;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
 import java.util.List;
@@ -37,6 +32,8 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     RecyclerView mRecycleView;
     @BindView(R.id.swipeRefreshLayout)
     SHSwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.loading_layout)
+    LoadingLayout loadingLayout;
     OperationRecordAdapter mAdapter;
     int p = 1, num = 15;
     long time;
@@ -75,7 +72,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     protected void initEventAndData() {
 
         setToolBar(mSuperToolbar, getString(R.string.record), true);
-
+        mLoadingLayout = loadingLayout;
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mAdapter = new OperationRecordAdapter(this);
@@ -85,14 +82,20 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
         mRecycleView.setAdapter(mAdapter);
 
         time = System.currentTimeMillis();
-        mPresenter.recordList(p+"", num+"", time+"");
+        mPresenter.recordList(1, 15, time+"", true);
+        mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.recordList(1, 15, time+"", true);
+            }
+        });
         mSwipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.recordList(p+"", num+"", time+"");
+                        mPresenter.recordList(1, 15, time+"", false);
                     }
                 }, 1000);
             }
@@ -102,7 +105,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.recordList((p++)+"", num+"", time+"");
+                        mPresenter.recordList((p++), num, time+"",  false);
                         mSwipeRefreshLayout.finishLoadmore();
                     }
                 }, 1600);
@@ -142,9 +145,21 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     }
 
     @Override
-    public void showContent(List<OperationRecordBean> recordBeanList) {
+    public void showData(List<OperationRecordBean> recordBeanList) {
+
         mSwipeRefreshLayout.finishRefresh();
         mAdapter.addMoreDatas(recordBeanList);
+
+        if (mAdapter.getItemCount() >= num) {
+            mSwipeRefreshLayout.setLoadmoreEnable(true);
+        }else{
+            mSwipeRefreshLayout.setLoadmoreEnable(false);
+        }
+    }
+
+    @Override
+    public void showNoMore() {
+        SnackbarUtil.show(mRecycleView, "暂无更多数据");
     }
 
     public static void enter(Context context) {

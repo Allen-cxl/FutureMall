@@ -21,7 +21,6 @@ public class OrderList implements Parcelable {
     private static int NOSEND = 0; //0待发货
     private static int ACCEPT; //1待收货
     private static int ACCEPTED; //2已收货
-    private int integral;
     private List<OrderProduct> order_goods;
 
 
@@ -73,14 +72,6 @@ public class OrderList implements Parcelable {
         this.state = state;
     }
 
-    public int getIntegral() {
-        return integral;
-    }
-
-    public void setIntegral(int integral) {
-        this.integral = integral;
-    }
-
     public List<OrderProduct> getOrder_goods() {
         return order_goods;
     }
@@ -102,7 +93,6 @@ public class OrderList implements Parcelable {
         dest.writeString(this.goods_num);
         dest.writeString(this.goods_price);
         dest.writeInt(this.state);
-        dest.writeInt(this.integral);
         dest.writeList(this.order_goods);
     }
 
@@ -116,7 +106,6 @@ public class OrderList implements Parcelable {
         this.goods_num = in.readString();
         this.goods_price = in.readString();
         this.state = in.readInt();
-        this.integral = in.readInt();
         this.order_goods = new ArrayList<OrderProduct>();
         in.readList(this.order_goods, OrderProduct.class.getClassLoader());
     }

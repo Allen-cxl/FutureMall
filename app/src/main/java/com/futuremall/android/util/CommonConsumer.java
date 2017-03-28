@@ -3,7 +3,6 @@ package com.futuremall.android.util;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.http.ApiException;
-import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.google.gson.JsonSyntaxException;
 
@@ -46,26 +45,26 @@ public class CommonConsumer<T> implements Consumer<T> {
             if (mView == null)
                 return;
             if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-                mView.showError(mErrorMsg);
+                mView.showErrorMsg(mErrorMsg);
             } else if (t instanceof ApiException) {
 
                 if(((ApiException) t).state == Constants.SERVER_TOKEN_FAIL){
                     LoginActivity.enter(mActivity);
                 }else{
-                    mView.showError(((ApiException) t).srvMsg);
+                    mView.showErrorMsg(((ApiException) t).srvMsg);
                 }
             } else if (t instanceof SocketTimeoutException) {
-                mView.showError("网络超时，请检查网络");
+                mView.showErrorMsg("网络超时，请检查网络");
             } else if (t instanceof ConnectException) {
-                mView.showError("网络连接失败，请检查网络");
+                mView.showErrorMsg("网络连接失败，请检查网络");
             }else if (t instanceof UnknownHostException) {
-                mView.showError("网络异常，请检查网络");
+                mView.showErrorMsg("网络异常，请检查网络");
             }else if (t instanceof JsonSyntaxException) {
-                mView.showError("数据解析错误");
+                mView.showErrorMsg("数据解析错误");
             }else if (t instanceof HttpException) {
-                mView.showError("数据加载失败");
+                mView.showErrorMsg("数据加载失败");
             }else {
-                mView.showError("未知错误");
+                mView.showErrorMsg("未知错误");
             }
 
         }catch (Exception e){

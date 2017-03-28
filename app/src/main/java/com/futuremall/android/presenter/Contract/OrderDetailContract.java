@@ -9,7 +9,7 @@ public class OrderDetailContract {
 
     public interface View extends BaseView {
 
-        void showContent(OrderDetail dataList);
+        void showData(OrderDetail dataList);
     }
 
     public interface  Presenter extends BasePresenter<View> {

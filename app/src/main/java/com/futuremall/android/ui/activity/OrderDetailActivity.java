@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
@@ -14,6 +15,7 @@ import com.futuremall.android.presenter.Contract.OrderDetailContract;
 import com.futuremall.android.presenter.OrderDetailPresenter;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.OrderDetailAdapter;
+import com.futuremall.android.widget.LoadingLayout;
 
 import butterknife.BindView;
 
@@ -23,6 +25,8 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
     Toolbar mSuperToolbar;
     @BindView(R.id.recycleView)
     RecyclerView mRecycleView;
+    @BindView(R.id.loading_layout)
+    LoadingLayout loadingLayout;
 
     OrderDetailAdapter mAdapter;
 
@@ -40,8 +44,9 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
     @Override
     protected void initEventAndData() {
 
-        String orderID = getIntent().getStringExtra(Constants.IT_ORDER_ID);
+        final String orderID = getIntent().getStringExtra(Constants.IT_ORDER_ID);
         setToolBar(mSuperToolbar, getString(R.string.order_detail), true);
+        mLoadingLayout = loadingLayout;
 
         mAdapter = new OrderDetailAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -50,12 +55,17 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
                 this, DividerItemDecoration.VERTICAL_LIST));
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
-
+        mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.orderDetail(orderID);
+            }
+        });
         mPresenter.orderDetail(orderID);
     }
 
     @Override
-    public void showContent(OrderDetail dataList) {
+    public void showData(OrderDetail dataList) {
 
         mAdapter.setData(dataList);
     }

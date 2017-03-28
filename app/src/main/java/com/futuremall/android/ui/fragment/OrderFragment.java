@@ -4,6 +4,7 @@ package com.futuremall.android.ui.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
@@ -15,6 +16,7 @@ import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.OrderCenterAdapter;
 import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.widget.LoadingLayout;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
 import java.util.List;
@@ -29,6 +31,8 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
     RecyclerView mRecycleView;
     @BindView(R.id.swipeRefreshLayout)
     SHSwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.loading_layout)
+    LoadingLayout loadingLayout;
     OrderCenterAdapter mAdapter;
     int p = 1, num = 15;
     String status;
@@ -57,6 +61,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
     }
 
     private void initValue() {
+        mLoadingLayout = loadingLayout;
         Bundle bundle = getArguments();
         if (bundle != null) {
             status = bundle.getString(Constants.IT_STATUS);
@@ -68,16 +73,21 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
 
-        mPresenter.orderList(p + "", num + "", status, true);
+        mPresenter.orderList(1, 15, status, true);
+        mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.orderList(1, 15, status, true);
+            }
+        });
         mSwipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
             @Override
             public void onRefresh() {
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        p = 1;
-                        num = 15;
-                        mPresenter.orderList(p + "", num + "", status, false);
+
+                        mPresenter.orderList(1, 15, status, false);
                     }
                 }, 1000);
             }
@@ -87,7 +97,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.orderList((p++) + "", num + "", status, false);
+                        mPresenter.orderList((p++), num , status, false);
                         mSwipeRefreshLayout.finishLoadmore();
                     }
                 }, 1600);
@@ -127,17 +137,13 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
     }
 
     @Override
-    public void showError(String msg) {
+    public void showErrorMsg(String msg) {
 
     }
 
     @Override
-    public void showContent(List<OrderList> dataList) {
+    public void showData(List<OrderList> dataList) {
 
-        if(p >1 && (dataList==null || dataList.size()<=0)){
-            SnackbarUtil.show(mRecycleView, "暂无更多数据");
-            return;
-        }
         mSwipeRefreshLayout.finishRefresh();
         mAdapter.setData(dataList);
 
@@ -146,6 +152,11 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
         }else{
             mSwipeRefreshLayout.setLoadmoreEnable(false);
         }
+    }
+
+    @Override
+    public void showNoMore() {
+        SnackbarUtil.show(mRecycleView, "暂无更多数据");
     }
 
 

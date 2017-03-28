@@ -24,6 +24,7 @@
     <item name="title" type="id" />
     <item name="checkBox" type="id" />
     <item name="swipeRefreshLayout" type="id" />
+    <item name="loading_layout" type="id" />
     <item name="recycleView" type="id" />
     <item name="ll_checkBox" type="id" />
     <item name="tv_freight" type="id" />
@@ -123,6 +124,9 @@
     <item name = "tv_update_user" type = "id" />
     <item name = "cb_man" type = "id" />
     <item name = "cb_woman" type = "id" />
+    <item name = "ll_layout" type = "id" />
+    <item name = "btn_error_retry" type = "id" />
+    <item name = "btn_empty_retry" type = "id" />
 
 
 </resources>

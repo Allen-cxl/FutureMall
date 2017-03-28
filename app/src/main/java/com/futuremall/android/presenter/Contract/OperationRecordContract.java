@@ -15,12 +15,13 @@ public class OperationRecordContract {
 
     public interface View extends BaseView {
 
-        void showContent(List<OperationRecordBean> recordBeanList);
+        void showData(List<OperationRecordBean> recordBeanList);
+
+        void showNoMore();
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
-
-        void recordList(String p, String num, String time);
+        void recordList(int p, int num, String time, boolean isFirst);
     }
 }

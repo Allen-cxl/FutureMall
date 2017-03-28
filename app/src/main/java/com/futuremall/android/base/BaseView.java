@@ -6,5 +6,13 @@ package com.futuremall.android.base;
  */
 public interface BaseView {
 
-    void showError(String msg);
+    void showErrorMsg(String msg);
+
+    void showContent();
+
+    void showEmpty();
+
+    void showError();
+
+    void showLoading();
 }

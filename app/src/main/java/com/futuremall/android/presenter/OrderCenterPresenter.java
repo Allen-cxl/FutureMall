@@ -5,14 +5,12 @@ import android.app.Activity;
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
-import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.OrderCenterContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxUtil;
-import com.futuremall.android.util.TestData;
 
 import java.util.List;
 
@@ -38,24 +36,36 @@ public class OrderCenterPresenter extends RxPresenter<OrderCenterContract.View> 
 
 
     @Override
-    public void orderList(String p, String num, String state, boolean isFirst) {
+    public void orderList(final int p, int num, String state, boolean isFirst) {
         if(isFirst){
-            LoadingStateUtil.show(mContext);
+            mView.showLoading();
         }
 
         String token = PreferencesFactory.getUserPref().getToken();
-        Disposable disposable = mRetrofitHelper.orderList(token, p, num, state)
+        Disposable disposable = mRetrofitHelper.orderList(token, p+"", num+"", state)
                 .compose(RxUtil.<MyHttpResponse<List<OrderList>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<OrderList>>handleMyResult())
                 .subscribe(new Consumer<List<OrderList>>() {
                     @Override
                     public void accept(List<OrderList> value) {
-                        LoadingStateUtil.close();
-                        mView.showContent(value);
+                        if((null == value || value.isEmpty()) && p == 1){
+                            mView.showEmpty();
+                        }else{
+
+                            if(p >1 && (value==null || value.size()<=0)){
+                                mView.showNoMore();
+                            }else{
+                                mView.showContent();
+                                mView.showData(value);
+                            }
+
+                        }
                     }
                 }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){
-                        LoadingStateUtil.close();
+                        if(p == 1){
+                            mView.showError();
+                        }
                     }
                 });
         addSubscrebe(disposable);

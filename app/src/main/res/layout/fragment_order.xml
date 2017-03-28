@@ -1,25 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             tools:context="com.futuremall.android.ui.fragment.TypeFragment">
+<FrameLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+             xmlns:app = "http://schemas.android.com/apk/res-auto"
+             xmlns:tools = "http://schemas.android.com/tools"
+             android:layout_width = "match_parent"
+             android:layout_height = "match_parent"
+             tools:context = "com.futuremall.android.ui.fragment.TypeFragment" >
 
-    <com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout
-        android:id="@id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:load_text="加载更多"
-        app:progress_bar_color="@color/orange"
-        app:refresh_text="下拉刷新"
-        app:guidance_text_color="@color/orange"
-        app:guidance_view_bg_color="@color/transparent">
+    <com.futuremall.android.widget.LoadingLayout
+        android:id = "@id/loading_layout"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent" >
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@id/recycleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout
+            android:id = "@id/swipeRefreshLayout"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            app:guidance_text_color = "@color/orange"
+            app:guidance_view_bg_color = "@color/transparent"
+            app:load_text = "加载更多"
+            app:progress_bar_color = "@color/orange"
+            app:refresh_text = "下拉刷新" >
 
-    </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id = "@id/recycleView"
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent" />
 
-</FrameLayout>
+        </com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout >
+    </com.futuremall.android.widget.LoadingLayout >
+</FrameLayout >

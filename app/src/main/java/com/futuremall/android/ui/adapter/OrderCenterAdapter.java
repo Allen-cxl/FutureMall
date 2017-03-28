@@ -68,8 +68,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         OrderFooterViewHolder footerViewHolder = (OrderFooterViewHolder) holder;
         footerViewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderList.getGoods_num()));
         String price = StringUtil.getPrice(mContext, orderList.getGoods_price()).toString();
-        String integral = String.format(mContext.getString(R.string.total_integral), orderList.getIntegral());
-        footerViewHolder.mTvTotalPrice.setText(price + integral);
+        footerViewHolder.mTvTotalPrice.setText(price);
     }
 
     @Override

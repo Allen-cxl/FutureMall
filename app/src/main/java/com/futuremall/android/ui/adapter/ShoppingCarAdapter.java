@@ -19,6 +19,7 @@ import com.futuremall.android.ui.listener.OnShopCartChangeListener;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.AddReduceDialogFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +38,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
 
     public ShoppingCarAdapter( Context context) {
         mContext = context;
+        this.dataList = new ArrayList<>();
     }
 
     public void setOnShopCartChangeListener(OnShopCartChangeListener changeListener) {
@@ -185,7 +187,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
         if(data != null) {
             this.dataList = data;
         }else {
-            this.clear();
+            this.dataList.clear();
         }
         this.notifyDataSetChanged();
     }

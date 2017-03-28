@@ -15,12 +15,13 @@ public class OrderCenterContract {
 
     public interface View extends BaseView {
 
-        void showContent(List<OrderList> dataList);
+        void showData(List<OrderList> dataList);
+
+        void showNoMore();
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
-
-        void orderList(String p, String num, String state,  boolean isFirst);
+        void orderList(int p, int num, String state,  boolean isFirst);
     }
 }

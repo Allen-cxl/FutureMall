@@ -28,7 +28,6 @@ public class OrderDetail implements Parcelable {
     private String address;
     private String shipping_name;
     private String invoice_no;
-    private int integral;
     private List<OrderProduct> order_goods;
 
     public String getShop_id() {
@@ -135,14 +134,6 @@ public class OrderDetail implements Parcelable {
         this.invoice_no = invoice_no;
     }
 
-    public int getIntegral() {
-        return integral;
-    }
-
-    public void setIntegral(int integral) {
-        this.integral = integral;
-    }
-
     public List<OrderProduct> getOrder_goods() {
         return order_goods;
     }
@@ -171,7 +162,6 @@ public class OrderDetail implements Parcelable {
         dest.writeString(this.address);
         dest.writeString(this.shipping_name);
         dest.writeString(this.invoice_no);
-        dest.writeInt(this.integral);
         dest.writeTypedList(this.order_goods);
     }
 
@@ -192,7 +182,6 @@ public class OrderDetail implements Parcelable {
         this.address = in.readString();
         this.shipping_name = in.readString();
         this.invoice_no = in.readString();
-        this.integral = in.readInt();
         this.order_goods = in.createTypedArrayList(OrderProduct.CREATOR);
     }
 

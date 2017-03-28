@@ -55,7 +55,7 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                         if (aBoolean) {
                             mView.startQrCodeActivity();
                         } else {
-                            mView.showError("扫描需要读写摄像头权限哦~");
+                            mView.showErrorMsg("扫描需要读写摄像头权限哦~");
                         }
                     }
                 });

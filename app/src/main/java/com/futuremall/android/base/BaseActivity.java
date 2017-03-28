@@ -9,6 +9,7 @@ import com.futuremall.android.di.component.DaggerActivityComponent;
 import com.futuremall.android.di.module.ActivityModule;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.SystemUtil;
+import com.futuremall.android.widget.LoadingLayout;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,6 +32,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Inject
     protected T mPresenter;
     protected Activity mContext;
+    protected LoadingLayout mLoadingLayout;
     private Unbinder mUnBinder;
 
     @Override
@@ -97,9 +99,33 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     @Override
-    public void showError(String msg) {
+    public void showErrorMsg(String msg) {
 
         SnackbarUtil.show(getWindow().getDecorView(),msg);
+    }
+
+    @Override
+    public void showContent() {
+
+        mLoadingLayout.showContent();
+    }
+
+    @Override
+    public void showEmpty() {
+
+        mLoadingLayout.showEmpty();
+    }
+
+    @Override
+    public void showError() {
+
+        mLoadingLayout.showError();
+    }
+
+    @Override
+    public void showLoading() {
+
+        mLoadingLayout.showError();
     }
 
     protected abstract void initInject();

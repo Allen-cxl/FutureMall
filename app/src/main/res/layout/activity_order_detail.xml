@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.futuremall.android.ui.activity.OrderDetailActivity">
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:background = "@color/line"
+    android:orientation = "vertical"
+    tools:context = "com.futuremall.android.ui.activity.OrderDetailActivity" >
 
-    <include layout="@layout/toolbar_super"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@id/recycleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+    <include layout = "@layout/toolbar_super" />
+
+    <com.futuremall.android.widget.LoadingLayout
+        android:id="@id/loading_layout"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent" >
+
+        <android.support.v7.widget.RecyclerView
+            android:id = "@id/recycleView"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:layout_marginTop = "20dp" />
+    </com.futuremall.android.widget.LoadingLayout >
+</LinearLayout >

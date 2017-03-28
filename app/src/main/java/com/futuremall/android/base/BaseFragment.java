@@ -10,6 +10,7 @@ import com.futuremall.android.di.component.FragmentComponent;
 import com.futuremall.android.di.module.FragmentModule;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.SystemUtil;
+import com.futuremall.android.widget.LoadingLayout;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends BaseLazyFrag
     @Inject
     protected T mPresenter;
     protected View mView;
+    protected LoadingLayout mLoadingLayout;
     protected AppCompatActivity mActivity;
     protected Context mContext;
     private Unbinder mUnBinder;
@@ -109,9 +111,33 @@ public abstract class BaseFragment<T extends BasePresenter> extends BaseLazyFrag
     }
 
     @Override
-    public void showError(String msg) {
+    public void showErrorMsg(String msg) {
 
         SnackbarUtil.show(mView,msg);
+    }
+
+    @Override
+    public void showContent() {
+
+        mLoadingLayout.showContent();
+    }
+
+    @Override
+    public void showEmpty() {
+
+        mLoadingLayout.showEmpty();
+    }
+
+    @Override
+    public void showError() {
+
+        mLoadingLayout.showError();
+    }
+
+    @Override
+    public void showLoading() {
+
+        mLoadingLayout.showLoading();
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ShoppingCarContract {
 
     public interface View extends BaseView {
 
-        void showContent(List<ShoppingCartBean> data);
+        void showData(List<ShoppingCartBean> data);
 
         void showFreight(int visibility);
 
@@ -30,13 +30,12 @@ public class ShoppingCarContract {
         void updateShoppingCartCount(String recID, int count);
 
         void showTotalPrice(String totalPrice, String totalCount);
-
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
 
-        void shoppingCar();
+        void shoppingCar(boolean isFirst);
 
         void selectOrCancelAll(List<ShoppingCartBean> list, boolean isSelectAll);
 

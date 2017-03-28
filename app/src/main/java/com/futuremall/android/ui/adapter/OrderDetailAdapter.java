@@ -109,6 +109,9 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void intValueHeadView(OrderDetailHeadHolder viewHolder, OrderDetail orderDetail){
 
+        if( null ==  orderDetail){
+            return;
+        }
         viewHolder.mTvOrderNo.setText(String.format(mContext.getString(R.string.order_no),orderDetail.getOrder_sn()));
         viewHolder.mTvOrderDate.setText(String.format(mContext.getString(R.string.order_data), orderDetail.getAdd_time()));
         viewHolder.mTvUserName.setText(orderDetail.getUser_name() +"   "+ orderDetail.getMobile_phone());
@@ -119,10 +122,13 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void intValueFootView(final OrderDetailFootHolder viewHolder, OrderDetail orderDetail){
 
+        if( null ==  orderDetail){
+            return;
+        }
+
         viewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderDetail.getGoods_num()));
         String price = StringUtil.getPrice(mContext, orderDetail.getGoods_price()+"").toString();
-        String integral = String.format(mContext.getString(R.string.total_integral), orderDetail.getIntegral());
-        viewHolder.mTvTotalPrice.setText(price + integral);
+        viewHolder.mTvTotalPrice.setText(price);
 
         viewHolder.mTvExpressType.setText(String.format(mContext.getString(R.string.express_type), orderDetail.getShipping_name()));
         viewHolder.mTvExpressNo.setText(String.format(mContext.getString(R.string.express_no), orderDetail.getInvoice_no()));
