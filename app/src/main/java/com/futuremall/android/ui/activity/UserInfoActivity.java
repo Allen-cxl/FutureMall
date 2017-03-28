@@ -2,6 +2,7 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.UserInfoContract;
 import com.futuremall.android.presenter.UserInfoPresenter;
+import com.futuremall.android.widget.GlideCircleTransform;
 
 import java.io.File;
 
@@ -40,8 +42,11 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     TextView mTvEmail;
     @BindView(R.id.tv_phone)
     TextView mTvPhone;
+    @BindView(R.id.tv_update_user)
+    TextView mTvUpdateUser;
 
     TextView mTextView;
+    File mPicFile;
 
     @Override
     protected void initInject() {
@@ -63,39 +68,39 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
         setUserInfo(userInfo);
     }
 
-    @OnClick({R.id.ll_user_avatar, R.id.tv_name, R.id.tv_birthday, R.id.tv_sex, R.id.tv_email, R.id.tv_phone, R.id.tv_update_user})
+    @OnClick({R.id.ll_user_avatar, R.id.tv_name, R.id.tv_birthday, R.id.tv_sex, R.id.tv_update_user})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_user_avatar:
+                mPresenter.galleryPic();
                 break;
             case R.id.tv_name:
                 mTextView = mTvName;
-                ModifyInfoActivity.enter(this, getString(R.string.other_name), mTvName.getText().toString());
+                ModifyInfoActivity.enter(this, getString(R.string.other_name), mTvName.getText().toString(), Constants.ACTIVITY_TEXT);
 
                 break;
             case R.id.tv_birthday:
                 mTextView = mTvBirthday;
-                ModifyInfoActivity.enter(this, getString(R.string.birthday), mTvBirthday.getText().toString());
+                ModifyInfoActivity.enter(this, getString(R.string.birthday), mTvBirthday.getText().toString(), Constants.ACTIVITY_PICKER);
                 break;
             case R.id.tv_sex:
                 mTextView = mTvSex;
-                ModifyInfoActivity.enter(this, getString(R.string.sex), mTvSex.getText().toString());
-                break;
-            case R.id.tv_email:
-                mTextView = mTvEmail;
-                ModifyInfoActivity.enter(this, getString(R.string.email), mTvEmail.getText().toString());
-                break;
-            case R.id.tv_phone:
-                mTextView = mTvPhone;
-                ModifyInfoActivity.enter(this, getString(R.string.phone), mTvPhone.getText().toString());
+                ModifyInfoActivity.enter(this, getString(R.string.sex), mTvSex.getText().toString(), Constants.ACTIVITY_CHECKBOX);
                 break;
 
             case R.id.tv_update_user:
                 mTextView = mTvPhone;
                 String name = mTvName.getText().toString();
-                int sex = 1;
                 String birthday = mTvBirthday.getText().toString();
-                mPresenter.saveUserInfo(new File(""), sex, birthday, name);
+                String set = mTvSex.getText().toString();
+
+                int sex= 0;
+                if(set.equalsIgnoreCase(getString(R.string.man))){
+                    sex = UserInfo.SEX_MAN;
+                }else if(set.equalsIgnoreCase(getString(R.string.woman))){
+                    sex = UserInfo.SEX_WOMAN;
+                }
+                mPresenter.saveUserInfo(mPicFile, sex, birthday, name);
                 break;
         }
     }
@@ -107,23 +112,63 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
         context.startActivity(intent);
     }
 
-    private void setUserInfo(UserInfo userInfo){
+    private void setUserInfo(UserInfo userInfo) {
 
         Glide.with(mContext.getApplicationContext())
                 .load(userInfo.getUser_pic())
                 .crossFade()
+                .transform(new GlideCircleTransform(mContext.getApplicationContext()))
+                .placeholder(R.drawable.default_user)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(mIvUserAvatar);
         mTvName.setText(userInfo.getReal_name());
-        mTvSex.setText(userInfo.getSex() == UserInfo.SEX_MAN ? "男" : "女");
+        mTvSex.setText(userInfo.getSex() == UserInfo.SEX_MAN ? R.string.man : R.string.woman);
         mTvBirthday.setText(userInfo.getBirthday());
         mTvEmail.setText(userInfo.getEmail());
         mTvPhone.setText(userInfo.getMobile_phone());
-
     }
 
     @Override
     public void setInfo(String info) {
-        mTextView.setText(info);
+
+        if(info != null){
+            mTextView.setText(info);
+            mTvUpdateUser.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void pic(File file) {
+        if(file != null){
+            mTvUpdateUser.setVisibility(View.VISIBLE);
+            mPicFile = file;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.PHOTO_REQUEST_GALLERY) {
+            if (data != null) {
+
+                Uri uri = data.getData();
+                mPresenter.cropPic(uri);
+            }
+
+        }else if (requestCode == Constants.PHOTO_REQUEST_CUT) {
+            if (data != null) {
+                Uri uri = data.getData();
+                Glide.with(mContext.getApplicationContext())
+                        .load(uri)
+                        .crossFade()
+                        .transform(new GlideCircleTransform(mContext.getApplicationContext()))
+                        .placeholder(R.drawable.default_user)
+                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                        .into(mIvUserAvatar);
+
+                mPresenter.getPicFile(uri);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

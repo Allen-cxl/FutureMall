@@ -50,7 +50,7 @@ public class OperationRecordPresenter extends RxPresenter<OperationRecordContrac
                         LoadingStateUtil.close();
                         mView.showContent(value);
                     }
-                }, new CommonConsumer<Object>(mView){
+                }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){
                         LoadingStateUtil.close();
                     }

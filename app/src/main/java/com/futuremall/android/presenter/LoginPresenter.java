@@ -48,7 +48,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                         mView.loginResponse(value);
                         RxBus.getDefault().post(value);
                     }
-                }, new CommonConsumer<Object>(mView){
+                }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){
                         LoadingStateUtil.close();
                     }

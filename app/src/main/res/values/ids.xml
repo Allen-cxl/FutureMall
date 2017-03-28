@@ -121,6 +121,8 @@
     <item name="iv_search" type="id"/>
     <item name="ll_label" type="id"/>
     <item name = "tv_update_user" type = "id" />
+    <item name = "cb_man" type = "id" />
+    <item name = "cb_woman" type = "id" />
 
 
 </resources>

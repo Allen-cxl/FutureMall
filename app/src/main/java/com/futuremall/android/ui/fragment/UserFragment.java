@@ -89,11 +89,6 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     }
 
     @Override
-    public void showError(String msg) {
-
-    }
-
-    @Override
     public void showRegisterLayout() {
         mLlLoginRegister.setVisibility(View.VISIBLE);
         mLlUserInfo.setVisibility(View.GONE);
@@ -109,6 +104,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 .load(info.getUser_pic())
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .placeholder(R.drawable.default_user)
                 .into(mIvUserAvatar);
         mTvUserName.setText(info.getUser_name());
         mTvBalance.setText(String.format(getString(R.string.price), info.getUser_money()));

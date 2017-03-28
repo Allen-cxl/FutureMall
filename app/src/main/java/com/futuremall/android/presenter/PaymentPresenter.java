@@ -48,7 +48,7 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     public void accept(ShopBean value) {
                         mView.shopName(value.getShop_name());
                     }
-                }, new CommonConsumer<Object>(mView) {
+                }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
                     }
@@ -69,7 +69,7 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     public void accept(BalanceBean value) {
                         mView.balance(value);
                     }
-                }, new CommonConsumer<Object>(mView) {
+                }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
                     }
@@ -90,7 +90,7 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     public void accept(Object value) {
 
                     }
-                }, new CommonConsumer<Object>(mView) {
+                }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
                     }

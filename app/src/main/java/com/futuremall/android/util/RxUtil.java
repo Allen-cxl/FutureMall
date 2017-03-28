@@ -73,10 +73,10 @@ public class RxUtil {
                 }
 
                 if(!StringUtil.isEmpty(srvMsg)){
-                    e.onError(new ApiException(getSrvMsg(srvCode)));
+                    e.onError(new ApiException(srvCode, getSrvMsg(srvCode)));
                 }
                 if(srvCode != Constants.SERVER_SUCCESS){
-                    e.onError(new ApiException(getSrvMsg(srvCode)));
+                    e.onError(new ApiException(srvCode, getSrvMsg(srvCode)));
                 }
             }
         },BackpressureStrategy.BUFFER);

@@ -1,10 +1,13 @@
 package com.futuremall.android.util;
 
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.http.ApiException;
 import com.futuremall.android.http.MyHttpResponse;
+import com.futuremall.android.ui.activity.LoginActivity;
 import com.google.gson.JsonSyntaxException;
 
+import android.app.Activity;
 import android.text.TextUtils;
 
 import java.net.ConnectException;
@@ -19,13 +22,19 @@ public class CommonConsumer<T> implements Consumer<T> {
 
     private BaseView mView;
     private String mErrorMsg;
+    private Activity mActivity;
 
     public CommonConsumer(BaseView view){
-        this.mView = view;
+        this(view, null);
     }
 
-    protected CommonConsumer(BaseView view, String errorMsg){
+    public CommonConsumer(BaseView view, Activity activity){
+        this(view, activity, null);
+    }
+
+    protected CommonConsumer(BaseView view, Activity activity, String errorMsg){
         this.mView = view;
+        this.mActivity = activity;
         this.mErrorMsg = errorMsg;
     }
 
@@ -39,7 +48,12 @@ public class CommonConsumer<T> implements Consumer<T> {
             if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
                 mView.showError(mErrorMsg);
             } else if (t instanceof ApiException) {
-                mView.showError(((ApiException) t).getMessage());
+
+                if(((ApiException) t).state == Constants.SERVER_TOKEN_FAIL){
+                    LoginActivity.enter(mActivity);
+                }else{
+                    mView.showError(((ApiException) t).srvMsg);
+                }
             } else if (t instanceof SocketTimeoutException) {
                 mView.showError("网络超时，请检查网络");
             } else if (t instanceof ConnectException) {

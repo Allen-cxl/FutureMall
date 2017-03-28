@@ -52,7 +52,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
                     public void accept(List<ShoppingCartBean> value) {
                         mView.showContent(value);
                     }
-                }, new CommonConsumer<Object>(mView));
+                }, new CommonConsumer<Object>(mView, mContext));
         addSubscrebe(rxSubscription);
     }
 
@@ -102,7 +102,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
                         LoadingStateUtil.close();
                         mView.updateShoppingCartCount(id, value.getNum());
                     }
-                },  new CommonConsumer<Object>(mView) {
+                },  new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
                     }

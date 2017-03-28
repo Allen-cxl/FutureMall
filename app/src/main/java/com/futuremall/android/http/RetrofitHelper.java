@@ -103,7 +103,7 @@ public class RetrofitHelper {
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), "/storage/emulated/0/相机/IMG_20161221_134120.jpg");
 
-        StringBuilder sb = new StringBuilder();
+       /* StringBuilder sb = new StringBuilder();
         sb.append("access_token");
         sb.append("=");
         sb.append(token);
@@ -123,14 +123,14 @@ public class RetrofitHelper {
         sb.append("=");
         sb.append(realName);
 
-        String sign = Md5Utils.getSign(sb);
+        String sign = Md5Utils.getSign(sb);*/
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.addFormDataPart("access_token", token);
         builder.addFormDataPart("sex", sex+"");
         builder.addFormDataPart("birthday", birthday);
         builder.addFormDataPart("real_name", realName);
-        builder.addFormDataPart("sign", sign);
+//        builder.addFormDataPart("sign", sign);
         builder.addFormDataPart("user_picture[imglist]", System.currentTimeMillis()+"", requestFile);
         builder.setType(MultipartBody.FORM);
         MultipartBody multipartBody = builder.build();

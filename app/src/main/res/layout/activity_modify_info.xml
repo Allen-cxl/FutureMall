@@ -14,11 +14,61 @@
         android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:background="@android:color/white"
         android:cursorVisible = "true"
         android:textColorHint = "@color/font_gray"
         android:textCursorDrawable = "@null"
-        android:padding="10dp"/>
+        android:padding="20dp"/>
+
+    <LinearLayout
+        android:id="@id/ll_checkBox"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="20dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@id/cb_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:checked="true"
+            android:text="@string/man"
+            android:drawableLeft="@drawable/selector_shopping_cat_cb"
+            android:drawablePadding="10dp"
+            android:button="@null"/>
+
+        <CheckBox
+            android:id="@id/cb_woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:text="@string/woman"
+            android:drawableLeft="@drawable/selector_shopping_cat_cb"
+            android:drawablePadding="10dp"
+            android:button="@null"/>
+
+    </LinearLayout >
+
+    <TextView
+        android:id="@id/tv_birthday"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:hint="@string/select_birthday"
+        android:padding="20dp"/>
+
 </LinearLayout >

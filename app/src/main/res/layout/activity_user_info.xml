@@ -39,8 +39,8 @@
 
             <ImageView
                 android:id = "@id/iv_user_avatar"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
+                android:layout_width = "50dp"
+                android:layout_height = "50dp"
                 android:src = "@drawable/default_user" />
 
             <ImageView
@@ -155,7 +155,6 @@
             android:layout_height = "wrap_content"
             android:layout_weight = "1"
             android:drawablePadding = "10dp"
-            android:drawableRight = "@drawable/gray_arrow"
             android:gravity = "center_vertical|right" />
     </LinearLayout >
 
@@ -182,7 +181,6 @@
             android:layout_height = "wrap_content"
             android:layout_weight = "1"
             android:drawablePadding = "10dp"
-            android:drawableRight = "@drawable/gray_arrow"
             android:gravity = "center_vertical|right" />
     </LinearLayout >
 
@@ -192,6 +190,7 @@
         android:layout_height = "wrap_content"
         android:layout_margin = "20dp"
         android:background = "@drawable/corner_orange"
+        android:visibility="gone"
         android:gravity = "center"
         android:padding = "10dp"
         android:text = "@string/update_user"

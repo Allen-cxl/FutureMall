@@ -67,6 +67,12 @@ public class Constants {
 
     public static  final String UPDATE_PAY_PASSWORD = "3";//修改支付密码
 
+    public static  final int ACTIVITY_TEXT = 0x0011;// 文本
+
+    public static  final int ACTIVITY_CHECKBOX = 0x0012;// checkbox 性别
+
+    public static  final int ACTIVITY_PICKER = 0x0013;//picker 生日
+
     //================= STATUS ====================
 
     public static  final String DELIVERING = "0";//待发货 Deliver
@@ -75,6 +81,11 @@ public class Constants {
 
     public static  final String RECEIPTED = "2";//已收货
 
+    //================= pic ====================
+
+    public static  final int PHOTO_REQUEST_GALLERY = 1;//图片
+
+    public static  final int PHOTO_REQUEST_CUT = 2;//剪切
 
     //================= KEY ====================
 

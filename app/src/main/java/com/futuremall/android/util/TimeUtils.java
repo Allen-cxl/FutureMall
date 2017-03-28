@@ -104,6 +104,16 @@ public class TimeUtils {
     }
 
     /**
+     * 年月日
+     * @param
+     * @return 2017-12-1
+     */
+    public static String getYearAndMonthAndDay(Date date) {
+        String YMDStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        return YMDStr;
+    }
+
+    /**
      * 时间字符串中截取年月日
      * @param time
      * @return

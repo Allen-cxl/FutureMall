@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class UserInfo implements Parcelable {
 
     public static final  int SEX_MAN = 0; //男
+    public static final  int SEX_WOMAN = 1; //女
 
     String user_id;
     String real_name;

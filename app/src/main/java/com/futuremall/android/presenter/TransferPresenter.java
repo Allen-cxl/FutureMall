@@ -47,7 +47,7 @@ public class TransferPresenter extends RxPresenter<TransferContract.View> implem
                     public void accept(UserInfo value) {
                         mView.userName(value.getReal_name());
                     }
-                }, new CommonConsumer<Object>(mView) {
+                }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
                     }
@@ -68,7 +68,7 @@ public class TransferPresenter extends RxPresenter<TransferContract.View> implem
                     public void accept(Object value) {
                         LogUtil.d("UserInfo:"+value);
                     }
-                }, new CommonConsumer<Object>(mView) {
+                }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
                     }

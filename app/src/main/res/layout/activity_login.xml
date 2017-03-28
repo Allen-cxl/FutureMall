@@ -59,6 +59,7 @@
             android:padding="10dp"
             android:background="@drawable/corner_white"
             android:drawablePadding="10dp"
+            android:text="15868320634"
             android:hint="@string/id_phone"
             android:drawableLeft="@drawable/user"/>
 

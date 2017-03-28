@@ -62,7 +62,7 @@ public class UpdatePayPasswordPresenter extends RxPresenter<UpdatePasswordContra
                     public void accept(Object value) {
                         LogUtil.d("UserInfo:"+value);
                     }
-                }, new CommonConsumer<Object>(mView){
+                }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){
                         LoadingStateUtil.close();
                     }

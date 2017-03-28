@@ -13,6 +13,7 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.LoginContract;
 import com.futuremall.android.presenter.LoginPresenter;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 
@@ -62,12 +63,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.tv_login:
                 String phone = mEtPhone.getText().toString();
                 String password = mEtPassword.getText().toString();
-                //15868320634   123123
                 if(checkPara(phone, password)){
-                    mPresenter.login(phone, password);/*
-                    UserInfo userInfo= new UserInfo();
-                    userInfo.setAccess_token("97b1ead989d63eeeb93f053aa05dc2e7");
-                    PreferencesFactory.getUserPref().saveUserInfo(userInfo);*/
+                    mPresenter.login(phone, password);
                 }
                 break;
             case R.id.tv_register:
