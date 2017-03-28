@@ -94,7 +94,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
                 String birthday = mTvBirthday.getText().toString();
                 String set = mTvSex.getText().toString();
 
-                int sex= 0;
+                int sex = -1;
                 if(set.equalsIgnoreCase(getString(R.string.man))){
                     sex = UserInfo.SEX_MAN;
                 }else if(set.equalsIgnoreCase(getString(R.string.woman))){

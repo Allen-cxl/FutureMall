@@ -9,6 +9,11 @@ import android.widget.TextView;
 
 import com.futuremall.android.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -60,5 +65,34 @@ public class StringUtil {
             textView.setText(price);
             textView.setTextColor(context.getResources().getColor(R.color.orange));
         }
+    }
+
+    public static byte[] File2byte(File file)
+
+    {
+        byte[] buffer = null;
+        try
+        {
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = fis.read(b)) != -1)
+            {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            bos.close();
+            buffer = bos.toByteArray();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return buffer;
     }
 }

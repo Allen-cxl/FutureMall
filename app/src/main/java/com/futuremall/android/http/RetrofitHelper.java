@@ -12,8 +12,10 @@ import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 import com.futuremall.android.util.Md5Utils;
+import com.futuremall.android.util.StringUtil;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -101,37 +103,61 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<Object>> updateUser(String token, File file, int sex, String birthday, String realName) {
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), "/storage/emulated/0/相机/IMG_20161221_134120.jpg");
+        RequestBody requestFile = null;
+        byte[] bytes = null;
+        if(file !=null){
+            requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            bytes = StringUtil.File2byte(file);
+        }
 
-       /* StringBuilder sb = new StringBuilder();
-        sb.append("access_token");
-        sb.append("=");
-        sb.append(token);
-        sb.append("&");
+        StringBuilder sb = new StringBuilder();
+        if(!StringUtil.isEmpty(token)){
+            sb.append("access_token");
+            sb.append("=");
+            sb.append(token);
+            sb.append("&");
+        }
 
-        sb.append("sex");
-        sb.append("=");
-        sb.append(sex);
-        sb.append("&");
+        if(bytes != null){
 
-        sb.append("birthday");
-        sb.append("=");
-        sb.append(birthday);
-        sb.append("&");
+            sb.append("user_picture");
+            sb.append("=");
+            sb.append(new String(bytes));
+            sb.append("&");
+        }
 
-        sb.append("realName");
-        sb.append("=");
-        sb.append(realName);
+        if(sex != -1){
 
-        String sign = Md5Utils.getSign(sb);*/
+            sb.append("sex");
+            sb.append("=");
+            sb.append(sex);
+            sb.append("&");
+
+        }
+
+        if(!StringUtil.isEmpty(birthday)){
+
+            sb.append("birthday");
+            sb.append("=");
+            sb.append(birthday);
+            sb.append("&");
+        }
+
+        if(!StringUtil.isEmpty(realName)){
+            sb.append("realName");
+            sb.append("=");
+            sb.append(realName);
+        }
+
+        String sign = Md5Utils.getSign(sb);
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.addFormDataPart("access_token", token);
+        builder.addFormDataPart("user_picture", System.currentTimeMillis()+"", requestFile);
         builder.addFormDataPart("sex", sex+"");
         builder.addFormDataPart("birthday", birthday);
         builder.addFormDataPart("real_name", realName);
-//        builder.addFormDataPart("sign", sign);
-        builder.addFormDataPart("user_picture[imglist]", System.currentTimeMillis()+"", requestFile);
+        builder.addFormDataPart("sign", sign);
         builder.setType(MultipartBody.FORM);
         MultipartBody multipartBody = builder.build();
 
