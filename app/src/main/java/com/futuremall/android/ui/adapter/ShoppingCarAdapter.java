@@ -16,6 +16,7 @@ import com.futuremall.android.ui.ViewHolder.ShoppingCartChildViewHolder;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartGroupViewHolder;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.listener.OnShopCartChangeListener;
+import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.AddReduceDialogFragment;
 
@@ -121,7 +122,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
             @Override
             public void onClick(View v) {
                 String count = itemViewHolder.mTvCount.getText().toString().trim();
-                String addCount = ShoppingCartHepler.addOrReduceGoodsNum(true, count, itemViewHolder.mTvAdd);
+                String addCount = ShoppingCartHepler.addOrReduceGoodsNum(true, count);
 
                 mChangeListener.onDataChange(productBean.getRec_id(), addCount);
             }
@@ -130,7 +131,12 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
             @Override
             public void onClick(View v) {
                 String count = itemViewHolder.mTvCount.getText().toString().trim();
-                String reduceCount = ShoppingCartHepler.addOrReduceGoodsNum(false, count, itemViewHolder.mTvAdd);
+
+                if(Integer.valueOf(count) <= 1){
+                    SnackbarUtil.show(itemViewHolder.mTvCount, "商品数量不能小于1！");
+                    return;
+                }
+                String reduceCount = ShoppingCartHepler.addOrReduceGoodsNum(false, count);
 
                 mChangeListener.onDataChange(productBean.getRec_id(), reduceCount);
             }

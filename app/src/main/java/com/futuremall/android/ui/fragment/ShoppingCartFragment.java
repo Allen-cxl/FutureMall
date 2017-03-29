@@ -185,6 +185,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     @Override
     public void showData(List<ShoppingCartBean> data) {
         mSwipeRefreshLayout.finishRefresh();
+        mCheckBox.setChecked(false);
         mAdapter.setData(data);
     }
 

@@ -15,13 +15,15 @@ public class UserContract {
 
         void showRegisterLayout();
 
-        void showLoginLayout(UserInfo info);
+        void showLoginLayout();
+
+        void showUserInfo(UserInfo info);
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
 
-        void userInfo();
+        void userInfo(boolean isLogin);
 
         void showLayout();
 

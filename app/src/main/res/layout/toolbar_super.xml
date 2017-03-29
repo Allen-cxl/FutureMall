@@ -7,10 +7,8 @@
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     app:layout_collapseMode="pin"
-    app:navigationIcon="@drawable/icon_back"
-    app:popupTheme="@style/AppTheme.PopupOverlay"
+    android:theme="@style/ToolbarBlack"
     app:titleTextAppearance="@style/ToolbarTitle">
-
 
     <TextView
         android:id="@id/super_title"

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.listener.OnShopCartChangeListener;
+import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.util.SystemUtil;
 
@@ -95,14 +96,18 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
         switch (view.getId()) {
             case R.id.tv_add:
                 mCount = mEtCount.getText().toString().trim();
-                mCount = ShoppingCartHepler.addOrReduceGoodsNum(true, mCount, mView);
+                mCount = ShoppingCartHepler.addOrReduceGoodsNum(true, mCount);
                 mEtCount.setText(mCount);
                 mType = ShoppingCartHepler.TYPE_ADD;
                 break;
 
             case R.id.tv_reduce:
                 mCount = mEtCount.getText().toString().trim();
-                mCount = ShoppingCartHepler.addOrReduceGoodsNum(false, mCount, mView);
+                if(Integer.valueOf(mCount) <= 1){
+                    SnackbarUtil.show(mEtCount, "商品数量不能小于1！");
+                    return;
+                }
+                mCount = ShoppingCartHepler.addOrReduceGoodsNum(false, mCount);
                 mEtCount.setText(mCount);
                 mType = ShoppingCartHepler.TYPE_REDUCE;
                 break;

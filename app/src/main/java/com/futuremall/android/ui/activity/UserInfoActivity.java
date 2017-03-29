@@ -2,6 +2,7 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,13 +19,14 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.UserInfoContract;
 import com.futuremall.android.presenter.UserInfoPresenter;
 import com.futuremall.android.widget.GlideCircleTransform;
+import com.pizidea.imagepicker.AndroidImagePicker;
 
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements UserInfoContract.View {
+public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements UserInfoContract.View,  AndroidImagePicker.OnImageCropCompleteListener {
 
     @BindView(R.id.super_toolbar)
     Toolbar mSuperToolbar;
@@ -47,6 +49,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
 
     TextView mTextView;
     File mPicFile;
+    AndroidImagePicker mImgPicker;
 
     @Override
     protected void initInject() {
@@ -65,6 +68,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
         setToolBar(mSuperToolbar, getString(R.string.user_info), true);
 
         UserInfo userInfo = getIntent().getParcelableExtra(Constants.IT_USER_INFO);
+        mImgPicker = AndroidImagePicker.getInstance();
+        mImgPicker.addOnImageCropCompleteListener(this);
         setUserInfo(userInfo);
     }
 
@@ -72,7 +77,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_user_avatar:
-                mPresenter.galleryPic();
+                mPresenter.galleryPic(mImgPicker);
                 break;
             case R.id.tv_name:
                 mTextView = mTvName;
@@ -115,7 +120,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     private void setUserInfo(UserInfo userInfo) {
 
         Glide.with(mContext.getApplicationContext())
-                .load(userInfo.getUser_pic())
+                .load(userInfo.getUser_picture())
                 .crossFade()
                 .transform(new GlideCircleTransform(mContext.getApplicationContext()))
                 .placeholder(R.drawable.default_user)
@@ -138,37 +143,28 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     }
 
     @Override
-    public void pic(File file) {
-        if(file != null){
-            mTvUpdateUser.setVisibility(View.VISIBLE);
-            mPicFile = file;
-        }
-
+    public void saveSuccess() {
+        finish();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.PHOTO_REQUEST_GALLERY) {
-            if (data != null) {
-
-                Uri uri = data.getData();
-                mPresenter.cropPic(uri);
-            }
-
-        }else if (requestCode == Constants.PHOTO_REQUEST_CUT) {
-            if (data != null) {
-                Uri uri = data.getData();
-                Glide.with(mContext.getApplicationContext())
-                        .load(uri)
-                        .crossFade()
-                        .transform(new GlideCircleTransform(mContext.getApplicationContext()))
-                        .placeholder(R.drawable.default_user)
-                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                        .into(mIvUserAvatar);
-
-                mPresenter.getPicFile(uri);
-            }
+    public void onImageCropComplete(Bitmap bmp, float ratio) {
+        if(null != bmp){
+            mTvUpdateUser.setVisibility(View.VISIBLE);
+            mPicFile = mImgPicker.bitmap2File(bmp, this);
+            Glide.with(mContext.getApplicationContext())
+                    .load(mPicFile.getAbsolutePath())
+                    .crossFade()
+                    .transform(new GlideCircleTransform(mContext.getApplicationContext()))
+                    .placeholder(R.drawable.default_user)
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .into(mIvUserAvatar);
         }
-        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mImgPicker.removeOnImageCropCompleteListener(this);
     }
 }

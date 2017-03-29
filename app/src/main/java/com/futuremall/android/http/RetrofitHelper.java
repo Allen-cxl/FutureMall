@@ -119,14 +119,6 @@ public class RetrofitHelper {
             sb.append("&");
         }
 
-        if(fileStr != null){
-
-            sb.append("user_picture");
-            sb.append("=");
-            sb.append(fileStr);
-            sb.append("&");
-        }
-
         if(sex != -1){
 
             sb.append("sex");
@@ -144,16 +136,17 @@ public class RetrofitHelper {
         }
 
         if(!StringUtil.isEmpty(realName)){
-            sb.append("realName");
+            sb.append("real_name");
             sb.append("=");
             sb.append(realName);
+            sb.append("&");
         }
 
         String sign = Md5Utils.getSign(sb);
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.addFormDataPart("access_token", token);
-        builder.addFormDataPart("user_picture", System.currentTimeMillis()+"", requestFile);
+        builder.addFormDataPart("user_picture", file.getName(), requestFile);
         builder.addFormDataPart("sex", sex+"");
         builder.addFormDataPart("birthday", birthday);
         builder.addFormDataPart("real_name", realName);

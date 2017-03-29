@@ -1,10 +1,8 @@
 package com.futuremall.android.presenter.Contract;
 
-import android.net.Uri;
-
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
-import com.futuremall.android.model.bean.UserInfo;
+import com.pizidea.imagepicker.AndroidImagePicker;
 
 import java.io.File;
 
@@ -15,17 +13,13 @@ public class UserInfoContract {
 
         void setInfo(String info);
 
-        void pic(File file);
+        void saveSuccess();
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
         void saveUserInfo(File file, int sex, String birthday, String realName);
 
-        void galleryPic();
-
-        void cropPic(Uri uri);
-
-        void getPicFile(Uri uri);
+        void galleryPic(AndroidImagePicker picker);
     }
 }

@@ -197,7 +197,7 @@ public class ShoppingCartHepler {
     /**
      * 增减数量，操作通用，数据不通用
      */
-    public static String addOrReduceGoodsNum(boolean isPlus, String count, View view) {
+    public static String addOrReduceGoodsNum(boolean isPlus, String count) {
         String num = "1";
         if (isPlus) {
             num = String.valueOf(Integer.parseInt(count) + 1);
@@ -206,7 +206,7 @@ public class ShoppingCartHepler {
             if (i > 1) {
                 num = String.valueOf(i - 1);
             } else {
-                SnackbarUtil.show(view, "商品数量不能小于1！");
+
                 num = "1";
             }
         }

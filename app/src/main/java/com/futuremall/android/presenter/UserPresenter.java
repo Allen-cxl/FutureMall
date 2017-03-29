@@ -40,15 +40,17 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                 .compose(RxUtil.<UserInfo>rxSchedulerHelper()).subscribe(new Consumer<UserInfo>() {
                     @Override
                     public void accept(UserInfo userInfo) {
-                        showLayout();
+                        userInfo(false);
                     }
                 });
         addSubscrebe(rxSubscription);
     }
 
     @Override
-    public void userInfo() {
-        LoadingStateUtil.show(mContext);
+    public void userInfo(boolean isLogin) {
+        if(!isLogin){
+            LoadingStateUtil.show(mContext);
+        }
         String token = PreferencesFactory.getUserPref().getToken();
         Disposable disposable = mRetrofitHelper.userInfo(token)
                 .compose(RxUtil.<MyHttpResponse<UserInfo>>rxSchedulerHelper())
@@ -58,7 +60,8 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                     public void accept(UserInfo value) {
                         LoadingStateUtil.close();
                         if(value!=null){
-                            mView.showLoginLayout(value);
+                            mView.showLoginLayout();
+                            mView.showUserInfo(value);
                         }
                     }
                 }, new CommonConsumer<Object>(mView, mContext){
@@ -73,7 +76,8 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
     public void showLayout() {
 
         if(PreferencesFactory.getUserPref().isLogin()){
-            userInfo();
+            mView.showLoginLayout();
+            userInfo(true);
         }else{
             mView.showRegisterLayout();
         }

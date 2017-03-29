@@ -125,7 +125,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     public void showLoading() {
 
-        mLoadingLayout.showError();
+        mLoadingLayout.showLoading();
     }
 
     protected abstract void initInject();

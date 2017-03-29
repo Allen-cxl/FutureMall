@@ -23,6 +23,7 @@ import com.futuremall.android.ui.activity.SettingActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
 import com.futuremall.android.ui.activity.UserInfoActivity;
 import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.widget.GlideCircleTransform;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -95,14 +96,19 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     }
 
     @Override
-    public void showLoginLayout(UserInfo info) {
+    public void showLoginLayout() {
         mLlLoginRegister.setVisibility(View.GONE);
         mLlUserInfo.setVisibility(View.VISIBLE);
-        mUserInfo = info;
+    }
 
+    @Override
+    public void showUserInfo(UserInfo info) {
+
+        mUserInfo = info;
         Glide.with(mContext.getApplicationContext())
-                .load(info.getUser_pic())
+                .load(info.getUser_picture())
                 .crossFade()
+                .transform(new GlideCircleTransform(mContext.getApplicationContext()))
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .placeholder(R.drawable.default_user)
                 .into(mIvUserAvatar);
