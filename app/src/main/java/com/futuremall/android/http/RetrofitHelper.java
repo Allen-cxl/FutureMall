@@ -89,6 +89,14 @@ public class RetrofitHelper {
         return mMallApiService.changeShoppingCar(token, recID, num);
     }
 
+    public Flowable<MyHttpResponse<Object>> delShoppingCar(String token, String recID) {
+        return mMallApiService.delShoppingCar(token, recID);
+    }
+
+    public Flowable<MyHttpResponse<Object>> toPayShoppingCar(String token, String recID) {
+        return mMallApiService.toPayShoppingCar(token, recID);
+    }
+
     public Flowable<MyHttpResponse<List<OrderList>>> orderList(String token, String p, String num, String state) {
         return mMallApiService.orderList(token, p, num, state);
     }

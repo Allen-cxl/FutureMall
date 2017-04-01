@@ -2,7 +2,6 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,11 +16,12 @@ import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.presenter.Contract.PaymentContract;
 import com.futuremall.android.presenter.PaymentPresenter;
+import com.futuremall.android.util.LogUtil;
+import com.futuremall.android.util.RegexUtil;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PaymentActivity extends BaseActivity<PaymentPresenter> implements PaymentContract.View, TextWatcher {
@@ -83,7 +83,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
         setToolBar(mSuperToolbar, getString(R.string.pay_ment), true);
         mIntegral = getIntent().getStringExtra(Constants.IT_INTEGRAL);
-        mEtAccount.addTextChangedListener(this);
+        mEtAccount.addTextChangedListener(mTextWatcher);
         mEtCashMoney.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
     }
@@ -163,6 +163,40 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
             mTvNext.setSelected(false);
         }
     }
+
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            LogUtil.i("TextChanged"+"-Editable:"+s.toString());
+            String account = mEtAccount.getText().toString();
+            String name = mTvName.getText().toString();
+            String cashMoney = mEtCashMoney.getText().toString();
+            String password = mEtPassword.getText().toString();
+            if (!StringUtil.isEmpty(account) &&
+                    !StringUtil.isEmpty(name) &&
+                    !StringUtil.isEmpty(cashMoney) &&
+                    !StringUtil.isEmpty(password)) {
+                mTvNext.setSelected(true);
+            } else {
+                mTvNext.setSelected(false);
+            }
+
+            if (account.length() >= 11){
+                mPresenter.getBalance();
+            }
+        }
+    };
 
     public static void enter(Context context, String integral) {
 

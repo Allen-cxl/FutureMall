@@ -21,6 +21,7 @@ import com.futuremall.android.presenter.ShoppingCartPresenter;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.adapter.ShoppingCarAdapter;
 import com.futuremall.android.ui.listener.OnShopCartChangeListener;
+import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.LoadingLayout;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
@@ -205,6 +206,12 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     }
 
     @Override
+    public void delResponse() {
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void updateShoppingCartCount(String recID, int count) {
 
         ShoppingCartHepler.setShoppingCartCount(mAdapter.getCurrentList(), recID, count);
@@ -221,17 +228,32 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.checkBox:
+
+                if(mAdapter.getCurrentList().size() < 0){
+                    SnackbarUtil.show(mBtPay, getString(R.string.no_data_shopping_cart));
+                    return;
+                }
                 mCheckBox.setChecked(mIsChecked);
                 mPresenter.selectOrCancelAll(mAdapter.getCurrentList(), mIsChecked);
                 mAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.bt_delete:
+
+                if(mAdapter.getCurrentList().size() < 0){
+                    SnackbarUtil.show(mBtPay, getString(R.string.no_data_shopping_cart));
+                    return;
+                }
                 mPresenter.delete(mAdapter.getCurrentList());
                 mAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.bt_pay:
+
+                if(mAdapter.getCurrentList().size() < 0){
+                    SnackbarUtil.show(mBtPay, getString(R.string.no_data_shopping_cart));
+                    return;
+                }
                 mPresenter.toPay(mAdapter.getCurrentList());
                 break;
             default:

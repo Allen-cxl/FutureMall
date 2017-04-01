@@ -27,6 +27,8 @@ public class ShoppingCarContract {
 
         void showDeleteButton(int visibility);
 
+        void delResponse();
+
         void updateShoppingCartCount(String recID, int count);
 
         void showTotalPrice(String totalPrice, String totalCount);

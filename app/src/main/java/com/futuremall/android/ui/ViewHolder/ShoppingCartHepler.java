@@ -33,6 +33,50 @@ public class ShoppingCartHepler {
     }
 
     /**
+     * 获取选中的购物车产品ID
+     */
+    public static String  getGoodsID(List<ShoppingCartBean> list) {
+
+        StringBuilder sb = new StringBuilder();
+        Iterator<ShoppingCartBean> iteratorShopCarts = list.iterator();
+        while (iteratorShopCarts.hasNext()) {
+
+            ShoppingCartBean sc = iteratorShopCarts.next();
+            if (sc.isCheckEd()) {
+
+                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getCart_goods().iterator();
+                while (iteratorGoods.hasNext()) {
+                    ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
+                    sb.append(shopCartGood.getRec_id());
+                    sb.append(",");
+                }
+
+            } else {
+
+                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getCart_goods().iterator();
+                while (iteratorGoods.hasNext()) {
+                    ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
+                    if (shopCartGood.isCheckEd()) {
+
+                        sb.append(shopCartGood.getRec_id());
+                        sb.append(",");
+                    }
+                }
+
+            }
+        }
+
+        String string = sb.toString();
+
+        if(string.indexOf(",") > 0){
+
+            string = string.substring(0, string.length() -1);
+        }
+
+        return string;
+    }
+
+    /**
      * 根据商品的选中状态，点下删除按钮，删除商品
      */
     public static void  deleteGoods(List<ShoppingCartBean> list) {
@@ -50,6 +94,7 @@ public class ShoppingCartHepler {
                 while (iteratorGoods.hasNext()) {
                     ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
                     if (shopCartGood.isCheckEd()) {
+
                         iteratorGoods.remove();
                     }
                 }

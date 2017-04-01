@@ -48,9 +48,8 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
     private OnShopCartChangeListener mChangeListener;
     private Context mContext;
     private String mID;
-    private String mCount;
+    private String mCount, mTempCount;
     private View mView;
-    private int mType = -1;
     private Unbinder mBinder;
 
     public AddReduceDialogFragment() {
@@ -71,6 +70,7 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
 
     public void setCount(String count) {
         this.mCount = count;
+        this.mTempCount = count;
     }
 
     @Override
@@ -95,13 +95,18 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_add:
+
                 mCount = mEtCount.getText().toString().trim();
+                if(Integer.valueOf(mCount) <= 1){
+                    mCount = "1";
+                }
+
                 mCount = ShoppingCartHepler.addOrReduceGoodsNum(true, mCount);
                 mEtCount.setText(mCount);
-                mType = ShoppingCartHepler.TYPE_ADD;
                 break;
 
             case R.id.tv_reduce:
+
                 mCount = mEtCount.getText().toString().trim();
                 if(Integer.valueOf(mCount) <= 1){
                     SnackbarUtil.show(mEtCount, "商品数量不能小于1！");
@@ -109,7 +114,6 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
                 }
                 mCount = ShoppingCartHepler.addOrReduceGoodsNum(false, mCount);
                 mEtCount.setText(mCount);
-                mType = ShoppingCartHepler.TYPE_REDUCE;
                 break;
 
             case R.id.bt_cancel:
@@ -117,6 +121,9 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
                 break;
 
             case R.id.bt_sure:
+                if(mTempCount.equalsIgnoreCase(mCount)){
+                    return;
+                }
                 mChangeListener.onDataChange(mID, mCount);
                 dismiss();
                 break;
@@ -127,7 +134,9 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
     public void onDismiss(DialogInterface dialogInterface) {
 
         SystemUtil.hideKeyboard((Activity) mContext);
-        mBinder.unbind();
+        if(null !=mBinder){
+            mBinder.unbind();
+        }
     }
 
     @Override

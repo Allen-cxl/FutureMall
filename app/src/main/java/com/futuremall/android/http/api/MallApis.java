@@ -140,6 +140,20 @@ public interface MallApis {
     Flowable<MyHttpResponse<ChangeShoppingCart>> changeShoppingCar(@Field("access_token") String token, @Field("rec_id") String recID, @Field("num") String num);
 
     /**
+     * 删除购物车
+     */
+    @FormUrlEncoded
+    @POST("order/cartdel")
+    Flowable<MyHttpResponse<Object>> delShoppingCar(@Field("access_token") String token, @Field("rec_id") String recID);
+
+    /**
+     * 购物车下单
+     */
+    @FormUrlEncoded
+    @POST("order/toPay")
+    Flowable<MyHttpResponse<Object>> toPayShoppingCar(@Field("access_token") String token, @Field("rec_id") String recID);
+
+    /**
      * 订单详情
      */
     @FormUrlEncoded

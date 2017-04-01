@@ -67,6 +67,7 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                 .subscribe(new Consumer<BalanceBean>() {
                     @Override
                     public void accept(BalanceBean value) {
+                        LoadingStateUtil.close();
                         mView.balance(value);
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
@@ -88,7 +89,7 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object value) {
-
+                        LoadingStateUtil.close();
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {

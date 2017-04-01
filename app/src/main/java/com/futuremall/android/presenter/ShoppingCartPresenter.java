@@ -52,7 +52,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
                     @Override
                     public void accept(List<ShoppingCartBean> value) {
                         mView.showContent();
-                        if(null == value || value.isEmpty()){
+                        if(null == value || value.size() <= 0){
                             mView.showEmpty();
                         }else{
                             mView.showData(value);
@@ -75,9 +75,26 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     }
 
     @Override
-    public void delete(List<ShoppingCartBean> data) {
+    public void delete(final List<ShoppingCartBean> data) {
 
-
+        LoadingStateUtil.show(mContext);
+        String accessToken = PreferencesFactory.getUserPref().getToken();
+        String recID = ShoppingCartHepler.getGoodsID(data);
+        Disposable rxSubscription = mRetrofitHelper.delShoppingCar(accessToken, recID)
+                .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
+                .compose(RxUtil.handleMyResult())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object value) {
+                        LoadingStateUtil.close();
+                        ShoppingCartHepler.deleteGoods(data);
+                    }
+                },  new CommonConsumer<Object>(mView, mContext) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
+        addSubscrebe(rxSubscription);
     }
 
     @Override
@@ -130,5 +147,22 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     @Override
     public void toPay(List<ShoppingCartBean> data) {
 
+        LoadingStateUtil.show(mContext);
+        String accessToken = PreferencesFactory.getUserPref().getToken();
+        String recID = ShoppingCartHepler.getGoodsID(data);
+        Disposable rxSubscription = mRetrofitHelper.toPayShoppingCar(accessToken, recID)
+                .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
+                .compose(RxUtil.handleMyResult())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object value) {
+                        LoadingStateUtil.close();
+                    }
+                },  new CommonConsumer<Object>(mView, mContext) {
+                    public void onError() {
+                        LoadingStateUtil.close();
+                    }
+                });
+        addSubscrebe(rxSubscription);
     }
 }

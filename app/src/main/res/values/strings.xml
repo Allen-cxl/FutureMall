@@ -108,6 +108,8 @@
     <string name="camera_permission_fail">"获取权限失败，无法使用二维码功能"</string>
     <string name = "select_birthday" >选择生日</string >
     <string name = "no_data" >暂无数据,点击重新加载</string >
+    <string name = "true_phone" >"请输入正确的手机号"</string >
+    <string name = "no_data_shopping_cart" >购物车暂无数据</string >
     <string name = "reload_data" >重新加载</string >
     <string name = "network_error" >网络请求失败</string >
 </resources>
