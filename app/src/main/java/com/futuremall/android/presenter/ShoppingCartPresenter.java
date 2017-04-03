@@ -3,6 +3,7 @@ package com.futuremall.android.presenter;
 import android.app.Activity;
 import android.view.View;
 
+import com.futuremall.android.R;
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
@@ -11,9 +12,12 @@ import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.ShoppingCarContract;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
+import com.futuremall.android.ui.activity.PayOrderActivity;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxUtil;
+import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.StringUtil;
 
 import java.util.List;
 
@@ -75,11 +79,15 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     }
 
     @Override
-    public void delete(final List<ShoppingCartBean> data) {
+    public void delete(View view, final List<ShoppingCartBean> data) {
 
         LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
         String recID = ShoppingCartHepler.getGoodsID(data);
+        if(StringUtil.isEmpty(recID)){
+            SnackbarUtil.show(view, mContext.getString(R.string.no_data_shopping_cart));
+            return;
+        }
         Disposable rxSubscription = mRetrofitHelper.delShoppingCar(accessToken, recID)
                 .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
                 .compose(RxUtil.handleMyResult())
@@ -145,24 +153,13 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     }
 
     @Override
-    public void toPay(List<ShoppingCartBean> data) {
+    public void toPay(View view, List<ShoppingCartBean> data) {
 
-        LoadingStateUtil.show(mContext);
-        String accessToken = PreferencesFactory.getUserPref().getToken();
         String recID = ShoppingCartHepler.getGoodsID(data);
-        Disposable rxSubscription = mRetrofitHelper.toPayShoppingCar(accessToken, recID)
-                .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
-                .compose(RxUtil.handleMyResult())
-                .subscribe(new Consumer<Object>() {
-                    @Override
-                    public void accept(Object value) {
-                        LoadingStateUtil.close();
-                    }
-                },  new CommonConsumer<Object>(mView, mContext) {
-                    public void onError() {
-                        LoadingStateUtil.close();
-                    }
-                });
-        addSubscrebe(rxSubscription);
+        if(StringUtil.isEmpty(recID)){
+            SnackbarUtil.show(view, mContext.getString(R.string.no_data_shopping_cart));
+            return;
+        }
+        PayOrderActivity.enter(mContext, recID);
     }
 }

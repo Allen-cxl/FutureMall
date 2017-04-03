@@ -128,7 +128,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         viewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderDetail.getGoods_num()));
         String price = StringUtil.getPrice(mContext, orderDetail.getGoods_price()+"").toString();
-        viewHolder.mTvTotalPrice.setText(price);
+        viewHolder.mTvTotalPrice.setText(String.format(mContext.getString(R.string.amount_price), price));
 
         viewHolder.mTvExpressType.setText(String.format(mContext.getString(R.string.express_type), orderDetail.getShipping_name()));
         viewHolder.mTvExpressNo.setText(String.format(mContext.getString(R.string.express_no), orderDetail.getInvoice_no()));

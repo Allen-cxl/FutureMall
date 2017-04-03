@@ -6,6 +6,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
 
 
     public final static int VIEW_TYPE_HEADER = -2;
+    public final static int VIEW_TYPE_FIRST = -4;
     public final static int VIEW_TYPE_ITEM = -1;
     public final static int VIEW_TYPE_FOOTER = -3;
 
@@ -37,8 +39,7 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
 
     private GridLayoutManager mLayoutManager;
 
-
-
+    private boolean mIsFirst;
 
     public SectionRecyclerAdapter() {
         mHeaderLocationMap = new ArrayMap<>();
@@ -59,6 +60,8 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
      * @Note: this method will be repected by: nubmer of sections in the data set.
      */
     public abstract int getItemCount(int section);
+
+    public  void onBindFirstViewHolder(VH holder, int section){};
 
     public abstract void onBindHeaderViewHolder(VH holder, int section);
 
@@ -81,6 +84,17 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
      */
     public abstract boolean isNeedFooter(int sectionPosition);
 
+    private  boolean isFirst() {
+        return mIsFirst;
+    }
+
+    public  void setIsFirst(boolean isFirst) {
+        mIsFirst = isFirst;
+    }
+
+    private final boolean isFirst(int position) {
+        return position == 0 ? true : false;
+    }
 
     public final boolean isHeader(int position) {
         return mHeaderLocationMap.get(position) != null;
@@ -171,6 +185,10 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
         mHeaderLocationMap.clear();
         mFooterLocationMap.clear();
 
+        if(isFirst() && isFirst()){
+            count++;
+        }
+
         for (int s = 0; s < getSectionCount(); s++) {
             int itemCount = getItemCount(s);
 
@@ -200,7 +218,10 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
     @Override
     @Deprecated
     public final int getItemViewType(int position) {
-        if (isHeader(position)) {
+
+        if(isFirst() && isFirst(position)){
+            return VIEW_TYPE_FIRST;
+        }else if (isHeader(position)) {
 //            VIEW_TYPE_HEADER
             return getHeaderViewType(mHeaderLocationMap.get(position));
         } else if (isFooter(position)) {
@@ -241,7 +262,10 @@ public abstract class SectionRecyclerAdapter<VH extends RecyclerView.ViewHolder>
             layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         else if (holder.itemView.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams)
             layoutParams = (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
-        if (isHeader(position)) {
+        if (isFirst() && isFirst(position)) {
+            if (layoutParams != null) layoutParams.setFullSpan(true);
+            onBindFirstViewHolder(holder, position);
+        }else if (isHeader(position)) {
             if (layoutParams != null) layoutParams.setFullSpan(true);
             onBindHeaderViewHolder(holder, mHeaderLocationMap.get(position));
         } else if (isFooter(position)) {

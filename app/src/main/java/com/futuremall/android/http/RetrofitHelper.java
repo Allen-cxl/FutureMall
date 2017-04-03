@@ -7,6 +7,7 @@ import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
+import com.futuremall.android.model.bean.PayOrderInfoBean;
 import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
@@ -43,6 +44,10 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<UserInfo>> login(String phone, String password) {
         return mMallApiService.login(phone, password);
+    }
+
+    public Flowable<MyHttpResponse<UserInfo>> inviteRegister(String token) {
+        return mMallApiService.inviteRegister(token);
     }
 
     public Flowable<MyHttpResponse<Object>> transfer(String token, String phone, String money, String password) {
@@ -93,8 +98,12 @@ public class RetrofitHelper {
         return mMallApiService.delShoppingCar(token, recID);
     }
 
-    public Flowable<MyHttpResponse<Object>> toPayShoppingCar(String token, String recID) {
-        return mMallApiService.toPayShoppingCar(token, recID);
+    public Flowable<MyHttpResponse<PayOrderInfoBean>> payOrderInfo(String token, String recID) {
+        return mMallApiService.payOrderInfo(token, recID);
+    }
+
+    public Flowable<MyHttpResponse<Object>> submitOrder(String token, String recID, String addressID, String payPass) {
+        return mMallApiService.submitOrder(token, recID, addressID, payPass);
     }
 
     public Flowable<MyHttpResponse<List<OrderList>>> orderList(String token, String p, String num, String state) {

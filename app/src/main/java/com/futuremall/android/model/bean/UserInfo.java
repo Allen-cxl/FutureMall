@@ -18,6 +18,7 @@ public class UserInfo implements Parcelable {
     String user_name;
     String mobile_phone;
     String email;
+    String url;
     int sex;
     String birthday;
     String user_picture;
@@ -73,6 +74,14 @@ public class UserInfo implements Parcelable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getSex() {
@@ -140,6 +149,9 @@ public class UserInfo implements Parcelable {
     }
 
 
+    public UserInfo() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -153,6 +165,7 @@ public class UserInfo implements Parcelable {
         dest.writeString(this.user_name);
         dest.writeString(this.mobile_phone);
         dest.writeString(this.email);
+        dest.writeString(this.url);
         dest.writeInt(this.sex);
         dest.writeString(this.birthday);
         dest.writeString(this.user_picture);
@@ -163,9 +176,6 @@ public class UserInfo implements Parcelable {
         dest.writeFloat(this.pay_points);
     }
 
-    public UserInfo() {
-    }
-
     protected UserInfo(Parcel in) {
         this.user_id = in.readString();
         this.real_name = in.readString();
@@ -173,6 +183,7 @@ public class UserInfo implements Parcelable {
         this.user_name = in.readString();
         this.mobile_phone = in.readString();
         this.email = in.readString();
+        this.url = in.readString();
         this.sex = in.readInt();
         this.birthday = in.readString();
         this.user_picture = in.readString();

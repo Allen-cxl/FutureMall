@@ -14,6 +14,7 @@ import com.futuremall.android.R;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.presenter.Contract.TransferContract;
 import com.futuremall.android.presenter.TransferPresenter;
+import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.util.SystemUtil;
@@ -48,31 +49,10 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_scan, menu);
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.item_scan:
-
-
-                break;
-
-        }
-        return false;
-    }
-
-    @Override
     protected void initEventAndData() {
 
         setToolBar(mSuperToolbar, getString(R.string.transfer), true);
-        mEtAccount.addTextChangedListener(this);
+        mEtAccount.addTextChangedListener(mTextWatcher);
         mEtIntegral.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
     }
@@ -155,4 +135,37 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
             mTvNext.setSelected(false);
         }
     }
+
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            String account = mEtAccount.getText().toString();
+            String name = mTvName.getText().toString();
+            String cashMoney = mEtIntegral.getText().toString();
+            String password = mEtPassword.getText().toString();
+            if (!StringUtil.isEmpty(account) &&
+                    !StringUtil.isEmpty(name) &&
+                    !StringUtil.isEmpty(cashMoney) &&
+                    !StringUtil.isEmpty(password)) {
+                mTvNext.setSelected(true);
+            } else {
+                mTvNext.setSelected(false);
+            }
+
+            if (account.length() >= 11){
+                mPresenter.userName(account);
+            }
+        }
+    };
 }

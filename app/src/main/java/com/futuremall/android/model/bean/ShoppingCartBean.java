@@ -10,6 +10,8 @@ public class ShoppingCartBean {
 
     private String shop_id;
     private String shop_name;
+    private String shop_num;
+    private float shop_price;
     private boolean containFreight;
     private List<ShoppingCartProductBean> cart_goods;
     private boolean isCheckEd;
@@ -28,6 +30,22 @@ public class ShoppingCartBean {
 
     public void setShop_name(String shop_name) {
         this.shop_name = shop_name;
+    }
+
+    public String getShop_num() {
+        return shop_num;
+    }
+
+    public void setShop_num(String shop_num) {
+        this.shop_num = shop_num;
+    }
+
+    public float getShop_price() {
+        return shop_price;
+    }
+
+    public void setShop_price(float shop_price) {
+        this.shop_price = shop_price;
     }
 
     public boolean isContainFreight() {

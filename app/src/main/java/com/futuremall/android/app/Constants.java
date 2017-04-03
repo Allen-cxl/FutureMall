@@ -59,6 +59,14 @@ public class Constants {
 
     public static  final String SERVER_ACOUNT_PASSWORD_FREEZE_MSG = "账号被冻结";
 
+    public static  final int SERVER_BALANCE_NOT_ENOUGH = 1007;
+
+    public static  final String SERVER_BALANCE_NOT_ENOUGH_MSG = "余额不足";
+
+    public static  final int SERVER_PAY_PASSWORD_ERROR = 1008;
+
+    public static  final String SERVER_PAY_PASSWORD_ERROR_MSG = "支付密码错误";
+
     //================= TYPE ====================
 
     public static  final String NEW_USER = "1";//新用户注册
@@ -129,6 +137,8 @@ public class Constants {
     public static final String IT_USER_INFO = "userInfo";
 
     public static final String IT_GOLD_TYPE_STR = "type_str";
+
+    public static final String IT_RECID = "recID";
 
     public static final String IT_GOLD_MANAGER = "manager";
 

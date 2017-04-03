@@ -8,6 +8,7 @@ import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
+import com.futuremall.android.model.bean.PayOrderInfoBean;
 import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
@@ -53,6 +54,13 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("auth/login")
     Flowable<MyHttpResponse<UserInfo>> login(@Field("mobile_phone") String phone, @Field("password") String password);
+
+    /**
+     * 邀请注册
+     */
+    @FormUrlEncoded
+    @POST("user/invitecode")
+    Flowable<MyHttpResponse<UserInfo>> inviteRegister(@Field("access_token") String token);
 
     /**
      * 转账
@@ -147,11 +155,18 @@ public interface MallApis {
     Flowable<MyHttpResponse<Object>> delShoppingCar(@Field("access_token") String token, @Field("rec_id") String recID);
 
     /**
-     * 购物车下单
+     * 订单结算
      */
     @FormUrlEncoded
-    @POST("order/toPay")
-    Flowable<MyHttpResponse<Object>> toPayShoppingCar(@Field("access_token") String token, @Field("rec_id") String recID);
+    @POST("order/cargolist")
+    Flowable<MyHttpResponse<PayOrderInfoBean>> payOrderInfo(@Field("access_token") String token, @Field("rec_id") String recID);
+
+    /**
+     * 提交订单
+     */
+    @FormUrlEncoded
+    @POST("order/suborder")
+    Flowable<MyHttpResponse<Object>> submitOrder(@Field("access_token") String token, @Field("rec_id") String recID, @Field("address_id") String addressID, @Field("pay_pass") String payPass);
 
     /**
      * 订单详情

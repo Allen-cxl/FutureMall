@@ -91,6 +91,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     @Override
     public void shopName(String name) {
 
+        mTvName.setText(name);
     }
 
     @Override
@@ -193,7 +194,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
             }
 
             if (account.length() >= 11){
-                mPresenter.getBalance();
+                mPresenter.getShopName(account);
             }
         }
     };

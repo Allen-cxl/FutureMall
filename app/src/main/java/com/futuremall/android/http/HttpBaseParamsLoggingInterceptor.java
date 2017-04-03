@@ -55,32 +55,6 @@ public class HttpBaseParamsLoggingInterceptor implements Interceptor {
             requestBuilder.method(request.method(), formBodybuilder.build());
             request = requestBuilder.build();
         }
-
-       /* if(request.body() instanceof MultipartBody){
-            Request.Builder requestBuilder = request.newBuilder();
-            MultipartBody.Builder partBody = new MultipartBody.Builder();
-            MultipartBody formBody = (MultipartBody) request.body();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < formBody.size(); i++) {
-
-                MultipartBody.Part part = formBody.part(i);
-                Headers headers = part.headers();
-                String name = headers.name(i);
-                String value = headers.value(i);
-
-                sb.append(name);
-                sb.append("=");
-                sb.append(value);
-                sb.append("&");
-                partBody.addFormDataPart(name,value);
-            }
-            String sign = Md5Utils.getSign(sb);
-            partBody.addFormDataPart(Constants.IT_SIGN, sign);
-
-            requestBuilder.method(request.method(), partBody.build());
-            request = requestBuilder.build();
-        }*/
-
         return chain.proceed(request);
     }
 }

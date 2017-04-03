@@ -35,8 +35,6 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
 
     ShoppingCarAdapter mAdapter;
-    @BindView(R.id.super_title)
-    TextView mSuperTitle;
     @BindView(R.id.super_toolbar)
     Toolbar mSuperToolbar;
     @BindView(R.id.recycleView)
@@ -244,7 +242,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
                     SnackbarUtil.show(mBtPay, getString(R.string.no_data_shopping_cart));
                     return;
                 }
-                mPresenter.delete(mAdapter.getCurrentList());
+                mPresenter.delete(mBtDelete, mAdapter.getCurrentList());
                 mAdapter.notifyDataSetChanged();
                 break;
 
@@ -254,7 +252,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
                     SnackbarUtil.show(mBtPay, getString(R.string.no_data_shopping_cart));
                     return;
                 }
-                mPresenter.toPay(mAdapter.getCurrentList());
+                mPresenter.toPay(mBtPay, mAdapter.getCurrentList());
                 break;
             default:
                 break;

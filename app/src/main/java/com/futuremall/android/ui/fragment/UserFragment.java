@@ -14,6 +14,7 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.UserContract;
 import com.futuremall.android.presenter.UserPresenter;
 import com.futuremall.android.ui.ViewHolder.LoginHelper;
+import com.futuremall.android.ui.activity.InviteRegisterActivity;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderCenterActivity;
@@ -163,6 +164,10 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 }
                 break;
             case R.id.tv_invite_register:
+
+                if (LoginHelper.ensureLogin(getContext())) {
+                    InviteRegisterActivity.enter(getContext());
+                }
                 break;
             case R.id.tv_recharge:
 
@@ -171,6 +176,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 }
                 break;
             case R.id.tv_setup:
+
                 SettingActivity.enter(getContext());
                 break;
             case R.id.tv_about:

@@ -1,9 +1,5 @@
 package com.futuremall.android.presenter.Contract;
 
-import android.content.Context;
-import android.opengl.Visibility;
-import android.view.View;
-
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.model.bean.ShoppingCartBean;
@@ -41,7 +37,7 @@ public class ShoppingCarContract {
 
         void selectOrCancelAll(List<ShoppingCartBean> list, boolean isSelectAll);
 
-        void delete(List<ShoppingCartBean> data);
+        void delete(android.view.View view, List<ShoppingCartBean> data);
 
         void menuDone(List<ShoppingCartBean> list, boolean isSelectAll);
 
@@ -51,7 +47,7 @@ public class ShoppingCarContract {
 
         void calculateTotalPrice(List<ShoppingCartBean> data);
 
-        void toPay(List<ShoppingCartBean> data);
+        void toPay(android.view.View view, List<ShoppingCartBean> data);
 
     }
 }

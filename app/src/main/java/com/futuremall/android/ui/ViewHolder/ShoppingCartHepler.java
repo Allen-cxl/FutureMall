@@ -47,8 +47,8 @@ public class ShoppingCartHepler {
                 Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getCart_goods().iterator();
                 while (iteratorGoods.hasNext()) {
                     ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
-                    sb.append(shopCartGood.getRec_id());
                     sb.append(",");
+                    sb.append(shopCartGood.getRec_id());
                 }
 
             } else {
@@ -58,8 +58,8 @@ public class ShoppingCartHepler {
                     ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
                     if (shopCartGood.isCheckEd()) {
 
-                        sb.append(shopCartGood.getRec_id());
                         sb.append(",");
+                        sb.append(shopCartGood.getRec_id());
                     }
                 }
 
@@ -67,11 +67,7 @@ public class ShoppingCartHepler {
         }
 
         String string = sb.toString();
-
-        if(string.indexOf(",") > 0){
-
-            string = string.substring(0, string.length() -1);
-        }
+        string = string.replaceFirst(",", "");
 
         return string;
     }

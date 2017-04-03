@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:background = "@color/line"
+    android:orientation = "vertical"
+    tools:context = "com.futuremall.android.ui.activity.PayOrderActivity" >
+
+    <include layout = "@layout/toolbar_super" />
+
+    <com.futuremall.android.widget.LoadingLayout
+        android:id="@id/loading_layout"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:layout_marginTop = "1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+            android:id = "@id/recycleView"
+            android:layout_width = "match_parent"
+            android:layout_height = "0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="10dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@id/tv_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@id/tv_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/corner_white"
+                android:textColor="@android:color/white"
+                android:padding="10dp"
+                android:text="确认支付"/>
+        </LinearLayout>
+        </LinearLayout>
+    </com.futuremall.android.widget.LoadingLayout >
+</LinearLayout >

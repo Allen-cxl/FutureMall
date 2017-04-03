@@ -9,25 +9,25 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
-import com.futuremall.android.model.bean.OrderList;
-import com.futuremall.android.model.bean.OrderProduct;
+import com.futuremall.android.model.bean.AddressBean;
+import com.futuremall.android.model.bean.ShoppingCartBean;
+import com.futuremall.android.ui.ViewHolder.OrderFirstViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderFooterViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderHeadViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderItemViewHolder;
-import com.futuremall.android.ui.activity.OrderDetailActivity;
-import com.futuremall.android.util.DecimalUtil;
-import com.futuremall.android.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.ViewHolder> {
+public class PayOrderInfoAdapter extends SectionRecyclerAdapter<RecyclerView.ViewHolder> {
 
-    private List<OrderList> dataList;
+
+    private List<ShoppingCartBean> dataList;
     private Context mContext;
+    private OrderFirstViewHolder  mFirstHolder;
 
-    public OrderCenterAdapter(Context context) {
+    public PayOrderInfoAdapter(Context context) {
         mContext = context;
         dataList = new ArrayList<>();
     }
@@ -39,50 +39,46 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
 
     @Override
     public int getItemCount(int section) {
-        OrderList sectionObject = dataList.get(section);
+        ShoppingCartBean sectionObject = dataList.get(section);
 
-        return sectionObject.getOrder_goods().size();
+        return sectionObject.getCart_goods().size();
+    }
+
+    @Override
+    public void onBindFirstViewHolder(RecyclerView.ViewHolder holder, final int section) {
+
+        mFirstHolder = (OrderFirstViewHolder) holder;
     }
 
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, final int section) {
 
-        final OrderList orderList = dataList.get(section);
+        final ShoppingCartBean orderList = dataList.get(section);
         OrderHeadViewHolder headerViewHolder = (OrderHeadViewHolder) holder;
         headerViewHolder.mTvShopName.setText(orderList.getShop_name());
-        headerViewHolder.mTvOrderExpress_status.setText(orderList.expressStatus(orderList.getState()));
-        headerViewHolder.mTvShopName.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                OrderDetailActivity.enter(mContext, orderList.getOrder_id());
-            }
-        });
     }
 
     @Override
     public void onBindFooterViewHolder(RecyclerView.ViewHolder holder, int section) {
-        OrderList orderList = dataList.get(section);
+        ShoppingCartBean orderList = dataList.get(section);
         OrderFooterViewHolder footerViewHolder = (OrderFooterViewHolder) holder;
-        footerViewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderList.getGoods_num()));
-        String price = StringUtil.getPrice(mContext, orderList.getGoods_price()).toString();
-        footerViewHolder.mTvTotalPrice.setText(price);
+        footerViewHolder.mTvTotalCount.setText(String.format(mContext.getString(R.string.total_count), orderList.getShop_num()));
+        String price = String.format(mContext.getString(R.string.price), orderList.getShop_price());
+        footerViewHolder.mTvTotalPrice.setText(String.format(mContext.getString(R.string.amount_price_integral), price));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int section, final int relativePosition, int absolutePosition) {
 
-        final OrderProduct order = dataList.get(section).getOrder_goods().get(relativePosition);
+        final ShoppingCartBean.ShoppingCartProductBean productBean = dataList.get(section).getCart_goods().get(relativePosition);
         OrderItemViewHolder itemViewHolder = (OrderItemViewHolder) holder;
         Glide.with(mContext.getApplicationContext())
-                .load(order.getGoods_img())
+                .load(productBean.getGoods_img())
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(itemViewHolder.mIvProductPic);
-        itemViewHolder.mTvProductName.setText(order.getGoods_name());
-        String price = String.format(mContext.getString(R.string.price), order.getGoods_price());
-        itemViewHolder.mTvProductPrice.setText(StringUtil.getPrice(mContext, price));
-        itemViewHolder.mTvCount.setText("x"+String.valueOf(order.getGoods_num()));
+        itemViewHolder.mTvProductName.setText(productBean.getGoods_name());
+        itemViewHolder.mTvCount.setText("x"+String.valueOf(productBean.getGoods_num()));
 
     }
 
@@ -103,6 +99,13 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         View view;
         RecyclerView.ViewHolder myHolder = null;
         switch (viewType) {
+
+            case SectionRecyclerAdapter.VIEW_TYPE_FIRST:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.layout_pay_order_head, parent, false);
+                myHolder = new OrderFirstViewHolder(view);
+                break;
+
             case SectionRecyclerAdapter.VIEW_TYPE_HEADER:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_order_center_head, parent, false);
@@ -114,6 +117,7 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
                         .inflate(R.layout.item_order_center, parent, false);
                 myHolder = new OrderItemViewHolder(view);
                 break;
+
             case SectionRecyclerAdapter.VIEW_TYPE_FOOTER:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_order_center_foot, parent, false);
@@ -124,13 +128,29 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         return myHolder;
     }
 
-    public void setData(List<OrderList> data) {
+    public void setData(List<ShoppingCartBean> data) {
         if(data != null) {
             this.dataList = data;
         }else {
             this.clear();
         }
         this.notifyDataSetChanged();
+    }
+
+    public void setFirstViewData(AddressBean data) {
+
+        if(null != data && null != mFirstHolder){
+            mFirstHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            mFirstHolder.mTvUserName.setText(data.getConsignee());
+            mFirstHolder.mTvPhone.setText(data.getMobile());
+            mFirstHolder.mTvAddress.setText(data.getAddress());
+            this.notifyDataSetChanged();
+        }
     }
 
     private void clear() {

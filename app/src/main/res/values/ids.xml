@@ -127,6 +127,10 @@
     <item name = "ll_layout" type = "id" />
     <item name = "btn_error_retry" type = "id" />
     <item name = "btn_empty_retry" type = "id" />
+    <item name="iv_img" type="id"/>
+    <item name="tv_save_img" type="id"/>
+    <item name="webView" type="id"/>
+    <item name="refreshLayout" type="id"/>
 
 
 </resources>

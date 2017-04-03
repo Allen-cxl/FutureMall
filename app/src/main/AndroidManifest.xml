@@ -76,26 +76,27 @@
             android:name=".ui.activity.UserInfoActivity"
             android:screenOrientation="portrait">
         </activity>
-
         <activity
-            android:name = "com.pizidea.imagepicker.ui.CropActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
-
+            android:name="com.pizidea.imagepicker.ui.CropActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = "com.pizidea.imagepicker.ui.PickerActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
-
+            android:name="com.pizidea.imagepicker.ui.PickerActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = "com.pizidea.imagepicker.ui.PreviewActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name="com.pizidea.imagepicker.ui.PreviewActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".ui.activity.ModifyInfoActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".ui.activity.SearchActivity">
+        </activity>
+        <activity android:name=".ui.activity.PayOrderActivity">
+        </activity>
+        <activity android:name=".ui.activity.InviteRegisterActivity">
         </activity>
     </application>
 

@@ -100,6 +100,10 @@ public class RxUtil {
             return Constants.SERVER_ACOUNT_PASSWORD_ERROR_MSG;
         }else if(srvCode == Constants.SERVER_ACOUNT_PASSWORD_FREEZE){
             return Constants.SERVER_ACOUNT_PASSWORD_FREEZE_MSG;
+        }else if(srvCode == Constants.SERVER_BALANCE_NOT_ENOUGH){
+            return Constants.SERVER_BALANCE_NOT_ENOUGH_MSG;
+        }else if(srvCode == Constants.SERVER_PAY_PASSWORD_ERROR){
+            return Constants.SERVER_PAY_PASSWORD_ERROR_MSG;
         }
         return null;
     }

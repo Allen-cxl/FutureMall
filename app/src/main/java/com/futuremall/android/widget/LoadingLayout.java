@@ -34,7 +34,7 @@ public class LoadingLayout extends FrameLayout {
     try {
       emptyView = a.getResourceId(R.styleable.LoadingLayout_emptyView, R.layout.view_empty);
       errorView = a.getResourceId(R.styleable.LoadingLayout_errorView, R.layout.view_error);
-      loadingView = a.getResourceId(R.styleable.LoadingLayout_loadingView, R.layout.view_loding);
+      loadingView = a.getResourceId(R.styleable.LoadingLayout_loadingView, R.layout.progress_dialog_loding);
 
       LayoutInflater inflater = LayoutInflater.from(getContext());
       inflater.inflate(emptyView, this, true);
