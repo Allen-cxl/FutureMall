@@ -1,6 +1,7 @@
 package com.futuremall.android.widget;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 
@@ -21,7 +22,9 @@ public class MallWebChromeClient extends WebChromeClient {
         super.onProgressChanged(view, newProgress);
         mRefreshLayout.setRefreshing(true);
         if (newProgress == 100) {
+
             mRefreshLayout.setRefreshing(false);
+
         } else {
             mRefreshLayout.setRefreshing(true);
         }

@@ -11,7 +11,10 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 
@@ -53,47 +56,6 @@ public class SystemUtil {
         return connectivityManager.getActiveNetworkInfo() != null;
     }
 
-
-    /**
-     * 保存图片到本地
-     * @param context
-     * @param url
-     * @param bitmap
-     */
-    public static Uri saveBitmapToFile(Context context, String url, Bitmap bitmap,View container, boolean isShare){
-        String fileName = url.substring(url.lastIndexOf("/"),url.lastIndexOf(".")) + ".png";
-        File fileDir = new File(Constants.PATH_DATA);
-        if (!fileDir.exists()){
-            fileDir.mkdir();
-        }
-        File imageFile = new File(fileDir,fileName);
-        Uri uri = Uri.fromFile(imageFile);
-        if (isShare && imageFile.exists()) {
-            return uri;
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(imageFile);
-            boolean isCompress = bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
-            if (isCompress) {
-                SnackbarUtil.showShort(container,"保存妹纸成功n(*≧▽≦*)n");
-            } else {
-                SnackbarUtil.showShort(container,"保存妹纸失败ヽ(≧Д≦)ノ");
-            }
-            fos.flush();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            SnackbarUtil.showShort(container,"保存妹纸失败ヽ(≧Д≦)ノ");
-        }
-        try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(), imageFile.getAbsolutePath(), fileName, null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,uri));
-        return uri;
-    }
-
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
@@ -131,6 +93,24 @@ public class SystemUtil {
         if (imm.isActive()) {
             imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+
+
+    public static int getScreenWidth(Context context) {
+        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        Display display = windowManager.getDefaultDisplay();
+        display.getMetrics(dm);
+        return dm.widthPixels;
+    }
+
+    public static int getScreenHeight(Context context) {
+        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        Display display = windowManager.getDefaultDisplay();
+        display.getMetrics(dm);
+        return dm.heightPixels;
     }
 
     /**

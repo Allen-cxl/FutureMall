@@ -14,8 +14,8 @@ import com.futuremall.android.presenter.MainPresenter;
 import com.futuremall.android.ui.activity.QrCodeActivity;
 import com.futuremall.android.ui.activity.SearchActivity;
 import com.futuremall.android.widget.MallWebChromeClient;
+import com.futuremall.android.widget.MallWebView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.tencent.smtt.sdk.WebView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,7 +35,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.webView)
-    WebView mWebView;
+    MallWebView mWebView;
 
     @Override
     protected void initInject() {
@@ -54,6 +54,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         mWebView.setWebChromeClient(new MallWebChromeClient(mRefreshLayout));
         mRefreshLayout.setColorSchemeResources(R.color.orange);
         mRefreshLayout.setOnRefreshListener(this);
+        mWebView.setRefreshLayout(mRefreshLayout );
         loadUrl();
     }
 
