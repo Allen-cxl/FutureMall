@@ -13,9 +13,10 @@ import com.futuremall.android.presenter.Contract.MainContract;
 import com.futuremall.android.presenter.MainPresenter;
 import com.futuremall.android.ui.activity.QrCodeActivity;
 import com.futuremall.android.ui.activity.SearchActivity;
-import com.futuremall.android.widget.MallWebChromeClient;
+import com.futuremall.android.widget.MallWebClient;
 import com.futuremall.android.widget.MallWebView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.smtt.sdk.WebSettings;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,10 +52,13 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     protected void initEventAndData() {
 
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebChromeClient(new MallWebChromeClient(mRefreshLayout));
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.getSettings().setSupportZoom(true);
+        mWebView.setWebViewClient(new MallWebClient(mRefreshLayout));
         mRefreshLayout.setColorSchemeResources(R.color.orange);
         mRefreshLayout.setOnRefreshListener(this);
-        mWebView.setRefreshLayout(mRefreshLayout );
+        mWebView.setRefreshLayout(mRefreshLayout);
         loadUrl();
     }
 
@@ -96,6 +100,6 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     }
 
     private void loadUrl(){
-        mWebView.loadUrl("http://139.196.124.0/#/");
+        mWebView.loadUrl("http://baidu.com");
     }
 }

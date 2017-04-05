@@ -3,16 +3,14 @@ package com.futuremall.android.widget;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 
-import com.futuremall.android.util.LogUtil;
 import com.tencent.smtt.sdk.WebView;
 
 
 public class MallWebView extends WebView {
 
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public MallWebView(Context context) {
         super(context);
@@ -25,18 +23,17 @@ public class MallWebView extends WebView {
     }
 
     public void setRefreshLayout(SwipeRefreshLayout swipeRefreshLayout){
-        this.swipeRefreshLayout = swipeRefreshLayout;
+        mSwipeRefreshLayout = swipeRefreshLayout;
     }
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        LogUtil.d("onScrollChanged:"+"l:"+l+"-t:"+t+"-oldl:"+oldl+"-oldt:"+ oldt);
-        if(null != swipeRefreshLayout){
-            if (this.getScrollY() == 0){
-                swipeRefreshLayout.setEnabled(true);
+        if(null != mSwipeRefreshLayout){
+            if (t > 0){
+                mSwipeRefreshLayout.setEnabled(false);
             }else {
-                swipeRefreshLayout.setEnabled(false);
+                mSwipeRefreshLayout.setEnabled(true);
             }
         }
 
