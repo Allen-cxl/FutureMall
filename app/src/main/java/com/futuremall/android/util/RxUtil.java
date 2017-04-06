@@ -73,38 +73,28 @@ public class RxUtil {
                 }
 
                 if(!StringUtil.isEmpty(srvMsg)){
-                    e.onError(new ApiException(srvCode, getSrvMsg(srvCode)));
+                    e.onError(new ApiException(srvCode, getSrvMsg(srvCode, srvMsg)));
                 }
                 if(srvCode != Constants.SERVER_SUCCESS){
-                    e.onError(new ApiException(srvCode, getSrvMsg(srvCode)));
+                    e.onError(new ApiException(srvCode, getSrvMsg(srvCode, srvMsg)));
                 }
             }
         },BackpressureStrategy.BUFFER);
     }
 
-    private static String getSrvMsg(int srvCode){
+    private static String getSrvMsg(int srvCode, String srvMsg){
 
         if(srvCode == Constants.SERVER_BUSY){
             return Constants.SERVER_BUSY_MSG;
         }else if(srvCode == Constants.SERVER_FAIL){
-            return Constants.SERVER_FAIL_MSG;
+            return srvMsg;
         }else if(srvCode == Constants.SERVER_TOKEN_FAIL){
             return Constants.SERVER_TOKEN_FAIL_MSG;
         }else if(srvCode == Constants.SERVER_SIGN_FAIL){
             return Constants.SERVER_SIGN_FAIL_MSG;
         }else if(srvCode == Constants.SERVER_PARAMETER_LOST){
             return Constants.SERVER_PARAMETER_LOST_MSG;
-        }else if(srvCode == Constants.SERVER_NO_PERMISSIONS){
-            return Constants.SERVER_NO_PERMISSIONS_MSG;
-        }else if(srvCode == Constants.SERVER_ACOUNT_PASSWORD_ERROR){
-            return Constants.SERVER_ACOUNT_PASSWORD_ERROR_MSG;
-        }else if(srvCode == Constants.SERVER_ACOUNT_PASSWORD_FREEZE){
-            return Constants.SERVER_ACOUNT_PASSWORD_FREEZE_MSG;
-        }else if(srvCode == Constants.SERVER_BALANCE_NOT_ENOUGH){
-            return Constants.SERVER_BALANCE_NOT_ENOUGH_MSG;
-        }else if(srvCode == Constants.SERVER_PAY_PASSWORD_ERROR){
-            return Constants.SERVER_PAY_PASSWORD_ERROR_MSG;
-        }
-        return null;
+        }else
+        return srvMsg;
     }
 }

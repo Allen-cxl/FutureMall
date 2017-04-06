@@ -58,6 +58,18 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="BottomSheetDialogStyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/translate_bottom_enter_dialog</item>
+        <item name="@android:windowExitAnimation">@anim/translate_bottom_exit_dialog</item>
+    </style>
+
+    <style name="transparentDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <declare-styleable name="LoadingLayout">
         <attr name="loadingView" format="reference" />
         <attr name="errorView" format="reference" />

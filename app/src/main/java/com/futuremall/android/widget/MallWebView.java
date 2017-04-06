@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 
+import com.futuremall.android.util.LogUtil;
 import com.tencent.smtt.sdk.WebView;
 
 
@@ -29,6 +30,7 @@ public class MallWebView extends WebView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
+        LogUtil.i("onScrollChanged:"+  t);
         if(null != mSwipeRefreshLayout){
             if (t > 0){
                 mSwipeRefreshLayout.setEnabled(false);

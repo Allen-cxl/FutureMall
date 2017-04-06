@@ -100,6 +100,6 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     }
 
     private void loadUrl(){
-        mWebView.loadUrl("http://baidu.com");
+        mWebView.loadUrl("http://meetlive.24hmb.com/Phone/Play/Index?meetingid=c2a4381d-d285-4360-b806-3fc77cbdc449");
     }
 }

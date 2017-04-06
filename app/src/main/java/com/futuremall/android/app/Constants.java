@@ -33,8 +33,6 @@ public class Constants {
 
     public static  final int SERVER_FAIL = 1000;
 
-    public static  final String SERVER_FAIL_MSG = "处理失败";
-
     public static  final int SERVER_TOKEN_FAIL = 1001;
 
     public static  final String SERVER_TOKEN_FAIL_MSG = "access_token非法";
@@ -46,26 +44,6 @@ public class Constants {
     public static  final int SERVER_PARAMETER_LOST = 1003;
 
     public static  final String SERVER_PARAMETER_LOST_MSG = "请求参数缺失";
-
-    public static  final int SERVER_NO_PERMISSIONS = 1004;
-
-    public static  final String SERVER_NO_PERMISSIONS_MSG = "无操作权限";
-
-    public static  final int SERVER_ACOUNT_PASSWORD_ERROR = 1005;
-
-    public static  final String SERVER_ACOUNT_PASSWORD_ERROR_MSG = "账号或密码不正确";
-
-    public static  final int SERVER_ACOUNT_PASSWORD_FREEZE = 1006;
-
-    public static  final String SERVER_ACOUNT_PASSWORD_FREEZE_MSG = "账号被冻结";
-
-    public static  final int SERVER_BALANCE_NOT_ENOUGH = 1007;
-
-    public static  final String SERVER_BALANCE_NOT_ENOUGH_MSG = "余额不足";
-
-    public static  final int SERVER_PAY_PASSWORD_ERROR = 1008;
-
-    public static  final String SERVER_PAY_PASSWORD_ERROR_MSG = "支付密码错误";
 
     //================= TYPE ====================
 
