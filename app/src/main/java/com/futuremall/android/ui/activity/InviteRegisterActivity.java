@@ -13,7 +13,6 @@ import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.presenter.Contract.InviteRegisterContract;
 import com.futuremall.android.presenter.InviteRegisterPresenter;
 import com.futuremall.android.util.SnackbarUtil;
-import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
