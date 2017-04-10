@@ -117,4 +117,6 @@
     <string name = "no_data_shopping_cart" >请选择产品</string >
     <string name = "reload_data" >重新加载</string >
     <string name = "network_error" >网络请求失败</string >
+    <string name = "no_express_data" >暂无物流信息</string >
+    <string name = "confirm_receive" >确认收获</string >
 </resources >

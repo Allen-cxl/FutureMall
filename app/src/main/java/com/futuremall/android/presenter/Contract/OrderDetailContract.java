@@ -9,11 +9,15 @@ public class OrderDetailContract {
 
     public interface View extends BaseView {
 
+        void affirmOrderResponse();
+
         void showData(OrderDetail dataList);
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
         void orderDetail(String orderID);
+
+        void affirmOrder(String orderID, String payPassword);
     }
 }

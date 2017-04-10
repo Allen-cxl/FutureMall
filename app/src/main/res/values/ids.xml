@@ -133,6 +133,8 @@
     <item name="refreshLayout" type="id"/>
     <item name = "tv_cancel" type = "id" />
     <item name = "tv_sure" type = "id" />
+    <item name = "tv_express_no_data" type = "id" />
+    <item name = "tv_confirm_receive" type = "id" />
 
 
 </resources>

@@ -9,6 +9,7 @@ import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.OrderDetailContract;
 import com.futuremall.android.util.CommonConsumer;
+import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxUtil;
 
 import javax.inject.Inject;
@@ -43,6 +44,7 @@ public class OrderDetailPresenter extends RxPresenter<OrderDetailContract.View> 
                 .subscribe(new Consumer<OrderDetail>() {
                     @Override
                     public void accept(OrderDetail value) {
+                        mView.showLoading();
                         if(null == value){
                             mView.showEmpty();
                         }else{
@@ -53,6 +55,28 @@ public class OrderDetailPresenter extends RxPresenter<OrderDetailContract.View> 
                 }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){
                         mView.showError();
+                    }
+                });
+        addSubscrebe(disposable);
+    }
+
+    @Override
+    public void affirmOrder(String orderID, String payPassword) {
+
+        LoadingStateUtil.show(mContext);
+        String token = PreferencesFactory.getUserPref().getToken();
+        Disposable disposable = mRetrofitHelper.affirmOrder(token, orderID, payPassword)
+                .compose(RxUtil.<MyHttpResponse<Object>>rxSchedulerHelper())
+                .compose(RxUtil.handleMyResult())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object value) {
+                        LoadingStateUtil.close();
+                        mView.affirmOrderResponse();
+                    }
+                }, new CommonConsumer<Object>(mView, mContext){
+                    public void onError(){
+                        LoadingStateUtil.close();
                     }
                 });
         addSubscrebe(disposable);

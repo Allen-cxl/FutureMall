@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderProduct;
-import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.ui.listener.OnTextListener;
 import com.futuremall.android.util.StringUtil;
 
 import java.util.ArrayList;
@@ -30,12 +30,14 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context mContext;
     private List<OrderProduct> mOrderProducts;
     private OrderDetail mOrderDetail;
+    private OnTextListener mListener;
     private final static int VIEW_TYPE_HEAD = 0x1;
     private final static int VIEW_TYPE_NORMAL = 0x2;
     private final static int VIEW_TYPE_FOOT = 0x3;
 
-    public OrderDetailAdapter(Context context){
+    public OrderDetailAdapter(Context context, OnTextListener listener){
         this.mContext = context;
+        mListener = listener;
         mOrderProducts = new ArrayList<>();
     }
 
@@ -130,14 +132,37 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         String price = StringUtil.getPrice(mContext, orderDetail.getGoods_price()+"").toString();
         viewHolder.mTvTotalPrice.setText(String.format(mContext.getString(R.string.amount_price), price));
 
-        viewHolder.mTvExpressType.setText(String.format(mContext.getString(R.string.express_type), orderDetail.getShipping_name()));
-        viewHolder.mTvExpressNo.setText(String.format(mContext.getString(R.string.express_no), orderDetail.getInvoice_no()));
-        viewHolder.mLayoutExpress.setOnClickListener(new View.OnClickListener() {
+        String exPressNo = orderDetail.getInvoice_no();
+        if(StringUtil.isEmpty(exPressNo)){
+            viewHolder.mTvExpressNoData.setVisibility(View.VISIBLE);
+            viewHolder.mLayoutExpress.setVisibility(View.GONE);
+        }else{
+            viewHolder.mTvExpressNoData.setVisibility(View.GONE);
+            viewHolder.mLayoutExpress.setVisibility(View.VISIBLE);
+
+            viewHolder.mTvExpressType.setText(String.format(mContext.getString(R.string.express_type), orderDetail.getShipping_name()));
+            viewHolder.mTvExpressNo.setText(String.format(mContext.getString(R.string.express_no), orderDetail.getInvoice_no()));
+        }
+
+        if(orderDetail.getState() ==OrderDetail.ACCEPT){
+            viewHolder.mTvConfirmReceive.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.mTvConfirmReceive.setVisibility(View.GONE);
+        }
+
+        viewHolder.mTvConfirmReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SnackbarUtil.show(viewHolder.itemView,"物流信息");
+                mListener.onTextClick();
             }
         });
+        /*
+        viewHolder.mLayoutExpress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onTextClick(View view) {
+                SnackbarUtil.show(viewHolder.itemView,"物流信息");
+            }
+        });*/
 
     }
 
@@ -190,6 +215,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView mTvExpressType;
         @BindView(R.id.tv_express_no)
         TextView mTvExpressNo;
+        @BindView(R.id.tv_express_no_data)
+        TextView mTvExpressNoData;
+        @BindView(R.id.tv_confirm_receive)
+        TextView mTvConfirmReceive;
         @BindView(R.id.layout_express)
         LinearLayout mLayoutExpress;
 

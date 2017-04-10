@@ -12,6 +12,8 @@ import com.futuremall.android.R;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.presenter.Contract.InviteRegisterContract;
 import com.futuremall.android.presenter.InviteRegisterPresenter;
+import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,6 +27,7 @@ public class InviteRegisterActivity extends BaseActivity<InviteRegisterPresenter
     ImageView mIvImg;
     @BindView(R.id.tv_save_img)
     TextView mTvSaveImg;
+    String mImgUrl;
 
     @Override
     protected void initInject() {
@@ -45,13 +48,25 @@ public class InviteRegisterActivity extends BaseActivity<InviteRegisterPresenter
     @Override
     public void qrCodeResponse(String imgUrl) {
 
+        mImgUrl = imgUrl;
         mTvSaveImg.setVisibility(View.VISIBLE);
-        Glide.with(getApplicationContext()).load(imgUrl).into(mIvImg);
+        Glide.with(getApplicationContext()).load(mImgUrl).into(mIvImg);
+    }
+
+    @Override
+    public void saveSuccess() {
+        SnackbarUtil.show(mIvImg, "保存成功");
+    }
+
+    @Override
+    public void saveFail() {
+        SnackbarUtil.show(mIvImg, "保存失败");
     }
 
     @OnClick(R.id.tv_save_img)
     public void onClick() {
-        mPresenter.saveQrCode(mIvImg);
+
+        mPresenter.saveQrCode(mImgUrl);
     }
 
     public static void enter(Context context) {

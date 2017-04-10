@@ -2,11 +2,8 @@ package com.futuremall.android.presenter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Environment;
-import android.widget.ImageView;
 
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
@@ -17,13 +14,14 @@ import com.futuremall.android.presenter.Contract.InviteRegisterContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxUtil;
-import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 
 import org.reactivestreams.Publisher;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.inject.Inject;
 
@@ -78,44 +76,40 @@ public class InviteRegisterPresenter extends RxPresenter<InviteRegisterContract.
     }
 
     @Override
-    public void saveQrCode(ImageView imageView) {
+    public void saveQrCode(String imageUrl) {
 
-        if(null != imageView.getDrawable()){
-            saveImageView(imageView);
-        }else{
-            SnackbarUtil.show(imageView, "暂无图片");
-        }
-
+        saveImageView(imageUrl);
     }
 
-    private void saveImageView(final ImageView imageView) {
+    private void saveImageView(final String imageUrl) {
 
-
-        Flowable.just(imageView)
-                .flatMap(new Function<ImageView, Publisher<?>>() {
+        Flowable.just(imageUrl)
+                .flatMap(new Function<String, Publisher<?>>() {
                     @Override
-                    public Publisher<Object> apply(final ImageView imageView) throws Exception {
+                    public Publisher<Object> apply(final String imgUrl) throws Exception {
 
                         return Flowable.create(new FlowableOnSubscribe<Object>() {
                             @Override
                             public void subscribe(FlowableEmitter<Object> e)throws Exception {
 
-                                Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
-                                Canvas canvas = new Canvas(bitmap);
-                                imageView.draw(canvas);
-
                                 File imageFile = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() +".jpg");
-                                FileOutputStream outStream;
-                                outStream = new FileOutputStream(imageFile);
-                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-                                e.onNext(Environment.getExternalStorageDirectory().getPath());
-                                e.onComplete();
-                                outStream.flush();
-                                outStream.close();
+                                FileOutputStream fos = new FileOutputStream(imageFile);
+                                URL url = new URL(imgUrl);
+                                InputStream in = url.openStream();
+
+                                int len = -1;
+                                byte[] b = new byte[1024];
+                                while ((len = in.read(b)) != -1) {
+                                    fos.write(b, 0, len);
+                                }
+                                fos.close();
+                                in.close();
                                 Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                                 Uri uri = Uri.fromFile(imageFile);
                                 intent.setData(uri);
                                 mContext.sendBroadcast(intent);
+                                e.onNext(Environment.getExternalStorageDirectory().getPath());
+                                e.onComplete();
                             }
                         },BackpressureStrategy.BUFFER);
                     }
@@ -124,13 +118,13 @@ public class InviteRegisterPresenter extends RxPresenter<InviteRegisterContract.
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Object>() {
                     @Override
-                    public void accept(Object integer) throws Exception {
-                        SnackbarUtil.show(imageView, "保存成功");
+                    public void accept(Object integer){
+                        mView.saveSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        SnackbarUtil.show(imageView, "保存失败");
+                    public void accept(Throwable throwable){
+                        mView.saveFail();
                     }
                 });
     }

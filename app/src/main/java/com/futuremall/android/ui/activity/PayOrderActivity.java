@@ -1,14 +1,11 @@
 package com.futuremall.android.ui.activity;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.futuremall.android.R;

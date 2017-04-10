@@ -15,11 +15,14 @@ import com.futuremall.android.presenter.Contract.OrderDetailContract;
 import com.futuremall.android.presenter.OrderDetailPresenter;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.OrderDetailAdapter;
+import com.futuremall.android.ui.listener.OnTextDialogListener;
+import com.futuremall.android.ui.listener.OnTextListener;
+import com.futuremall.android.widget.BottomSheetDialog;
 import com.futuremall.android.widget.LoadingLayout;
 
 import butterknife.BindView;
 
-public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> implements OrderDetailContract.View {
+public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> implements OrderDetailContract.View,OnTextDialogListener, OnTextListener {
 
     @BindView(R.id.super_toolbar)
     Toolbar mSuperToolbar;
@@ -29,6 +32,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
     LoadingLayout loadingLayout;
 
     OrderDetailAdapter mAdapter;
+    String mOrderID;
 
     @Override
     protected void initInject() {
@@ -44,13 +48,12 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
     @Override
     protected void initEventAndData() {
 
-        final String orderID = getIntent().getStringExtra(Constants.IT_ORDER_ID);
+        mOrderID = getIntent().getStringExtra(Constants.IT_ORDER_ID);
         setToolBar(mSuperToolbar, getString(R.string.order_detail), true);
         mLoadingLayout = loadingLayout;
 
-        mAdapter = new OrderDetailAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new OrderDetailAdapter(this);
+        mAdapter = new OrderDetailAdapter(this, this);
         mRecycleView.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST));
         mRecycleView.setLayoutManager(linearLayoutManager);
@@ -58,10 +61,15 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
         mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.orderDetail(orderID);
+                mPresenter.orderDetail(mOrderID);
             }
         });
-        mPresenter.orderDetail(orderID);
+        mPresenter.orderDetail(mOrderID);
+    }
+
+    @Override
+    public void affirmOrderResponse() {
+        mPresenter.orderDetail(mOrderID);
     }
 
     @Override
@@ -74,5 +82,16 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
         Intent intent = new Intent(context, OrderDetailActivity.class);
         intent.putExtra(Constants.IT_ORDER_ID, orderID);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onTextClick() {
+
+        new BottomSheetDialog(this, R.style.transparentDialog, this).show();
+    }
+
+    @Override
+    public void onText(String txt) {
+        mPresenter.affirmOrder(mOrderID, txt);
     }
 }
