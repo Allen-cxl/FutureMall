@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.UserContract;
@@ -18,6 +19,7 @@ import com.futuremall.android.ui.activity.InviteRegisterActivity;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderCenterActivity;
+import com.futuremall.android.ui.activity.PayResultActivity;
 import com.futuremall.android.ui.activity.PaymentActivity;
 import com.futuremall.android.ui.activity.RechargeActivity;
 import com.futuremall.android.ui.activity.SettingActivity;
@@ -94,6 +96,10 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     public void showRegisterLayout() {
         mLlLoginRegister.setVisibility(View.VISIBLE);
         mLlUserInfo.setVisibility(View.GONE);
+        mTvBackIntegral.setText(null);
+        mTvTotalMoney.setText(null);
+        mTvGeneralizeMoney.setText(null);
+        mTvGeneralizeGive.setText(null);
     }
 
     @Override
@@ -112,6 +118,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 .transform(new GlideCircleTransform(mContext.getApplicationContext()))
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .placeholder(R.drawable.default_user)
+                .error(R.drawable.default_user)
                 .into(mIvUserAvatar);
         mTvUserName.setText(info.getUser_name());
         mTvBalance.setText(String.format(getString(R.string.price), info.getUser_money()));
@@ -131,7 +138,6 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 break;
 
             case R.id.tv_register:
-
                 SnackbarUtil.show(mView, "注册h5界面");
                 break;
 
@@ -180,6 +186,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 SettingActivity.enter(getContext());
                 break;
             case R.id.tv_about:
+                SnackbarUtil.show(mView, "暂无UI");
                 break;
         }
     }

@@ -66,11 +66,12 @@ public class PayOrderPresenter extends RxPresenter<PayOrderContract.View> implem
                     @Override
                     public void accept(Object value) {
                         LoadingStateUtil.close();
-                        mView.submitOrderResponse();
+                        mView.paySuccess();
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
+                        mView.paySuccess();
                     }
                 });
         addSubscrebe(rxSubscription);

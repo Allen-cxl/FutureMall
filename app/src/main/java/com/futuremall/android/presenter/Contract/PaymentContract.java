@@ -12,6 +12,10 @@ public class PaymentContract {
         void shopName(String name);
 
         void balance(BalanceBean bean);
+
+        void paySuccess();
+
+        void payFail();
     }
 
     public interface  Presenter extends BasePresenter<View> {

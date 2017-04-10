@@ -59,6 +59,14 @@ public class Constants {
 
     public static  final int ACTIVITY_PICKER = 0x0013;//picker 生日
 
+    public static  final int ACTIVITY_TRANSFER = 0x0014;// 转账
+
+    public static  final int ACTIVITY_PAY = 0x0015;// 支付
+
+    public static  final int SUCCESS = 0x0016;// 成功
+
+    public static  final int FAIL = 0x0017;// 失败
+
     //================= STATUS ====================
 
     public static  final String DELIVERING = "0";//待发货 Deliver
@@ -113,8 +121,6 @@ public class Constants {
     public static final String IT_ORDER_ID = "orderID";
 
     public static final String IT_USER_INFO = "userInfo";
-
-    public static final String IT_GOLD_TYPE_STR = "type_str";
 
     public static final String IT_RECID = "recID";
 

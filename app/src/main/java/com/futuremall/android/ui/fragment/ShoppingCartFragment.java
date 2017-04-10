@@ -145,7 +145,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_edit, menu);
-        menuItem = menu.findItem(R.id.action_edit);
+        menuItem = menu.findItem(R.id.menu_edit);
     }
 
     @Override
@@ -153,7 +153,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
         switch (item.getItemId()) {
 
-            case R.id.action_edit:
+            case R.id.menu_edit:
 
                 String str = menuItem.getTitle().toString();
                 setMenuItem(str);

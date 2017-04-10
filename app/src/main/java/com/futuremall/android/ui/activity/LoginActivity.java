@@ -68,8 +68,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 }
                 break;
             case R.id.tv_register:
+                SnackbarUtil.show(mTvLogin, "注册h5界面");
                 break;
             case R.id.tv_forget_password:
+                SnackbarUtil.show(mTvLogin, "暂无UI");
                 break;
         }
     }

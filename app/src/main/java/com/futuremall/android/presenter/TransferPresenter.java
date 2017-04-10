@@ -67,11 +67,13 @@ public class TransferPresenter extends RxPresenter<TransferContract.View> implem
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object value) {
-                        LogUtil.d("UserInfo:"+value);
+                        LoadingStateUtil.close();
+                        mView.transferSuccess();
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
+                        mView.transferFaile();
                     }
                 });
         addSubscrebe(rxSubscription);

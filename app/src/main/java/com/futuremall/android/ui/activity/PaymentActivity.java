@@ -86,6 +86,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
         mEtAccount.addTextChangedListener(mTextWatcher);
         mEtCashMoney.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
+        mPresenter.getBalance();
     }
 
     @Override
@@ -99,6 +100,17 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
         mTvPayIntegral.setText(mIntegral);
         mTvPayMultiple.setText(String.format(getString(R.string.current_os_multiple), bean.getPay_ratio()));
         mTvCurrentIntegral.setText(String.format(getString(R.string.current_integral), bean.getUser_money()));
+    }
+
+    @Override
+    public void paySuccess() {
+        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS);
+        finish();
+    }
+
+    @Override
+    public void payFail() {
+        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.FAIL);
     }
 
     @OnClick(R.id.tv_next)

@@ -90,10 +90,12 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     @Override
                     public void accept(Object value) {
                         LoadingStateUtil.close();
+                        mView.paySuccess();
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
+                        mView.payFail();
                     }
                 });
         addSubscrebe(rxSubscription);

@@ -5,19 +5,16 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.presenter.Contract.TransferContract;
 import com.futuremall.android.presenter.TransferPresenter;
-import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
-import com.futuremall.android.util.SystemUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,8 +55,14 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     }
 
     @Override
-    public void transferResponse() {
+    public void transferSuccess() {
+        PayResultActivity.enter(this, Constants.ACTIVITY_TRANSFER, Constants.SUCCESS);
+        finish();
+    }
 
+    @Override
+    public void transferFaile() {
+        PayResultActivity.enter(this, Constants.ACTIVITY_TRANSFER, Constants.FAIL);
     }
 
     @Override

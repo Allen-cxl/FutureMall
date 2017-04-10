@@ -12,8 +12,9 @@ public class PayOrderContract {
 
         void payOrderInfo(PayOrderInfoBean payOrderInfoBean);
 
-        void submitOrderResponse();
+        void paySuccess();
 
+        void payFail();
     }
 
     public interface  Presenter extends BasePresenter<View> {

@@ -72,10 +72,7 @@ public class RxUtil {
                     e.onNext(t);
                 }
 
-                if(!StringUtil.isEmpty(srvMsg)){
-                    e.onError(new ApiException(srvCode, getSrvMsg(srvCode, srvMsg)));
-                }
-                if(srvCode != Constants.SERVER_SUCCESS){
+                if(srvCode != Constants.SERVER_SUCCESS || !StringUtil.isEmpty(srvMsg)){
                     e.onError(new ApiException(srvCode, getSrvMsg(srvCode, srvMsg)));
                 }
             }

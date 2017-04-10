@@ -49,6 +49,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
     @Override
     public void userInfo(boolean isLogin) {
         if(!isLogin){
+            mView.showRegisterLayout();
             LoadingStateUtil.show(mContext);
         }
         String token = PreferencesFactory.getUserPref().getToken();

@@ -8,7 +8,9 @@ public class TransferContract {
 
     public interface View extends BaseView {
 
-        void transferResponse();
+        void transferSuccess();
+
+        void transferFaile();
 
         void userName(String name);
     }
