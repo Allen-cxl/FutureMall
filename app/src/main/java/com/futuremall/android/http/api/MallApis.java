@@ -49,6 +49,13 @@ public interface MallApis {
     Flowable<MyHttpResponse<UserInfo>> userInfo(@Field("access_token") String token);
 
     /**
+     * 用户手机号aes解密
+     */
+    @FormUrlEncoded
+    @POST("user/aesdecrypt")
+    Flowable<MyHttpResponse<UserInfo>> encryptPhone(@Field("encrypt_phone") String phone);
+
+    /**
      * 登录
      */
     @FormUrlEncoded
