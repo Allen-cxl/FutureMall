@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background = "@color/line"
               android:orientation="vertical">
 
     <include layout="@layout/toolbar_super"/>
@@ -10,7 +11,8 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
         <com.futuremall.android.widget.MallWebView
             android:id="@id/webView"
