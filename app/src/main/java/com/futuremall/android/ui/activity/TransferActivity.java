@@ -166,7 +166,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
                 mTvNext.setSelected(false);
             }
 
-            if (account.length() >= 11){
+            if (account.length() == 11){
                 mPresenter.userName(account);
             }
         }

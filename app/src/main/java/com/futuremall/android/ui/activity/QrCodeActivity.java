@@ -24,9 +24,13 @@ import android.view.SurfaceView;
 import android.widget.Toast;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
+import com.futuremall.android.model.bean.AesBean;
+import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.QrCodeContract;
 import com.futuremall.android.presenter.QrCodePresenter;
+import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.zxing.camera.CameraManager;
 import com.futuremall.android.widget.zxing.decoding.CaptureActivityHandler;
@@ -75,7 +79,6 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
     private ProgressDialog mProgress;
     private String photo_path;
     private Bitmap scanBitmap;
-    private String mResultString;
 
 
     private Handler mHandler = new Handler() {
@@ -194,6 +197,7 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
     @Override
     protected void onDestroy() {
         inactivityTimer.shutdown();
+        distroyScan();
         super.onDestroy();
     }
 
@@ -243,16 +247,22 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
             Toast.makeText(QrCodeActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
             return;
         }
-        /*Intent resultIntent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putString("result", resultString);
-        bundle.putParcelable("bitmap", bitmap);
-        resultIntent.putExtras(bundle);
-        this.setResult(RESULT_OK, resultIntent);
-        QrCodeActivity.this.finish();*/
 
-        mResultString = resultString;
-        // TODO: 2017/3/23 扫描后的结果
+        int resultType = StringUtil.scanResultType(resultString);
+        String result = StringUtil.scanResult(resultString);
+        if(resultType == Constants.ACTIVITY_PAYMENT){
+
+            mPresenter.scan(result);
+        }else if(resultType == Constants.ACTIVITY_REGIST){
+
+            UserWebViewActivity.enter(this, getString(R.string.register_account), result);
+            finish();
+        }else{
+            SnackbarUtil.show(mPreviewView, "暂不提供扫描");
+            distroyScan();
+            initScan();
+        }
+
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {
@@ -432,7 +442,9 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
     }
 
     @Override
-    public void scanResponse() {
+    public void encryptSuccess(AesBean bean) {
 
+        PaymentActivity.enter(this, bean.getPhone());
+        finish();
     }
 }

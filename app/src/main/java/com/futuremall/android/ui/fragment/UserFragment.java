@@ -152,7 +152,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
             case R.id.tv_payment:
 
                 if (LoginHelper.ensureLogin(getContext())) {
-                    PaymentActivity.enter(getContext(), "10000");
+                    PaymentActivity.enter(getContext());
                 }
                 break;
             case R.id.tv_order:

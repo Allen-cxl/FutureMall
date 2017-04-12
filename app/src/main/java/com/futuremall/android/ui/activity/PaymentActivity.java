@@ -16,8 +16,6 @@ import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.presenter.Contract.PaymentContract;
 import com.futuremall.android.presenter.PaymentPresenter;
-import com.futuremall.android.util.LogUtil;
-import com.futuremall.android.util.RegexUtil;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 
@@ -45,7 +43,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     EditText mEtPassword;
     @BindView(R.id.tv_next)
     TextView mTvNext;
-    String mIntegral;
+    String mPhone;
 
     @Override
     protected void initInject() {
@@ -71,7 +69,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
             case R.id.item_scan:
 
-
+                QrCodeActivity.enter(this);
                 break;
 
         }
@@ -82,10 +80,11 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     protected void initEventAndData() {
 
         setToolBar(mSuperToolbar, getString(R.string.pay_ment), true);
-        mIntegral = getIntent().getStringExtra(Constants.IT_INTEGRAL);
+        mPhone = getIntent().getStringExtra(Constants.IT_PHONE);
         mEtAccount.addTextChangedListener(mTextWatcher);
         mEtCashMoney.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
+        mEtAccount.setText(mPhone);
         mPresenter.getBalance();
     }
 
@@ -97,7 +96,6 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
     @Override
     public void balance(BalanceBean bean) {
-        mTvPayIntegral.setText(mIntegral);
         mTvPayMultiple.setText(String.format(getString(R.string.current_os_multiple), bean.getPay_ratio()));
         mTvCurrentIntegral.setText(String.format(getString(R.string.current_integral), bean.getUser_money()));
     }
@@ -191,7 +189,6 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
         @Override
         public void afterTextChanged(Editable s) {
 
-            LogUtil.i("TextChanged"+"-Editable:"+s.toString());
             String account = mEtAccount.getText().toString();
             String name = mTvName.getText().toString();
             String cashMoney = mEtCashMoney.getText().toString();
@@ -211,10 +208,15 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
         }
     };
 
-    public static void enter(Context context, String integral) {
+    public static void enter(Context context) {
+
+        enter(context, null);
+    }
+
+    public static void enter(Context context, String phone) {
 
         Intent intent = new Intent(context, PaymentActivity.class);
-        intent.putExtra(Constants.IT_INTEGRAL, integral);
+        intent.putExtra(Constants.IT_PHONE, phone);
         context.startActivity(intent);
     }
 }

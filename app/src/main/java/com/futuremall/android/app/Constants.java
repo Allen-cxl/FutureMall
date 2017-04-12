@@ -67,6 +67,10 @@ public class Constants {
 
     public static  final int FAIL = 0x0017;// 失败
 
+    public static  final int ACTIVITY_PAYMENT = 0x0018;// 结算支付
+
+    public static  final int ACTIVITY_REGIST = 0x0019;// 邀请注册
+
     //================= STATUS ====================
 
     public static  final String DELIVERING = "0";//待发货 Deliver
@@ -94,13 +98,9 @@ public class Constants {
 
     public static final String BUGLY_ID = "257700f3f8";
 
-    //================= PATH ====================
+    //================= H5 ====================
 
-    public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
-
-    public static final String PATH_CACHE = PATH_DATA + "/NetCache";
-
-    public static final String PATH_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "codeest" + File.separator + "GeekNews";
+    public static final String REGISTER_URL = "http://weilai8088.com/user.php?act=mobile_register";
 
 
     //================= INTENT ====================
@@ -124,9 +124,9 @@ public class Constants {
 
     public static final String IT_RECID = "recID";
 
-    public static final String IT_GOLD_MANAGER = "manager";
+    public static final String IT_PHONE = "phone";
 
-    public static final String IT_VTEX_TOPIC_ID = "id";
+    public static final String IT_WEB_URL = "url";
 
     public static final String IT_VTEX_REPLIES_TOP = "top_info";
 

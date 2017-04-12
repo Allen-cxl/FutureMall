@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -20,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -73,43 +75,30 @@ public class StringUtil {
         }
     }
 
-    public static String File2byte(File file)
+    public static String scanResult(String result) {
 
-    {
-        byte[] buffer = null;
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            int n;
-            while ((n = fis.read(b)) != -1) {
-                bos.write(b, 0, n);
-            }
-            fis.close();
-            bos.close();
-            buffer = bos.toByteArray();
-            return hex(buffer);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (result.indexOf("pay:") > 0) {
+            int index = result.indexOf("pay:");
+            return result.substring(index, result.length());
+        } else if (result.indexOf("weilai8088.com") > 0) {
+            return result;
+        } else {
+            return null;
         }
-
-        return null;
-
     }
 
-    private static String hex(byte[] bytes){
+    public static int scanResultType(String result) {
 
-        char[] alpha = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-        StringBuilder strBuilder = new StringBuilder(bytes.length * 2);
-        for(byte b : bytes){
-            strBuilder.append(alpha[b >>> 4 & 0xf]).append(alpha[b & 0xf]);
+        if (result.indexOf("pay:") > 0) {
+
+            return Constants.ACTIVITY_PAYMENT;
+        } else if (result.indexOf("weilai8088.com") > 0) {
+
+            return Constants.ACTIVITY_REGIST;
+        } else {
+            return -1;
         }
-        return strBuilder.toString();
     }
-
-
 
 
 }

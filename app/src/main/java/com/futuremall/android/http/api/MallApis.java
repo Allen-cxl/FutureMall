@@ -3,6 +3,7 @@ package com.futuremall.android.http.api;
 
 
 import com.futuremall.android.http.MyHttpResponse;
+import com.futuremall.android.model.bean.AesBean;
 import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.OperationRecordBean;
@@ -53,7 +54,7 @@ public interface MallApis {
      */
     @FormUrlEncoded
     @POST("user/aesdecrypt")
-    Flowable<MyHttpResponse<UserInfo>> encryptPhone(@Field("encrypt_phone") String phone);
+    Flowable<MyHttpResponse<AesBean>> encryptPhone(@Field("encrypt_phone") String phone);
 
     /**
      * 登录

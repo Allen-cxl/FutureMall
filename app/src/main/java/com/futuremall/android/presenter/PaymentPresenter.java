@@ -11,7 +11,6 @@ import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.PaymentContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
-import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.RxUtil;
 
 import javax.inject.Inject;
@@ -60,7 +59,6 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
     @Override
     public void getBalance() {
 
-        LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.getBalance(accessToken)
                 .compose(RxUtil.<MyHttpResponse<BalanceBean>>rxSchedulerHelper())
@@ -68,12 +66,10 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                 .subscribe(new Consumer<BalanceBean>() {
                     @Override
                     public void accept(BalanceBean value) {
-                        LoadingStateUtil.close();
                         mView.balance(value);
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
-                        LoadingStateUtil.close();
                     }
                 });
         addSubscrebe(rxSubscription);

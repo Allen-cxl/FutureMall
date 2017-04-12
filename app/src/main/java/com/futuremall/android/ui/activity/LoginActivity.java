@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
@@ -66,12 +67,15 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 if(checkPara(phone, password)){
                     mPresenter.login(phone, password);
                 }
+
                 break;
             case R.id.tv_register:
-                SnackbarUtil.show(mTvLogin, "注册h5界面");
+                UserWebViewActivity.enter(this, getString(R.string.register_account), Constants.REGISTER_URL);
+
                 break;
             case R.id.tv_forget_password:
-                SnackbarUtil.show(mTvLogin, "暂无UI");
+                UserWebViewActivity.enter(this, getString(R.string.forget_password), Constants.REGISTER_URL);
+
                 break;
         }
     }

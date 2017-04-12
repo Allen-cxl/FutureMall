@@ -2,6 +2,7 @@ package com.futuremall.android.http;
 
 
 import com.futuremall.android.http.api.MallApis;
+import com.futuremall.android.model.bean.AesBean;
 import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.OperationRecordBean;
@@ -40,6 +41,10 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<UserInfo>> userInfo(String token) {
         return mMallApiService.userInfo(token);
+    }
+
+    public Flowable<MyHttpResponse<AesBean>> encryptPhone(String aesPhone) {
+        return mMallApiService.encryptPhone(aesPhone);
     }
 
     public Flowable<MyHttpResponse<UserInfo>> login(String phone, String password) {
@@ -121,11 +126,6 @@ public class RetrofitHelper {
     public Flowable<MyHttpResponse<Object>> updateUser(String token, File file, int sex, String birthday, String realName) {
 
         RequestBody requestFile = null;
-        String fileStr = null;
-        if(file !=null){
-            requestFile = RequestBody.create(MediaType.parse("application/octet-stream"), file);
-            fileStr = StringUtil.File2byte(file);
-        }
 
         StringBuilder sb = new StringBuilder();
         if(!StringUtil.isEmpty(token)){
