@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.futuremall.android.app.App;
 import com.futuremall.android.model.bean.UserInfo;
+import com.futuremall.android.util.StringUtil;
 
 
 /**
@@ -20,6 +21,8 @@ public class UserPreferences extends BasePreferences {
     private static final long VALIDATE_TIME = 5 * 24 * 60 * 60;        //单位秒 //提前几天去验证token有效
 
     public static final String MALL_ACCESS_TOKEN = "access_token";
+
+    public static final String MALL_USER_AVATAR = "user_avatar";
 
     public static final String HMB_IS_OPEN_PUSH = "isOpenPush";
 
@@ -38,7 +41,15 @@ public class UserPreferences extends BasePreferences {
         if (user == null)
             return;
 
-        putString(MALL_ACCESS_TOKEN, user.getAccess_token());
+        String token = user.getAccess_token();
+        String userAvatar = user.getUser_picture();
+        if(!StringUtil.isEmpty(token)){
+            putString(MALL_ACCESS_TOKEN, token);
+        }
+
+        if(!StringUtil.isEmpty(userAvatar)){
+            putString(MALL_USER_AVATAR, userAvatar);
+        }
     }
     /**
      * 设置是否打开推送
@@ -74,6 +85,13 @@ public class UserPreferences extends BasePreferences {
      */
     public String getToken() {
         return getString(MALL_ACCESS_TOKEN, null);
+    }
+
+    /**
+     * 获取用户头像
+     */
+    public String getMallUserAvatar() {
+        return getString(MALL_USER_AVATAR, null);
     }
 
 }

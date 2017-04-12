@@ -12,6 +12,7 @@ import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
+import com.futuremall.android.util.StringUtil;
 
 import javax.inject.Inject;
 
@@ -40,7 +41,11 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                 .compose(RxUtil.<UserInfo>rxSchedulerHelper()).subscribe(new Consumer<UserInfo>() {
                     @Override
                     public void accept(UserInfo userInfo) {
-                        userInfo(false);
+                        if(!StringUtil.isEmpty(userInfo.getAccess_token())){
+                            userInfo(false);
+                        }else{
+                            mView.showRegisterLayout();
+                        }
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -63,6 +68,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                         if(value!=null){
                             mView.showLoginLayout();
                             mView.showUserInfo(value);
+                            PreferencesFactory.getUserPref().saveUserInfo(value);
                         }
                     }
                 }, new CommonConsumer<Object>(mView, mContext){

@@ -2,6 +2,8 @@ package com.futuremall.android.presenter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 
@@ -13,6 +15,7 @@ import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.InviteRegisterContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
+import com.futuremall.android.util.QRCodeUtil;
 import com.futuremall.android.util.RxUtil;
 import com.futuremall.android.util.StringUtil;
 
@@ -63,12 +66,12 @@ public class InviteRegisterPresenter extends RxPresenter<InviteRegisterContract.
                     @Override
                     public void accept(UserInfo value) {
                         LoadingStateUtil.close();
-                        if(null != value && !StringUtil.isEmpty(value.getUrl())){
-                            mView.qrCodeResponse(value.getUrl());
+                        if (null != value && !StringUtil.isEmpty(value.getInvite_url())) {
+                            mView.qrCodeResponse(value.getInvite_url());
                         }
                     }
-                }, new CommonConsumer<Object>(mView, mContext){
-                    public void onError(){
+                }, new CommonConsumer<Object>(mView, mContext) {
+                    public void onError() {
                         LoadingStateUtil.close();
                     }
                 });
@@ -76,56 +79,100 @@ public class InviteRegisterPresenter extends RxPresenter<InviteRegisterContract.
     }
 
     @Override
-    public void saveQrCode(String imageUrl) {
+    public void saveQrCode(Bitmap bitmap) {
 
-        saveImageView(imageUrl);
+        if (null == bitmap) {
+            return;
+        }
+        saveImageView(bitmap);
     }
 
-    private void saveImageView(final String imageUrl) {
+    @Override
+    public void canvasQrCode(String content) {
 
-        Flowable.just(imageUrl)
-                .flatMap(new Function<String, Publisher<?>>() {
+        String url = PreferencesFactory.getUserPref().getMallUserAvatar();
+        avatarBitmap(content, url);
+    }
+
+    private void saveImageView(Bitmap bitmap) {
+
+        Flowable.just(bitmap)
+                .flatMap(new Function<Bitmap, Publisher<?>>() {
                     @Override
-                    public Publisher<Object> apply(final String imgUrl) throws Exception {
+                    public Publisher<Object> apply(final Bitmap bitmap) throws Exception {
 
                         return Flowable.create(new FlowableOnSubscribe<Object>() {
                             @Override
-                            public void subscribe(FlowableEmitter<Object> e)throws Exception {
+                            public void subscribe(FlowableEmitter<Object> e) throws Exception {
 
-                                File imageFile = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() +".jpg");
-                                FileOutputStream fos = new FileOutputStream(imageFile);
-                                URL url = new URL(imgUrl);
-                                InputStream in = url.openStream();
+                                File imageFile = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+                                FileOutputStream outStream;
+                                outStream = new FileOutputStream(imageFile);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+                                outStream.flush();
+                                outStream.close();
+                                e.onNext(Environment.getExternalStorageDirectory().getPath());
+                                e.onComplete();
 
-                                int len = -1;
-                                byte[] b = new byte[1024];
-                                while ((len = in.read(b)) != -1) {
-                                    fos.write(b, 0, len);
-                                }
-                                fos.close();
-                                in.close();
                                 Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                                 Uri uri = Uri.fromFile(imageFile);
                                 intent.setData(uri);
                                 mContext.sendBroadcast(intent);
-                                e.onNext(Environment.getExternalStorageDirectory().getPath());
-                                e.onComplete();
                             }
-                        },BackpressureStrategy.BUFFER);
+                        }, BackpressureStrategy.BUFFER);
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Object>() {
                     @Override
-                    public void accept(Object integer){
+                    public void accept(Object integer) {
                         mView.saveSuccess();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable){
+                    public void accept(Throwable throwable) {
                         mView.saveFail();
                     }
                 });
     }
+
+    private void avatarBitmap(final String content, String avatar) {
+
+        Flowable.just(avatar)
+                .flatMap(new Function<String, Publisher<Bitmap>>() {
+                    @Override
+                    public Publisher<Bitmap> apply(final String imgUrl) throws Exception {
+
+                        return Flowable.create(new FlowableOnSubscribe<Bitmap>() {
+                            @Override
+                            public void subscribe(FlowableEmitter<Bitmap> e) throws Exception {
+                                Bitmap bitmap = null;
+                                if(null != imgUrl){
+                                    URL url = new URL(imgUrl);
+                                    InputStream ips = url.openStream();
+                                    bitmap = BitmapFactory.decodeStream(ips);
+                                }
+                                e.onNext(bitmap);
+                                e.onComplete();
+                            }
+                        }, BackpressureStrategy.BUFFER);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Bitmap>() {
+                    @Override
+                    public void accept(Bitmap bitmap) {
+
+                        Bitmap bmp = QRCodeUtil.createQRImage(content, 200, 200, bitmap);
+                        if (null != bitmap) {
+                            mView.qrCodeBitmap(bmp);
+                        }
+                    }
+                });
+
+    }
+
+
 }

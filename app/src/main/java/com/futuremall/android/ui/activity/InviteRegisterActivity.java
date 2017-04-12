@@ -2,6 +2,7 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,7 +27,7 @@ public class InviteRegisterActivity extends BaseActivity<InviteRegisterPresenter
     ImageView mIvImg;
     @BindView(R.id.tv_save_img)
     TextView mTvSaveImg;
-    String mImgUrl;
+    Bitmap mBitmap;
 
     @Override
     protected void initInject() {
@@ -47,9 +48,15 @@ public class InviteRegisterActivity extends BaseActivity<InviteRegisterPresenter
     @Override
     public void qrCodeResponse(String imgUrl) {
 
-        mImgUrl = imgUrl;
+        mPresenter.canvasQrCode(imgUrl);
+    }
+
+    @Override
+    public void qrCodeBitmap(Bitmap bitmap) {
+
+        mBitmap = bitmap;
         mTvSaveImg.setVisibility(View.VISIBLE);
-        Glide.with(getApplicationContext()).load(mImgUrl).into(mIvImg);
+        mIvImg.setImageBitmap(bitmap);
     }
 
     @Override
@@ -65,7 +72,7 @@ public class InviteRegisterActivity extends BaseActivity<InviteRegisterPresenter
     @OnClick(R.id.tv_save_img)
     public void onClick() {
 
-        mPresenter.saveQrCode(mImgUrl);
+        mPresenter.saveQrCode(mBitmap);
     }
 
     public static void enter(Context context) {

@@ -2,6 +2,11 @@ package com.futuremall.android.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -10,8 +15,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +30,7 @@ public class QRCodeUtil {
      * @param content   内容
      * @param widthPix  图片宽度
      * @param heightPix 图片高度
-     * @param img    二维码中心的Logo图标（可以为null）
+     * @param img       二维码中心的Logo图标（可以为null）
      * @return 生成二维码图片
      */
     public static Bitmap createQRImage(String content, int widthPix, int heightPix, Bitmap img) {
@@ -106,12 +109,13 @@ public class QRCodeUtil {
         float scaleFactor = srcWidth * 1.0f / 5 / logoWidth;
         Bitmap bitmap = Bitmap.createBitmap(srcWidth, srcHeight, Bitmap.Config.ARGB_8888);
         try {
+
             Canvas canvas = new Canvas(bitmap);
             canvas.drawBitmap(qrCode, 0, 0, null);
             canvas.scale(scaleFactor, scaleFactor, srcWidth / 2, srcHeight / 2);
             canvas.drawBitmap(img, (srcWidth - logoWidth) / 2, (srcHeight - logoHeight) / 2, null);
-
             canvas.save(Canvas.ALL_SAVE_FLAG);
+
             canvas.restore();
         } catch (Exception e) {
             bitmap = null;

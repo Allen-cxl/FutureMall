@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
-import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;

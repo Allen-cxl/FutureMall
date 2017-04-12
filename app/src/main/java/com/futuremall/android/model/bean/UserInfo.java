@@ -27,6 +27,7 @@ public class UserInfo implements Parcelable {
     float payin;
     float highreward;
     float pay_points;
+    String invite_url;
 
     public String getUser_id() {
         return user_id;
@@ -148,6 +149,13 @@ public class UserInfo implements Parcelable {
         this.pay_points = pay_points;
     }
 
+    public String getInvite_url() {
+        return invite_url;
+    }
+
+    public void setInvite_url(String invite_url) {
+        this.invite_url = invite_url;
+    }
 
     public UserInfo() {
     }
@@ -174,6 +182,7 @@ public class UserInfo implements Parcelable {
         dest.writeFloat(this.payin);
         dest.writeFloat(this.highreward);
         dest.writeFloat(this.pay_points);
+        dest.writeString(this.invite_url);
     }
 
     protected UserInfo(Parcel in) {
@@ -192,6 +201,7 @@ public class UserInfo implements Parcelable {
         this.payin = in.readFloat();
         this.highreward = in.readFloat();
         this.pay_points = in.readFloat();
+        this.invite_url = in.readString();
     }
 
     public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {

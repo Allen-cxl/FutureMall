@@ -1,5 +1,7 @@
 package com.futuremall.android.presenter.Contract;
 
+import android.graphics.Bitmap;
+
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
 
@@ -10,6 +12,8 @@ public class InviteRegisterContract {
 
         void qrCodeResponse(String imgUrl);
 
+        void qrCodeBitmap(Bitmap bitmap);
+
         void saveSuccess();
 
         void saveFail();
@@ -19,7 +23,8 @@ public class InviteRegisterContract {
 
         void qrCode();
 
+        void saveQrCode(Bitmap bitmap);
 
-        void saveQrCode(String imageUrl);
+        void canvasQrCode(String content);
     }
 }
