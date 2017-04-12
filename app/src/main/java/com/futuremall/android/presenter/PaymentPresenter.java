@@ -46,6 +46,7 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                 .subscribe(new Consumer<ShopBean>() {
                     @Override
                     public void accept(ShopBean value) {
+                        LoadingStateUtil.close();
                         mView.shopName(value.getShop_name());
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {

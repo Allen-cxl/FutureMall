@@ -205,7 +205,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
                 mTvNext.setSelected(false);
             }
 
-            if (account.length() >= 11){
+            if (account.length() == 8 || account.length() == 11){
                 mPresenter.getShopName(account);
             }
         }
