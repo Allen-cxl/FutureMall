@@ -12,8 +12,8 @@ import java.util.List;
 public class OrderDetail implements Parcelable {
 
     public static int NOSEND = 0; //0待发货
-    public static int ACCEPT; //1待收货
-    public static int ACCEPTED; //2已收货
+    public static int ACCEPT = 1; //1待收货
+    public static int ACCEPTED = 2; //2已收货
 
     private String shop_id;
     private String shop_name;

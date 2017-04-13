@@ -19,8 +19,8 @@ public class OrderList implements Parcelable {
     private String goods_price;
     private int state;
     private static int NOSEND = 0; //0待发货
-    private static int ACCEPT; //1待收货
-    private static int ACCEPTED; //2已收货
+    private static int ACCEPT = 1; //1待收货
+    private static int ACCEPTED = 2; //2已收货
     private List<OrderProduct> order_goods;
 
 

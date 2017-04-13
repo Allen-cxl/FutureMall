@@ -1,11 +1,8 @@
 package com.futuremall.android.util;
 
 import android.os.CountDownTimer;
-import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.TextView;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,50 +54,56 @@ public class TimeUtils {
         }
         return getYearAndMonthAndDay(dateStr);
     }
+    /**
+     * 时间戳转日期 14000556 2017-10-1
+     * @param time
+     * @return
+     */
+    public static String timesTwo(long time) {
 
-    public static long getCurrentTime() {
-        return System.currentTimeMillis();
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd");
+        String times = sdr.format(new Date(time));
+        return times;
+
     }
 
-    public static String getTimestamp() {
-        return new Timestamp(getCurrentTime()).toString();
-    }
-
-    public static String getFormatNowDate() {
-        Date nowTime = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String retStrFormatNowDate = sdFormatter.format(nowTime);
-        return retStrFormatNowDate;
-    }
-
-    public static int getYear() {
+    /**
+     * 年月日
+     * @param
+     * @return 2017-12-1
+     */
+    public static String getCurrentDate() {
         Date date = new Date(System.currentTimeMillis());
+        String YMDStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        return YMDStr;
+    }
+
+    /**
+     * 日期转时间戳 2017-10-1 14000556
+     * @return
+     */
+    public static long dataOne(Date date) {
+
+        return date.getTime();
+    }
+
+
+    public static int getYear(long time) {
+        Date date = new Date(time >0? time: System.currentTimeMillis());
         String year = new SimpleDateFormat("yyyy").format(date);
         return Integer.valueOf(year);
     }
 
-    public static int getMonth() {
-        Date date = new Date(System.currentTimeMillis());
+    public static int getMonth(long time) {
+        Date date = new Date(time >0? time: System.currentTimeMillis());
         String month = new SimpleDateFormat("MM").format(date);
         return Integer.valueOf(month);
     }
 
-    /**
-     * 时间字符串中截取时分
-     * @param time
-     * @return
-     */
-    public static String getHoursAndMinute(String time) {
-
-        if (TextUtils.isEmpty(time)) return "";
-        Date date = null;
-        try {
-            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String HMStr = new SimpleDateFormat("HH:mm").format(date);
-        return HMStr;
+    public static int getDay(long time) {
+        Date date = new Date(time >0? time: System.currentTimeMillis());
+        String day = new SimpleDateFormat("dd").format(date);
+        return Integer.valueOf(day);
     }
 
     /**
@@ -109,6 +112,7 @@ public class TimeUtils {
      * @return 2017-12-1
      */
     public static String getYearAndMonthAndDay(Date date) {
+
         String YMDStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
         return YMDStr;
     }
@@ -132,49 +136,6 @@ public class TimeUtils {
         return YMDStr;
     }
 
-    public static String getDateForItem(String dateStart, String dataEnd) {
-        Date ymd = null;
-        Date secondMd = null;
-        Date firstMd = null;
-        String result;
-        if (!TextUtils.isEmpty(dateStart) && TextUtils.isEmpty(dataEnd)){
-            try {
-                ymd = new SimpleDateFormat("yyyy-MM-dd").parse(dateStart);//只有开始时间或开始与结束同一天则显示开始时间
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            return new SimpleDateFormat("yyyy.MM.dd").format(ymd);
-        }
-        if (TextUtils.isEmpty(dateStart) || TextUtils.isEmpty(dataEnd)) return "";
-
-        try {
-            ymd = new SimpleDateFormat("yyyy-MM-dd").parse(dateStart);
-            firstMd = new SimpleDateFormat("yyyy-MM-dd").parse(dateStart);
-            secondMd = new SimpleDateFormat("yyyy-MM-dd").parse(dataEnd);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String YMDStr = new SimpleDateFormat("yyyy.MM.dd").format(ymd);
-        String SecondYMDStr = new SimpleDateFormat("yyyy.MM.dd").format(secondMd);
-        String firstMDStr = new SimpleDateFormat("MM.dd").format(firstMd);
-        String secondMDStr = new SimpleDateFormat("MM.dd").format(secondMd);
-
-        Calendar cal1 = Calendar.getInstance();
-        cal1.setTime(firstMd);
-
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(secondMd);
-
-        if (firstMDStr.equals(secondMDStr)){
-            result = YMDStr;
-        }else if (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)) {
-            result = YMDStr + " - " + secondMDStr;
-        }else {
-            result = YMDStr + " - " + SecondYMDStr;
-        }
-        return result;
-    }
-
 
     public static class TimeCount extends CountDownTimer {
 
@@ -196,15 +157,6 @@ public class TimeUtils {
             mTextView.setClickable(false);
             mTextView.setText(millisUntilFinished / 1000 + "秒后重新获取");
             mTextView.setSelected(true);
-        }
-    }
-
-    public static String replaceTime(String str){
-
-        if (StringUtil.isEmpty(str)){
-            return "";
-        }else {
-            return str.replaceAll("-", ".");
         }
     }
 

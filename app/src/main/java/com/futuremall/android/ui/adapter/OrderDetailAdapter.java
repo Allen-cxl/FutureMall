@@ -144,7 +144,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             viewHolder.mTvExpressNo.setText(String.format(mContext.getString(R.string.express_no), orderDetail.getInvoice_no()));
         }
 
-        if(orderDetail.getState() ==OrderDetail.ACCEPT){
+        if(orderDetail.getState() == OrderDetail.ACCEPT){
             viewHolder.mTvConfirmReceive.setVisibility(View.VISIBLE);
         }else{
             viewHolder.mTvConfirmReceive.setVisibility(View.GONE);

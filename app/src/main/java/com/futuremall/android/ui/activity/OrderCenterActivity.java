@@ -59,11 +59,11 @@ public class OrderCenterActivity extends SimpleActivity {
         } else {
             for (int i = 0; i < tabStr.length; i++) {
                 OrderFragment f ;
-                if(tabStr[i].equals(R.string.deliver)){
+                if(tabStr[i].equals(getString(R.string.deliver))){
                     f = OrderFragment.newInstance(Constants.DELIVERING);
-                }else if(tabStr[i].equals(R.string.receipting)){
+                }else if(tabStr[i].equals(getString(R.string.receipting))){
                     f = OrderFragment.newInstance(Constants.RECEIPTING);
-                }else if(tabStr[i].equals(R.string.receipted)){
+                }else if(tabStr[i].equals(getString(R.string.receipted))){
                     f = OrderFragment.newInstance(Constants.RECEIPTED);
                 }else{
                     f = OrderFragment.newInstance(null);

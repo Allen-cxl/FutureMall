@@ -70,10 +70,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.activity.CalendarActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".ui.activity.UserInfoActivity"
             android:screenOrientation="portrait">
         </activity>

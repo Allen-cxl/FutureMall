@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.OperationRecordBean;
@@ -17,14 +18,17 @@ import com.futuremall.android.presenter.OperationRecordPresenter;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.OperationRecordAdapter;
 import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.TimeUtils;
 import com.futuremall.android.widget.LoadingLayout;
 import com.scu.miomin.shswiperefresh.core.SHSwipeRefreshLayout;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class OperationRecordActivity extends BaseActivity<OperationRecordPresenter> implements OperationRecordContract.View {
+public class OperationRecordActivity extends BaseActivity<OperationRecordPresenter> implements OperationRecordContract.View,TimePickerView.OnTimeSelectListener{
 
     @BindView(R.id.super_toolbar)
     Toolbar mSuperToolbar;
@@ -61,7 +65,16 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
 
             case R.id.item_calender:
 
-                CalendarActivity.enter(this);
+                TimePickerView pvTime = new TimePickerView.Builder(this, this)
+                        .setType(TimePickerView.Type.YEAR_MONTH_DAY)
+                        .setSubmitColor(R.color.font_normal)//确定按钮文字颜色
+                        .setCancelColor(R.color.font_normal)//取消按钮文字颜色
+                        .setLabel("", "", "", "", "", "")
+                        .build();
+                Calendar date = Calendar.getInstance();
+                date.set(TimeUtils.getYear(time),TimeUtils.getMonth(time)-1,TimeUtils.getDay(time));
+                pvTime.setDate(date);//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+                pvTime.show();
                 break;
 
         }
@@ -165,5 +178,11 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     public static void enter(Context context) {
         Intent intent = new Intent(context, OperationRecordActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onTimeSelect(Date date, View view) {
+        time = TimeUtils.dataOne(date);
+        mPresenter.recordList(p, num, time+"", p <=1);
     }
 }

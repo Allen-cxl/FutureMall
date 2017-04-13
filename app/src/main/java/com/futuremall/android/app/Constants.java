@@ -71,6 +71,8 @@ public class Constants {
 
     public static  final int ACTIVITY_REGIST = 0x0019;// 邀请注册
 
+    public static  final int ACTIVITY_REQUST_CODE = 0x0020;
+
     //================= STATUS ====================
 
     public static  final String DELIVERING = "0";//待发货 Deliver
@@ -88,6 +90,7 @@ public class Constants {
     //================= KEY ====================
 
     public static final String MALL_API_KEY = "weilai8088"; //sign key
+
     public static final String KEY_API = "52b7ec3471ac3bec6846577e79f20e4c"; //需要APIKEY请去 http://www.tianapi.com/#wxnew 申请,复用会减少访问可用次数
 
     public static final String KEY_ALIPAY = "aex07566wvayrgxicnaraae";
@@ -100,6 +103,8 @@ public class Constants {
 
     //================= H5 ====================
 
+    public static final String MAIN_URL = "http://139.196.124.0";
+
     public static final String REGISTER_URL = "http://weilai8088.com/user.php?act=mobile_register";
 
 
@@ -108,7 +113,7 @@ public class Constants {
 
     public static final String IT_KEY = "key";
 
-    public static final String IT_INTEGRAL = "integral";
+    public static final String IT_TIME = "time";
 
     public static final String IT_TYPE = "type";
 

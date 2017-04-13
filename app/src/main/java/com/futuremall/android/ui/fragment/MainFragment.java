@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.presenter.Contract.MainContract;
 import com.futuremall.android.presenter.MainPresenter;
@@ -100,6 +101,6 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     }
 
     private void loadUrl(){
-        mWebView.loadUrl("http://meetlive.24hmb.com/Phone/Play/Index?meetingid=c2a4381d-d285-4360-b806-3fc77cbdc449");
+        mWebView.loadUrl(Constants.MAIN_URL);
     }
 }
