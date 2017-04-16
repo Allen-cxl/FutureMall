@@ -3,9 +3,9 @@ package com.futuremall.android.widget;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
+import android.webkit.WebView;
 
 import com.futuremall.android.util.LogUtil;
-import com.tencent.smtt.sdk.WebView;
 
 
 public class MallWebView extends WebView {

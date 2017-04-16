@@ -14,6 +14,8 @@ import com.futuremall.android.ui.fragment.MainFragment;
 import com.futuremall.android.ui.fragment.ShoppingCartFragment;
 import com.futuremall.android.ui.fragment.TypeFragment;
 import com.futuremall.android.ui.fragment.UserFragment;
+import com.futuremall.android.util.LogUtil;
+import com.futuremall.android.util.TimeUtils;
 
 import javax.inject.Inject;
 
@@ -53,6 +55,7 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
 
     @Override
     protected int getLayout() {
+        LogUtil.i("time:"+ TimeUtils.getYearAndMonthAndDayAndHHAndSS());
         return R.layout.activity_main;
     }
 
@@ -67,6 +70,7 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
 
         mManager = getSupportFragmentManager();
         mRadioHome.performClick();
+        LogUtil.i("time:"+ TimeUtils.getYearAndMonthAndDayAndHHAndSS());
     }
 
     private void setRadioButtonOnClick(int fromTag, int currentTag) {

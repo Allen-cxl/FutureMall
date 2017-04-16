@@ -136,6 +136,17 @@ public class TimeUtils {
         return YMDStr;
     }
 
+    /**
+     * 时间年月日时分秒
+     * @param
+     * @return
+     */
+    public static String getYearAndMonthAndDayAndHHAndSS() {
+        Date date = new Date(System.currentTimeMillis());
+        String day = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        return day;
+    }
+
 
     public static class TimeCount extends CountDownTimer {
 

@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebSettings;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.widget.MallWebClient;
 import com.futuremall.android.widget.MallWebView;
-import com.tencent.smtt.sdk.WebSettings;
 
 import butterknife.BindView;
 

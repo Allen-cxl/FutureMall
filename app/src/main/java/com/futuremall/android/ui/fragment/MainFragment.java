@@ -2,10 +2,8 @@ package com.futuremall.android.ui.fragment;
 
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.webkit.WebSettings;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
@@ -17,7 +15,6 @@ import com.futuremall.android.ui.activity.SearchActivity;
 import com.futuremall.android.widget.MallWebClient;
 import com.futuremall.android.widget.MallWebView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.tencent.smtt.sdk.WebSettings;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,15 +22,6 @@ import butterknife.OnClick;
 
 public class MainFragment extends BaseFragment<MainPresenter> implements MainContract.View, SwipeRefreshLayout.OnRefreshListener{
 
-
-    @BindView(R.id.iv_scan)
-    ImageView mIvScan;
-    @BindView(R.id.layout_search)
-    LinearLayout mLayoutSearch;
-    @BindView(R.id.super_toolbar)
-    Toolbar mSuperToolbar;
-    @BindView(R.id.iv_category)
-    ImageView mIvCategory;
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.webView)

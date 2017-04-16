@@ -2,9 +2,8 @@ package com.futuremall.android.widget;
 
 import android.graphics.Bitmap;
 import android.support.v4.widget.SwipeRefreshLayout;
-
-import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * Created by PVer on 2017/4/3.
