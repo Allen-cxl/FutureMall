@@ -107,7 +107,7 @@ public class Constants {
 
     public static final String REGISTER_URL = "http://weilai8088.com/user.php?act=mobile_register";
 
-    public static final String ADRRESS_URL = MAIN_URL + "address/index/";
+    public static final String ADDRESS_URL = MAIN_URL + "address/index?token=";
 
 
     //================= INTENT ====================

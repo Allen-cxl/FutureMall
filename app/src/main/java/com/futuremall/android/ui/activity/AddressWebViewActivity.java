@@ -35,7 +35,7 @@ public class AddressWebViewActivity extends SimpleActivity implements SwipeRefre
     protected void initEventAndData() {
 
         mTitle = getIntent().getStringExtra(Constants.IT_TITLE);
-        mUrl =  Constants.ADRRESS_URL + getIntent().getStringExtra(Constants.IT_TOKEN);
+        mUrl =  Constants.ADDRESS_URL + getIntent().getStringExtra(Constants.IT_TOKEN);
         setToolBar(mSuperToolbar, mTitle, true);
 
         mWebView.getSettings().setJavaScriptEnabled(true);
