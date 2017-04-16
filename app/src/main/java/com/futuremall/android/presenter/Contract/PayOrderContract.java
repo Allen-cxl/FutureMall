@@ -14,7 +14,9 @@ public class PayOrderContract {
 
         void paySuccess();
 
-        void payFail();
+        void payFail(String msg);
+
+        void defaultAddress();
     }
 
     public interface  Presenter extends BasePresenter<View> {
@@ -22,5 +24,7 @@ public class PayOrderContract {
         void getPayOrderInfo(String recID);
 
         void submitOrder(String recID, String addressID, String payPass);
+
+        void goAddress();
     }
 }

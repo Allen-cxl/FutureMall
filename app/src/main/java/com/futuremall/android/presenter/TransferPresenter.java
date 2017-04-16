@@ -10,7 +10,6 @@ import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.TransferContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
-import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.util.RxUtil;
 
 import javax.inject.Inject;
@@ -73,7 +72,10 @@ public class TransferPresenter extends RxPresenter<TransferContract.View> implem
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
-                        mView.transferFaile();
+
+                    }
+                    public void onErrorMsg(String msg) {
+                        mView.transferFail(msg);
                     }
                 });
         addSubscrebe(rxSubscription);

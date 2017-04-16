@@ -15,7 +15,7 @@ public class PaymentContract {
 
         void paySuccess();
 
-        void payFail();
+        void payFail(String msg);
     }
 
     public interface  Presenter extends BasePresenter<View> {

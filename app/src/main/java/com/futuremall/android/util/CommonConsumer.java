@@ -28,10 +28,12 @@ public class CommonConsumer<T> implements Consumer<T> {
     }
 
     public CommonConsumer(BaseView view, Activity activity){
+
         this(view, activity, null);
     }
 
     protected CommonConsumer(BaseView view, Activity activity, String errorMsg){
+
         this.mView = view;
         this.mActivity = activity;
         this.mErrorMsg = errorMsg;
@@ -52,6 +54,7 @@ public class CommonConsumer<T> implements Consumer<T> {
                     LoginActivity.enter(mActivity);
                 }else{
                     mView.showErrorMsg(((ApiException) t).srvMsg);
+                    onErrorMsg(((ApiException) t).srvMsg);
                 }
             } else if (t instanceof SocketTimeoutException) {
                 mView.showErrorMsg("网络超时，请检查网络");
@@ -72,4 +75,6 @@ public class CommonConsumer<T> implements Consumer<T> {
     }
 
     public void onError(){}
+
+    public void onErrorMsg(String msg){}
 }

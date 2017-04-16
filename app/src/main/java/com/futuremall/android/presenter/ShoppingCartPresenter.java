@@ -9,12 +9,15 @@ import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.ShoppingCartBean;
+import com.futuremall.android.model.event.AddressEvent;
+import com.futuremall.android.model.event.PayResultEvent;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.ShoppingCarContract;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
 import com.futuremall.android.ui.activity.PayOrderActivity;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
@@ -39,8 +42,20 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     ShoppingCartPresenter(RetrofitHelper mRetrofitHelper, Activity mContext) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.mContext = mContext;
+        registerEvent();
     }
 
+    private void registerEvent() {
+        Disposable rxSubscription = RxBus.getDefault().toObservable(PayResultEvent.class)
+                .compose(RxUtil.<PayResultEvent>rxSchedulerHelper())
+                .subscribe(new Consumer<PayResultEvent>() {
+                    @Override
+                    public void accept(PayResultEvent event) {
+                        shoppingCar(false);
+                    }
+                });
+        addSubscrebe(rxSubscription);
+    }
 
     @Override
     public void shoppingCar(boolean isFirst) {

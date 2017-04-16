@@ -2,14 +2,19 @@ package com.futuremall.android.presenter;
 
 import android.app.Activity;
 
+import com.futuremall.android.R;
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.model.bean.PayOrderInfoBean;
+import com.futuremall.android.model.event.AddressEvent;
+import com.futuremall.android.model.event.PayResultEvent;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.PayOrderContract;
+import com.futuremall.android.ui.activity.AddressWebViewActivity;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
 
 import javax.inject.Inject;
@@ -35,7 +40,7 @@ public class PayOrderPresenter extends RxPresenter<PayOrderContract.View> implem
     @Override
     public void getPayOrderInfo(String recID) {
 
-        LoadingStateUtil.show(mContext);
+        mView.showLoading();
         String accessToken = PreferencesFactory.getUserPref().getToken();
         Disposable rxSubscription = mRetrofitHelper.payOrderInfo(accessToken, recID)
                 .compose(RxUtil.<MyHttpResponse<PayOrderInfoBean>>rxSchedulerHelper())
@@ -44,12 +49,20 @@ public class PayOrderPresenter extends RxPresenter<PayOrderContract.View> implem
                     @Override
                     public void accept(PayOrderInfoBean value) {
                         LoadingStateUtil.close();
-                        mView.payOrderInfo(value);
+                        mView.showLoading();
+                        if(null == value){
+                            mView.showEmpty();
+                        }else{
+                            mView.showContent();
+                            mView.payOrderInfo(value);
+                        }
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
+                        mView.showError();
                     }
+
                 });
         addSubscrebe(rxSubscription);
     }
@@ -67,11 +80,34 @@ public class PayOrderPresenter extends RxPresenter<PayOrderContract.View> implem
                     public void accept(Object value) {
                         LoadingStateUtil.close();
                         mView.paySuccess();
+                        RxBus.getDefault().post(new PayResultEvent());
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
-                        mView.paySuccess();
+
+                    }
+                    public void onErrorMsg(String msg) {
+                        mView.payFail(msg);
+                    }
+                });
+        addSubscrebe(rxSubscription);
+    }
+
+    @Override
+    public void goAddress() {
+        String accessToken = PreferencesFactory.getUserPref().getToken();
+        AddressWebViewActivity.enter(mContext, mContext.getString(R.string.receive_address), accessToken);
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        Disposable rxSubscription = RxBus.getDefault().toObservable(AddressEvent.class)
+                .compose(RxUtil.<AddressEvent>rxSchedulerHelper())
+                .subscribe(new Consumer<AddressEvent>() {
+                    @Override
+                    public void accept(AddressEvent address) {
+                        mView.defaultAddress();
                     }
                 });
         addSubscrebe(rxSubscription);

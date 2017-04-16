@@ -17,14 +17,17 @@ import com.futuremall.android.presenter.Contract.PayOrderContract;
 import com.futuremall.android.presenter.PayOrderPresenter;
 import com.futuremall.android.ui.adapter.DividerItemDecoration;
 import com.futuremall.android.ui.adapter.PayOrderInfoAdapter;
+import com.futuremall.android.ui.listener.OnItemViewClickListener;
 import com.futuremall.android.ui.listener.OnTextDialogListener;
+import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.BottomSheetDialog;
 import com.futuremall.android.widget.LoadingLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PayOrderActivity extends BaseActivity<PayOrderPresenter> implements PayOrderContract.View, OnTextDialogListener {
+public class PayOrderActivity extends BaseActivity<PayOrderPresenter> implements PayOrderContract.View, OnTextDialogListener, OnItemViewClickListener {
 
     @BindView(R.id.super_toolbar)
     Toolbar mSuperToolbar;
@@ -35,7 +38,7 @@ public class PayOrderActivity extends BaseActivity<PayOrderPresenter> implements
     @BindView(R.id.loading_layout)
     LoadingLayout loadingLayout;
     PayOrderInfoAdapter mAdapter;
-    String mRecID, addressID;
+    String mRecID, mAddressID;
     AddressBean mAddressBean;
 
     @Override
@@ -56,7 +59,7 @@ public class PayOrderActivity extends BaseActivity<PayOrderPresenter> implements
         mLoadingLayout = loadingLayout;
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new PayOrderInfoAdapter(this);
+        mAdapter = new PayOrderInfoAdapter(this, this);
         mRecycleView.addItemDecoration(new DividerItemDecoration(
                 this, DividerItemDecoration.VERTICAL_LIST));
         mRecycleView.setLayoutManager(linearLayoutManager);
@@ -79,19 +82,25 @@ public class PayOrderActivity extends BaseActivity<PayOrderPresenter> implements
         String price = String.format(getString(R.string.price), payOrderInfoBean.getTotal_price());
         mTvTotalPrice.setText(String.format(getString(R.string.amount_price), price));
         mAddressBean = payOrderInfoBean.getAddress();
+        mAddressID = mAddressBean.getAddress_id();
         mAdapter.setFirstViewData(mAddressBean);
         mAdapter.setData(payOrderInfoBean.getCart());
     }
 
     @Override
     public void paySuccess() {
-        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS);
+        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS, null);
         finish();
     }
 
     @Override
-    public void payFail() {
-        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.FAIL);
+    public void payFail(String msg) {
+        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.FAIL, msg);
+    }
+
+    @Override
+    public void defaultAddress() {
+        mPresenter.getPayOrderInfo(mRecID);
     }
 
     public static void enter(Context context, String recID) {
@@ -108,7 +117,34 @@ public class PayOrderActivity extends BaseActivity<PayOrderPresenter> implements
 
     @Override
     public void onText(String txt) {
-        mPresenter.submitOrder(mRecID, "", txt);
+        if(checkParam(mRecID, mAddressID, txt)){
+            mPresenter.submitOrder(mRecID, mAddressID, txt);
+        }
+
     }
 
+    private boolean checkParam(String recID, String addressID, String payPass){
+
+        if(StringUtil.isEmpty(recID)){
+            SnackbarUtil.show(loadingLayout, getString(R.string.add_product));
+            return false;
+        }
+
+        if(StringUtil.isEmpty(addressID)){
+            SnackbarUtil.show(loadingLayout, getString(R.string.add_address));
+            return false;
+        }
+
+        if(StringUtil.isEmpty(payPass)){
+            SnackbarUtil.show(loadingLayout, getString(R.string.enter_pay_password));
+            return false;
+        }
+        return  true;
+    }
+
+    @Override
+    public void onViewClick() {
+
+        mPresenter.goAddress();
+    }
 }

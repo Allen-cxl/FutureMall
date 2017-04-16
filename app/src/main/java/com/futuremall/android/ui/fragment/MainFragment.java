@@ -60,6 +60,12 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         mRefreshLayout.setColorSchemeResources(R.color.orange);
         mRefreshLayout.setOnRefreshListener(this);
         mWebView.setRefreshLayout(mRefreshLayout);
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(true);
+            }
+        });
         loadUrl();
     }
 
@@ -88,11 +94,6 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     @Override
     public void showUpdateDialog(String versionContent) {
 
-    }
-
-    @Override
-    public void onFirstUserVisible() {
-        mRefreshLayout.setRefreshing(true);
     }
 
     @Override

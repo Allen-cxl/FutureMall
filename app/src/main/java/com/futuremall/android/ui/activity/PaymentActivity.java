@@ -102,13 +102,13 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
     @Override
     public void paySuccess() {
-        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS);
+        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS, null);
         finish();
     }
 
     @Override
-    public void payFail() {
-        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.FAIL);
+    public void payFail(String msg) {
+        PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.FAIL, msg);
     }
 
     @OnClick(R.id.tv_next)
@@ -202,7 +202,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
                 mTvNext.setSelected(false);
             }
 
-            if (account.length() == 8 || account.length() == 11){
+            if (account.length() == 7 || account.length() == 11){
                 mPresenter.getShopName(account);
             }
         }

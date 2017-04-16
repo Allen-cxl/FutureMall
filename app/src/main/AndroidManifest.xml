@@ -101,9 +101,17 @@
             android:name=".ui.activity.InviteRegisterActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.PayResultActivity">
+        <activity
+            android:name=".ui.activity.PayResultActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.UserWebViewActivity">
+        <activity
+            android:name=".ui.activity.UserWebViewActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.AddressWebViewActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

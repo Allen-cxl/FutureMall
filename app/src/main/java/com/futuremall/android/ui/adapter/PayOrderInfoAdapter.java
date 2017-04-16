@@ -15,6 +15,8 @@ import com.futuremall.android.ui.ViewHolder.OrderFirstViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderFooterViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderHeadViewHolder;
 import com.futuremall.android.ui.ViewHolder.OrderItemViewHolder;
+import com.futuremall.android.ui.listener.OnItemViewClickListener;
+import com.futuremall.android.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,12 @@ public class PayOrderInfoAdapter extends SectionRecyclerAdapter<RecyclerView.Vie
 
     private List<ShoppingCartBean> dataList;
     private Context mContext;
-    private OrderFirstViewHolder  mFirstHolder;
+    private OnItemViewClickListener mListener;
+    private AddressBean  mAddress;
 
-    public PayOrderInfoAdapter(Context context) {
+    public PayOrderInfoAdapter(Context context, OnItemViewClickListener listener) {
         mContext = context;
+        mListener = listener;
         dataList = new ArrayList<>();
     }
 
@@ -47,7 +51,25 @@ public class PayOrderInfoAdapter extends SectionRecyclerAdapter<RecyclerView.Vie
     @Override
     public void onBindFirstViewHolder(RecyclerView.ViewHolder holder, final int section) {
 
-        mFirstHolder = (OrderFirstViewHolder) holder;
+        OrderFirstViewHolder mFirstHolder = (OrderFirstViewHolder) holder;
+
+        if (null != mAddress && !StringUtil.isEmpty(mAddress.getAddress_id())) {
+            mFirstHolder.mLayoutAddress.setVisibility(View.VISIBLE);
+            mFirstHolder.mLayoutNoAddress.setVisibility(View.GONE);
+            mFirstHolder.mTvUserName.setText(mAddress.getConsignee());
+            mFirstHolder.mTvPhone.setText(mAddress.getMobile());
+            mFirstHolder.mTvAddress.setText(mAddress.getAddress());
+        } else {
+            mFirstHolder.mLayoutAddress.setVisibility(View.GONE);
+            mFirstHolder.mLayoutNoAddress.setVisibility(View.VISIBLE);
+        }
+
+        mFirstHolder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onViewClick();
+            }
+        });
     }
 
     @Override
@@ -78,7 +100,7 @@ public class PayOrderInfoAdapter extends SectionRecyclerAdapter<RecyclerView.Vie
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(itemViewHolder.mIvProductPic);
         itemViewHolder.mTvProductName.setText(productBean.getGoods_name());
-        itemViewHolder.mTvCount.setText("x"+String.valueOf(productBean.getGoods_num()));
+        itemViewHolder.mTvCount.setText("x" + String.valueOf(productBean.getGoods_num()));
 
     }
 
@@ -129,9 +151,9 @@ public class PayOrderInfoAdapter extends SectionRecyclerAdapter<RecyclerView.Vie
     }
 
     public void setData(List<ShoppingCartBean> data) {
-        if(data != null) {
+        if (data != null) {
             this.dataList = data;
-        }else {
+        } else {
             this.clear();
         }
         this.notifyDataSetChanged();
@@ -139,21 +161,12 @@ public class PayOrderInfoAdapter extends SectionRecyclerAdapter<RecyclerView.Vie
 
     public void setFirstViewData(AddressBean data) {
 
-        if(null != data && null != mFirstHolder){
-            mFirstHolder.mLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            mFirstHolder.mTvUserName.setText(data.getConsignee());
-            mFirstHolder.mTvPhone.setText(data.getMobile());
-            mFirstHolder.mTvAddress.setText(data.getAddress());
-            this.notifyDataSetChanged();
-        }
+        mAddress = data;
+        this.notifyDataSetChanged();
     }
 
     private void clear() {
+
         dataList.clear();
         this.notifyDataSetChanged();
     }

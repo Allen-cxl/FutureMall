@@ -15,6 +15,10 @@ public class OrderFirstViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.ll_layout)
     public LinearLayout mLayout;
+    @BindView(R.id.ll_address)
+    public LinearLayout mLayoutAddress;
+    @BindView(R.id.ll_no_address)
+    public LinearLayout mLayoutNoAddress;
     @BindView(R.id.tv_user_name)
     public TextView mTvUserName;
     @BindView(R.id.tv_phone)

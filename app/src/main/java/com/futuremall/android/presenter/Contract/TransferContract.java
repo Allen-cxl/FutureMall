@@ -10,7 +10,7 @@ public class TransferContract {
 
         void transferSuccess();
 
-        void transferFaile();
+        void transferFail(String msg);
 
         void userName(String name);
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
+import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
 
@@ -23,6 +24,7 @@ public class PayResultActivity extends SimpleActivity {
     @BindView(R.id.tv_txt)
     TextView mTvTxt;
     private int mStatusActivity, mStatus;
+    private String mMsg;
 
     @Override
     protected int getLayout() {
@@ -34,11 +36,12 @@ public class PayResultActivity extends SimpleActivity {
 
         mStatusActivity = getIntent().getIntExtra(Constants.IT_TYPE, Constants.ACTIVITY_PAY);
         mStatus = getIntent().getIntExtra(Constants.IT_STATUS, Constants.FAIL);
+        mMsg = getIntent().getStringExtra(Constants.IT_MSG);
 
-        initView(mStatusActivity, mStatus);
+        initView(mStatusActivity, mStatus, mMsg);
     }
 
-    private void initView(int statusActivity, int status) {
+    private void initView(int statusActivity, int status, String msg) {
 
         if (statusActivity == Constants.ACTIVITY_PAY) {
 
@@ -49,18 +52,18 @@ public class PayResultActivity extends SimpleActivity {
             } else {
                 setToolBar(mSuperToolbar, getString(R.string.pay_result), true);
                 mIvImg.setImageResource(R.drawable.fail);
-                mTvTxt.setText(R.string.pay_fail);
+                mTvTxt.setText(getString(R.string.pay_fail)+( StringUtil.isEmpty(mMsg) ? null : "("+msg+")"));
             }
         } else if (statusActivity == Constants.ACTIVITY_TRANSFER) {
 
             if (status == Constants.SUCCESS) {
-                setToolBar(mSuperToolbar, getString(R.string.pay_result), false);
+                setToolBar(mSuperToolbar, getString(R.string.transfer_result), false);
                 mIvImg.setImageResource(R.drawable.success);
                 mTvTxt.setText(R.string.transfer_success);
             } else {
-                setToolBar(mSuperToolbar, getString(R.string.pay_result), true);
+                setToolBar(mSuperToolbar, getString(R.string.transfer_result), true);
                 mIvImg.setImageResource(R.drawable.fail);
-                mTvTxt.setText(R.string.transfer_fail);
+                mTvTxt.setText(getString(R.string.transfer_fail) + (StringUtil.isEmpty(mMsg) ? null : "("+msg+")"));
             }
         }
     }
@@ -94,11 +97,12 @@ public class PayResultActivity extends SimpleActivity {
         super.onBackPressed();
     }
 
-    public static void enter(Context context, int statusActivity, int status) {
+    public static void enter(Context context, int statusActivity, int status, String msg) {
 
         Intent intent = new Intent(context, PayResultActivity.class);
         intent.putExtra(Constants.IT_TYPE, statusActivity);
         intent.putExtra(Constants.IT_STATUS, status);
+        intent.putExtra(Constants.IT_MSG, msg);
         context.startActivity(intent);
     }
 }

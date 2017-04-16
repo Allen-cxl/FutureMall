@@ -3,20 +3,23 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@android:color/white"
-              android:padding="10dp"
               android:orientation="vertical">
 
     <LinearLayout
         android:id="@id/ll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@id/ll_address"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
+            android:visibility="gone"
+            android:clickable="false"
             android:orientation="vertical">
 
             <LinearLayout
@@ -43,6 +46,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"/>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/ll_no_address"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:visibility="visible"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/orange"
+                android:text="请添加收获地址"/>
         </LinearLayout>
 
         <ImageView

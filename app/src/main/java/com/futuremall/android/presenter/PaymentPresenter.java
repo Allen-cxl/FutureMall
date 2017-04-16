@@ -92,7 +92,9 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
-                        mView.payFail();
+                    }
+                    public void onErrorMsg(String msg) {
+                        mView.payFail(msg);
                     }
                 });
         addSubscrebe(rxSubscription);

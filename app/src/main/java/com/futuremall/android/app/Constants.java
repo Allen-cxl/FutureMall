@@ -103,9 +103,11 @@ public class Constants {
 
     //================= H5 ====================
 
-    public static final String MAIN_URL = "http://139.196.124.0";
+    public static final String MAIN_URL = "http://139.196.124.0/#";
 
     public static final String REGISTER_URL = "http://weilai8088.com/user.php?act=mobile_register";
+
+    public static final String ADRRESS_URL = MAIN_URL + "address/index/";
 
 
     //================= INTENT ====================
@@ -133,7 +135,7 @@ public class Constants {
 
     public static final String IT_WEB_URL = "url";
 
-    public static final String IT_VTEX_REPLIES_TOP = "top_info";
+    public static final String IT_TOKEN = "token";
 
-    public static final String IT_VTEX_NODE_NAME = "node_name";
+    public static final String IT_MSG = "msg";
 }

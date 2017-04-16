@@ -127,4 +127,8 @@
     <string name="transfer_fail">转账失败</string>
     <string name="pay_result">支付结果</string>
     <string name="transfer_result">转账结果</string>
+    <string name="add_product">请添加结算商品</string>
+    <string name="add_address">请添加地址</string>
+    <string name="entry_pay_password">请输入支付密码</string>
+    <string name="receive_address">收获地址</string>
 </resources>
