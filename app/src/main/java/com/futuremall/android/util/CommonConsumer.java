@@ -3,6 +3,8 @@ package com.futuremall.android.util;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.http.ApiException;
+import com.futuremall.android.model.bean.UserInfo;
+import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.google.gson.JsonSyntaxException;
 
@@ -51,6 +53,8 @@ public class CommonConsumer<T> implements Consumer<T> {
             } else if (t instanceof ApiException) {
 
                 if(((ApiException) t).state == Constants.SERVER_TOKEN_FAIL){
+                    PreferencesFactory.getUserPref().removeUserInfo();
+                    RxBus.getDefault().post(new UserInfo());
                     LoginActivity.enter(mActivity);
                 }else{
                     mView.showErrorMsg(((ApiException) t).srvMsg);
