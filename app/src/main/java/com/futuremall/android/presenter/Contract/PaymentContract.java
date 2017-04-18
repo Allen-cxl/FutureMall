@@ -13,9 +13,13 @@ public class PaymentContract {
 
         void balance(BalanceBean bean);
 
+        void gotoSetPayPasswordUI();
+
         void paySuccess();
 
         void payFail(String msg);
+
+        void showQrCode();
     }
 
     public interface  Presenter extends BasePresenter<View> {

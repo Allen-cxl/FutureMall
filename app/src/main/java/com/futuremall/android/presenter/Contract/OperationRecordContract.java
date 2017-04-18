@@ -17,6 +17,8 @@ public class OperationRecordContract {
 
         void showData(List<OperationRecordBean> recordBeanList);
 
+        void showMoreData(List<OperationRecordBean> recordBeanList);
+
         void showNoMore();
     }
 

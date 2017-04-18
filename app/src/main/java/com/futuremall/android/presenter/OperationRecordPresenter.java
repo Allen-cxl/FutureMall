@@ -52,8 +52,12 @@ public class OperationRecordPresenter extends RxPresenter<OperationRecordContrac
                             if(p >1 && (value==null || value.size()<=0)){
                                 mView.showNoMore();
                             }else{
-                                mView.showContent();
-                                mView.showData(value);
+                                if(p >1){
+                                    mView.showMoreData(value);
+                                }else{
+                                    mView.showContent();
+                                    mView.showData(value);
+                                }
                             }
                         }
 

@@ -66,7 +66,15 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                 .subscribe(new Consumer<BalanceBean>() {
                     @Override
                     public void accept(BalanceBean value) {
-                        mView.balance(value);
+                        if(null != value){
+                            mView.balance(value);
+                            if(value.getIs_pay() == BalanceBean.SHOW_QR_CODE){
+                             mView.showQrCode();
+                            }
+                            if(value.getIs_pay() == BalanceBean.PAY_PASSWORD_SET){
+                            mView.gotoSetPayPasswordUI();
+                            }
+                        }
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {

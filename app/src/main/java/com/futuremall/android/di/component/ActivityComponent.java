@@ -11,6 +11,7 @@ import com.futuremall.android.ui.activity.OrderDetailActivity;
 import com.futuremall.android.ui.activity.PayOrderActivity;
 import com.futuremall.android.ui.activity.PaymentActivity;
 import com.futuremall.android.ui.activity.QrCodeActivity;
+import com.futuremall.android.ui.activity.ReceivableQrCodeActivity;
 import com.futuremall.android.ui.activity.SearchActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
 import com.futuremall.android.ui.activity.UpdateLoginPasswordActivity;
@@ -30,6 +31,8 @@ public interface ActivityComponent {
     void inject(QrCodeActivity qrCodeActivity);
 
     void inject(InviteRegisterActivity inviteRegisterActivity);
+
+    void inject(ReceivableQrCodeActivity receivableQrCodeActivity);
 
     void inject(SearchActivity searchActivity);
 

@@ -31,12 +31,19 @@ public class OperationRecordAdapter extends RecyclerView.Adapter<OperationRecord
             this.dataList.addAll(this.dataList.size(), datas);
             this.notifyItemRangeInserted(this.dataList.size(), datas.size());
         }
+    }
 
+    public void addDatas(List<OperationRecordBean> datas) {
+
+        if(datas != null) {
+            clear();
+            dataList = datas;
+            this.notifyDataSetChanged();
+        }
     }
 
     private void clear() {
         dataList.clear();
-        this.notifyDataSetChanged();
     }
 
     @Override

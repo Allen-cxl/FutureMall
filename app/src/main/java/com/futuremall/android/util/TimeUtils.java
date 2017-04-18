@@ -3,7 +3,9 @@ package com.futuremall.android.util;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -84,7 +86,25 @@ public class TimeUtils {
      */
     public static long dataOne(Date date) {
 
-        return date.getTime();
+        return date.getTime()/1000;
+    }
+
+    /**
+     * 当前时间戳 14000556
+     * @return
+     */
+    public static long dataLong() {
+        Date date = new Date();
+        DateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateStr = sf.format(date);
+        try {
+            Date te = sf.parse(dateStr);
+            return te.getTime()/1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+
     }
 
 

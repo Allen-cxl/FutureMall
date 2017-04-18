@@ -17,6 +17,8 @@ public class OrderCenterContract {
 
         void showData(List<OrderList> dataList);
 
+        void showMoreData(List<OrderList> dataList);
+
         void showNoMore();
     }
 

@@ -7,7 +7,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
@@ -22,7 +24,7 @@ import com.futuremall.android.util.StringUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PaymentActivity extends BaseActivity<PaymentPresenter> implements PaymentContract.View, TextWatcher {
+public class PaymentActivity extends BaseActivity<PaymentPresenter> implements PaymentContract.View, TextWatcher, View.OnFocusChangeListener {
 
 
     @BindView(R.id.super_toolbar)
@@ -43,7 +45,10 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     EditText mEtPassword;
     @BindView(R.id.tv_next)
     TextView mTvNext;
-    String mPhone;
+    @BindView(R.id.ll_layout)
+    LinearLayout mLayout;
+    String mPhone, mAesPhone;
+    BalanceBean mBean;
 
     @Override
     protected void initInject() {
@@ -80,9 +85,11 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     protected void initEventAndData() {
 
         setToolBar(mSuperToolbar, getString(R.string.pay_ment), true);
+        mAesPhone = getIntent().getStringExtra(Constants.IT_AES_PHONE);
         mPhone = getIntent().getStringExtra(Constants.IT_PHONE);
-        mEtAccount.addTextChangedListener(mTextWatcher);
-        mEtCashMoney.addTextChangedListener(this);
+        mEtAccount.addTextChangedListener(this);
+        mEtAccount.setOnFocusChangeListener(this);
+        mEtCashMoney.addTextChangedListener(mTextWatcher);
         mEtPassword.addTextChangedListener(this);
         mEtAccount.setText(mPhone);
         mPresenter.getBalance();
@@ -96,14 +103,19 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
     @Override
     public void balance(BalanceBean bean) {
-        mTvPayMultiple.setText(String.format(getString(R.string.current_os_multiple), bean.getPay_ratio()));
-        mTvCurrentIntegral.setText(String.format(getString(R.string.current_integral), bean.getUser_money()));
+        mBean = bean;
+        mTvPayMultiple.setText(String.format(getString(R.string.current_os_multiple), mBean.getPay_ratio()));
+        mTvCurrentIntegral.setText(String.format(getString(R.string.current_integral), mBean.getUser_money()));
+    }
+
+    @Override
+    public void gotoSetPayPasswordUI() {
+        UpdatePayPasswordActivity.enter(this, Constants.ACTIVITY_PAY_MENT_SET);
     }
 
     @Override
     public void paySuccess() {
         PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS, null);
-        finish();
     }
 
     @Override
@@ -111,19 +123,40 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
         PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.FAIL, msg);
     }
 
-    @OnClick(R.id.tv_next)
-    public void onClick() {
-
-        String account = mEtAccount.getText().toString();
-        String name = mTvName.getText().toString();
-        String cashMoney = mEtCashMoney.getText().toString();
-        String password = mEtPassword.getText().toString();
-        if (checkPara(account, name, cashMoney, password)) {
-            mPresenter.payment(account, cashMoney, password);
-        }
+    @Override
+    public void showQrCode() {
+        mLayout.setVisibility(View.VISIBLE);
     }
 
-    private boolean checkPara(String phone, String name, String cashMoney, String password) {
+    @OnClick({R.id.tv_next, R.id.tv_qrCode})
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.tv_next:
+
+                if(null == mBean)return;
+                String account = mEtAccount.getText().toString();
+                String name = mTvName.getText().toString();
+                String cashMoney = mEtCashMoney.getText().toString();
+                String password = mEtPassword.getText().toString();
+                int payIntegral = Integer.valueOf(mTvPayIntegral.getText().toString());
+                int totalIntegral = (int)(Double.parseDouble(mBean.getUser_money()));
+                if (checkPara(account, name, cashMoney, password, payIntegral, totalIntegral)) {
+                    mPresenter.payment(account, cashMoney, password);
+                }
+                break;
+
+            case R.id.tv_qrCode:
+
+                if(null != mBean && !StringUtil.isEmpty(mBean.getPay_phone())){
+                    ReceivableQrCodeActivity.enter(this, mBean.getPay_phone());
+                }
+                break;
+        }
+
+    }
+
+    private boolean checkPara(String phone, String name, String cashMoney, String password, int payIntegral, int totalIntegral) {
 
         if (StringUtil.isEmpty(phone)) {
             SnackbarUtil.show(mTvNext, getString(R.string.enter_other_account));
@@ -142,6 +175,11 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
         if (StringUtil.isEmpty(password)) {
             SnackbarUtil.show(mTvNext, getString(R.string.enter_pay_password));
+            return false;
+        }
+
+        if (payIntegral > totalIntegral) {
+            SnackbarUtil.show(mTvNext, getString(R.string.money_tip));
             return false;
         }
 
@@ -202,8 +240,9 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
                 mTvNext.setSelected(false);
             }
 
-            if (account.length() == 7 || account.length() == 11){
-                mPresenter.getShopName(account);
+            if(null != mBean && !StringUtil.isEmpty(mBean.getPay_ratio())){
+                int d = Integer.valueOf(cashMoney) * Integer.valueOf(mBean.getPay_ratio());
+                mTvPayIntegral.setText(String.valueOf(d));
             }
         }
     };
@@ -218,5 +257,15 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
         Intent intent = new Intent(context, PaymentActivity.class);
         intent.putExtra(Constants.IT_PHONE, phone);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(!hasFocus){
+            String account = mEtAccount.getText().toString();
+            if(!StringUtil.isEmpty(account)){
+                mPresenter.getShopName(account);
+            }
+        }
     }
 }

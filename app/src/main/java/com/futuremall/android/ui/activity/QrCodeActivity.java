@@ -27,7 +27,6 @@ import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.AesBean;
-import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.presenter.Contract.QrCodeContract;
 import com.futuremall.android.presenter.QrCodePresenter;
 import com.futuremall.android.util.SnackbarUtil;
@@ -191,13 +190,13 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
     @Override
     protected void onPause() {
         super.onPause();
-        distroyScan();
+        destroyScan();
     }
 
     @Override
     protected void onDestroy() {
         inactivityTimer.shutdown();
-        distroyScan();
+        destroyScan();
         super.onDestroy();
     }
 
@@ -259,7 +258,7 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
             finish();
         }else{
             SnackbarUtil.show(mPreviewView, "暂不提供扫描");
-            distroyScan();
+            destroyScan();
             initScan();
         }
 
@@ -413,7 +412,7 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
         vibrate = true;
     }
 
-    private void distroyScan() {
+    private void destroyScan() {
         if (handler != null) {
             handler.quitSynchronously();
             handler = null;

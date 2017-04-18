@@ -118,7 +118,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter> implements
     }
 
     private void setUserInfo(UserInfo userInfo) {
-
+        if(null == userInfo){
+            return;
+        }
         Glide.with(mContext.getApplicationContext())
                 .load(userInfo.getUser_picture())
                 .crossFade()

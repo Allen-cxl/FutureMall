@@ -9,10 +9,14 @@ import android.os.Parcelable;
 
 public class BalanceBean implements Parcelable {
 
-    String  user_money;
-    String  pay_ratio;
-    int     pay_pass;
-    int       is_pay;
+    public static int SHOW_QR_CODE = 1; // 1开通B类支付（显示收款二维码）
+    public static int PAY_PASSWORD_SET = 0; // 0;支付密码为空，跳转到密码设置页面
+
+    String user_money;
+    String pay_ratio;
+    int pay_pass;
+    int is_pay;
+    String pay_phone;
 
     public String getUser_money() {
         return user_money;
@@ -46,6 +50,17 @@ public class BalanceBean implements Parcelable {
         this.is_pay = is_pay;
     }
 
+    public String getPay_phone() {
+        return pay_phone;
+    }
+
+    public void setPay_phone(String pay_phone) {
+        this.pay_phone = pay_phone;
+    }
+
+    public BalanceBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -57,9 +72,7 @@ public class BalanceBean implements Parcelable {
         dest.writeString(this.pay_ratio);
         dest.writeInt(this.pay_pass);
         dest.writeInt(this.is_pay);
-    }
-
-    public BalanceBean() {
+        dest.writeString(this.pay_phone);
     }
 
     protected BalanceBean(Parcel in) {
@@ -67,9 +80,10 @@ public class BalanceBean implements Parcelable {
         this.pay_ratio = in.readString();
         this.pay_pass = in.readInt();
         this.is_pay = in.readInt();
+        this.pay_phone = in.readString();
     }
 
-    public static final Parcelable.Creator<BalanceBean> CREATOR = new Parcelable.Creator<BalanceBean>() {
+    public static final Creator<BalanceBean> CREATOR = new Creator<BalanceBean>() {
         @Override
         public BalanceBean createFromParcel(Parcel source) {
             return new BalanceBean(source);

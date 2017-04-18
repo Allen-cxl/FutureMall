@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
+import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.presenter.Contract.TransferContract;
 import com.futuremall.android.presenter.TransferPresenter;
 import com.futuremall.android.util.SnackbarUtil;
@@ -19,7 +20,7 @@ import com.futuremall.android.util.StringUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class TransferActivity extends BaseActivity<TransferPresenter> implements TransferContract.View, TextWatcher{
+public class TransferActivity extends BaseActivity<TransferPresenter> implements TransferContract.View, TextWatcher {
 
 
     @BindView(R.id.super_toolbar)
@@ -28,12 +29,15 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     EditText mEtAccount;
     @BindView(R.id.tv_name)
     TextView mTvName;
+    @BindView(R.id.tv_transfer_integral)
+    TextView mTvTransferIntegral;
     @BindView(R.id.et_integral)
     EditText mEtIntegral;
     @BindView(R.id.et_password)
     EditText mEtPassword;
     @BindView(R.id.tv_next)
     TextView mTvNext;
+    BalanceBean mBean;
 
     @Override
     protected void initInject() {
@@ -52,12 +56,12 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
         mEtAccount.addTextChangedListener(mTextWatcher);
         mEtIntegral.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
+        mPresenter.getBalance();
     }
 
     @Override
     public void transferSuccess() {
         PayResultActivity.enter(this, Constants.ACTIVITY_TRANSFER, Constants.SUCCESS, null);
-        finish();
     }
 
     @Override
@@ -66,11 +70,17 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     }
 
     @Override
+    public void balance(BalanceBean bean) {
+        mBean = bean;
+        mTvTransferIntegral.setText(String.format(getString(R.string.transfer_last_integral), mBean.getUser_money()));
+    }
+
+    @Override
     public void userName(String name) {
         mTvName.setText(name);
     }
 
-    private boolean checkPara(String phone, String name, String integral, String password) {
+    private boolean checkPara(String phone, String name, String integral, String password, int payIntegral, int totalIntegral) {
 
         if (StringUtil.isEmpty(phone)) {
             SnackbarUtil.show(mTvNext, getString(R.string.enter_other_account));
@@ -92,6 +102,10 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
             return false;
         }
 
+        if (payIntegral > totalIntegral) {
+            SnackbarUtil.show(mTvNext, getString(R.string.integral_tip));
+            return false;
+        }
         return true;
     }
 
@@ -104,11 +118,14 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     @OnClick(R.id.tv_next)
     public void onClick() {
 
+        if(null == mBean)return;
         String account = mEtAccount.getText().toString();
         String name = mTvName.getText().toString();
         String integral = mEtIntegral.getText().toString();
         String password = mEtPassword.getText().toString();
-        if (checkPara(account, name, integral, password)) {
+        int payIntegral = Integer.valueOf(integral);
+        int totalIntegral = (int)(Double.parseDouble(mBean.getUser_money()));
+        if (checkPara(account, name, integral, password, payIntegral, totalIntegral)) {
             mPresenter.transfer(account, name, integral, password);
         }
     }
@@ -132,9 +149,9 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
         if (!StringUtil.isEmpty(account) &&
                 !StringUtil.isEmpty(name) &&
                 !StringUtil.isEmpty(integral) &&
-                !StringUtil.isEmpty(password) ) {
+                !StringUtil.isEmpty(password)) {
             mTvNext.setSelected(true);
-        }else{
+        } else {
             mTvNext.setSelected(false);
         }
     }
@@ -166,7 +183,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
                 mTvNext.setSelected(false);
             }
 
-            if (account.length() == 11){
+            if (account.length() == 11) {
                 mPresenter.userName(account);
             }
         }

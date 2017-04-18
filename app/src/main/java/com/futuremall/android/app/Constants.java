@@ -71,7 +71,9 @@ public class Constants {
 
     public static  final int ACTIVITY_REGIST = 0x0019;// 邀请注册
 
-    public static  final int ACTIVITY_REQUST_CODE = 0x0020;
+    public static  final int ACTIVITY_PAY_MENT_UPDATE = 0x0020;
+
+    public static  final int ACTIVITY_PAY_MENT_SET = 0x0021;
 
     //================= STATUS ====================
 
@@ -132,6 +134,8 @@ public class Constants {
     public static final String IT_RECID = "recID";
 
     public static final String IT_PHONE = "phone";
+
+    public static final String IT_AES_PHONE = "aesPhone";
 
     public static final String IT_WEB_URL = "url";
 

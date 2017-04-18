@@ -72,7 +72,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
                         .setLabel("", "", "", "", "", "")
                         .build();
                 Calendar date = Calendar.getInstance();
-                date.set(TimeUtils.getYear(time),TimeUtils.getMonth(time)-1,TimeUtils.getDay(time));
+                date.set(TimeUtils.getYear(time*1000),TimeUtils.getMonth(time*1000)-1,TimeUtils.getDay(time*1000));
                 pvTime.setDate(date);//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
                 pvTime.show();
                 break;
@@ -94,7 +94,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
 
-        time = System.currentTimeMillis();
+        time = TimeUtils.dataLong();
         mPresenter.recordList(1, 15, time+"", true);
         mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
             @Override
@@ -161,13 +161,18 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     public void showData(List<OperationRecordBean> recordBeanList) {
 
         mSwipeRefreshLayout.finishRefresh();
-        mAdapter.addMoreDatas(recordBeanList);
-
+        mAdapter.addDatas(recordBeanList);
         if (mAdapter.getItemCount() >= num) {
             mSwipeRefreshLayout.setLoadmoreEnable(true);
         }else{
             mSwipeRefreshLayout.setLoadmoreEnable(false);
         }
+    }
+
+    @Override
+    public void showMoreData(List<OperationRecordBean> recordBeanList) {
+
+        mAdapter.addMoreDatas(recordBeanList);
     }
 
     @Override

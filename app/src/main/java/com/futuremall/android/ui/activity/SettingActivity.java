@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
@@ -51,7 +52,7 @@ public class SettingActivity extends SimpleActivity {
             case R.id.tv_update_pay_password:
 
                 if(LoginHelper.ensureLogin(this)){
-                    UpdatePayPasswordActivity.enter(this);
+                    UpdatePayPasswordActivity.enter(this, Constants.ACTIVITY_PAY_MENT_UPDATE);
                 }
                 break;
             case R.id.tv_clean_cache:

@@ -140,6 +140,8 @@
     <item name="tv_express_no_data" type="id"/>
     <item name="ll_address" type="id"/>
     <item name="ll_no_address" type="id"/>
+    <item name = "tv_transfer_integral" type = "id" />
+    <item name = "tv_qrCode" type = "id" />
 
 
 </resources>

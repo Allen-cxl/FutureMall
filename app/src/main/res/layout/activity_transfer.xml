@@ -104,12 +104,12 @@
     </LinearLayout>
 
     <TextView
+        android:id="@id/tv_transfer_integral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/orange"
-        android:text="您最多可转账8000积分"/>
+        android:textColor="@color/orange"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -134,6 +134,7 @@
             android:layout_weight="1"
             android:cursorVisible="true"
             android:textCursorDrawable="@null"
+            android:inputType="textPassword"
             android:background="@null"
             android:hint="@string/enter_pay_password"
             android:textColorHint="@color/font_gray"

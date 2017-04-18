@@ -35,7 +35,7 @@ public class QrCodePresenter extends RxPresenter<QrCodeContract.View> implements
 
 
     @Override
-    public void scan(String result) {
+    public void scan(final String result) {
 
         LoadingStateUtil.show(mContext);
         Disposable rxSubscription = mRetrofitHelper.encryptPhone(result)
@@ -45,7 +45,9 @@ public class QrCodePresenter extends RxPresenter<QrCodeContract.View> implements
                     @Override
                     public void accept(AesBean value) {
                         LoadingStateUtil.close();
-                        mView.encryptSuccess(value);
+                        if(null != value){
+                            mView.encryptSuccess(value);
+                        }
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {

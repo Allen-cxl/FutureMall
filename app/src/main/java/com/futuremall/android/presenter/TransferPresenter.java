@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
+import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.TransferContract;
@@ -50,6 +51,25 @@ public class TransferPresenter extends RxPresenter<TransferContract.View> implem
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
+                    }
+                });
+        addSubscrebe(rxSubscription);
+    }
+
+    @Override
+    public void getBalance() {
+
+        String accessToken = PreferencesFactory.getUserPref().getToken();
+        Disposable rxSubscription = mRetrofitHelper.getBalance(accessToken)
+                .compose(RxUtil.<MyHttpResponse<BalanceBean>>rxSchedulerHelper())
+                .compose(RxUtil.<BalanceBean>handleMyResult())
+                .subscribe(new Consumer<BalanceBean>() {
+                    @Override
+                    public void accept(BalanceBean value) {
+                        mView.balance(value);
+                    }
+                }, new CommonConsumer<Object>(mView, mContext) {
+                    public void onError() {
                     }
                 });
         addSubscrebe(rxSubscription);

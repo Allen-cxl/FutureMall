@@ -57,7 +57,8 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
     @Override
     protected void initEventAndData() {
 
-        setToolBar(mSuperToolbar, getString(R.string.update_pay_password), true);
+        int type  = getIntent().getIntExtra(Constants.IT_TYPE, Constants.ACTIVITY_PAY_MENT_UPDATE);
+        setToolBar(mSuperToolbar, getString(type == Constants.ACTIVITY_PAY_MENT_UPDATE ? R.string.update_pay_password : R.string.set_pay_password), true);
         mEtPhone.addTextChangedListener(this);
         mEtCode.addTextChangedListener(this);
         mEtPassword.addTextChangedListener(this);
@@ -177,9 +178,10 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
 
     }
 
-    public static void enter(Context context) {
+    public static void enter(Context context, int type) {
 
         Intent intent = new Intent(context, UpdatePayPasswordActivity.class);
+        intent.putExtra(Constants.IT_TYPE, type);
         context.startActivity(intent);
     }
 }

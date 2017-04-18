@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
+import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.OrderProduct;
 import com.futuremall.android.ui.ViewHolder.OrderFooterViewHolder;
@@ -124,17 +125,24 @@ public class OrderCenterAdapter extends SectionRecyclerAdapter<RecyclerView.View
         return myHolder;
     }
 
-    public void setData(List<OrderList> data) {
-        if(data != null) {
-            this.dataList = data;
-        }else {
-            this.clear();
+    public void addData(List<OrderList> datas) {
+
+        if(datas != null) {
+            clear();
+            dataList = datas;
+            this.notifyDataSetChanged();
         }
-        this.notifyDataSetChanged();
+    }
+
+    public void addMoreDatas(List<OrderList> datas) {
+
+        if(datas != null) {
+            this.dataList.addAll(this.dataList.size(), datas);
+            this.notifyItemRangeInserted(this.dataList.size(), datas.size());
+        }
     }
 
     private void clear() {
         dataList.clear();
-        this.notifyDataSetChanged();
     }
 }

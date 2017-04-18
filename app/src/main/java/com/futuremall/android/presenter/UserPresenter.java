@@ -41,7 +41,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                 .compose(RxUtil.<UserInfo>rxSchedulerHelper()).subscribe(new Consumer<UserInfo>() {
                     @Override
                     public void accept(UserInfo userInfo) {
-                        if(!StringUtil.isEmpty(userInfo.getAccess_token())){
+                        if(PreferencesFactory.getUserPref().isLogin()){
                             userInfo(false);
                         }else{
                             mView.showRegisterLayout();
@@ -54,7 +54,6 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
     @Override
     public void userInfo(boolean isLogin) {
         if(!isLogin){
-            mView.showRegisterLayout();
             LoadingStateUtil.show(mContext);
         }
         String token = PreferencesFactory.getUserPref().getToken();
