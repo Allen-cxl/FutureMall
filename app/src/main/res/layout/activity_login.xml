@@ -56,7 +56,6 @@
             android:drawablePadding = "10dp"
             android:hint = "@string/id_phone"
             android:padding = "10dp"
-            android:text = "15868320634"
             android:textColor = "@android:color/white"
             android:textColorHint = "@android:color/white" />
 
