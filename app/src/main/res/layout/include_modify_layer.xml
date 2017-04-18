@@ -9,13 +9,13 @@
 
     <TextView
         android:id="@id/tv_reduce"
-        android:layout_width="wrap_content"
+        android:layout_width="100px"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:gravity="center"
-        android:text="—"/>
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="—"
+        android:textSize="@dimen/font_normal"/>
     <View
         android:layout_width="1px"
         android:layout_height="match_parent"
@@ -23,13 +23,15 @@
 
     <TextView
         android:id="@id/tv_count"
-        android:layout_width="wrap_content"
+        android:layout_width="130px"
         android:layout_height="wrap_content"
-        android:padding="15px"
         android:gravity="center"
+        android:background="@null"
+        android:inputType="number"
+        android:textSize="@dimen/font_medium"
         android:maxLines="1"
-        android:text="1"
-        android:inputType="number"/>
+        android:padding="15px"
+        android:text="1"/>
 
     <View
         android:layout_width="1px"
@@ -38,12 +40,12 @@
 
     <TextView
         android:id="@id/tv_add"
-        android:layout_width="wrap_content"
-        android:textSize="20sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_width="100px"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textSize="@dimen/font_medium"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="+"/>
 
 </LinearLayout>

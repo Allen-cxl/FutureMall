@@ -40,7 +40,7 @@
 
         <EditText
             android:id="@id/et_count"
-            android:layout_width="150px"
+            android:layout_width="130px"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:background="@null"
