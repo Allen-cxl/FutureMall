@@ -122,11 +122,9 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
 
             case R.id.bt_sure:
                 mCount = mEtCount.getText().toString().trim();
-                if(mTempCount.equalsIgnoreCase(mCount)){
-                    dismiss();
-                    return;
+                if(!mTempCount.equalsIgnoreCase(mCount)){
+                    mChangeListener.onDataChange(mID, mCount);
                 }
-                mChangeListener.onDataChange(mID, mCount);
                 dismiss();
                 break;
         }
