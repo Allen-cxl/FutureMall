@@ -50,7 +50,7 @@ public class UpdatePayPasswordPresenter extends RxPresenter<UpdatePasswordContra
     }
 
     @Override
-    public void updatePassword(String code, String password) {
+    public void updatePassword(String password, String code) {
 
         LoadingStateUtil.show(mContext);
         String accessToken = PreferencesFactory.getUserPref().getToken();
