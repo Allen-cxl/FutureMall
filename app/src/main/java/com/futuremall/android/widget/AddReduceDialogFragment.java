@@ -121,6 +121,7 @@ public class AddReduceDialogFragment extends AppCompatDialogFragment implements
                 break;
 
             case R.id.bt_sure:
+                mCount = mEtCount.getText().toString().trim();
                 if(mTempCount.equalsIgnoreCase(mCount)){
                     return;
                 }
