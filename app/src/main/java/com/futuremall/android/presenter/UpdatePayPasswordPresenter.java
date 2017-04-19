@@ -60,7 +60,7 @@ public class UpdatePayPasswordPresenter extends RxPresenter<UpdatePasswordContra
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object value) {
-                        LogUtil.d("UserInfo:"+value);
+                        LoadingStateUtil.close();
                     }
                 }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){

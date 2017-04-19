@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
+import com.futuremall.android.model.bean.UserInfo;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.StringUtil;
 
 import butterknife.BindView;
@@ -45,20 +47,25 @@ public class PayResultActivity extends SimpleActivity {
 
         if (statusActivity == Constants.ACTIVITY_PAY) {
 
-            setToolBar(mSuperToolbar, getString(R.string.pay_result), true);
             if (status == Constants.SUCCESS) {
+                setToolBar(mSuperToolbar, getString(R.string.pay_result), false);
                 mIvImg.setImageResource(R.drawable.success);
                 mTvTxt.setText(R.string.pay_success);
+                RxBus.getDefault().post(new UserInfo());
             } else {
+                setToolBar(mSuperToolbar, getString(R.string.pay_result), true);
                 mIvImg.setImageResource(R.drawable.fail);
-                mTvTxt.setText(getString(R.string.pay_fail)+( StringUtil.isEmpty(mMsg) ? null : "("+msg+")"));
+                mTvTxt.setText(getString(R.string.pay_fail) + (StringUtil.isEmpty(mMsg) ? null : "("+msg+")"));
             }
         } else if (statusActivity == Constants.ACTIVITY_TRANSFER) {
 
             if (status == Constants.SUCCESS) {
+                setToolBar(mSuperToolbar, getString(R.string.pay_result), false);
                 mIvImg.setImageResource(R.drawable.success);
                 mTvTxt.setText(R.string.transfer_success);
+                RxBus.getDefault().post(new UserInfo());
             } else {
+                setToolBar(mSuperToolbar, getString(R.string.pay_result), true);
                 mIvImg.setImageResource(R.drawable.fail);
                 mTvTxt.setText(getString(R.string.transfer_fail) + (StringUtil.isEmpty(mMsg) ? null : "("+msg+")"));
             }

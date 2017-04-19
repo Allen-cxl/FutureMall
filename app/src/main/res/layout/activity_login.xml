@@ -55,6 +55,7 @@
             android:drawableLeft = "@drawable/user"
             android:drawablePadding = "10dp"
             android:hint = "@string/id_phone"
+            android:textCursorDrawable="@drawable/cursor_white"
             android:padding = "10dp"
             android:textColor = "@android:color/white"
             android:textColorHint = "@android:color/white" />
@@ -68,6 +69,7 @@
             android:drawableLeft = "@drawable/password"
             android:drawablePadding = "10dp"
             android:hint = "@string/enter_password"
+            android:textCursorDrawable="@drawable/cursor_white"
             android:inputType = "textPassword"
             android:padding = "10dp"
             android:textColor = "@android:color/white"

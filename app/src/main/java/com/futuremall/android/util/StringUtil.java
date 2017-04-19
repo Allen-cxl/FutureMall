@@ -89,10 +89,10 @@ public class StringUtil {
 
     public static int scanResultType(String result) {
 
-        if (result.indexOf("pay:") > 0) {
+        if (result.contains("pay:")) {
 
             return Constants.ACTIVITY_PAYMENT;
-        } else if (result.indexOf("weilai8088.com") > 0) {
+        } else if (result.contains("weilai8088.com")) {
 
             return Constants.ACTIVITY_REGIST;
         } else {

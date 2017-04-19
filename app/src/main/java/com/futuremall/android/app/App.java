@@ -7,6 +7,8 @@ import com.futuremall.android.di.component.DaggerAppComponent;
 import com.futuremall.android.di.module.AppModule;
 import com.futuremall.android.di.module.HttpModule;
 import com.futuremall.android.di.module.PageModule;
+import com.futuremall.android.util.CrashHandler;
+
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
@@ -39,7 +41,7 @@ public class App extends MultiDexApplication{
 
         //初始化屏幕宽高
         getScreenSize();
-
+        CrashHandler.getInstance().init(this);
     }
 
     protected void attachBaseContext(Context base) {
