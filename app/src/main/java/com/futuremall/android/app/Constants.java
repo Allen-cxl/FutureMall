@@ -63,6 +63,8 @@ public class Constants {
 
     public static  final int ACTIVITY_PAY = 0x0015;// 支付
 
+    public static  final int ACTIVITY_RECHARGE = 0x0022;// 支付recharge
+
     public static  final int SUCCESS = 0x0016;// 成功
 
     public static  final int FAIL = 0x0017;// 失败
@@ -82,6 +84,14 @@ public class Constants {
     public static  final String RECEIPTING = "1";//待收货 receipt
 
     public static  final String RECEIPTED = "2";//已收货
+
+    //================= alipay ====================
+
+    public static final String RESULT_STATUS_SUCCESS = "9000";   // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+
+    public static final String RESULT_STATUS_LOADING = "8000";   // 判断resultStatus 为非"9000"则代表可能支付失败 "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+
+    public static final String RESULT_NOT_INSTALLED = "4000";       // 未安装支付宝
 
     //================= pic ====================
 

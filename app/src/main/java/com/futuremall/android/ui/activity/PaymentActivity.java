@@ -116,6 +116,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     @Override
     public void paySuccess() {
         PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS, null);
+        finish();
     }
 
     @Override

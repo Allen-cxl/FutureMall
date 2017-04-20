@@ -62,6 +62,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
     @Override
     public void transferSuccess() {
         PayResultActivity.enter(this, Constants.ACTIVITY_TRANSFER, Constants.SUCCESS, null);
+        finish();
     }
 
     @Override

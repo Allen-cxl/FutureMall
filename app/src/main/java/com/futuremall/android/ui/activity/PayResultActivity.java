@@ -69,6 +69,18 @@ public class PayResultActivity extends SimpleActivity {
                 mIvImg.setImageResource(R.drawable.fail);
                 mTvTxt.setText(getString(R.string.transfer_fail) + (StringUtil.isEmpty(mMsg) ? null : "("+msg+")"));
             }
+        }else if (statusActivity == Constants.ACTIVITY_RECHARGE) {
+
+            if (status == Constants.SUCCESS) {
+                setToolBar(mSuperToolbar, getString(R.string.recharge_result), false);
+                mIvImg.setImageResource(R.drawable.success);
+                mTvTxt.setText(R.string.recharge_success);
+                RxBus.getDefault().post(new UserInfo());
+            } else {
+                setToolBar(mSuperToolbar, getString(R.string.recharge_result), true);
+                mIvImg.setImageResource(R.drawable.fail);
+                mTvTxt.setText(getString(R.string.recharge_fail) + (StringUtil.isEmpty(mMsg) ? null : "("+msg+")"));
+            }
         }
     }
 
@@ -91,6 +103,14 @@ public class PayResultActivity extends SimpleActivity {
                 break;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mStatus == Constants.SUCCESS){
+            return;
+        }
+        super.onBackPressed();
     }
 
     public static void enter(Context context, int statusActivity, int status, String msg) {

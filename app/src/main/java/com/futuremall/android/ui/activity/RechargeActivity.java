@@ -2,15 +2,17 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
 import com.futuremall.android.base.SimpleActivity;
-import com.futuremall.android.util.SystemUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RechargeActivity extends SimpleActivity {
 
@@ -38,5 +40,11 @@ public class RechargeActivity extends SimpleActivity {
     public static void enter(Context context) {
         Intent intent = new Intent(context, RechargeActivity.class);
         context.startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_recharge)
+    public void onClick() {
+
+        String money = mEtMoney.getText().toString();
     }
 }
