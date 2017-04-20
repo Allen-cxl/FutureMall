@@ -162,7 +162,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
 
         mSwipeRefreshLayout.finishRefresh();
         mAdapter.addDatas(recordBeanList);
-        if (mAdapter.getItemCount() >= num) {
+        if (recordBeanList.size() >= num) {
             mSwipeRefreshLayout.setLoadmoreEnable(true);
         }else{
             mSwipeRefreshLayout.setLoadmoreEnable(false);

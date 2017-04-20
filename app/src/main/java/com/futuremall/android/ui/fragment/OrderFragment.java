@@ -147,7 +147,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
         mSwipeRefreshLayout.finishRefresh();
         mAdapter.addData(dataList);
 
-        if (mAdapter.getItemCount() >= num) {
+        if (dataList.size() >= num) {
             mSwipeRefreshLayout.setLoadmoreEnable(true);
         }else{
             mSwipeRefreshLayout.setLoadmoreEnable(false);

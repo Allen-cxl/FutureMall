@@ -71,8 +71,7 @@ public class UpdatePayPasswordActivity extends BaseActivity<UpdatePayPasswordPre
     }
 
     @Override
-    public void updateResponse() {
-
+    public void updateSuccess() {
         finish();
     }
 

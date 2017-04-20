@@ -10,7 +10,7 @@ public class UpdatePasswordContract {
 
         void codeResponse();
 
-        void updateResponse();
+        void updateSuccess();
     }
 
     public interface  Presenter extends BasePresenter<View> {

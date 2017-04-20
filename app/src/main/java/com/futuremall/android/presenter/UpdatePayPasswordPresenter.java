@@ -61,6 +61,7 @@ public class UpdatePayPasswordPresenter extends RxPresenter<UpdatePasswordContra
                     @Override
                     public void accept(Object value) {
                         LoadingStateUtil.close();
+                        mView.updateSuccess();
                     }
                 }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){
