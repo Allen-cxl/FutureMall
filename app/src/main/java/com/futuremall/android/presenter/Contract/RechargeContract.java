@@ -19,11 +19,8 @@ public class RechargeContract {
     public interface  Presenter extends BasePresenter<View> {
 
 
-        void recharge(String monney);
+        void recharge(String amount);
 
-        void alipay(String phone);
-
-        void onCheckPaySuccess(String orderID);
-
+        void checkPay(String outTradeNo);
     }
 }

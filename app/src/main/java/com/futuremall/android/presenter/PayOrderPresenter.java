@@ -8,7 +8,7 @@ import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.model.bean.PayOrderInfoBean;
 import com.futuremall.android.model.event.AddressEvent;
-import com.futuremall.android.model.event.PayResultEvent;
+import com.futuremall.android.model.event.ShoppingCartPayEvent;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.PayOrderContract;
 import com.futuremall.android.ui.activity.AddressWebViewActivity;
@@ -80,7 +80,7 @@ public class PayOrderPresenter extends RxPresenter<PayOrderContract.View> implem
                     public void accept(Object value) {
                         LoadingStateUtil.close();
                         mView.paySuccess();
-                        RxBus.getDefault().post(new PayResultEvent());
+                        RxBus.getDefault().post(new ShoppingCartPayEvent());
                     }
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {

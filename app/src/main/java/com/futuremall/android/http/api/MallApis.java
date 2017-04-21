@@ -10,6 +10,7 @@ import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.PayOrderInfoBean;
+import com.futuremall.android.model.bean.PaykeysBean;
 import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
@@ -195,4 +196,19 @@ public interface MallApis {
      */
     @POST("user/updateuser")
     Flowable<MyHttpResponse<Object>> updateUser(@Body RequestBody Body);
+
+    /**
+     * 充值
+     */
+    @FormUrlEncoded
+    @POST("pay/recharge")
+    Flowable<MyHttpResponse<PaykeysBean>> recharge(@Field("access_token") String token, @Field("amount") String amount);
+
+    /**
+     * 验证充值是否成功
+     */
+    @FormUrlEncoded
+    @POST("pay/checkpay")
+    Flowable<MyHttpResponse<Object>> checkPay(@Field("access_token") String token, @Field("out_trade_no") String outTradeNo);
 }
+

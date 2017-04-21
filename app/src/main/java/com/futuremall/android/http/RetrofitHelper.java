@@ -9,6 +9,7 @@ import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
 import com.futuremall.android.model.bean.PayOrderInfoBean;
+import com.futuremall.android.model.bean.PaykeysBean;
 import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.ShoppingCartBean;
 import com.futuremall.android.model.bean.UserInfo;
@@ -172,5 +173,13 @@ public class RetrofitHelper {
         MultipartBody multipartBody = builder.build();
 
         return mMallApiService.updateUser(multipartBody);
+    }
+
+    public Flowable<MyHttpResponse<PaykeysBean>> recharge(String token, String amount) {
+        return mMallApiService.recharge(token, amount);
+    }
+
+    public Flowable<MyHttpResponse<Object>> checkPay(String token, String outTradeNo) {
+        return mMallApiService.checkPay(token, outTradeNo);
     }
 }

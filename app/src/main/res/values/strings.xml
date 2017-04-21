@@ -140,5 +140,6 @@
     <string name = "receivable_tip" >无需加好友,扫描二维码向我付款</string >
     <string name = "money_tip" >支付金额大于余额，请及时充值</string >
     <string name = "integral_tip" >转账积分大于总积分，请及时充值</string >
+    <string name = "recharge_tip" >充值金额必须大于0元</string >
 
 </resources >

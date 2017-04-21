@@ -9,8 +9,7 @@ import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.model.bean.ChangeShoppingCart;
 import com.futuremall.android.model.bean.ShoppingCartBean;
-import com.futuremall.android.model.event.AddressEvent;
-import com.futuremall.android.model.event.PayResultEvent;
+import com.futuremall.android.model.event.ShoppingCartPayEvent;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.ShoppingCarContract;
 import com.futuremall.android.ui.ViewHolder.ShoppingCartHepler;
@@ -46,11 +45,11 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
     }
 
     private void registerEvent() {
-        Disposable rxSubscription = RxBus.getDefault().toObservable(PayResultEvent.class)
-                .compose(RxUtil.<PayResultEvent>rxSchedulerHelper())
-                .subscribe(new Consumer<PayResultEvent>() {
+        Disposable rxSubscription = RxBus.getDefault().toObservable(ShoppingCartPayEvent.class)
+                .compose(RxUtil.<ShoppingCartPayEvent>rxSchedulerHelper())
+                .subscribe(new Consumer<ShoppingCartPayEvent>() {
                     @Override
-                    public void accept(PayResultEvent event) {
+                    public void accept(ShoppingCartPayEvent event) {
                         shoppingCar(false);
                     }
                 });
