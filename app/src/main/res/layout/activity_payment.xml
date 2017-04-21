@@ -96,7 +96,7 @@
                 android:background="@null"
                 android:hint="@string/enter_cash_money"
                 android:textColorHint="@color/font_gray"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textSize="@dimen/font_normal"/>
 
         </LinearLayout>

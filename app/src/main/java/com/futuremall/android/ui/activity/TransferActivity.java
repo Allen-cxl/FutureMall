@@ -81,7 +81,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
         mTvName.setText(name);
     }
 
-    private boolean checkPara(String phone, String name, String integral, String password, int payIntegral, int totalIntegral) {
+    private boolean checkPara(String phone, String name, String integral, String password, double payIntegral, double totalIntegral) {
 
         if (StringUtil.isEmpty(phone)) {
             SnackbarUtil.show(mTvNext, getString(R.string.enter_other_account));
@@ -124,8 +124,8 @@ public class TransferActivity extends BaseActivity<TransferPresenter> implements
         String name = mTvName.getText().toString();
         String integral = mEtIntegral.getText().toString();
         String password = mEtPassword.getText().toString();
-        int payIntegral = Integer.valueOf(integral);
-        int totalIntegral = (int)(Double.parseDouble(mBean.getUser_money()));
+        double payIntegral = Double.parseDouble(integral);
+        double totalIntegral = Double.parseDouble(mBean.getUser_money());
         if (checkPara(account, name, integral, password, payIntegral, totalIntegral)) {
             mPresenter.transfer(account, name, integral, password);
         }

@@ -140,8 +140,8 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
                 String name = mTvName.getText().toString();
                 String cashMoney = mEtCashMoney.getText().toString();
                 String password = mEtPassword.getText().toString();
-                int payIntegral = Integer.valueOf(mTvPayIntegral.getText().toString());
-                int totalIntegral = (int)(Double.parseDouble(mBean.getUser_money()));
+                double payIntegral = Double.parseDouble(mTvPayIntegral.getText().toString());
+                double totalIntegral = Double.parseDouble(mBean.getUser_money());
                 if (checkPara(account, name, cashMoney, password, payIntegral, totalIntegral)) {
                     mPresenter.payment(account, cashMoney, password);
                 }
@@ -157,7 +157,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
     }
 
-    private boolean checkPara(String phone, String name, String cashMoney, String password, int payIntegral, int totalIntegral) {
+    private boolean checkPara(String phone, String name, String cashMoney, String password, double payIntegral, double totalIntegral) {
 
         if (StringUtil.isEmpty(phone)) {
             SnackbarUtil.show(mTvNext, getString(R.string.enter_other_account));
@@ -242,7 +242,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
             }
 
             if(null != mBean && !StringUtil.isEmpty(mBean.getPay_ratio())){
-                int d = Integer.valueOf(cashMoney) * Integer.valueOf(mBean.getPay_ratio());
+                double d = Double.parseDouble(cashMoney) *  Double.parseDouble(mBean.getPay_ratio());
                 mTvPayIntegral.setText(String.valueOf(d));
             }
         }

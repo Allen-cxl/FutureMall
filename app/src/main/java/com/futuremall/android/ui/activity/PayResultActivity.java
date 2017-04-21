@@ -86,7 +86,7 @@ public class PayResultActivity extends SimpleActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mStatusActivity == Constants.ACTIVITY_PAY && mStatus == Constants.SUCCESS){
+        if (mStatus == Constants.SUCCESS){
             getMenuInflater().inflate(R.menu.menu_done, menu);
             return true;
         }
