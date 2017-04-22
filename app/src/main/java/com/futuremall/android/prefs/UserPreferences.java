@@ -24,6 +24,8 @@ public class UserPreferences extends BasePreferences {
 
     public static final String MALL_USER_AVATAR = "user_avatar";
 
+    public static final String MALL_USER_AVATAR_FILE = "user_avatar_file";
+
     public static final String HMB_IS_OPEN_PUSH = "isOpenPush";
 
 
@@ -92,6 +94,23 @@ public class UserPreferences extends BasePreferences {
      */
     public String getMallUserAvatar() {
         return getString(MALL_USER_AVATAR, null);
+    }
+
+    /**
+     * 保存用户头像到本地
+     */
+    public void saveMallUserAvatarFile(String userAvatarFile) {
+
+        if(null != userAvatarFile){
+            putString(MALL_USER_AVATAR_FILE, userAvatarFile);
+        }
+    }
+
+    /**
+     * 获取用户头像本地路径
+     */
+    public String getMallUserAvatarFile() {
+        return getString(MALL_USER_AVATAR_FILE, null);
     }
 
 }

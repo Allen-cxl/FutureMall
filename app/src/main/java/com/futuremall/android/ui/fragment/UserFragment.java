@@ -1,6 +1,7 @@
 package com.futuremall.android.ui.fragment;
 
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.Target;
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.UserInfo;
@@ -25,6 +27,8 @@ import com.futuremall.android.ui.activity.TransferActivity;
 import com.futuremall.android.ui.activity.UserInfoActivity;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.widget.GlideCircleTransform;
+
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -118,6 +122,8 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 .placeholder(R.drawable.default_user)
                 .error(R.drawable.default_user)
                 .into(mIvUserAvatar);
+
+        mPresenter.saveImageView(info.getUser_picture() , info.getMobile_phone());
         mTvUserName.setText(info.getUser_name());
         mTvBalance.setText(String.format(getString(R.string.price), info.getUser_money()));
         mTvBackIntegral.setText(String.format(getString(R.string.price), info.getRebate()));

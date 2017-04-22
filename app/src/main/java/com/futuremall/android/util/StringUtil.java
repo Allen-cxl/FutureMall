@@ -77,10 +77,10 @@ public class StringUtil {
 
     public static String scanResult(String result) {
 
-        if (result.indexOf("pay:") > 0) {
-            int index = result.indexOf("pay:");
+        if (result.contains("pay:") ) {
+            int index = result.indexOf(":");
             return result.substring(index, result.length());
-        } else if (result.indexOf("weilai8088.com") > 0) {
+        } else if (result.contains("weilai8088.com")) {
             return result;
         } else {
             return null;

@@ -446,4 +446,10 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
         PaymentActivity.enter(this, bean.getPhone());
         finish();
     }
+
+    @Override
+    public void encryptFail() {
+        destroyScan();
+        initScan();
+    }
 }

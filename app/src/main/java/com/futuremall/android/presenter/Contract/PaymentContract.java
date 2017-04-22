@@ -3,6 +3,7 @@ package com.futuremall.android.presenter.Contract;
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.model.bean.BalanceBean;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 
 public class PaymentContract {
@@ -20,6 +21,8 @@ public class PaymentContract {
         void payFail(String msg);
 
         void showQrCode();
+
+        void startQrCodeActivity();
     }
 
     public interface  Presenter extends BasePresenter<View> {
@@ -30,5 +33,7 @@ public class PaymentContract {
         void getBalance();
 
         void payment(String phone, String money, String password);
+
+        void checkPermissions(RxPermissions rxPermissions);
     }
 }

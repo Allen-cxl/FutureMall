@@ -11,6 +11,8 @@ public class QrCodeContract {
     public interface View extends BaseView {
 
         void encryptSuccess(AesBean bean);
+
+        void encryptFail();
     }
 
     public interface  Presenter extends BasePresenter<View> {

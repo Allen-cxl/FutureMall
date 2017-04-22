@@ -20,6 +20,7 @@ import com.futuremall.android.presenter.Contract.PaymentContract;
 import com.futuremall.android.presenter.PaymentPresenter;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -74,7 +75,7 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
 
             case R.id.item_scan:
 
-                QrCodeActivity.enter(this);
+                mPresenter.checkPermissions(new RxPermissions(this));
                 break;
 
         }
@@ -127,6 +128,11 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     @Override
     public void showQrCode() {
         mLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void startQrCodeActivity() {
+        QrCodeActivity.enter(this);
     }
 
     @OnClick({R.id.tv_next, R.id.tv_qrCode})

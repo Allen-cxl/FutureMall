@@ -1,5 +1,7 @@
 package com.futuremall.android.presenter.Contract;
 
+import android.graphics.Bitmap;
+
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
 import com.futuremall.android.model.bean.UserInfo;
@@ -26,6 +28,8 @@ public class UserContract {
         void userInfo(boolean isLogin);
 
         void showLayout();
+
+        void saveImageView(String imgUrl, String fileName);
 
     }
 }

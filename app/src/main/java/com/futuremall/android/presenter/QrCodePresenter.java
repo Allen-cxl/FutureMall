@@ -52,6 +52,7 @@ public class QrCodePresenter extends RxPresenter<QrCodeContract.View> implements
                 }, new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
                         LoadingStateUtil.close();
+                        mView.encryptFail();
                     }
                 });
         addSubscrebe(rxSubscription);

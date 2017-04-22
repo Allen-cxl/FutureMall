@@ -1,5 +1,6 @@
 package com.futuremall.android.presenter;
 
+import android.Manifest;
 import android.app.Activity;
 
 import com.futuremall.android.base.RxPresenter;
@@ -12,6 +13,7 @@ import com.futuremall.android.presenter.Contract.PaymentContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
@@ -103,6 +105,22 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                     }
                     public void onErrorMsg(String msg) {
                         mView.payFail(msg);
+                    }
+                });
+        addSubscrebe(rxSubscription);
+    }
+
+    @Override
+    public void checkPermissions(RxPermissions rxPermissions) {
+        Disposable rxSubscription = rxPermissions.request(Manifest.permission.CAMERA)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean){
+                        if (aBoolean) {
+                            mView.startQrCodeActivity();
+                        } else {
+                            mView.showErrorMsg("扫描需要读写摄像头权限哦~");
+                        }
                     }
                 });
         addSubscrebe(rxSubscription);

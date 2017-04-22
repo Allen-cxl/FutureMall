@@ -59,8 +59,8 @@ public class ReceivablePresenter extends RxPresenter<ReceivableContract.View> im
     public void canvasQrCode(String content) {
 
         content = "pay:" + content;
-        String url = PreferencesFactory.getUserPref().getMallUserAvatar();
-        avatarBitmap(content, url);
+        String avatarFile = PreferencesFactory.getUserPref().getMallUserAvatarFile();
+        avatarBitmap(content, avatarFile);
     }
 
     private void saveImageView(Bitmap bitmap) {
@@ -118,9 +118,7 @@ public class ReceivablePresenter extends RxPresenter<ReceivableContract.View> im
                             public void subscribe(FlowableEmitter<Bitmap> e) throws Exception {
                                 Bitmap bitmap = null;
                                 if(null != imgUrl){
-                                    URL url = new URL(imgUrl);
-                                    InputStream ips = url.openStream();
-                                    bitmap = BitmapFactory.decodeStream(ips);
+                                    bitmap = BitmapFactory.decodeFile(imgUrl);
                                 }
                                 e.onNext(bitmap);
                                 e.onComplete();

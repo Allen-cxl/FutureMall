@@ -115,7 +115,7 @@ public class Constants {
 
     //================= H5 ====================
 
-    public static final String MAIN_URL = "http://meetlive.24hmb.com/";
+    public static final String MAIN_URL = "http://139.196.124.0/#";
 
     public static final String REGISTER_URL = "http://weilai8088.com/user.php?act=mobile_register";
 
