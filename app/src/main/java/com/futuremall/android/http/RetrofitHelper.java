@@ -126,7 +126,10 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<Object>> updateUser(String token, File file, int sex, String birthday, String realName) {
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("application/octet-stream"), file);
+        RequestBody requestFile = null;
+        if(null != file){
+            requestFile = RequestBody.create(MediaType.parse("application/octet-stream"), file);
+        }
 
         StringBuilder sb = new StringBuilder();
         if(!StringUtil.isEmpty(token)){
@@ -164,7 +167,10 @@ public class RetrofitHelper {
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.addFormDataPart("access_token", token);
-        builder.addFormDataPart("user_picture", file.getName(), requestFile);
+        if(null != requestFile && null != file){
+            builder.addFormDataPart("user_picture", file.getName(), requestFile);
+        }
+
         builder.addFormDataPart("sex", sex+"");
         builder.addFormDataPart("birthday", birthday);
         builder.addFormDataPart("real_name", realName);
