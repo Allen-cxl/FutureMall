@@ -18,14 +18,12 @@ import com.futuremall.android.util.Md5Utils;
 import com.futuremall.android.util.StringUtil;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import io.reactivex.Flowable;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.Field;
 
 
 public class RetrofitHelper {
@@ -167,7 +165,7 @@ public class RetrofitHelper {
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.addFormDataPart("access_token", token);
-        if(null != requestFile && null != file){
+        if(null != requestFile){
             builder.addFormDataPart("user_picture", file.getName(), requestFile);
         }
 
