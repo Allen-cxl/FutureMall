@@ -99,8 +99,10 @@ public class PayOrderActivity extends BaseActivity<PayOrderPresenter> implements
     }
 
     @Override
-    public void defaultAddress() {
-        mPresenter.getPayOrderInfo(mRecID);
+    public void defaultAddress(AddressBean bean) {
+        mAddressBean = bean;
+        mAddressID = mAddressBean.getAddress_id();
+        mAdapter.setFirstViewData(mAddressBean);
     }
 
     public static void enter(Context context, String recID) {

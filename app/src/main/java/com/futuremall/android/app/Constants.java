@@ -117,9 +117,13 @@ public class Constants {
 
     public static final String MAIN_URL = "http://139.196.124.0/#";
 
-    public static final String REGISTER_URL = "http://weilai8088.com/user.php?act=mobile_register";
+    public static final String REGISTER_URL = MAIN_URL + "register?invite_code=";
 
     public static final String ADDRESS_URL = MAIN_URL + "address/index?token=";
+
+    public static final String FUTURE_URL = MAIN_URL + "local";
+
+    public static final String TYPE_URL = MAIN_URL + "classify";
 
 
     //================= INTENT ====================

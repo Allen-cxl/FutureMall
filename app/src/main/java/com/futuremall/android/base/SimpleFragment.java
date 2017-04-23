@@ -5,10 +5,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.futuremall.android.R;
 import com.futuremall.android.util.SystemUtil;
 
 import butterknife.ButterKnife;
@@ -18,14 +22,14 @@ import butterknife.Unbinder;
 public abstract class SimpleFragment extends BaseLazyFragment {
 
     protected View mView;
-    protected Activity mActivity;
+    protected AppCompatActivity mActivity;
     protected Context mContext;
     private Unbinder mUnBinder;
     private boolean isInited = false;
 
     @Override
     public void onAttach(Context context) {
-        mActivity = (Activity) context;
+        mActivity = (AppCompatActivity) context;
         mContext = context;
         super.onAttach(context);
     }
@@ -45,6 +49,24 @@ public abstract class SimpleFragment extends BaseLazyFragment {
             isInited = true;
             initEventAndData();
         }
+    }
+
+    protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
+        TextView textView= (TextView)(toolbar.findViewById(R.id.super_title));
+
+        mActivity.setSupportActionBar(toolbar);
+
+        if(title != null){
+            mActivity.getSupportActionBar().setTitle(null);
+        }
+
+        if(showBackButton){
+            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        }
+
+        textView.setText(title);
     }
 
     @Override

@@ -107,7 +107,10 @@ public class PayOrderPresenter extends RxPresenter<PayOrderContract.View> implem
                 .subscribe(new Consumer<AddressEvent>() {
                     @Override
                     public void accept(AddressEvent address) {
-                        mView.defaultAddress();
+                        if(null != address && null != address.mAddressBean){
+                            mView.defaultAddress(address.mAddressBean);
+                        }
+
                     }
                 });
         addSubscrebe(rxSubscription);

@@ -14,6 +14,8 @@ public class MainContract {
 
         void startQrCodeActivity();
 
+        void openGpsSuccess();
+
         void showUpdateDialog(String versionContent);
     }
 
@@ -22,5 +24,7 @@ public class MainContract {
         void checkVersion();
 
         void checkPermissions(RxPermissions rxPermissions);
+
+        void checkGpsPermissions(RxPermissions rxPermissions);
     }
 }

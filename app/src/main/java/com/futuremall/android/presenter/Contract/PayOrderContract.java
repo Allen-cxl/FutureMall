@@ -2,6 +2,7 @@ package com.futuremall.android.presenter.Contract;
 
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
+import com.futuremall.android.model.bean.AddressBean;
 import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.model.bean.PayOrderInfoBean;
 
@@ -16,7 +17,7 @@ public class PayOrderContract {
 
         void payFail(String msg);
 
-        void defaultAddress();
+        void defaultAddress(AddressBean bean);
     }
 
     public interface  Presenter extends BasePresenter<View> {
