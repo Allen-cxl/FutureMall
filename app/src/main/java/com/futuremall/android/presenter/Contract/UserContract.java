@@ -20,12 +20,16 @@ public class UserContract {
         void showLoginLayout();
 
         void showUserInfo(UserInfo info);
+
+        void loading();
+
+        void complete();
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
 
-        void userInfo(boolean isLogin);
+        void userInfo();
 
         void showLayout();
 

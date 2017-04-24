@@ -1,7 +1,7 @@
 package com.futuremall.android.ui.fragment;
 
 
-import android.graphics.Bitmap;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.Target;
 import com.futuremall.android.R;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.UserInfo;
+import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.UserContract;
 import com.futuremall.android.presenter.UserPresenter;
 import com.futuremall.android.ui.ViewHolder.LoginHelper;
@@ -28,8 +28,6 @@ import com.futuremall.android.ui.activity.UserInfoActivity;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.widget.GlideCircleTransform;
 
-import java.util.concurrent.ExecutionException;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -37,9 +35,10 @@ import butterknife.OnClick;
  * Created by PVer on 2017/3/2.
  */
 
-public class UserFragment extends BaseFragment<UserPresenter> implements UserContract.View {
+public class UserFragment extends BaseFragment<UserPresenter> implements UserContract.View, SwipeRefreshLayout.OnRefreshListener{
 
-
+    @BindView(R.id.refreshLayout)
+    SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.iv_user_avatar)
     ImageView mIvUserAvatar;
     @BindView(R.id.tv_user_name)
@@ -91,6 +90,8 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     @Override
     protected void initEventAndData() {
 
+        mRefreshLayout.setColorSchemeResources(R.color.orange);
+        mRefreshLayout.setOnRefreshListener(this);
         mPresenter.showLayout();
     }
 
@@ -98,6 +99,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     public void showRegisterLayout() {
         mLlLoginRegister.setVisibility(View.VISIBLE);
         mLlUserInfo.setVisibility(View.GONE);
+        mRefreshLayout.setEnabled(false);
         mTvBackIntegral.setText(null);
         mTvTotalMoney.setText(null);
         mTvGeneralizeMoney.setText(null);
@@ -108,6 +110,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     public void showLoginLayout() {
         mLlLoginRegister.setVisibility(View.GONE);
         mLlUserInfo.setVisibility(View.VISIBLE);
+        mRefreshLayout.setEnabled(true);
     }
 
     @Override
@@ -130,6 +133,16 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
         mTvTotalMoney.setText(String.format(getString(R.string.price), info.getPay_points()));
         mTvGeneralizeMoney.setText(String.format(getString(R.string.price), info.getHighreward()));
         mTvGeneralizeGive.setText(String.format(getString(R.string.price), info.getPayin()));
+    }
+
+    @Override
+    public void loading() {
+        mRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void complete() {
+        mRefreshLayout.setRefreshing(false);
     }
 
     @OnClick({R.id.tv_login, R.id.tv_register, R.id.tv_userInfo, R.id.tv_transfer, R.id.tv_payment, R.id.tv_order, R.id.tv_record, R.id.tv_invite_register, R.id.tv_recharge, R.id.tv_setup, R.id.tv_about})
@@ -193,5 +206,11 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 SnackbarUtil.show(mView, "暂无UI");
                 break;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+
+        mPresenter.userInfo();
     }
 }
