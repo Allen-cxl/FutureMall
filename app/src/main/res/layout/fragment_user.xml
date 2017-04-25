@@ -1,262 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-              android:layout_width = "match_parent"
-              android:layout_height = "match_parent"
-              android:orientation = "vertical" >
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:id = "@id/refreshLayout"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:layout_marginTop = "10dp" >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:background = "@drawable/user_bg"
-        android:gravity = "center_vertical"
-        android:orientation = "horizontal"
-        android:padding = "20dp" >
+        android:layout_height = "match_parent"
+        android:scrollbars = "none" >
 
         <LinearLayout
-            android:id = "@id/ll_login_register"
             android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:visibility="visible"
-            android:orientation = "horizontal" >
-
-            <TextView
-                android:id = "@id/tv_login"
-                android:layout_width = "0dp"
-                android:layout_height = "wrap_content"
-                android:layout_weight = "1"
-                android:gravity = "center"
-                android:padding = "20dp"
-                android:text = "@string/login"
-                android:textColor = "@android:color/white"
-                android:textSize = "@dimen/font_medium" />
-
-            <TextView
-                android:id = "@id/tv_register"
-                android:layout_width = "0dp"
-                android:layout_height = "wrap_content"
-                android:layout_weight = "1"
-                android:gravity = "center"
-                android:padding = "20dp"
-                android:text = "@string/register"
-                android:textColor = "@android:color/white"
-                android:textSize = "@dimen/font_medium" />
-
-        </LinearLayout >
-
-
-        <LinearLayout
-            android:id = "@id/ll_userInfo"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:gravity = "center_vertical"
-            android:orientation = "horizontal"
-            android:visibility = "gone" >
-
-            <ImageView
-                android:id = "@id/iv_user_avatar"
-                android:layout_width = "80dp"
-                android:layout_height = "80dp"/>
+            android:layout_height = "match_parent"
+            android:orientation = "vertical" >
 
             <LinearLayout
-                android:layout_width = "0dp"
+                android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
-                android:layout_marginLeft = "20dp"
-                android:layout_weight = "1"
-                android:orientation = "vertical" >
+                android:background = "@drawable/user_bg"
+                android:gravity = "center_vertical"
+                android:orientation = "horizontal"
+                android:padding = "20dp" >
 
-                <TextView
-                    android:id = "@id/tv_user_name"
-                    android:layout_width = "wrap_content"
+                <LinearLayout
+                    android:id = "@id/ll_login_register"
+                    android:layout_width = "match_parent"
                     android:layout_height = "wrap_content"
-                    android:textColor = "@android:color/white" />
+                    android:orientation = "horizontal"
+                    android:visibility = "visible" >
 
-                <TextView
-                    android:id = "@id/tv_balance"
-                    android:layout_width = "wrap_content"
+                    <TextView
+                        android:id = "@id/tv_login"
+                        android:layout_width = "0dp"
+                        android:layout_height = "wrap_content"
+                        android:layout_weight = "1"
+                        android:gravity = "center"
+                        android:padding = "20dp"
+                        android:text = "@string/login"
+                        android:textColor = "@android:color/white"
+                        android:textSize = "@dimen/font_medium" />
+
+                    <TextView
+                        android:id = "@id/tv_register"
+                        android:layout_width = "0dp"
+                        android:layout_height = "wrap_content"
+                        android:layout_weight = "1"
+                        android:gravity = "center"
+                        android:padding = "20dp"
+                        android:text = "@string/register"
+                        android:textColor = "@android:color/white"
+                        android:textSize = "@dimen/font_medium" />
+
+                </LinearLayout >
+
+
+                <LinearLayout
+                    android:id = "@id/ll_userInfo"
+                    android:layout_width = "match_parent"
                     android:layout_height = "wrap_content"
-                    android:layout_marginTop = "20dp"
-                    android:textColor = "@android:color/white" />
+                    android:gravity = "center_vertical"
+                    android:orientation = "horizontal"
+                    android:visibility = "gone" >
+
+                    <ImageView
+                        android:id = "@id/iv_user_avatar"
+                        android:layout_width = "80dp"
+                        android:layout_height = "80dp" />
+
+                    <LinearLayout
+                        android:layout_width = "0dp"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginLeft = "20dp"
+                        android:layout_weight = "1"
+                        android:orientation = "vertical" >
+
+                        <TextView
+                            android:id = "@id/tv_user_name"
+                            android:layout_width = "wrap_content"
+                            android:layout_height = "wrap_content"
+                            android:textColor = "@android:color/white" />
+
+                        <TextView
+                            android:id = "@id/tv_balance"
+                            android:layout_width = "wrap_content"
+                            android:layout_height = "wrap_content"
+                            android:layout_marginTop = "20dp"
+                            android:textColor = "@android:color/white" />
+                    </LinearLayout >
+
+                    <TextView
+                        android:id = "@id/tv_userInfo"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:drawableRight = "@drawable/white_arrow"
+                        android:text = "@string/user_info"
+                        android:textColor = "@android:color/white" />
+
+                </LinearLayout >
             </LinearLayout >
 
-            <TextView
-                android:id = "@id/tv_userInfo"
-                android:layout_width = "wrap_content"
+            <LinearLayout
+                android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"
-                android:drawableRight = "@drawable/white_arrow"
-                android:text = "@string/user_info"
-                android:textColor = "@android:color/white" />
+                android:background = "@android:color/white"
+                android:orientation = "horizontal"
+                android:padding = "25dp" >
 
+                <LinearLayout
+                    android:layout_width = "0dp"
+                    android:layout_height = "wrap_content"
+                    android:layout_weight = "1"
+                    android:gravity = "center"
+                    android:orientation = "vertical" >
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:text = "@string/back_integral" />
+
+                    <TextView
+                        android:id = "@id/tv_back_integral"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginTop = "10dp"
+                        android:hint = "0.00"
+                        android:textColor = "@color/orange"
+                        android:textColorHint = "@color/orange" />
+                </LinearLayout >
+
+                <LinearLayout
+                    android:layout_width = "0dp"
+                    android:layout_height = "wrap_content"
+                    android:layout_weight = "1"
+                    android:gravity = "center"
+                    android:orientation = "vertical" >
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:text = "@string/total_money" />
+
+                    <TextView
+                        android:id = "@id/tv_total_money"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginTop = "10dp"
+                        android:hint = "0.00"
+                        android:textColor = "@color/orange"
+                        android:textColorHint = "@color/orange" />
+                </LinearLayout >
+
+                <LinearLayout
+                    android:layout_width = "0dp"
+                    android:layout_height = "wrap_content"
+                    android:layout_weight = "1"
+                    android:gravity = "center"
+                    android:orientation = "vertical" >
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:text = "@string/generalize_money" />
+
+                    <TextView
+                        android:id = "@id/tv_generalize_money"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginTop = "10dp"
+                        android:hint = "0.00"
+                        android:textColor = "@color/orange"
+                        android:textColorHint = "@color/orange" />
+                </LinearLayout >
+
+                <LinearLayout
+                    android:layout_width = "0dp"
+                    android:layout_height = "wrap_content"
+                    android:layout_weight = "1"
+                    android:gravity = "center"
+                    android:orientation = "vertical" >
+
+                    <TextView
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:text = "@string/generalize_give" />
+
+                    <TextView
+                        android:id = "@id/tv_generalize_give"
+                        android:layout_width = "wrap_content"
+                        android:layout_height = "wrap_content"
+                        android:layout_marginTop = "10dp"
+                        android:hint = "0.00"
+                        android:textColor = "@color/orange"
+                        android:textColorHint = "@color/orange" />
+                </LinearLayout >
+            </LinearLayout >
+
+            <View
+                android:layout_width = "match_parent"
+                android:layout_height = "1dp"
+                android:background = "@color/line" />
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginTop = "20dp"
+                android:background = "@android:color/white"
+                android:orientation = "horizontal"
+                android:padding = "30dp" >
+
+                <TextView
+                    android:id = "@id/tv_transfer"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/transfer"
+                    android:text = "@string/transfer" />
+
+                <TextView
+                    android:id = "@id/tv_payment"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/payment"
+                    android:text = "@string/payment" />
+
+                <TextView
+                    android:id = "@id/tv_order"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/order"
+                    android:text = "@string/order_center" />
+
+                <TextView
+                    android:id = "@id/tv_record"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/record"
+                    android:text = "@string/record" />
+            </LinearLayout >
+
+            <View
+                android:layout_width = "match_parent"
+                android:layout_height = "1dp"
+                android:background = "@color/line" />
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:background = "@android:color/white"
+                android:orientation = "horizontal"
+                android:padding = "30dp" >
+
+                <TextView
+                    android:id = "@id/tv_invite_register"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/invite_register"
+                    android:text = "@string/invite_register" />
+
+                <TextView
+                    android:id = "@id/tv_recharge"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/recharge"
+                    android:text = "@string/recharge" />
+
+                <TextView
+                    android:id = "@id/tv_setup"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/setup"
+                    android:text = "@string/setup" />
+
+                <TextView
+                    android:id = "@id/tv_about"
+                    style = "@style/TextViewDrawablePadStyle"
+                    android:drawableTop = "@drawable/about"
+                    android:text = "@string/about" />
+            </LinearLayout >
         </LinearLayout >
-    </LinearLayout >
-
-    <LinearLayout
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:background = "@android:color/white"
-        android:orientation = "horizontal"
-        android:padding = "25dp" >
-
-        <LinearLayout
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:orientation = "vertical" >
-
-            <TextView
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text = "@string/back_integral" />
-
-            <TextView
-                android:id = "@id/tv_back_integral"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:layout_marginTop = "10dp"
-                android:hint = "0.00"
-                android:textColor = "@color/orange"
-                android:textColorHint = "@color/orange" />
-        </LinearLayout >
-
-        <LinearLayout
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:orientation = "vertical" >
-
-            <TextView
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text = "@string/total_money" />
-
-            <TextView
-                android:id = "@id/tv_total_money"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:layout_marginTop = "10dp"
-                android:hint = "0.00"
-                android:textColor = "@color/orange"
-                android:textColorHint = "@color/orange"/>
-        </LinearLayout >
-
-        <LinearLayout
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:orientation = "vertical" >
-
-            <TextView
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text = "@string/generalize_money" />
-
-            <TextView
-                android:id = "@id/tv_generalize_money"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:layout_marginTop = "10dp"
-                android:hint = "0.00"
-                android:textColor = "@color/orange"
-                android:textColorHint = "@color/orange"/>
-        </LinearLayout >
-
-        <LinearLayout
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:gravity = "center"
-            android:orientation = "vertical" >
-
-            <TextView
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:text = "@string/generalize_give" />
-
-            <TextView
-                android:id = "@id/tv_generalize_give"
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:layout_marginTop = "10dp"
-                android:hint = "0.00"
-                android:textColor = "@color/orange"
-                android:textColorHint = "@color/orange"/>
-        </LinearLayout >
-    </LinearLayout >
-
-    <View
-        android:layout_width = "match_parent"
-        android:layout_height = "1dp"
-        android:background = "@color/line" />
-
-    <LinearLayout
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_marginTop = "20dp"
-        android:background = "@android:color/white"
-        android:orientation = "horizontal"
-        android:padding = "30dp" >
-
-        <TextView
-            android:id = "@id/tv_transfer"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/transfer"
-            android:text = "@string/transfer" />
-
-        <TextView
-            android:id = "@id/tv_payment"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/payment"
-            android:text = "@string/payment" />
-
-        <TextView
-            android:id = "@id/tv_order"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/order"
-            android:text = "@string/order_center" />
-
-        <TextView
-            android:id = "@id/tv_record"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/record"
-            android:text = "@string/record" />
-    </LinearLayout >
-
-    <View
-        android:layout_width = "match_parent"
-        android:layout_height = "1dp"
-        android:background = "@color/line" />
-
-    <LinearLayout
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:background = "@android:color/white"
-        android:orientation = "horizontal"
-        android:padding = "30dp" >
-
-        <TextView
-            android:id = "@id/tv_invite_register"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/invite_register"
-            android:text = "@string/invite_register" />
-
-        <TextView
-            android:id = "@id/tv_recharge"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/recharge"
-            android:text = "@string/recharge" />
-
-        <TextView
-            android:id = "@id/tv_setup"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/setup"
-            android:text = "@string/setup" />
-
-        <TextView
-            android:id = "@id/tv_about"
-            style = "@style/TextViewDrawablePadStyle"
-            android:drawableTop = "@drawable/about"
-            android:text = "@string/about" />
-    </LinearLayout >
-</LinearLayout >
+    </ScrollView >
+</android.support.v4.widget.SwipeRefreshLayout >

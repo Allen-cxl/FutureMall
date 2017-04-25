@@ -14,6 +14,7 @@ import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
 import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
+import com.futuremall.android.util.StringUtil;
 
 import org.reactivestreams.Publisher;
 
@@ -58,7 +59,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                     @Override
                     public void accept(UserInfo userInfo) {
                         if(PreferencesFactory.getUserPref().isLogin()){
-                            userInfo(false);
+                            userInfo();
                         }else{
                             mView.showRegisterLayout();
                         }
@@ -68,10 +69,9 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
     }
 
     @Override
-    public void userInfo(boolean isLogin) {
-        if(!isLogin){
-            LoadingStateUtil.show(mContext);
-        }
+    public void userInfo() {
+
+        mView.loading();
         String token = PreferencesFactory.getUserPref().getToken();
         Disposable disposable = mRetrofitHelper.userInfo(token)
                 .compose(RxUtil.<MyHttpResponse<UserInfo>>rxSchedulerHelper())
@@ -79,7 +79,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                 .subscribe(new Consumer<UserInfo>() {
                     @Override
                     public void accept(UserInfo value) {
-                        LoadingStateUtil.close();
+                        mView.complete();
                         if(value!=null){
                             mView.showLoginLayout();
                             mView.showUserInfo(value);
@@ -88,7 +88,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                     }
                 }, new CommonConsumer<Object>(mView, mContext){
                     public void onError(){
-                        LoadingStateUtil.close();
+                        mView.complete();
                     }
                 });
         addSubscrebe(disposable);
@@ -99,7 +99,7 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
 
         if(PreferencesFactory.getUserPref().isLogin()){
             mView.showLoginLayout();
-            userInfo(true);
+            userInfo();
         }else{
             mView.showRegisterLayout();
         }
