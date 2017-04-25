@@ -86,6 +86,10 @@ public class RetrofitHelper {
         return mMallApiService.updateLoginPassword(token, oldPassword, newPassword);
     }
 
+    public Flowable<MyHttpResponse<UserInfo>> findPassword(String phone, String code, String newPassword) {
+        return mMallApiService.findPassword(phone, code, newPassword);
+    }
+
     public Flowable<MyHttpResponse<List<OperationRecordBean>>> operationRecord(String token, String p, String num, String time) {
         return mMallApiService.operationRecord(token, p, num, time);
     }

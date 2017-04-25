@@ -108,7 +108,7 @@ public interface MallApis {
     Flowable<MyHttpResponse<Object>> payment(@Field("access_token") String token, @Field("mobile_phone") String phone, @Field("user_money") String money, @Field("pay_pass") String payPass);
 
     /**
-     * 修改登录密码
+     * 操作记录
      */
     @FormUrlEncoded
     @POST("user/accountlog")
@@ -134,6 +134,13 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("auth/updatepass")
     Flowable<MyHttpResponse<UserInfo>> updateLoginPassword(@Field("access_token") String token, @Field("old_pass") String oldPassword, @Field("new_pass") String newPassword);
+
+    /**
+     * 忘记密码
+     */
+    @FormUrlEncoded
+    @POST("auth/findpass")
+    Flowable<MyHttpResponse<UserInfo>> findPassword(@Field("mobile_phone") String phone, @Field("code") String code, @Field("new_pass") String newPassword);
 
     /**
      * 订单列表
