@@ -1,15 +1,30 @@
 package com.futuremall.android.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.futuremall.android.R;
+import com.futuremall.android.base.BaseActivity;
+import com.futuremall.android.presenter.Contract.ForgetPasswordContract;
+import com.futuremall.android.presenter.ForgetPasswordPresenter;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter> implements ForgetPasswordContract.View {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password);
+    protected void initInject() {
+
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_forget_password;
+    }
+
+    @Override
+    protected void initEventAndData() {
+
+    }
+
+    @Override
+    public void updateSuccess() {
+
     }
 }
