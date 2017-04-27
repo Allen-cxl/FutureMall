@@ -3,6 +3,7 @@ package com.futuremall.android.di.component;
 import android.app.Activity;
 import com.futuremall.android.di.module.ActivityModule;
 import com.futuremall.android.di.scope.ActivityScope;
+import com.futuremall.android.ui.activity.ForgetPasswordActivity;
 import com.futuremall.android.ui.activity.InviteRegisterActivity;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.MainActivity;
@@ -50,6 +51,8 @@ public interface ActivityComponent {
     void inject(UpdatePayPasswordActivity updatePayPasswordActivity);
 
     void inject(UpdateLoginPasswordActivity updateLoginPasswordActivity);
+
+    void inject(ForgetPasswordActivity forgetPasswordActivity);
 
     void inject(UserInfoActivity userInfoActivity);
 

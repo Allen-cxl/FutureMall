@@ -14,7 +14,6 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.LoginContract;
 import com.futuremall.android.presenter.LoginPresenter;
-import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 
@@ -74,7 +73,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
                 break;
             case R.id.tv_forget_password:
-                UserWebViewActivity.enter(this, getString(R.string.forget_password), Constants.REGISTER_URL);
+                ForgetPasswordActivity.enter(this);
 
                 break;
         }
