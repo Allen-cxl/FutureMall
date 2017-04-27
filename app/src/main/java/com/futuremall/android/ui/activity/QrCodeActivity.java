@@ -29,6 +29,7 @@ import com.futuremall.android.base.BaseActivity;
 import com.futuremall.android.model.bean.AesBean;
 import com.futuremall.android.presenter.Contract.QrCodeContract;
 import com.futuremall.android.presenter.QrCodePresenter;
+import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.zxing.camera.CameraManager;
@@ -250,8 +251,9 @@ public class QrCodeActivity extends BaseActivity<QrCodePresenter> implements QrC
         int resultType = StringUtil.scanResultType(resultString);
         String result = StringUtil.scanResult(resultString);
         if(resultType == Constants.ACTIVITY_PAYMENT){
-
-            mPresenter.scan(result);
+            if(LoginHelper.ensureLogin(this)){
+                mPresenter.scan(result);
+            }
         }else if(resultType == Constants.ACTIVITY_REGIST){
 
             UserWebViewActivity.enter(this, getString(R.string.register_account), result);
