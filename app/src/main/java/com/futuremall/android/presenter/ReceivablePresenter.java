@@ -12,13 +12,12 @@ import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.ReceivableContract;
 import com.futuremall.android.util.QRCodeUtil;
+import com.futuremall.android.util.StringUtil;
 
 import org.reactivestreams.Publisher;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URL;
 
 import javax.inject.Inject;
 
@@ -60,7 +59,7 @@ public class ReceivablePresenter extends RxPresenter<ReceivableContract.View> im
 
         content = "pay:" + content;
         String avatarFile = PreferencesFactory.getUserPref().getMallUserAvatarFile();
-        avatarBitmap(content, avatarFile);
+        avatarBitmap(content, StringUtil.isEmpty(avatarFile) ? "" : avatarFile);
     }
 
     private void saveImageView(Bitmap bitmap) {
@@ -117,7 +116,7 @@ public class ReceivablePresenter extends RxPresenter<ReceivableContract.View> im
                             @Override
                             public void subscribe(FlowableEmitter<Bitmap> e) throws Exception {
                                 Bitmap bitmap = null;
-                                if(null != imgUrl){
+                                if (null != imgUrl) {
                                     bitmap = BitmapFactory.decodeFile(imgUrl);
                                 }
                                 e.onNext(bitmap);
@@ -137,9 +136,16 @@ public class ReceivablePresenter extends RxPresenter<ReceivableContract.View> im
                             mView.qrCodeBitmap(bmp);
                         }
                     }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Bitmap bmp = QRCodeUtil.createQRImage(content, 200, 200, null);
+                        if (null != bmp) {
+                            mView.qrCodeBitmap(bmp);
+                        }
+                    }
                 });
 
     }
-
 
 }

@@ -23,8 +23,6 @@ import org.reactivestreams.Publisher;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URL;
 
 import javax.inject.Inject;
 
@@ -91,7 +89,7 @@ public class InviteRegisterPresenter extends RxPresenter<InviteRegisterContract.
     public void canvasQrCode(String content) {
 
         String avatarFile = PreferencesFactory.getUserPref().getMallUserAvatarFile();
-        avatarBitmap(content, avatarFile);
+        avatarBitmap(content, StringUtil.isEmpty(avatarFile)?"":avatarFile);
     }
 
     private void saveImageView(Bitmap bitmap) {
@@ -165,6 +163,14 @@ public class InviteRegisterPresenter extends RxPresenter<InviteRegisterContract.
 
                         Bitmap bmp = QRCodeUtil.createQRImage(content, 200, 200, bitmap);
                         if (null != bitmap) {
+                            mView.qrCodeBitmap(bmp);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Bitmap bmp = QRCodeUtil.createQRImage(content, 200, 200, null);
+                        if (null != bmp) {
                             mView.qrCodeBitmap(bmp);
                         }
                     }

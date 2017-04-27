@@ -108,6 +108,9 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
     @Override
     public void saveImageView(String imgUrl, final String fileName) {
 
+        if(StringUtil.isEmpty(imgUrl)){
+            return;
+        }
         Flowable.just(imgUrl)
                 .flatMap(new Function<String, Publisher<?>>() {
                     @Override
@@ -139,6 +142,11 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
                     @Override
                     public void accept(Object filePath) {
                         PreferencesFactory.getUserPref().saveMallUserAvatarFile(filePath.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
                     }
                 });
     }
