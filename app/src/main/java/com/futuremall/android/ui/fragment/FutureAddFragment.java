@@ -8,6 +8,8 @@ import android.webkit.WebSettings;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleFragment;
+import com.futuremall.android.ui.activity.MallH5Activity;
+import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.widget.MallWebClient;
 import com.futuremall.android.widget.MallWebView;
 
@@ -40,6 +42,7 @@ public class FutureAddFragment extends SimpleFragment implements SwipeRefreshLay
         mRefreshLayout.setColorSchemeResources(R.color.orange);
         mRefreshLayout.setOnRefreshListener(this);
         mWebView.setRefreshLayout(mRefreshLayout);
+        mWebView.addJavascriptInterface(this,"linkH5Interface");
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -58,5 +61,12 @@ public class FutureAddFragment extends SimpleFragment implements SwipeRefreshLay
         mWebView.loadUrl(Constants.FUTURE_URL);
     }
 
-
+    @SuppressWarnings("unused")
+    @android.webkit.JavascriptInterface
+    public void OpenLinkH5(String url) {
+        LogUtil.i("Link"+url);
+        if(null != url){
+            MallH5Activity.enter(getContext(), url);
+        }
+    }
 }

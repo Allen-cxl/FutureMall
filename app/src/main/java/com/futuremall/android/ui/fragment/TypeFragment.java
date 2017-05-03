@@ -4,6 +4,8 @@ package com.futuremall.android.ui.fragment;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleFragment;
+import com.futuremall.android.ui.activity.MallH5Activity;
+import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.widget.MallWebClient;
 import com.futuremall.android.widget.MallWebView;
 
@@ -51,6 +53,7 @@ public class TypeFragment extends SimpleFragment implements SwipeRefreshLayout.O
             }
         });
         loadUrl();
+        mWebView.addJavascriptInterface(this,"linkH5Interface");
     }
 
     @Override
@@ -60,6 +63,15 @@ public class TypeFragment extends SimpleFragment implements SwipeRefreshLayout.O
 
     private void loadUrl(){
         mWebView.loadUrl(Constants.TYPE_URL);
+    }
+
+    @SuppressWarnings("unused")
+    @android.webkit.JavascriptInterface
+    public void OpenLinkH5(String url) {
+        LogUtil.i("Link"+url);
+        if(null != url){
+            MallH5Activity.enter(getContext(), url);
+        }
     }
 
 }

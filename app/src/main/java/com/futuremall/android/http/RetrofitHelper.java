@@ -5,6 +5,7 @@ import com.futuremall.android.http.api.MallApis;
 import com.futuremall.android.model.bean.AesBean;
 import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.model.bean.ChangeShoppingCart;
+import com.futuremall.android.model.bean.Count;
 import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
@@ -12,6 +13,7 @@ import com.futuremall.android.model.bean.PayOrderInfoBean;
 import com.futuremall.android.model.bean.PaykeysBean;
 import com.futuremall.android.model.bean.ShopBean;
 import com.futuremall.android.model.bean.ShoppingCartBean;
+import com.futuremall.android.model.bean.HotKeyWord;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 import com.futuremall.android.util.Md5Utils;
@@ -34,13 +36,18 @@ public class RetrofitHelper {
         this.mMallApiService = mallApiService;
     }
 
-    public Flowable<MyHttpResponse<VersionBean>> getVersionInfo(String versionName, String versionCode) {
-        return mMallApiService.getVersion(versionName, versionCode);
+    public Flowable<MyHttpResponse<VersionBean>> getVersionInfo(String version, String type) {
+        return mMallApiService.getVersion(version, type);
     }
 
     public Flowable<MyHttpResponse<UserInfo>> userInfo(String token) {
         return mMallApiService.userInfo(token);
     }
+
+    public Flowable<MyHttpResponse<List<HotKeyWord>>> getHotSearch() {
+        return mMallApiService.getHotSearch(null);
+    }
+
 
     public Flowable<MyHttpResponse<AesBean>> encryptPhone(String aesPhone) {
         return mMallApiService.encryptPhone(aesPhone);
@@ -124,6 +131,14 @@ public class RetrofitHelper {
 
     public Flowable<MyHttpResponse<Object>> affirmOrder(String token, String orderID, String payPassword) {
         return mMallApiService.affirmOrder(token, orderID, payPassword);
+    }
+
+    public Flowable<MyHttpResponse<Count>> addShoppingCart(String token, String id, String count) {
+        return mMallApiService.addShoppingCart(token, id, count);
+    }
+
+    public Flowable<MyHttpResponse<Count>> getShoppingCartNum(String token) {
+        return mMallApiService.getShoppingCartNum(token);
     }
 
     public Flowable<MyHttpResponse<Object>> updateUser(String token, File file, int sex, String birthday, String realName) {

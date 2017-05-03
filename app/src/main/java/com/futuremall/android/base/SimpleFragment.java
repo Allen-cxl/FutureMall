@@ -26,6 +26,7 @@ public abstract class SimpleFragment extends BaseLazyFragment {
     protected Context mContext;
     private Unbinder mUnBinder;
     private boolean isInited = false;
+    private TextView mTextView;
 
     @Override
     public void onAttach(Context context) {
@@ -52,7 +53,7 @@ public abstract class SimpleFragment extends BaseLazyFragment {
     }
 
     protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
-        TextView textView= (TextView)(toolbar.findViewById(R.id.super_title));
+        mTextView = (TextView)(toolbar.findViewById(R.id.super_title));
 
         mActivity.setSupportActionBar(toolbar);
 
@@ -66,7 +67,14 @@ public abstract class SimpleFragment extends BaseLazyFragment {
 
         }
 
-        textView.setText(title);
+        setTitle(title);
+
+    }
+
+    protected void setTitle(String title){
+        if(null != mTextView && null != title){
+            mTextView.setText(title);
+        }
     }
 
     @Override

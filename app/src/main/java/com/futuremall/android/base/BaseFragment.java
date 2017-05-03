@@ -42,6 +42,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends BaseLazyFrag
     protected Context mContext;
     private Unbinder mUnBinder;
     protected boolean isInited = false;
+    private TextView mTextView;
 
     @Override
     public void onAttach(Context context) {
@@ -83,7 +84,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends BaseLazyFrag
 
 
     protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
-        TextView textView= (TextView)(toolbar.findViewById(R.id.super_title));
+
+        mTextView = (TextView)(toolbar.findViewById(R.id.super_title));
 
         mActivity.setSupportActionBar(toolbar);
 
@@ -97,8 +99,14 @@ public abstract class BaseFragment<T extends BasePresenter> extends BaseLazyFrag
 
         }
 
-        textView.setText(title);
+        setTitle(title);
 
+    }
+
+    protected void setTitle(String title){
+        if(null != mTextView && null != title){
+            mTextView.setText(title);
+        }
     }
 
     @Override

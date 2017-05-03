@@ -142,6 +142,8 @@
     <item name="ll_no_address" type="id"/>
     <item name = "tv_transfer_integral" type = "id" />
     <item name = "tv_qrCode" type = "id" />
+    <item name = "bg_tv" type = "id" />
+    <item name = "tv_addShoppingCat" type = "id" />
 
 
 </resources>

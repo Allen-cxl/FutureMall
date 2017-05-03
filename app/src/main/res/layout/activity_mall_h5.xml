@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              xmlns:app = "http://schemas.android.com/apk/res-auto"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:background = "@color/line"
+              android:orientation = "vertical" >
+
+    <android.support.v7.widget.Toolbar
+        android:id = "@id/super_toolbar"
+        android:layout_width = "match_parent"
+        android:layout_height = "?attr/actionBarSize"
+        android:navigationIcon="@drawable/ic_clear_search_api_holo_light"
+        app:navigationIcon="@drawable/ic_clear_search_api_holo_light"
+        android:background="?attr/colorPrimary"
+        app:layout_collapseMode = "pin"
+        app:titleTextAppearance = "@style/ToolbarTitle" >
+
+        <TextView
+            android:id = "@id/super_title"
+            style = "@style/ToolbarTitleStyle"
+            android:layout_width = "wrap_content"
+            android:layout_height = "match_parent"
+            android:drawablePadding = "5dp"
+            android:ellipsize = "end"
+            android:enabled = "false"
+            android:gravity = "center"
+            android:maxLines = "1"
+            android:paddingLeft = "@dimen/default_padding"
+            android:paddingRight = "@dimen/default_padding"/>
+
+    </android.support.v7.widget.Toolbar >
+
+    <LinearLayout
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:layout_marginTop = "20dp"
+        android:orientation="vertical">
+
+        <com.futuremall.android.widget.MallWebView
+            android:id = "@id/webView"
+            android:layout_width = "match_parent"
+            android:layout_height = "0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:id="@id/ll_layout"
+            android:layout_width = "match_parent"
+            android:layout_height = "48dp"
+            android:background = "@color/white"
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            android:orientation = "horizontal" >
+
+            <cn.bingoogolapple.badgeview.BGABadgeTextView
+                android:id = "@id/bg_tv"
+                android:layout_width = "50dp"
+                android:layout_height = "match_parent"
+                android:layout_gravity = "center"
+                android:layout_marginLeft = "25dp"
+                android:layout_marginRight = "25dp"
+                android:layout_marginTop = "5dp"
+                android:drawableBottom = "@drawable/shopping_car_up"
+                android:paddingBottom = "15dp"
+                app:badge_bgColor = "@color/orange"
+                app:badge_dragable = "true"
+                app:badge_gravity = "rightTop"
+                app:badge_verticalMargin = "0dp" />
+
+            <TextView
+                android:id = "@id/tv_addShoppingCat"
+                android:layout_width = "0dp"
+                android:layout_height = "match_parent"
+                android:background = "@color/orange"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor = "@android:color/white"
+                android:textSize = "@dimen/font_normal"
+                android:text="加入购物车"/>
+
+        </LinearLayout >
+    </LinearLayout >
+
+
+
+</LinearLayout >

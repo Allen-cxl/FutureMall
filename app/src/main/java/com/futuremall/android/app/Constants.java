@@ -115,7 +115,7 @@ public class Constants {
 
     //================= H5 ====================
 
-    public static final String MAIN_URL = "http://139.196.124.0/#";
+    public static final String MAIN_URL = "http://139.196.124.0/#/";
 
     public static final String REGISTER_URL = MAIN_URL + "register?invite_code=";
 
@@ -124,6 +124,8 @@ public class Constants {
     public static final String FUTURE_URL = MAIN_URL + "local";
 
     public static final String TYPE_URL = MAIN_URL + "classify";
+
+    public static final String SEARCH_URL = MAIN_URL + "classifyList?keyword=";
 
 
     //================= INTENT ====================

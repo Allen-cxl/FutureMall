@@ -34,6 +34,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected Activity mContext;
     protected LoadingLayout mLoadingLayout;
     private Unbinder mUnBinder;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,12 +55,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
-        TextView textView= (TextView)(findViewById(R.id.super_title));
+        mTextView = (TextView)(findViewById(R.id.super_title));
 
         setSupportActionBar(toolbar);
-        if(title != null){
-            getSupportActionBar().setTitle(null);
-        }
+        getSupportActionBar().setTitle(null);
 
         if(showBackButton){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,10 +70,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 }
             });
         }
-        if(title != null){
-            textView.setText(title);
-        }
+        setTitle(title);
 
+    }
+
+    protected void setTitle(String title){
+        if(null != mTextView && null != title){
+            mTextView.setText(title);
+        }
     }
 
     protected ActivityComponent getActivityComponent(){

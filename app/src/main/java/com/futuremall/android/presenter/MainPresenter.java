@@ -1,6 +1,7 @@
 package com.futuremall.android.presenter;
 
 import android.Manifest;
+import android.app.Activity;
 
 import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
@@ -9,6 +10,7 @@ import com.futuremall.android.model.bean.VersionBean;
 import com.futuremall.android.presenter.Contract.MainContract;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.RxUtil;
+import com.futuremall.android.util.SystemUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
@@ -24,22 +26,27 @@ import io.reactivex.functions.Consumer;
 public class MainPresenter extends RxPresenter<MainContract.View> implements MainContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
+    private Activity mContext;
 
     @Inject
-    MainPresenter(RetrofitHelper mRetrofitHelper) {
+    MainPresenter(RetrofitHelper mRetrofitHelper, Activity context) {
         this.mRetrofitHelper = mRetrofitHelper;
+        this.mContext = context;
     }
 
     @Override
     public void checkVersion() {
 
-        Disposable rxSubscription = mRetrofitHelper.getVersionInfo("1.0.1","1")
+        String version = SystemUtil.getAppVersionName(mContext);
+        Disposable rxSubscription = mRetrofitHelper.getVersionInfo(version,"1")
                 .compose(RxUtil.<MyHttpResponse<VersionBean>>rxSchedulerHelper())
                 .compose(RxUtil.<VersionBean>handleMyResult())
                 .subscribe(new Consumer<VersionBean>() {
                     @Override
                     public void accept(VersionBean value) {
-                        mView.showUpdateDialog(value.toString());
+                        if(null != value){
+                            mView.showUpdateDialog(value);
+                        }
                     }
                 }, new CommonConsumer<Object>(mView));
         addSubscrebe(rxSubscription);

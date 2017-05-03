@@ -1,7 +1,9 @@
 package com.futuremall.android.ui.fragment;
 
 
+import android.content.DialogInterface;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.widget.TextView;
@@ -13,11 +15,14 @@ import com.futuremall.android.R;
 import com.futuremall.android.app.App;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseFragment;
+import com.futuremall.android.model.bean.VersionBean;
 import com.futuremall.android.presenter.Contract.MainContract;
 import com.futuremall.android.presenter.MainPresenter;
+import com.futuremall.android.ui.activity.MallH5Activity;
 import com.futuremall.android.ui.activity.QrCodeActivity;
 import com.futuremall.android.ui.activity.SearchActivity;
 import com.futuremall.android.util.LogUtil;
+import com.futuremall.android.util.VersionUpdateService;
 import com.futuremall.android.util.baiduService.LocationService;
 import com.futuremall.android.widget.MallWebClient;
 import com.futuremall.android.widget.MallWebView;
@@ -57,6 +62,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         mRefreshLayout.setColorSchemeResources(R.color.orange);
         mRefreshLayout.setOnRefreshListener(this);
         mWebView.setRefreshLayout(mRefreshLayout);
+        mWebView.addJavascriptInterface(this,"linkH5Interface");
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -78,7 +84,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
                 SearchActivity.enter(getContext());
                 break;
             case R.id.iv_category:
-
+                MallH5Activity.enter(getContext(), Constants.TYPE_URL);
                 break;
         }
     }
@@ -99,6 +105,21 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         super.onStart();
         // -----------location config ------------
         mPresenter.checkGpsPermissions(new RxPermissions(getActivity()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.checkVersion();
+    }
+
+    @SuppressWarnings("unused")
+    @android.webkit.JavascriptInterface
+    public void OpenLinkH5(String url) {
+        LogUtil.i("Link"+url);
+        if(null != url){
+            MallH5Activity.enter(getContext(), url);
+        }
     }
 
     private BDLocationListener mListener = new BDLocationListener() {
@@ -209,8 +230,29 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
     }
 
     @Override
-    public void showUpdateDialog(String versionContent) {
-
+    public void showUpdateDialog(final VersionBean versionContent) {
+        if( versionContent.getRenew() == 0 ){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert_Self)
+                    .setTitle("发现新版本" +versionContent.getVersion())
+                    .setMessage(versionContent.getContent())
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if (versionContent.getType() ==1) {
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                            }
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            VersionUpdateService.startService(getContext(), versionContent.getUrl());
+                            dialog.dismiss();
+                        }
+                    });
+            dialog.show();
+        }
     }
 
     @Override

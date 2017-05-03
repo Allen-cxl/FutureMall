@@ -6,6 +6,8 @@ import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.model.bean.AesBean;
 import com.futuremall.android.model.bean.BalanceBean;
 import com.futuremall.android.model.bean.ChangeShoppingCart;
+import com.futuremall.android.model.bean.Count;
+import com.futuremall.android.model.bean.HotKeyWord;
 import com.futuremall.android.model.bean.OperationRecordBean;
 import com.futuremall.android.model.bean.OrderDetail;
 import com.futuremall.android.model.bean.OrderList;
@@ -17,19 +19,13 @@ import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.model.bean.VersionBean;
 
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Flowable;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.PartMap;
-import retrofit2.http.Query;
 
 
 public interface MallApis {
@@ -40,8 +36,8 @@ public interface MallApis {
      * 获取版本号
      */
     @FormUrlEncoded
-    @POST("getcardversion")
-    Flowable<MyHttpResponse<VersionBean>> getVersion(@Field("version_name") String versionName, @Field("version_code") String versionCode);
+    @POST("user/checkversion")
+    Flowable<MyHttpResponse<VersionBean>> getVersion(@Field("version") String version, @Field("phonetype") String type);
 
     /**
      * 获取用户信息
@@ -49,6 +45,13 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("user/getinfo")
     Flowable<MyHttpResponse<UserInfo>> userInfo(@Field("access_token") String token);
+
+    /**
+     * 获取热门搜索
+     */
+    @FormUrlEncoded
+    @POST("public/hotsearch")
+    Flowable<MyHttpResponse<List<HotKeyWord>>> getHotSearch(@Field("access_token") String token);
 
     /**
      * 用户手机号aes解密
@@ -197,6 +200,20 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("order/affirmorder")
     Flowable<MyHttpResponse<Object>> affirmOrder(@Field("access_token") String token, @Field("order_id") String orderID, @Field("pay_pass") String payPassord);
+
+    /**
+     * 添加购物车
+     */
+    @FormUrlEncoded
+    @POST("order/addcart")
+    Flowable<MyHttpResponse<Count>> addShoppingCart(@Field("access_token") String token, @Field("goods_id") String id, @Field("goods_num") String count);
+
+    /**
+     * 获取购物车数量
+     */
+    @FormUrlEncoded
+    @POST("order/getcartnum")
+    Flowable<MyHttpResponse<Count>> getShoppingCartNum(@Field("access_token") String token);
 
     /**
      * 修改个人信息

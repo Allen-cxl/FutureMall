@@ -11,11 +11,12 @@ import android.widget.LinearLayout;
 import com.dpizarro.autolabel.library.AutoLabelUI;
 import com.dpizarro.autolabel.library.Label;
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseActivity;
-import com.futuremall.android.model.bean.Tag;
+import com.futuremall.android.model.bean.HotKeyWord;
 import com.futuremall.android.presenter.Contract.SearchContract;
 import com.futuremall.android.presenter.SearchPresenter;
-import com.futuremall.android.util.SnackbarUtil;
+import com.futuremall.android.util.StringUtil;
 
 import java.util.List;
 
@@ -60,15 +61,18 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @OnClick(R.id.iv_search)
     public void onClick() {
         String searchTxt = mEtTxt.getText().toString();
-        SnackbarUtil.show(mSuperToolbar, searchTxt);
+        if(!StringUtil.isEmpty(searchTxt)){
+            String url = Constants.SEARCH_URL + searchTxt;
+            MallH5Activity.enter(this, url);
+        }
     }
 
     @Override
-    public void showContent(List<Tag> tags) {
+    public void showContent(List<HotKeyWord> tags) {
 
         mLlLabel.setVisibility(View.VISIBLE);
-        for(Tag tag: tags){
-            mHotLabel.addLabel(tag.getKeywords());
+        for(HotKeyWord tag: tags){
+            mHotLabel.addLabel(tag.getKeyword());
         }
     }
 

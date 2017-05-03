@@ -17,15 +17,24 @@ public class MallWebClient extends WebViewClient {
         this.mRefreshLayout = progressBar;
     }
 
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        view.loadUrl(url);
+        return true;
+    }
+
     @Override
     public void onPageStarted(WebView webView, String s, Bitmap bitmap) {
         super.onPageStarted(webView, s, bitmap);
-        mRefreshLayout.setRefreshing(true);
+        if(null != mRefreshLayout){
+            mRefreshLayout.setRefreshing(true);
+        }
     }
 
     @Override
     public void onPageFinished(WebView webView, String s) {
         super.onPageFinished(webView, s);
-        mRefreshLayout.setRefreshing(false);
+        if(null != mRefreshLayout){
+            mRefreshLayout.setRefreshing(false);
+        }
     }
 }

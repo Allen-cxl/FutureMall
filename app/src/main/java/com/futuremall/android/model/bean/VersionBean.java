@@ -6,26 +6,26 @@ package com.futuremall.android.model.bean;
 
 public class VersionBean {
 
-    private String version_code;
-    private String version_name;
+    private int renew;
+    private String version;
     private String content;
     private String url;
-    private String type;
+    private int type;
 
-    public String getVersion_code() {
-        return version_code;
+    public int getRenew() {
+        return renew;
     }
 
-    public void setVersion_code(String version_code) {
-        this.version_code = version_code;
+    public void setRenew(int renew) {
+        this.renew = renew;
     }
 
-    public String getVersion_name() {
-        return version_name;
+    public String getVersion() {
+        return version;
     }
 
-    public void setVersion_name(String version_name) {
-        this.version_name = version_name;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public String getContent() {
@@ -44,22 +44,11 @@ public class VersionBean {
         this.url = url;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "VersionBean{" +
-                "version_code='" + version_code + '\'' +
-                ", version_name='" + version_name + '\'' +
-                ", content='" + content + '\'' +
-                ", url='" + url + '\'' +
-                ", type='" + type + '\'' +
-                '}';
     }
 }

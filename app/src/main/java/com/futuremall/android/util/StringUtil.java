@@ -1,32 +1,17 @@
 package com.futuremall.android.util;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
-import android.util.Base64;
 import android.widget.TextView;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
-
-import okhttp3.HttpUrl;
 
 /**
  * Created by PVer on 2017/3/5.
@@ -85,6 +70,39 @@ public class StringUtil {
         } else {
             return null;
         }
+    }
+
+    public static boolean matchUrl(String url) {
+
+        if (null == url) {
+            return false;
+        }
+        url = url.trim();
+
+        Uri uri = Uri.parse(url);
+        String host = uri.getHost();
+        if (url.contains("goodsinfo")){
+            return true;
+        }
+        return false;
+
+    }
+
+    public static String getGoodsInfoID(String url) {
+
+        if (null == url) {
+            return null;
+        }
+//        url = url.trim();
+//        url = "http://meetlive.24hmb.com/Play?id=7aba72d5-beef-44a9-9110-1dc1889799c4";
+        url = "http://139.196.124.0/goodsinfo?id=558";
+
+        Uri uri = Uri.parse(url);
+        String host = uri.getHost();
+        String id  = uri.getQueryParameter("id");
+
+        return id;
+
     }
 
     public static int scanResultType(String result) {

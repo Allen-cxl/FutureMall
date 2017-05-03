@@ -2,6 +2,7 @@ package com.futuremall.android.presenter.Contract;
 
 import com.futuremall.android.base.BasePresenter;
 import com.futuremall.android.base.BaseView;
+import com.futuremall.android.model.bean.VersionBean;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 /**
@@ -16,7 +17,7 @@ public class MainContract {
 
         void openGpsSuccess();
 
-        void showUpdateDialog(String versionContent);
+        void showUpdateDialog(VersionBean versionContent);
     }
 
     public interface  Presenter extends BasePresenter<View> {

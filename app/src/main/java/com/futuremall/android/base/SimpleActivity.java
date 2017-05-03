@@ -29,6 +29,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
     protected Activity mContext;
     private Unbinder mUnBinder;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
     }
 
     protected void setToolBar(Toolbar toolbar, String title, boolean showBackButton) {
-        TextView textView= (TextView)(findViewById(R.id.super_title));
+        mTextView = (TextView)(findViewById(R.id.super_title));
 
         if(title != null){
             setSupportActionBar(toolbar);
@@ -59,7 +60,14 @@ public abstract class SimpleActivity extends AppCompatActivity {
             });
         }
 
-        textView.setText(title);
+        setTitle(title);
+
+    }
+
+    protected void setTitle(String title){
+        if(null != mTextView && null != title){
+            mTextView.setText(title);
+        }
     }
 
     protected ActivityComponent getActivityComponent(){

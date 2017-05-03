@@ -1,5 +1,7 @@
 package com.futuremall.android.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +11,7 @@ import android.widget.RadioButton;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
+import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.ui.fragment.FutureAddFragment;
 import com.futuremall.android.ui.fragment.MainFragment;
 import com.futuremall.android.ui.fragment.ShoppingCartFragment;
@@ -55,13 +58,13 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
 
     @Override
     protected int getLayout() {
-        LogUtil.i("time:"+ TimeUtils.getYearAndMonthAndDayAndHHAndSS());
         return R.layout.activity_main;
     }
 
     @Override
     protected void initEventAndData() {
 
+        int type = getIntent().getIntExtra(Constants.IT_TYPE, Constants.RB_HOME);
         mRadioHome.setOnClickListener(this);
         mRadioType.setOnClickListener(this);
         mRadioFutureAdd.setOnClickListener(this);
@@ -69,8 +72,7 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
         mRadioUser.setOnClickListener(this);
 
         mManager = getSupportFragmentManager();
-        mRadioHome.performClick();
-        LogUtil.i("time:"+ TimeUtils.getYearAndMonthAndDayAndHHAndSS());
+        setOnClickView(type);
     }
 
     private void setRadioButtonOnClick(int fromTag, int currentTag) {
@@ -113,7 +115,9 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
                 break;
 
             case R.id.radio_shopping_car:
-                setRadioButtonOnClick(mFromTag, Constants.RB_SHOPPING_CART);
+                if(LoginHelper.ensureLogin(this)){
+                    setRadioButtonOnClick(mFromTag, Constants.RB_SHOPPING_CART);
+                }
                 break;
 
             case R.id.radio_user:
@@ -201,6 +205,39 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
                 return null;
         }
 
+    }
+
+    private void setOnClickView(int index) {
+        switch (index) {
+            case Constants.RB_HOME:
+                mRadioHome.performClick();
+                break;
+
+            case Constants.RB_TYPE:
+                mRadioType.performClick();
+                break;
+
+            case Constants.RB_FUTURE_ADD:
+                mRadioFutureAdd.performClick();
+                break;
+
+            case Constants.RB_SHOPPING_CART:
+                mRadioShoppingCar.performClick();
+                break;
+
+            case Constants.RB_USER:
+                mRadioUser.performClick();
+                break;
+
+        }
+
+    }
+
+    public static void enter(Context context, int type) {
+
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(Constants.IT_TYPE, type);
+        context.startActivity(intent);
     }
 
 }

@@ -7,6 +7,7 @@ import com.futuremall.android.ui.activity.ForgetPasswordActivity;
 import com.futuremall.android.ui.activity.InviteRegisterActivity;
 import com.futuremall.android.ui.activity.LoginActivity;
 import com.futuremall.android.ui.activity.MainActivity;
+import com.futuremall.android.ui.activity.MallH5Activity;
 import com.futuremall.android.ui.activity.OperationRecordActivity;
 import com.futuremall.android.ui.activity.OrderDetailActivity;
 import com.futuremall.android.ui.activity.PayOrderActivity;
@@ -59,5 +60,7 @@ public interface ActivityComponent {
     void inject(PayOrderActivity payOrderActivity);
 
     void inject(RechargeActivity rechargeActivity);
+
+    void inject(MallH5Activity mallH5Activity);
 
 }
