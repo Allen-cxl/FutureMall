@@ -131,11 +131,14 @@
             android:name = "com.baidu.lbsapi.API_KEY"
             android:value = "eMD552BrURb64XuGq0orfkF7OKzaZZD8" />
 
+
+        <service android:name=".util.VersionUpdateService" />
         <activity
             android:name = ".ui.activity.ForgetPasswordActivity"
             android:screenOrientation = "portrait" >
         </activity >
-        <activity android:name = ".ui.activity.MallH5Activity" >
+        <activity android:name = ".ui.activity.MallH5Activity"
+                  android:screenOrientation = "portrait">
         </activity >
     </application >
 

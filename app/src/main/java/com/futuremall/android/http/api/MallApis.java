@@ -22,10 +22,15 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 
 public interface MallApis {
@@ -38,6 +43,13 @@ public interface MallApis {
     @FormUrlEncoded
     @POST("user/checkversion")
     Flowable<MyHttpResponse<VersionBean>> getVersion(@Field("version") String version, @Field("phonetype") String type);
+
+    /**
+     * 下载新apk
+     */
+    @Streaming
+    @GET
+    Call<ResponseBody> downloadApk(@Url String url);
 
     /**
      * 获取用户信息
