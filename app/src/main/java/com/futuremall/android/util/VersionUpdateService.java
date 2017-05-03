@@ -12,10 +12,20 @@ import android.util.Log;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
+import com.futuremall.android.http.ProgressResponseBody;
+import com.futuremall.android.ui.listener.ProgressListener;
 
 import java.io.File;
+import java.io.IOException;
 
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by victor on 2016/5/31.
@@ -63,9 +73,61 @@ public class VersionUpdateService extends IntentService {
 
         Log.d(TAG, "goDownload");
         createNotification();
-        final String fileName = "24hmb.apk";
+        final String fileName = "FutureMall.apk";
         final String fileDir = FileUtil.getDownloadFileDirName(this);
         FileUtil.removeFile(fileDir + File.separator + fileName);
+
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(url);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        okhttp3.Response orginalResponse = chain.proceed(chain.request());
+
+                        return orginalResponse.newBuilder()
+                                .body(new ProgressResponseBody(orginalResponse.body(), new ProgressListener() {
+                                    @Override
+                                    public void onProgress(long progress, long total, boolean done) {
+                                        Log.e(TAG, "onProgress: " + "total ---->" + total + "done ---->" + progress );
+                                    }
+                                }))
+                                .build();
+                    }
+                })
+                .build();
+        DownLoadApi retrofit = builder.client(client)
+                .build().create(DownLoadApi.class);
+
+        Call<ResponseBody> call = retrofit.retrofitDownload();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    InputStream is = response.body().byteStream();
+                    File file = new File(Environment.getExternalStorageDirectory(), "12345.apk");
+                    FileOutputStream fos = new FileOutputStream(file);
+                    BufferedInputStream bis = new BufferedInputStream(is);
+                    byte[] buffer = new byte[1024];
+                    int len;
+                    while ((len = bis.read(buffer)) != -1) {
+                        fos.write(buffer, 0, len);
+                        fos.flush();
+                    }
+                    fos.close();
+                    bis.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
         HmbClient.Download(this,
                 url,
 //                "http://180.153.100.153/imtt.dd.qq.com/16891/03BEC427178481E9367EC9E5DB95C09E.apk?mkey=589c0220aa8ec281&f=5e8c&c=0&fsname=com.hmb.eryida_1.0.0_4.apk&csr=4d5s&p=.apk",
