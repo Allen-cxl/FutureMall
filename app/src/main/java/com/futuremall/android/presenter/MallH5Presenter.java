@@ -6,10 +6,13 @@ import com.futuremall.android.base.RxPresenter;
 import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.model.bean.Count;
+import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.MallH5Contract;
+import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.util.CommonConsumer;
 import com.futuremall.android.util.LoadingStateUtil;
+import com.futuremall.android.util.RxBus;
 import com.futuremall.android.util.RxUtil;
 import com.futuremall.android.util.StringUtil;
 
@@ -31,6 +34,19 @@ public class MallH5Presenter extends RxPresenter<MallH5Contract.View> implements
     MallH5Presenter(RetrofitHelper mRetrofitHelper, Activity mContext) {
         this.mRetrofitHelper = mRetrofitHelper;
         this.mContext = mContext;
+
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        Disposable rxSubscription = RxBus.getDefault().toObservable(UserInfo.class)
+                .compose(RxUtil.<UserInfo>rxSchedulerHelper()).subscribe(new Consumer<UserInfo>() {
+                    @Override
+                    public void accept(UserInfo userInfo) {
+                        getShoppingCart();
+                    }
+                });
+        addSubscrebe(rxSubscription);
     }
 
     @Override
@@ -79,24 +95,29 @@ public class MallH5Presenter extends RxPresenter<MallH5Contract.View> implements
     public void getShoppingCart() {
 
         String token = PreferencesFactory.getUserPref().getToken();
-        Disposable disposable = mRetrofitHelper.getShoppingCartNum(token)
-                .compose(RxUtil.<MyHttpResponse<Count>>rxSchedulerHelper())
-                .compose(RxUtil.<Count>handleMyResult())
-                .subscribe(new Consumer<Count>() {
-                    @Override
-                    public void accept(Count value) {
-                        if (null != value) {
-                            mView.showShoppingCartCount(value.getNum());
+        if (!StringUtil.isEmpty(token)) {
+            Disposable disposable = mRetrofitHelper.getShoppingCartNum(token)
+                    .compose(RxUtil.<MyHttpResponse<Count>>rxSchedulerHelper())
+                    .compose(RxUtil.<Count>handleMyResult())
+                    .subscribe(new Consumer<Count>() {
+                        @Override
+                        public void accept(Count value) {
+                            if (null != value) {
+                                mView.showShoppingCartCount(value.getNum());
+                            }
                         }
-                    }
-                }, new CommonConsumer<Object>(mView, mContext) {
-                    public void onError() {
-                    }
+                    }, new CommonConsumer<Object>(mView, mContext) {
+                        public void onError() {
+                        }
 
-                    public void onErrorMsg(String msg) {
-                        mView.showErrorMsg(msg);
-                    }
-                });
-        addSubscrebe(disposable);
+                        public void onErrorMsg(String msg) {
+                            mView.showErrorMsg(msg);
+                        }
+                    });
+            addSubscrebe(disposable);
+        }
+
+
     }
+
 }

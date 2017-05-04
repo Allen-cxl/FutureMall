@@ -34,13 +34,13 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
     Toolbar mSuperToolbar;
     @BindView(R.id.webView)
     MallWebView mWebView;
-    String mUrl;
     @BindView(R.id.bg_tv)
     BGABadgeTextView mBgTv;
     @BindView(R.id.tv_addShoppingCat)
     TextView mTvAddShoppingCat;
     @BindView(R.id.ll_layout)
     LinearLayout mLlLayout;
+    String mId;
 
     @Override
     protected void initInject() {
@@ -56,7 +56,7 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
     @Override
     protected void initEventAndData() {
 
-        mUrl = getIntent().getStringExtra(Constants.IT_WEB_URL);
+        String url = getIntent().getStringExtra(Constants.IT_WEB_URL);
         setToolBar(mSuperToolbar, null, true);
 
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -64,6 +64,7 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.addJavascriptInterface(this, "linkH5Interface");
+        mWebView.addJavascriptInterface(this, "goodInfoIdInterface");
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -76,8 +77,8 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
                 setTitle(view.getTitle());
             }
         });
-        loadUrl(mUrl);
-        mPresenter.matchUrl(mUrl);
+        loadUrl(url);
+        mPresenter.matchUrl(url);
     }
 
     private void loadUrl(String url) {
@@ -129,7 +130,7 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
     public void getGoodInfoId(String id) {
         LogUtil.i("Link" + id);
         if (null != id) {
-            mPresenter.addShoppingCart(mUrl);
+            mId = id;
         }
     }
 
@@ -159,8 +160,8 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
                 }
                 break;
             case R.id.tv_addShoppingCat:
-                if(LoginHelper.ensureLogin(this)){
-                    mWebView.addJavascriptInterface(this, "goodInfoIdInterface");
+                if(LoginHelper.ensureLogin(this) && null != mId){
+                    mPresenter.addShoppingCart(mId);
                 }
                 break;
         }

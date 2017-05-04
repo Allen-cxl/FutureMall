@@ -75,6 +75,13 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
         setOnClickView(type);
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int type = intent.getIntExtra(Constants.IT_TYPE, Constants.RB_HOME);
+        setOnClickView(type);
+    }
+
     private void setRadioButtonOnClick(int fromTag, int currentTag) {
         switchContent(fromTag, currentTag, getCurrentFragmentByTag(currentTag));
         setRadioButtonCheck(currentTag);

@@ -203,7 +203,6 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 SettingActivity.enter(getContext());
                 break;
             case R.id.tv_about:
-                SnackbarUtil.show(mView, "暂无UI");
                 break;
         }
     }

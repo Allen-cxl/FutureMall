@@ -1,145 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android = "http://schemas.android.com/apk/res/android"
-          package = "com.futuremall.android" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.futuremall.android">
 
-    <uses-permission android:name = "android.permission.CAMERA" />
-    <uses-permission android:name = "android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name = "android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name = "android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name = "android.permission.INTERNET" />
-    <uses-permission android:name = "android.permission.VIBRATE" />
-    <uses-permission android:name = "android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name = "android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name = "android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
-        android:name = ".app.App"
-        android:allowBackup = "true"
-        android:icon = "@mipmap/ic_launcher"
-        android:label = "@string/app_name"
-        android:supportsRtl = "true"
-        android:theme = "@style/AppTheme" >
+        android:name=".app.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
-            android:name = ".ui.activity.MainActivity"
-            android:screenOrientation = "portrait" >
-            <intent-filter >
-                <action android:name = "android.intent.action.MAIN" />
+            android:name=".ui.activity.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppStartTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name = "android.intent.category.LAUNCHER" />
-            </intent-filter >
-        </activity >
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
-            android:name = ".ui.activity.QrCodeActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
+        </activity>
         <activity
-            android:name = ".ui.activity.OrderCenterActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.QrCodeActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.OrderDetailActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.OrderCenterActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.OperationRecordActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.OrderDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.RechargeActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.OperationRecordActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.LoginActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.RechargeActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.TransferActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.PaymentActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.TransferActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.SettingActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.PaymentActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.UpdatePayPasswordActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.SettingActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.UpdateLoginPasswordActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.UpdatePayPasswordActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.UserInfoActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.UpdateLoginPasswordActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = "com.pizidea.imagepicker.ui.CropActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.UserInfoActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = "com.pizidea.imagepicker.ui.PickerActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name="com.pizidea.imagepicker.ui.CropActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = "com.pizidea.imagepicker.ui.PreviewActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name="com.pizidea.imagepicker.ui.PickerActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.ModifyInfoActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name="com.pizidea.imagepicker.ui.PreviewActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.SearchActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.ModifyInfoActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.PayOrderActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.SearchActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.InviteRegisterActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.PayOrderActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.PayResultActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.InviteRegisterActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.UserWebViewActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.PayResultActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.AddressWebViewActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.UserWebViewActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
-            android:name = ".ui.activity.ReceivableQrCodeActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
+            android:name=".ui.activity.AddressWebViewActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.ReceivableQrCodeActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <service
-            android:name = "com.baidu.location.f"
-            android:enabled = "true"
-            android:process = ":remote" />
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
 
         <meta-data
-            android:name = "com.baidu.lbsapi.API_KEY"
-            android:value = "eMD552BrURb64XuGq0orfkF7OKzaZZD8" />
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="eMD552BrURb64XuGq0orfkF7OKzaZZD8"/>
 
+        <service android:name=".util.VersionUpdateService"/>
 
-        <service android:name=".util.VersionUpdateService" />
         <activity
-            android:name = ".ui.activity.ForgetPasswordActivity"
-            android:screenOrientation = "portrait" >
-        </activity >
-        <activity android:name = ".ui.activity.MallH5Activity"
-                  android:screenOrientation = "portrait">
-        </activity >
-    </application >
+            android:name=".ui.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.MallH5Activity"
+            android:screenOrientation="portrait">
+        </activity>
 
-</manifest >
+    </application>
+
+</manifest>
