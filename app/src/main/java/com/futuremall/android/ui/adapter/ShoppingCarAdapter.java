@@ -114,7 +114,7 @@ public class ShoppingCarAdapter extends SectionRecyclerAdapter<RecyclerView.View
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(itemViewHolder.mIvProductPic);
-        itemViewHolder.mTvProductName.setText(productBean.getGoods_name());
+        itemViewHolder.mTvProductName.setText("测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试");
         String price = String.format(mContext.getString(R.string.price), productBean.getGoods_price());
         itemViewHolder.mTvProductPrice.setText(StringUtil.getPrice(mContext, price));
         itemViewHolder.mTvCount.setText(String.valueOf(productBean.getGoods_num()));

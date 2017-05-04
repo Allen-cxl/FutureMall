@@ -112,8 +112,9 @@ public class LocationService {
 	}
 	
 	public void requestLocation(){
-
-		client.requestLocation();
+		if(client != null){
+			client.requestLocation();
+		}
 
 	}
 	

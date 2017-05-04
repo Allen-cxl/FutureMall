@@ -28,7 +28,6 @@
         android:gravity="center"
         android:background="@null"
         android:inputType="number"
-        android:textSize="@dimen/font_medium"
         android:maxLines="1"
         android:padding="15px"
         android:text="1"/>

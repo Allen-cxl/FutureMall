@@ -112,7 +112,6 @@ public class FutureAddFragment extends BaseFragment<FutureAddPresenter> implemen
         //注册监听
         locationService.setLocationOption(locationService.getDefaultLocationClientOption());
         locationService.start();// 定位SDK
-        locationService.requestLocation();
     }
 
     /***
@@ -127,10 +126,13 @@ public class FutureAddFragment extends BaseFragment<FutureAddPresenter> implemen
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         // -----------location config ------------
+        if(null != locationService){
 
+            locationService.requestLocation();
+        }
     }
 
     private BDLocationListener mListener = new BDLocationListener() {
