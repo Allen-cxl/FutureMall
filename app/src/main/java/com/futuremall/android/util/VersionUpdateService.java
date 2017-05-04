@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.futuremall.android.R;
@@ -45,7 +44,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class VersionUpdateService extends IntentService {
 
     private static final int FLAG_UPDATE_VERSION = 1;
-    private static final int PROGRESS = 0x00;
     private static final int COMPLETE = 0x01;
     private static final int ERROR = 0x02;
     private static final String APK_NAME = "FutureMall.apk";
@@ -62,7 +60,6 @@ public class VersionUpdateService extends IntentService {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-//        createPendingIntent(intent);
         mContext = this;
     }
 
@@ -75,7 +72,6 @@ public class VersionUpdateService extends IntentService {
 
     private void createNotification() {
 
-        Log.d(TAG, "createPendingIntent");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         mBuilder = new NotificationCompat.Builder(this)
@@ -107,7 +103,7 @@ public class VersionUpdateService extends IntentService {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     saveFile(response);
                 }
@@ -116,7 +112,7 @@ public class VersionUpdateService extends IntentService {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                handler.obtainMessage(ERROR,null).sendToTarget();
+                handler.obtainMessage(ERROR, null).sendToTarget();
             }
         });
     }
@@ -138,19 +134,15 @@ public class VersionUpdateService extends IntentService {
                                 File file = new File(FileUtil.getDownloadFileDirName(mContext), APK_NAME);
                                 FileOutputStream fos = new FileOutputStream(file);
                                 BufferedInputStream bis = new BufferedInputStream(ips);
-                                byte[] buffer = new byte[1024*1024];
+                                byte[] buffer = new byte[1024 * 1024];
                                 int len;
                                 while ((len = bis.read(buffer)) != -1) {
                                     sum += len;
                                     fos.write(buffer, 0, len);
-                                    final int progress = (int) ((100 *sum)  / total);
-
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            handler.obtainMessage(PROGRESS,progress).sendToTarget();
-                                        }
-                                    });
+                                    final int progress = (int) ((100 * sum) / total);
+                                    mBuilder.setProgress(100, progress, false)
+                                            .setContentText(progress + "%");
+                                    mNotificationManager.notify(FLAG_UPDATE_VERSION, mBuilder.build());
                                     fos.flush();
                                 }
                                 fos.close();
@@ -169,13 +161,13 @@ public class VersionUpdateService extends IntentService {
                     @Override
                     public void accept(File file) {
 
-                        handler.obtainMessage(COMPLETE,file).sendToTarget();
+                        handler.obtainMessage(COMPLETE, file).sendToTarget();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        handler.obtainMessage(ERROR,null).sendToTarget();
+                        handler.obtainMessage(ERROR, null).sendToTarget();
                     }
                 });
 
@@ -189,15 +181,6 @@ public class VersionUpdateService extends IntentService {
                 case ERROR:
                     Toast.makeText(mContext, "下载失败请重试", Toast.LENGTH_LONG);
                     mNotificationManager.cancel(FLAG_UPDATE_VERSION);
-                    break;
-
-                case PROGRESS:
-
-                    int progress = (int) msg.obj;
-
-                    mBuilder.setProgress(100, progress, false)
-                        .setContentText(progress + "%");
-                    mNotificationManager.notify(FLAG_UPDATE_VERSION, mBuilder.build());
                     break;
 
                 case COMPLETE:
