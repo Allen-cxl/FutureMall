@@ -9,19 +9,19 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
  * Created by Allen on 2017/3/2.
  */
 
-public class MainContract {
+public class FutureAddContract {
 
     public interface View extends BaseView {
 
         void startQrCodeActivity();
 
-        void showUpdateDialog(VersionBean versionContent);
+        void openGpsSuccess();
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
-        void checkVersion();
-
         void checkPermissions(RxPermissions rxPermissions);
+
+        void checkGpsPermissions(RxPermissions rxPermissions);
     }
 }

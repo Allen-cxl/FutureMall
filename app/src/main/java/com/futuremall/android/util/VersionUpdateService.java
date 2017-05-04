@@ -13,17 +13,23 @@ import android.widget.Toast;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
-import com.futuremall.android.http.ProgressResponseBody;
 import com.futuremall.android.http.api.MallApis;
-import com.futuremall.android.ui.listener.ProgressListener;
+
+import org.reactivestreams.Publisher;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
-import okhttp3.Interceptor;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -91,25 +97,9 @@ public class VersionUpdateService extends IntentService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("http://msoftdl.360.cn");
 
-        OkHttpClient.Builder builder = ProgressHelper.addProgress(null);
         MallApis retrofit = retrofitBuilder
-                .client(builder.build())
+                .client(new OkHttpClient.Builder().build())
                 .build().create(MallApis.class);
-        ProgressHelper.setProgressHandler(new DownloadProgressHandler() {
-            @Override
-            protected void onProgress(long bytesRead, long contentLength, boolean done) {
-                Log.e("onProgress",String.format("%d%% done\n",(100 * bytesRead) / contentLength));
-                Log.e("done","--->" + String.valueOf(done));
-                int progress = (int) (100 * (float) bytesRead);
-                mBuilder.setProgress(100, progress, false)
-                        .setContentText(progress + "%");
-                mNotificationManager.notify(FLAG_UPDATE_VERSION, mBuilder.build());
-                if(done){
-                    mBuilder.setProgress(0, 0, false);
-                    mNotificationManager.cancel(FLAG_UPDATE_VERSION);
-                }
-            }
-        });
 
         Call<ResponseBody> call = retrofit.downloadApk(url);
 
@@ -117,48 +107,81 @@ public class VersionUpdateService extends IntentService {
             @Override
             public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
 
-                new Thread(){
-                    @Override
-                    public void run() {
-                        try {
-                            if(response.isSuccessful()){
-                                InputStream is = response.body().byteStream();
-                                File file = new File(FileUtil.getDownloadFileDirName(mContext), APK_NAME);
-                                FileOutputStream fos = new FileOutputStream(file);
-                                BufferedInputStream bis = new BufferedInputStream(is);
-                                byte[] buffer = new byte[1024];
-                                int len;
-                                while ((len = bis.read(buffer)) != -1) {
-                                    fos.write(buffer, 0, len);
-                                    fos.flush();
-                                }
-                                fos.close();
-                                bis.close();
-                                is.close();
+                if(response.isSuccessful()){
 
-                                openApk(file);
-
-
-                            }
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
-
+                    saveFile(response);
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Message msg = Message.obtain();
-                msg.what = ERROR;
-                mHandler.sendMessage(msg);
+
+                handler.obtainMessage(ERROR,null).sendToTarget();
             }
         });
     }
 
-    Handler mHandler = new Handler() {
+    private void saveFile(Response<ResponseBody> resp) {
+
+        Flowable.just(resp)
+                .flatMap(new Function<Response<ResponseBody>, Publisher<File>>() {
+                    @Override
+                    public Publisher<File> apply(final Response<ResponseBody> response) throws Exception {
+
+                        return Flowable.create(new FlowableOnSubscribe<File>() {
+                            @Override
+                            public void subscribe(FlowableEmitter<File> e) throws Exception {
+
+                                InputStream ips = response.body().byteStream();
+                                long total = response.body().contentLength();
+                                long sum = 0;
+                                File file = new File(FileUtil.getDownloadFileDirName(mContext), APK_NAME);
+                                FileOutputStream fos = new FileOutputStream(file);
+                                BufferedInputStream bis = new BufferedInputStream(ips);
+                                byte[] buffer = new byte[1024*1024];
+                                int len;
+                                while ((len = bis.read(buffer)) != -1) {
+                                    sum += len;
+                                    fos.write(buffer, 0, len);
+                                    final int progress = (int) ((100 *sum)  / total);
+
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            handler.obtainMessage(PROGRESS,progress).sendToTarget();
+                                        }
+                                    });
+                                    fos.flush();
+                                }
+                                fos.close();
+                                bis.close();
+                                ips.close();
+                                e.onNext(file);
+                                e.onComplete();
+
+                            }
+                        }, BackpressureStrategy.BUFFER);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<File>() {
+                    @Override
+                    public void accept(File file) {
+
+                        handler.obtainMessage(COMPLETE,file).sendToTarget();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        handler.obtainMessage(ERROR,null).sendToTarget();
+                    }
+                });
+
+    }
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -169,16 +192,18 @@ public class VersionUpdateService extends IntentService {
                     break;
 
                 case PROGRESS:
-                    int progress = (int) (100 * (float) msg.obj);
+
+                    int progress = (int) msg.obj;
+
                     mBuilder.setProgress(100, progress, false)
-                            .setContentText(progress + "%");
+                        .setContentText(progress + "%");
                     mNotificationManager.notify(FLAG_UPDATE_VERSION, mBuilder.build());
                     break;
 
                 case COMPLETE:
                     mBuilder.setProgress(0, 0, false);
                     mNotificationManager.cancel(FLAG_UPDATE_VERSION);
-                    File file = new File(msg.obj.toString());
+                    File file = (File) msg.obj;
                     openApk(file);
                     break;
             }
@@ -187,7 +212,7 @@ public class VersionUpdateService extends IntentService {
 
     private void openApk(File file) {
 
-        if (file.exists()) {
+        if (null != file && file.exists()) {
 
             Intent intent = new Intent();
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

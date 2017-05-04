@@ -77,7 +77,6 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
             }
         });
         loadUrl(mUrl);
-        mPresenter.getShoppingCart();
         mPresenter.matchUrl(mUrl);
     }
 
@@ -93,6 +92,7 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
     @Override
     public void showPayButton() {
         mLlLayout.setVisibility(View.VISIBLE);
+        mPresenter.getShoppingCart();
     }
 
     @Override

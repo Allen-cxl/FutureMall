@@ -68,23 +68,4 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
                 });
         addSubscrebe(rxSubscription);
     }
-
-    @Override
-    public void checkGpsPermissions(RxPermissions rxPermissions) {
-
-        Disposable rxSubscription = rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean){
-                        if (aBoolean) {
-                            mView.openGpsSuccess();
-                        } else {
-                            mView.showErrorMsg("获取当前位置，需要打开GPS");
-                        }
-                    }
-                });
-        addSubscrebe(rxSubscription);
-    }
 }

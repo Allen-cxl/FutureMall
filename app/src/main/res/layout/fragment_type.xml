@@ -8,17 +8,11 @@
 
     <include layout="@layout/toolbar_super"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@id/refreshLayout"
+    <com.futuremall.android.widget.MallWebView
+        android:id="@id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
-
-        <com.futuremall.android.widget.MallWebView
-            android:id="@id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

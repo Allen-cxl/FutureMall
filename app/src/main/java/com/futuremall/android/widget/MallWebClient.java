@@ -13,6 +13,10 @@ public class MallWebClient extends WebViewClient {
 
     private SwipeRefreshLayout mRefreshLayout;
 
+    public MallWebClient() {
+        this(null);
+    }
+
     public MallWebClient(SwipeRefreshLayout progressBar) {
         this.mRefreshLayout = progressBar;
     }
