@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.futuremall.android.R;
+import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.BaseFragment;
 import com.futuremall.android.model.bean.UserInfo;
 import com.futuremall.android.prefs.PreferencesFactory;
@@ -25,6 +26,7 @@ import com.futuremall.android.ui.activity.RechargeActivity;
 import com.futuremall.android.ui.activity.SettingActivity;
 import com.futuremall.android.ui.activity.TransferActivity;
 import com.futuremall.android.ui.activity.UserInfoActivity;
+import com.futuremall.android.ui.activity.UserWebViewActivity;
 import com.futuremall.android.util.SnackbarUtil;
 import com.futuremall.android.widget.GlideCircleTransform;
 
@@ -203,6 +205,8 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 SettingActivity.enter(getContext());
                 break;
             case R.id.tv_about:
+
+                UserWebViewActivity.enter(getContext(), getString(R.string.about), Constants.ABOUT_URL);
                 break;
         }
     }

@@ -82,7 +82,6 @@ public class VersionUpdateService extends IntentService {
 
     private void goDownload(String url) {
 
-        url = "/mobilesafe/shouji360/360safesis/360MobileSafe_6.2.3.1060.apk";
         createNotification();
         final String fileName = APK_NAME;
         final String fileDir = FileUtil.getDownloadFileDirName(this);
@@ -91,7 +90,7 @@ public class VersionUpdateService extends IntentService {
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://msoftdl.360.cn");
+                .baseUrl(MallApis.HOST);
 
         MallApis retrofit = retrofitBuilder
                 .client(new OkHttpClient.Builder().build())

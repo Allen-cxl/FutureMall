@@ -14,14 +14,12 @@ import com.futuremall.android.widget.MallWebView;
 
 import butterknife.BindView;
 
-public class UserWebViewActivity extends SimpleActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class UserWebViewActivity extends SimpleActivity {
 
     @BindView(R.id.super_toolbar)
     Toolbar mSuperToolbar;
     @BindView(R.id.webView)
     MallWebView mWebView;
-    @BindView(R.id.refreshLayout)
-    SwipeRefreshLayout mRefreshLayout;
     String mTitle, mUrl;
 
     @Override
@@ -40,23 +38,13 @@ public class UserWebViewActivity extends SimpleActivity implements SwipeRefreshL
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.getSettings().setSupportZoom(true);
-        mWebView.setWebViewClient(new MallWebClient(mRefreshLayout));
-        mRefreshLayout.setColorSchemeResources(R.color.orange);
-        mRefreshLayout.setOnRefreshListener(this);
-        mWebView.setRefreshLayout(mRefreshLayout);
+        mWebView.setWebViewClient(new MallWebClient());
         loadUrl();
     }
 
     private void loadUrl(){
 
         mWebView.loadUrl(mUrl);
-    }
-
-
-    @Override
-    public void onRefresh() {
-
-        loadUrl();
     }
 
     public static void enter(Context context, String title, String url) {

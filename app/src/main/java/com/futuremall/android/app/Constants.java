@@ -127,6 +127,8 @@ public class Constants {
 
     public static final String SEARCH_URL = MAIN_URL + "classifyList?keyword=";
 
+    public static final String ABOUT_URL = MAIN_URL + "about";
+
 
     //================= INTENT ====================
     public static final String IT_SIGN = "sign";

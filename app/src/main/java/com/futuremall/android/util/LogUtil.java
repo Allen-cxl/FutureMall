@@ -11,7 +11,7 @@ import com.orhanobut.logger.Logger;
  */
 public class LogUtil {
 
-    public static boolean isDebug = BuildConfig.DEBUG;
+    public static boolean isDebug = true;
     private static final String TAG = "com.codeest.geeknews";
 
     public static void e(String tag,Object o) {

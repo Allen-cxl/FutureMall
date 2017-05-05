@@ -86,7 +86,7 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
     @Override
     public void showUpdateDialog(final VersionBean versionContent) {
-        if( versionContent.getRenew() == 0 ){
+        if( versionContent.getRenew() == 0 ){//不是最新版本需要升级
             AlertDialog.Builder dialog = new AlertDialog.Builder(getContext(), R.style.Theme_AppCompat_Light_Dialog_Alert_Self)
                     .setTitle("发现新版本" +versionContent.getVersion())
                     .setMessage(versionContent.getContent())

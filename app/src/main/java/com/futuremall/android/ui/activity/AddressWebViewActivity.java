@@ -2,7 +2,6 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -20,14 +19,12 @@ import com.google.gson.Gson;
 
 import butterknife.BindView;
 
-public class AddressWebViewActivity extends SimpleActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class AddressWebViewActivity extends SimpleActivity{
 
     @BindView(R.id.super_toolbar)
     Toolbar mSuperToolbar;
     @BindView(R.id.webView)
     MallWebView mWebView;
-    @BindView(R.id.refreshLayout)
-    SwipeRefreshLayout mRefreshLayout;
     String mTitle, mUrl;
 
     @Override
@@ -46,20 +43,10 @@ public class AddressWebViewActivity extends SimpleActivity implements SwipeRefre
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.getSettings().setSupportZoom(true);
-        mWebView.setWebViewClient(new MallWebClient(mRefreshLayout));
+        mWebView.setWebViewClient(new MallWebClient());
         mWebView.setWebChromeClient(new WebChromeClient());
-
-        mRefreshLayout.setColorSchemeResources(R.color.orange);
-        mRefreshLayout.setOnRefreshListener(this);
-        mWebView.setRefreshLayout(mRefreshLayout);
         mWebView.addJavascriptInterface(this,"addressInterface");
 
-        mRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setRefreshing(true);
-            }
-        });
         loadUrl();
     }
 
@@ -75,12 +62,6 @@ public class AddressWebViewActivity extends SimpleActivity implements SwipeRefre
             mWebView.goBack();
         }
         super.onBackPressed();
-    }
-
-    @Override
-    public void onRefresh() {
-
-        loadUrl();
     }
 
     @SuppressWarnings("unused")

@@ -14,24 +14,10 @@ android {
         multiDexEnabled true
     }
 
-    signingConfigs {
-
-        release {
-            keyAlias 'future'
-            keyPassword 'weilaishangcheng'
-            storeFile file('F:/Demo/FutureMall/futuremall.jks')
-            storePassword 'weilaishangcheng'
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        debug {
-            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 }
