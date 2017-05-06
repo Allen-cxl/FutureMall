@@ -14,7 +14,6 @@ import com.futuremall.android.di.module.AppModule;
 import com.futuremall.android.di.module.HttpModule;
 import com.futuremall.android.di.module.PageModule;
 import com.futuremall.android.util.CrashHandler;
-import com.futuremall.android.util.baiduService.LocationService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +29,6 @@ public class App extends MultiDexApplication{
     public static int SCREEN_HEIGHT = -1;
     public static float DIMEN_RATE = -1.0F;
     public static int DIMEN_DPI = -1;
-    public LocationService locationService;
 
     public static synchronized App getInstance() {
         return instance;
@@ -44,7 +42,6 @@ public class App extends MultiDexApplication{
         //初始化屏幕宽高
         getScreenSize();
         CrashHandler.getInstance().init(this);
-        locationService = new LocationService(getApplicationContext());
     }
 
     protected void attachBaseContext(Context base) {
