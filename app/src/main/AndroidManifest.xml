@@ -14,10 +14,14 @@
     <uses-permission android:name = "android.permission.CHANGE_WIFI_STATE" />
     <!-- 用于读取手机当前的状态-->
     <uses-permission android:name = "android.permission.READ_PHONE_STATE" />
-    <!-- 访问网络，网络定位需要上网-->
-    <uses-permission android:name = "android.permission.INTERNET" />
     <!-- SD卡读取权限，用户写入离线定位数据-->
     <uses-permission android:name = "android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--用于申请获取蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name = ".app.App"
@@ -128,19 +132,12 @@
             android:screenOrientation = "portrait" >
         </activity >
 
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" >
-            <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2" >
-                </action>
-            </intent-filter>
-        </service>
-
         <meta-data
-            android:name = "com.baidu.lbsapi.API_KEY"
-            android:value = "VVeFzFDHYraLW3A7OX4wUTAABlQNaxyl" />
+            android:name="com.amap.api.v2.apikey"
+            android:value="7c41634296b0c0f36a75c1308b37738b" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" >
+        </service>
 
         <service android:name = ".util.VersionUpdateService" />
 

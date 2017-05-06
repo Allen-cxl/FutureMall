@@ -1,6 +1,8 @@
 package com.futuremall.android.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**

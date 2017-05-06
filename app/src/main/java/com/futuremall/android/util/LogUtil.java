@@ -11,8 +11,8 @@ import com.orhanobut.logger.Logger;
  */
 public class LogUtil {
 
-    public static boolean isDebug = true;
-    private static final String TAG = "com.codeest.geeknews";
+    public static boolean isDebug = BuildConfig.DEBUG;
+    private static final String TAG = "com.futuremall.android";
 
     public static void e(String tag,Object o) {
         if(isDebug) {
