@@ -115,7 +115,7 @@ public class Constants {
 
     //================= H5 ====================
 
-    public static final String MAIN_URL = "http://weccmall.com/h5/#/";////http://weccmall.com/h5/#/
+    public static final String MAIN_URL = "http://weccmall.com/h5/#/";//http://139.196.124.0/h5/#/
 
     public static final String REGISTER_URL = MAIN_URL + "register?invite_code=";
 

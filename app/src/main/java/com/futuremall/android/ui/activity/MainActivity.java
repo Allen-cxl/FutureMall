@@ -48,7 +48,7 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
     @Inject
     UserFragment mUserFragment;
 
-    private int mFromTag;
+    private int mFromTag, mType;
     private FragmentManager mManager;
 
 
@@ -64,7 +64,7 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
     @Override
     protected void initEventAndData() {
 
-        int type = getIntent().getIntExtra(Constants.IT_TYPE, Constants.RB_HOME);
+        mType = getIntent().getIntExtra(Constants.IT_TYPE, Constants.RB_HOME);
         mRadioHome.setOnClickListener(this);
         mRadioType.setOnClickListener(this);
         mRadioFutureAdd.setOnClickListener(this);
@@ -72,14 +72,14 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
         mRadioUser.setOnClickListener(this);
 
         mManager = getSupportFragmentManager();
-        setOnClickView(type);
+        setOnClickView(mType);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        int type = intent.getIntExtra(Constants.IT_TYPE, Constants.RB_HOME);
-        setOnClickView(type);
+        mType = intent.getIntExtra(Constants.IT_TYPE, Constants.RB_HOME);
+        setOnClickView(mType);
     }
 
     private void setRadioButtonOnClick(int fromTag, int currentTag) {
@@ -101,6 +101,17 @@ public class MainActivity extends SimpleActivity implements View.OnClickListener
             transaction.add(R.id.fragment_container, fragment, String.valueOf(toTag)).commitAllowingStateLoss(); // 隐藏当前的fragment，add下一个到Activity中
         } else {
             transaction.show(toFragment).commitAllowingStateLoss();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(mType != Constants.RB_HOME){
+            setOnClickView(Constants.RB_HOME);
+            mType = Constants.RB_HOME;
+        }else{
+            super.onBackPressed();
         }
     }
 

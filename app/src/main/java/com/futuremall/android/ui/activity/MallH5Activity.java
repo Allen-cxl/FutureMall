@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,6 +20,7 @@ import com.futuremall.android.presenter.Contract.MallH5Contract;
 import com.futuremall.android.presenter.MallH5Presenter;
 import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.util.LogUtil;
+import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.MallWebView;
 
 import butterknife.BindView;
@@ -63,8 +65,8 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.getSettings().setSupportZoom(true);
-        mWebView.addJavascriptInterface(this, "linkH5Interface");
-        mWebView.addJavascriptInterface(this, "goodInfoIdInterface");
+
+        mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -77,6 +79,8 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
                 setTitle(view.getTitle());
             }
         });
+        mWebView.addJavascriptInterface(this, "goodInfoIdInterface");
+        mWebView.addJavascriptInterface(this, "linkH5Interface");
         loadUrl(url);
         mPresenter.matchUrl(url);
     }
@@ -111,19 +115,17 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
         }
     }
 
-    @SuppressWarnings("unused")
     @JavascriptInterface
     public void OpenLinkH5(String url) {
-        LogUtil.i("Link" + url);
+        LogUtil.i("Link:" + url);
         if (null != url) {
             enter(this, url);
         }
     }
 
-    @SuppressWarnings("unused")
     @JavascriptInterface
     public void getGoodInfoId(String id) {
-        LogUtil.i("Link" + id);
+        LogUtil.i("Link:" + id);
         if (null != id) {
             mId = id;
         }
@@ -155,6 +157,7 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
                 }
                 break;
             case R.id.tv_addShoppingCat:
+
                 if(LoginHelper.ensureLogin(this) && null != mId){
                     mPresenter.addShoppingCart(mId);
                 }

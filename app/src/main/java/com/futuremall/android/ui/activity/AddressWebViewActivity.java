@@ -3,6 +3,7 @@ package com.futuremall.android.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 
@@ -65,7 +66,7 @@ public class AddressWebViewActivity extends SimpleActivity{
     }
 
     @SuppressWarnings("unused")
-    @android.webkit.JavascriptInterface
+    @JavascriptInterface
     public void Address(String address) {
         LogUtil.i("JavascriptInterface"+address);
         Gson gson = new Gson();

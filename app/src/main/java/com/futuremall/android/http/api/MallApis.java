@@ -35,7 +35,7 @@ import retrofit2.http.Url;
 
 public interface MallApis {
 
-    String HOST = "http://weccmall.com/api/web/Rest/";//http://weccmall.com/api/web/Rest/
+    String HOST = "http://weccmall.com/api/web/Rest/";//http://114.215.19.98/api/web/Rest/
 
     /**
      * 获取版本号
