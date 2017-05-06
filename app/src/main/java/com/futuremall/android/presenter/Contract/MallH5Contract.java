@@ -11,8 +11,6 @@ public class MallH5Contract {
 
     public interface View extends BaseView {
 
-        void startShoppingCart();
-
         void showPayButton();
 
         void hidePayButton();

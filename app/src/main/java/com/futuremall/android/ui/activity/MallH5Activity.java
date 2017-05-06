@@ -86,11 +86,6 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
     }
 
     @Override
-    public void startShoppingCart() {
-
-    }
-
-    @Override
     public void showPayButton() {
         mLlLayout.setVisibility(View.VISIBLE);
         mPresenter.getShoppingCart();
