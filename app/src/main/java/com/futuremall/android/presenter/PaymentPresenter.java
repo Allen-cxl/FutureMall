@@ -73,7 +73,7 @@ public class PaymentPresenter extends RxPresenter<PaymentContract.View> implemen
                             if(value.getIs_pay() == BalanceBean.SHOW_QR_CODE){
                              mView.showQrCode();
                             }
-                            if(value.getIs_pay() == BalanceBean.PAY_PASSWORD_SET){
+                            if(value.getPay_pass() == BalanceBean.PAY_PASSWORD_SET){
                             mView.gotoSetPayPasswordUI();
                             }
                         }

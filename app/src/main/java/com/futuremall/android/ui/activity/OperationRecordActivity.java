@@ -64,7 +64,9 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
         switch (item.getItemId()) {
 
             case R.id.item_calender:
-
+                if(time <= 0){
+                    time = TimeUtils.dataLong();
+                }
                 TimePickerView pvTime = new TimePickerView.Builder(this, this)
                         .setType(TimePickerView.Type.YEAR_MONTH_DAY)
                         .setSubmitColor(R.color.font_normal)//确定按钮文字颜色
@@ -94,7 +96,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
         mRecycleView.setLayoutManager(linearLayoutManager);
         mRecycleView.setAdapter(mAdapter);
 
-        time = TimeUtils.dataLong();
+
         mPresenter.recordList(1, 15, time+"", true);
         mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
             @Override
