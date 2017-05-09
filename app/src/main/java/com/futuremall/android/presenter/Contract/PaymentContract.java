@@ -14,8 +14,6 @@ public class PaymentContract {
 
         void balance(BalanceBean bean);
 
-        void gotoSetPayPasswordUI();
-
         void paySuccess();
 
         void payFail(String msg);

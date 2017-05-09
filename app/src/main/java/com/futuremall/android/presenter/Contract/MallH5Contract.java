@@ -9,6 +9,9 @@ import com.futuremall.android.base.BaseView;
 
 public class MallH5Contract {
 
+    public static int ADD_SHOPPINGCART = 0X11;
+    public static int ADD_ENTER_SHOPPINGCART = 0X12;
+
     public interface View extends BaseView {
 
         void showPayButton();
@@ -16,11 +19,13 @@ public class MallH5Contract {
         void hidePayButton();
 
         void showShoppingCartCount(String count);
+
+        void startShoppingCart();
     }
 
     public interface  Presenter extends BasePresenter<View> {
 
-        void addShoppingCart(String id);
+        void addShoppingCart(String id, int type);
 
         void matchUrl(String url);
 

@@ -7,6 +7,7 @@ import com.futuremall.android.http.MyHttpResponse;
 import com.futuremall.android.http.RetrofitHelper;
 import com.futuremall.android.model.bean.Count;
 import com.futuremall.android.model.bean.UserInfo;
+import com.futuremall.android.model.event.ShoppingCartPayEvent;
 import com.futuremall.android.prefs.PreferencesFactory;
 import com.futuremall.android.presenter.Contract.MallH5Contract;
 import com.futuremall.android.ui.ViewHolder.LoginHelper;
@@ -50,7 +51,7 @@ public class MallH5Presenter extends RxPresenter<MallH5Contract.View> implements
     }
 
     @Override
-    public void addShoppingCart(String id) {
+    public void addShoppingCart(String id, final int type) {
 
         if (!StringUtil.isEmpty(id)) {
             LoadingStateUtil.show(mContext);
@@ -65,6 +66,10 @@ public class MallH5Presenter extends RxPresenter<MallH5Contract.View> implements
                             LoadingStateUtil.close();
                             if (null != value) {
                                 mView.showShoppingCartCount(value.getNum());
+                                RxBus.getDefault().post(new ShoppingCartPayEvent());
+                                if(type == MallH5Contract.ADD_ENTER_SHOPPINGCART){
+                                    mView.startShoppingCart();
+                                }
                             }
                         }
                     }, new CommonConsumer<Object>(mView, mContext) {

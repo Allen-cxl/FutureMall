@@ -51,32 +51,45 @@
             android:gravity="center_vertical"
             android:orientation = "horizontal" >
 
+            <FrameLayout
+                android:layout_width = "0dp"
+                android:layout_height = "match_parent"
+                android:layout_marginTop = "5dp"
+                android:paddingBottom = "15dp"
+                android:layout_weight="1" >
             <cn.bingoogolapple.badgeview.BGABadgeTextView
                 android:id = "@id/bg_tv"
                 android:layout_width = "50dp"
                 android:layout_height = "match_parent"
-                android:layout_gravity = "center"
-                android:layout_marginLeft = "25dp"
-                android:layout_marginRight = "25dp"
-                android:layout_marginTop = "5dp"
-                android:drawableBottom = "@drawable/shopping_car_up"
-                android:paddingBottom = "15dp"
+                android:drawableBottom="@drawable/shopping_car_up"
                 app:badge_bgColor = "@color/orange"
+                android:layout_gravity="center"
                 app:badge_dragable = "true"
                 app:badge_gravity = "rightTop"
                 app:badge_verticalMargin = "0dp" />
-
+            </FrameLayout >
             <TextView
                 android:id = "@id/tv_addShoppingCat"
                 android:layout_width = "0dp"
                 android:layout_height = "match_parent"
-                android:background = "@color/orange"
                 android:layout_weight="1"
+                android:background = "@color/orange"
                 android:gravity="center"
                 android:textColor = "@android:color/white"
                 android:textSize = "@dimen/font_normal"
                 android:text="加入购物车"/>
 
+            <TextView
+                android:id = "@id/tv_now_pay"
+                android:layout_width = "0dp"
+                android:layout_height = "match_parent"
+                android:background = "@color/orange"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor = "@android:color/white"
+                android:textSize = "@dimen/font_normal"
+                android:text="立即购买"/>
         </LinearLayout >
     </LinearLayout >
 

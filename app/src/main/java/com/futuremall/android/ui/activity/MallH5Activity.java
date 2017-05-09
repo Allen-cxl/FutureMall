@@ -11,7 +11,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
@@ -20,7 +19,6 @@ import com.futuremall.android.presenter.Contract.MallH5Contract;
 import com.futuremall.android.presenter.MallH5Presenter;
 import com.futuremall.android.ui.ViewHolder.LoginHelper;
 import com.futuremall.android.util.LogUtil;
-import com.futuremall.android.util.StringUtil;
 import com.futuremall.android.widget.MallWebView;
 
 import butterknife.BindView;
@@ -38,8 +36,6 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
     MallWebView mWebView;
     @BindView(R.id.bg_tv)
     BGABadgeTextView mBgTv;
-    @BindView(R.id.tv_addShoppingCat)
-    TextView mTvAddShoppingCat;
     @BindView(R.id.ll_layout)
     LinearLayout mLlLayout;
     String mId;
@@ -115,6 +111,13 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
         }
     }
 
+    @Override
+    public void startShoppingCart() {
+        if(LoginHelper.ensureLogin(this)){
+            MainActivity.enter(this, Constants.RB_SHOPPING_CART);
+        }
+    }
+
     @JavascriptInterface
     public void OpenLinkH5(String url) {
         LogUtil.i("Link:" + url);
@@ -148,7 +151,7 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.bg_tv, R.id.tv_addShoppingCat})
+    @OnClick({R.id.bg_tv, R.id.tv_addShoppingCat, R.id.tv_now_pay})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bg_tv:
@@ -159,7 +162,14 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
             case R.id.tv_addShoppingCat:
 
                 if(LoginHelper.ensureLogin(this) && null != mId){
-                    mPresenter.addShoppingCart(mId);
+                    mPresenter.addShoppingCart(mId, MallH5Contract.ADD_SHOPPINGCART);
+                }
+                break;
+
+            case R.id.tv_now_pay:
+
+                if(LoginHelper.ensureLogin(this) && null != mId){
+                    mPresenter.addShoppingCart(mId, MallH5Contract.ADD_ENTER_SHOPPINGCART);
                 }
                 break;
         }

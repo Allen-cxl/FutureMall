@@ -70,7 +70,7 @@ public class StringUtil {
         if (result.contains("pay:") ) {
             int index = result.indexOf(":");
             return result.substring(index, result.length());
-        } else if (result.contains("weilai8088.com")) {
+        } else if (result.contains("weccmall.com/h5/#/register")) {
             return result;
         } else {
             return null;
@@ -115,7 +115,7 @@ public class StringUtil {
         if (result.contains("pay:")) {
 
             return Constants.ACTIVITY_PAYMENT;
-        } else if (result.contains("weilai8088.com")) {
+        } else if (result.contains("weccmall.com/h5/#/register")) {
 
             return Constants.ACTIVITY_REGIST;
         } else {

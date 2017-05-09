@@ -144,6 +144,7 @@
     <item name = "tv_qrCode" type = "id" />
     <item name = "bg_tv" type = "id" />
     <item name = "tv_addShoppingCat" type = "id" />
+    <item name = "tv_now_pay" type = "id" />
 
 
 </resources>

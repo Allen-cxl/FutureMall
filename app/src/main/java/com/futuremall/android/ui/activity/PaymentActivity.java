@@ -110,11 +110,6 @@ public class PaymentActivity extends BaseActivity<PaymentPresenter> implements P
     }
 
     @Override
-    public void gotoSetPayPasswordUI() {
-        UpdatePayPasswordActivity.enter(this, Constants.ACTIVITY_PAY_MENT_SET);
-    }
-
-    @Override
     public void paySuccess() {
         PayResultActivity.enter(this, Constants.ACTIVITY_PAY, Constants.SUCCESS, null);
         finish();

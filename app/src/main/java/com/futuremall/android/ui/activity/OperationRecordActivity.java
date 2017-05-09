@@ -40,7 +40,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     LoadingLayout loadingLayout;
     OperationRecordAdapter mAdapter;
     int p = 1, num = 15;
-    long time;
+    long mTime;
 
     @Override
     protected void initInject() {
@@ -64,8 +64,11 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
         switch (item.getItemId()) {
 
             case R.id.item_calender:
-                if(time <= 0){
+                long time;
+                if(mTime <= 0){
                     time = TimeUtils.dataLong();
+                }else{
+                    time = mTime;
                 }
                 TimePickerView pvTime = new TimePickerView.Builder(this, this)
                         .setType(TimePickerView.Type.YEAR_MONTH_DAY)
@@ -74,7 +77,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
                         .setLabel("", "", "", "", "", "")
                         .build();
                 Calendar date = Calendar.getInstance();
-                date.set(TimeUtils.getYear(time*1000),TimeUtils.getMonth(time*1000)-1,TimeUtils.getDay(time*1000));
+                date.set(TimeUtils.getYear(time *1000),TimeUtils.getMonth(time *1000)-1,TimeUtils.getDay(time *1000));
                 pvTime.setDate(date);//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
                 pvTime.show();
                 break;
@@ -97,11 +100,11 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
         mRecycleView.setAdapter(mAdapter);
 
 
-        mPresenter.recordList(1, 15, time+"", true);
+        mPresenter.recordList(1, 15, mTime +"", true);
         mLoadingLayout.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.recordList(1, 15, time+"", true);
+                mPresenter.recordList(1, 15, mTime +"", true);
             }
         });
         mSwipeRefreshLayout.setOnRefreshListener(new SHSwipeRefreshLayout.SHSOnRefreshListener() {
@@ -110,7 +113,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.recordList(1, 15, time+"", false);
+                        mPresenter.recordList(1, 15, mTime +"", false);
                     }
                 }, 1000);
             }
@@ -120,7 +123,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.recordList((p++), num, time+"",  false);
+                        mPresenter.recordList((p++), num, mTime +"",  false);
                         mSwipeRefreshLayout.finishLoadmore();
                     }
                 }, 1600);
@@ -189,7 +192,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
 
     @Override
     public void onTimeSelect(Date date, View view) {
-        time = TimeUtils.dataOne(date);
-        mPresenter.recordList(p, num, time+"", p <=1);
+        mTime = TimeUtils.dataOne(date);
+        mPresenter.recordList(1, 15, mTime +"", true);
     }
 }

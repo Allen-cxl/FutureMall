@@ -50,7 +50,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
                 .subscribe(new Consumer<ShoppingCartPayEvent>() {
                     @Override
                     public void accept(ShoppingCartPayEvent event) {
-                        shoppingCar(false);
+                        shoppingCar(true);
                     }
                 });
         addSubscrebe(rxSubscription);
