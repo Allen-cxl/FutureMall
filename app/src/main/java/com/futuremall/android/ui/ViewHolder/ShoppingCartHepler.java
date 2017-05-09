@@ -195,6 +195,35 @@ public class ShoppingCartHepler {
         return isSelectAll;
     }
 
+    public static boolean isSelectAll(List<ShoppingCartBean> list) {
+
+        if(null== list || list.isEmpty() ){
+            return false;
+        }
+
+        Iterator<ShoppingCartBean> iteratorShopCarts = list.iterator();
+        while (iteratorShopCarts.hasNext()) {
+
+            ShoppingCartBean sc = iteratorShopCarts.next();
+            if (!sc.isCheckEd()) {
+
+                return false;
+            } else {
+
+                Iterator<ShoppingCartBean.ShoppingCartProductBean> iteratorGoods = sc.getCart_goods().iterator();
+                while (iteratorGoods.hasNext()) {
+                    ShoppingCartBean.ShoppingCartProductBean shopCartGood = iteratorGoods.next();
+                    if (!shopCartGood.isCheckEd()) {
+
+                        return false;
+                    }
+                }
+
+            }
+        }
+        return true;
+    }
+
     /**
      * 勾与不勾选中选项
      *

@@ -17,13 +17,13 @@ public class ShoppingCarContract {
 
         void showData(List<ShoppingCartBean> data);
 
-        void showFreight(int visibility);
+        void deleteSuccess();
 
         void showPayLayout(int visibility);
 
         void showDeleteButton(int visibility);
 
-        void delResponse();
+        void updateAdapter();
 
         void updateShoppingCartCount(String recID, int count);
 

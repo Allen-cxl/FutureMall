@@ -6,14 +6,14 @@ import android.os.Parcelable;
 
 public class Count implements Parcelable {
 
-    private String num;
+    private int num;
 
-    public String getNum() {
+    public int getNum() {
         return num;
     }
 
-    public void setNum(String Keywords) {
-        this.num = Keywords;
+    public void setNum(int num) {
+        this.num = num;
     }
 
 
@@ -24,14 +24,14 @@ public class Count implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.num);
+        dest.writeInt(this.num);
     }
 
     public Count() {
     }
 
     protected Count(Parcel in) {
-        this.num = in.readString();
+        this.num = in.readInt();
     }
 
     public static final Creator<Count> CREATOR = new Creator<Count>() {

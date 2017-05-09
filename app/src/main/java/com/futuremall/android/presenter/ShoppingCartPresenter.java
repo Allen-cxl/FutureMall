@@ -90,6 +90,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
         ShoppingCartHepler.selectOrCancelAll(list,isSelectAll);
         String[] info = ShoppingCartHepler.getShoppingCount(list);
         mView.showTotalPrice(info[1], info[0]);
+        mView.updateAdapter();
     }
 
     @Override
@@ -100,6 +101,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
         String recID = ShoppingCartHepler.getGoodsID(data);
         if(StringUtil.isEmpty(recID)){
             SnackbarUtil.show(view, mContext.getString(R.string.no_data_shopping_cart));
+            LoadingStateUtil.close();
             return;
         }
         Disposable rxSubscription = mRetrofitHelper.delShoppingCar(accessToken, recID)
@@ -110,6 +112,8 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
                     public void accept(Object value) {
                         LoadingStateUtil.close();
                         ShoppingCartHepler.deleteGoods(data);
+                        mView.updateAdapter();
+                        mView.deleteSuccess();
                     }
                 },  new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {
@@ -126,6 +130,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
         mView.showTotalPrice(info[1], info[0]);
         mView.showPayLayout(View.GONE);
         mView.showDeleteButton(View.VISIBLE);
+        mView.updateAdapter();
     }
 
     @Override
@@ -135,6 +140,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
         mView.showTotalPrice(info[1], info[0]);
         mView.showPayLayout(View.VISIBLE);
         mView.showDeleteButton(View.GONE);
+        mView.updateAdapter();
     }
 
     @Override
@@ -150,6 +156,7 @@ public class ShoppingCartPresenter extends RxPresenter<ShoppingCarContract.View>
                     public void accept(ChangeShoppingCart value) {
                         LoadingStateUtil.close();
                         mView.updateShoppingCartCount(id, value.getNum());
+                        mView.updateAdapter();
                     }
                 },  new CommonConsumer<Object>(mView, mContext) {
                     public void onError() {

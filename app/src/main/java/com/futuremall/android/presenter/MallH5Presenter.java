@@ -65,7 +65,7 @@ public class MallH5Presenter extends RxPresenter<MallH5Contract.View> implements
                         public void accept(Count value) {
                             LoadingStateUtil.close();
                             if (null != value) {
-                                mView.showShoppingCartCount(value.getNum());
+                                mView.showShoppingCartCount(value.getNum()+"");
                                 RxBus.getDefault().post(new ShoppingCartPayEvent());
                                 if(type == MallH5Contract.ADD_ENTER_SHOPPINGCART){
                                     mView.startShoppingCart();
@@ -108,7 +108,7 @@ public class MallH5Presenter extends RxPresenter<MallH5Contract.View> implements
                         @Override
                         public void accept(Count value) {
                             if (null != value) {
-                                mView.showShoppingCartCount(value.getNum());
+                                mView.showShoppingCartCount(value.getNum()+"");
                             }
                         }
                     }, new CommonConsumer<Object>(mView, mContext) {

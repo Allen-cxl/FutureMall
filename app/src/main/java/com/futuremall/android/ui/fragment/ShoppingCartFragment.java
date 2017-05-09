@@ -174,10 +174,10 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
         } else {
             menuItem.setTitle(getString(R.string.edit));
-            mCheckBox.setChecked(true);
+            boolean isSelect = ShoppingCartHepler.isSelectAll(mAdapter.getCurrentList());
+            mCheckBox.setChecked(isSelect);
             mPresenter.menuEdit(mAdapter.getCurrentList(), true);
         }
-        mAdapter.notifyDataSetChanged();
 
     }
 
@@ -189,8 +189,10 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     }
 
     @Override
-    public void showFreight(int visibility) {
-        mTvFreight.setVisibility(visibility);
+    public void deleteSuccess() {
+
+        boolean isSelect = ShoppingCartHepler.isSelectAll(mAdapter.getCurrentList());
+        mCheckBox.setChecked(isSelect);
     }
 
     @Override
@@ -204,8 +206,7 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     }
 
     @Override
-    public void delResponse() {
-
+    public void updateAdapter() {
         mAdapter.notifyDataSetChanged();
     }
 
@@ -213,7 +214,6 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
     public void updateShoppingCartCount(String recID, int count) {
 
         ShoppingCartHepler.setShoppingCartCount(mAdapter.getCurrentList(), recID, count);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -233,7 +233,6 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
                 }
                 mCheckBox.setChecked(mIsChecked);
                 mPresenter.selectOrCancelAll(mAdapter.getCurrentList(), mIsChecked);
-                mAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.bt_delete:
@@ -243,7 +242,6 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
                     return;
                 }
                 mPresenter.delete(mBtDelete, mAdapter.getCurrentList());
-                mAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.bt_pay:
