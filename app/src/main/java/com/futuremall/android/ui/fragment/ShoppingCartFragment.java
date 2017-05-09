@@ -174,9 +174,12 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
         } else {
             menuItem.setTitle(getString(R.string.edit));
-            boolean isSelect = ShoppingCartHepler.isSelectAll(mAdapter.getCurrentList());
-            mCheckBox.setChecked(isSelect);
-            mPresenter.menuEdit(mAdapter.getCurrentList(), true);
+            if(null == mAdapter ||mAdapter.getCurrentList().isEmpty()){
+                mCheckBox.setChecked(false);
+            }else{
+                mCheckBox.setChecked(true);
+                mPresenter.menuEdit(mAdapter.getCurrentList(), true);
+            }
         }
 
     }
