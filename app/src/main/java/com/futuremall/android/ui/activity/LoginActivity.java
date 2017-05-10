@@ -49,10 +49,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void initEventAndData() {
         setToolBar(mSuperToolbar, getString(R.string.login), true);
+        String phone = PreferencesFactory.getConfigPre().getLoginEdPhone();
+        mEtPhone.setText(phone);
+        mEtPhone.setSelection(mEtPhone.getText().length());
     }
 
     @Override
     public void loginResponse(UserInfo userInfo) {
+        PreferencesFactory.getConfigPre().setLoginEdPhone(mEtPhone.getText().toString());
         PreferencesFactory.getUserPref().saveUserInfo(userInfo);
         finish();
     }

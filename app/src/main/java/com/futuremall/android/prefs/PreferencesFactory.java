@@ -4,13 +4,21 @@ package com.futuremall.android.prefs;
 
 public class PreferencesFactory {
 
-    static UserPreferences sUserPref;
+    static UserPreferences mUserPref;
+    static ConfigPreferences mConfigPre;
 
     public static UserPreferences getUserPref() {
-        if (null == sUserPref) {
-            sUserPref = new UserPreferences();
+        if (null == mUserPref) {
+            mUserPref = new UserPreferences();
         }
-        return sUserPref;
+        return mUserPref;
+    }
+
+    public static ConfigPreferences getConfigPre() {
+        if (null == mConfigPre) {
+            mConfigPre = new ConfigPreferences();
+        }
+        return mConfigPre;
     }
 
 

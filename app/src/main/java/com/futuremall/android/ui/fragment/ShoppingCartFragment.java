@@ -167,7 +167,6 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
 
         if (itemName.equals(getString(R.string.edit))) {
 
-            if (mAdapter.getCurrentList() == null || mAdapter.getCurrentList().size() == 0) return;
             menuItem.setTitle(getString(R.string.done));
             mCheckBox.setChecked(false);
             mPresenter.menuDone(mAdapter.getCurrentList(), false);
@@ -178,8 +177,8 @@ public class ShoppingCartFragment extends BaseFragment<ShoppingCartPresenter> im
                 mCheckBox.setChecked(false);
             }else{
                 mCheckBox.setChecked(true);
-                mPresenter.menuEdit(mAdapter.getCurrentList(), true);
             }
+            mPresenter.menuEdit(mAdapter.getCurrentList(), true);
         }
 
     }
