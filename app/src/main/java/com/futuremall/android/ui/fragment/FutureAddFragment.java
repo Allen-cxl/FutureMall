@@ -63,8 +63,7 @@ public class FutureAddFragment extends BaseFragment<FutureAddPresenter> implemen
 
     @Override
     protected void initEventAndData() {
-
-
+        mPresenter.checkGpsPermissions(new RxPermissions(getActivity()));
 
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
@@ -72,11 +71,10 @@ public class FutureAddFragment extends BaseFragment<FutureAddPresenter> implemen
         mWebView.getSettings().setSupportZoom(true);
         mWebView.setWebViewClient(new MallWebClient());
         mWebView.addJavascriptInterface(this, "linkH5Interface");
-        loadUrl();
     }
 
-    private void loadUrl() {
-        mWebView.loadUrl(Constants.FUTURE_URL);
+    private void loadUrl(String url) {
+        mWebView.loadUrl(url);
     }
 
     @OnClick({R.id.iv_scan, R.id.layout_search})
@@ -120,8 +118,8 @@ public class FutureAddFragment extends BaseFragment<FutureAddPresenter> implemen
         locationOption.setNeedAddress(true);
         //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
         locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //设置定位间隔,单位毫秒,默认为2000ms
-        locationOption.setInterval(2000);
+        //设置定位间隔,单位毫秒,默认为2000ms //暂定8小时
+        locationOption.setInterval(8 * 60 * 60 * 1000);
         //设置定位参数
         locationClient.setLocationOption(locationOption);
         // 此方法为每隔固定时间会发起一次定位请求，locationOption，
@@ -132,44 +130,41 @@ public class FutureAddFragment extends BaseFragment<FutureAddPresenter> implemen
         locationClient.startLocation();
     }
 
-
     /***
      * Stop location service
      */
     @Override
-    public void onStart() {
-        mPresenter.checkGpsPermissions(new RxPermissions(getActivity()));
-        super.onStart();
-    }
-
-    /***
-     * Stop location service
-     */
-    @Override
-    public void onStop() {
+    public void onDestroy() {
         // TODO Auto-generated method stub
         locationClient.unRegisterLocationListener(this);
         locationClient.stopLocation();
-        super.onStop();
+        super.onDestroy();
     }
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
 
+        String mLatitude = null, mLongitude = null, city = "定位失败";
         if (aMapLocation != null) {
             if (aMapLocation.getErrorCode() == 0) {
                 //定位成功回调信息，设置相关消息
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                aMapLocation.getLatitude();//获取纬度
-                aMapLocation.getLongitude();//获取经度
-
+                mLatitude = aMapLocation.getLatitude()+"";//获取纬度
+                mLongitude = aMapLocation.getLongitude()+"";//获取经度
+                city = aMapLocation.getCity();
                 mHandler.obtainMessage(ADDRESS, aMapLocation.getCity()).sendToTarget();
             } else {
+                city = "定位失败";
+                mHandler.obtainMessage(ADDRESS, "定位失败").sendToTarget();
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 LogUtil.i("AmapError:" + "location Error, ErrCode:"
                         + aMapLocation.getErrorCode() + ", errInfo:"
                         + aMapLocation.getErrorInfo());
             }
         }
+
+        String url = String.format(Constants.FUTURE_URL, mLongitude, mLatitude);
+        loadUrl(url);
+        mHandler.obtainMessage(ADDRESS, city).sendToTarget();
     }
 }

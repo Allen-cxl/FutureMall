@@ -75,7 +75,9 @@ public class Constants {
 
     public static  final int ACTIVITY_PAY_MENT_UPDATE = 0x0020;
 
-    public static  final int ACTIVITY_PAY_MENT_SET = 0x0021;
+    public static  final int ACTIVITY_TYPE_SERACH = 0x0021;
+
+    public static  final int ACTIVITY_LOCAL_SERACH = 0x0022;
 
     //================= STATUS ====================
 
@@ -121,7 +123,7 @@ public class Constants {
 
     public static final String ADDRESS_URL = MAIN_URL + "address/index?token=";
 
-    public static final String FUTURE_URL = MAIN_URL + "local";
+    public static final String FUTURE_URL = MAIN_URL + "local?long=%s&lat=%s";
 
     public static final String TYPE_URL = MAIN_URL + "classify";
 
@@ -160,4 +162,8 @@ public class Constants {
     public static final String IT_TOKEN = "token";
 
     public static final String IT_MSG = "msg";
+
+    public static final String IT_LATITUDE = "latitude";
+
+    public static final String IT_LONGITUDE = "longitude";
 }
