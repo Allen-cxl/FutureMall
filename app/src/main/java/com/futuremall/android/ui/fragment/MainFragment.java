@@ -45,7 +45,10 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
 
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.setWebViewClient(new MallWebClient());
         mWebView.addJavascriptInterface(this,"linkH5Interface");
