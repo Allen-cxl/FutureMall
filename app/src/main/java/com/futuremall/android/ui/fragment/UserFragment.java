@@ -157,7 +157,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 break;
 
             case R.id.tv_register:
-                SnackbarUtil.show(mView, "注册h5界面");
+                UserWebViewActivity.enter(getContext(), getString(R.string.register_account), Constants.REGISTER_URL);
                 break;
 
             case R.id.tv_userInfo:
