@@ -2,6 +2,7 @@ package com.futuremall.android.ui.fragment;
 
 
 import android.content.DialogInterface;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -50,6 +51,10 @@ public class MainFragment extends BaseFragment<MainPresenter> implements MainCon
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebView.getSettings().setMixedContentMode(
+                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
         mWebView.setWebViewClient(new MallWebClient());
         mWebView.addJavascriptInterface(this,"linkH5Interface");
         loadUrl();

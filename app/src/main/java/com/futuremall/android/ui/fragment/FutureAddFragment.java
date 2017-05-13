@@ -1,6 +1,7 @@
 package com.futuremall.android.ui.fragment;
 
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -72,6 +73,10 @@ public class FutureAddFragment extends BaseFragment<FutureAddPresenter> implemen
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebView.getSettings().setMixedContentMode(
+                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
         mWebView.setWebViewClient(new MallWebClient());
         mWebView.addJavascriptInterface(this, "linkH5Interface");
     }

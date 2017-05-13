@@ -2,6 +2,7 @@ package com.futuremall.android.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -64,7 +65,10 @@ public class MallH5Activity extends BaseActivity<MallH5Presenter> implements Mal
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebView.getSettings().setMixedContentMode(
+                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
         mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.setWebViewClient(new WebViewClient() {
             @Override

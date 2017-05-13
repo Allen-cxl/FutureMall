@@ -1,6 +1,7 @@
 package com.futuremall.android.ui.fragment;
 
 
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebSettings;
@@ -42,6 +43,10 @@ public class TypeFragment extends SimpleFragment{
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebView.getSettings().setMixedContentMode(
+                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
         mWebView.setWebViewClient(new MallWebClient());
         loadUrl();
         mWebView.addJavascriptInterface(this,"linkH5Interface");
