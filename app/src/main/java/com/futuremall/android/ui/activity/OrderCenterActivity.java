@@ -58,15 +58,15 @@ public class OrderCenterActivity extends SimpleActivity {
             mViewPager.setAdapter(mAdapter);
         } else {
             for (int i = 0; i < tabStr.length; i++) {
-                OrderFragment f ;
-                if(tabStr[i].equals(getString(R.string.deliver))){
+                OrderFragment f = null ;
+                if(tabStr[i].equals(getString(R.string.all))){
+                    f = OrderFragment.newInstance(Constants.ALL);
+                }else if(tabStr[i].equals(getString(R.string.deliver))){
                     f = OrderFragment.newInstance(Constants.DELIVERING);
                 }else if(tabStr[i].equals(getString(R.string.receipting))){
                     f = OrderFragment.newInstance(Constants.RECEIPTING);
                 }else if(tabStr[i].equals(getString(R.string.receipted))){
                     f = OrderFragment.newInstance(Constants.RECEIPTED);
-                }else{
-                    f = OrderFragment.newInstance(null);
                 }
                 list.add(f);
             }

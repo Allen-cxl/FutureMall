@@ -87,6 +87,8 @@ public class Constants {
 
     public static  final String RECEIPTED = "2";//已收货
 
+    public static  final String ALL = "4";//全部
+
     //================= alipay ====================
 
     public static final String RESULT_STATUS_SUCCESS = "9000";   // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
