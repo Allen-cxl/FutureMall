@@ -58,12 +58,12 @@ public class OperationRecordAdapter extends RecyclerView.Adapter<OperationRecord
         OperationRecordBean bean = dataList.get(position);
         holder.mTvDate.setText(bean.getChange_time());
         holder.mTvReason.setText(bean.getChange_desc());
-        String money = String.format(mContext.getString(R.string.price), Float.valueOf(bean.getUser_money()));
-        StringUtil.setOpreationRecordTextColor(money, holder.mTvIncomeExpenses, mContext);
+        //String money = String.format(mContext.getString(R.string.price), Float.valueOf(bean.getUser_money()));
+        StringUtil.setOpreationRecordTextColor(bean.getUser_money(), holder.mTvIncomeExpenses, mContext);
         StringUtil.setOpreationRecordTextColor(bean.getRebate(), holder.mTvIncomeIntegral, mContext);
 
-        String consume = String.format(mContext.getString(R.string.price), Float.valueOf(bean.getPay_points()));
-        StringUtil.setOpreationRecordTextColor(consume, holder.mTvCumulativeConsume, mContext);
+        //String consume = String.format(mContext.getString(R.string.price), Float.valueOf(bean.getPay_points()));
+        StringUtil.setOpreationRecordTextColor(bean.getPay_points(), holder.mTvCumulativeConsume, mContext);
         StringUtil.setOpreationRecordTextColor(bean.getHighreward(), holder.mTvPromotionLimit, mContext);
         StringUtil.setOpreationRecordTextColor(bean.getPayin(), holder.mTvPromotionGive, mContext);
     }

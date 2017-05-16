@@ -29,6 +29,7 @@
             android:id="@id/tv_reason"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:maxLines="3"
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -42,7 +43,7 @@
         android:padding="10dp">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/income_expenses"/>
@@ -71,7 +72,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="@string/income_integral"/>
@@ -79,7 +80,8 @@
             <TextView
                 android:id="@id/tv_income_integral"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:maxLines="1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -98,6 +100,7 @@
                 android:id="@id/tv_cumulative_consume"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:layout_weight="1"
                 android:gravity="right"/>
         </LinearLayout>
@@ -119,7 +122,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="@string/promotion_limit"/>
@@ -127,7 +130,8 @@
             <TextView
                 android:id="@id/tv_promotion_limit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:maxLines="1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -147,6 +151,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:maxLines="1"
                 android:gravity="right"/>
         </LinearLayout>
 

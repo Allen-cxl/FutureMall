@@ -123,8 +123,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.recordList((p++), num, mTime +"",  false);
-                        mSwipeRefreshLayout.finishLoadmore();
+                        mPresenter.recordList(++p, num, mTime +"",  false);
                     }
                 }, 1600);
             }
@@ -177,6 +176,7 @@ public class OperationRecordActivity extends BaseActivity<OperationRecordPresent
     @Override
     public void showMoreData(List<OperationRecordBean> recordBeanList) {
 
+        mSwipeRefreshLayout.finishLoadmore();
         mAdapter.addMoreDatas(recordBeanList);
     }
 

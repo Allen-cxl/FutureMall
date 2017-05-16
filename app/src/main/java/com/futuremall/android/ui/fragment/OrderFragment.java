@@ -97,8 +97,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
                 mSwipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.orderList((p++), num , status, false);
-                        mSwipeRefreshLayout.finishLoadmore();
+                        mPresenter.orderList(++p, num , status, false);
                     }
                 }, 1600);
             }
@@ -156,7 +155,7 @@ public class OrderFragment extends BaseFragment<OrderCenterPresenter> implements
 
     @Override
     public void showMoreData(List<OrderList> dataList) {
-
+        mSwipeRefreshLayout.finishLoadmore();
         mAdapter.addMoreDatas(dataList);
     }
 
