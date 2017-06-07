@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 
 import com.futuremall.android.R;
 import com.futuremall.android.app.Constants;
 import com.futuremall.android.base.SimpleActivity;
+import com.futuremall.android.util.LogUtil;
 import com.futuremall.android.widget.MallWebClient;
 import com.futuremall.android.widget.MallWebView;
 
@@ -42,17 +44,21 @@ public class UserWebViewActivity extends SimpleActivity {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setSupportZoom(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mWebView.getSettings().setMixedContentMode(
-                    WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        }
         mWebView.setWebViewClient(new MallWebClient());
+        mWebView.setWebChromeClient(new WebChromeClient());
+        mWebView.addJavascriptInterface(this,"finishH5Interface");
         loadUrl();
     }
 
     private void loadUrl(){
 
         mWebView.loadUrl(mUrl);
+    }
+
+    @SuppressWarnings("unused")
+    @android.webkit.JavascriptInterface
+    public void finishH5() {
+        finish();
     }
 
     public static void enter(Context context, String title, String url) {
